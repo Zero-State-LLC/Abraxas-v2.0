@@ -112,17 +112,26 @@ def _validate_p98_packet(p98_packet: Any) -> tuple[list[str], list[dict[str, Any
         blockers.append("stabilization_proof_records_malformed:not_a_list")
         return blockers, []
 
+    # Fail closed: every proof record must be a dict with a string proof_id.
+    # Coercing non-dicts via str(record) previously allowed bare ID strings to
+    # pass ID checks while _build_conflict_findings silently dropped them,
+    # yielding a false-clean PASS with hardcoded scanned_drop_count=2.
     observed_ids: list[str] = []
-    for record in records:
+    validated_records: list[dict[str, Any]] = []
+    for index, record in enumerate(records):
         if isinstance(record, dict) and isinstance(record.get("proof_id"), str):
             observed_ids.append(record["proof_id"])
+            validated_records.append(record)
         else:
-            observed_ids.append(str(record))
+            kind = type(record).__name__
+            blockers.append(
+                f"stabilization_proof_record_malformed:index={index}:type={kind}"
+            )
     valid_id_sets = {tuple(sorted(EXPECTED_PROOF_IDS)), tuple(sorted(EXPECTED_PROOF_IDS_ALT))}
     if tuple(sorted(observed_ids)) not in valid_id_sets:
         blockers.append(f"proof_ids_mismatch:{observed_ids!r}")
 
-    return blockers, records
+    return blockers, validated_records
 
 
 def _flatten_flags(record: dict[str, Any]) -> dict[str, bool]:
@@ -200,11 +209,17 @@ def _scan_dimension_overlaps(
     return detected
 
 
-def _build_conflict_findings(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _build_conflict_findings(
+    records: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Build pairwise findings. Returns (findings, blockers)."""
     selected = sorted(
         [r for r in records if isinstance(r, dict)],
         key=lambda record: str(record.get("proof_id")),
     )
+    if len(selected) != 2:
+        return [], [f"scanned_drop_count_invalid:{len(selected)}"]
+
     ordered_ids = [str(record.get("proof_id")) for record in selected]
     source_ids = sorted(str(record.get("source_surface_id")) for record in selected)
     fold_families = sorted(str(record.get("research_fold_family")) for record in selected)
@@ -227,7 +242,7 @@ def _build_conflict_findings(records: list[dict[str, Any]]) -> list[dict[str, An
         "blocking_conflict_detected": blocking,
         "status": status,
     }
-    return [finding]
+    return [finding], []
 
 
 def build_research_cross_drop_conflict_scan(
@@ -235,10 +250,15 @@ def build_research_cross_drop_conflict_scan(
 ) -> dict[str, Any]:
     blockers, records = _validate_p98_packet(p98_packet)
 
+    findings: list[dict[str, Any]] = []
+    if not blockers:
+        findings, scan_blockers = _build_conflict_findings(records)
+        blockers.extend(scan_blockers)
+
     if blockers:
         status = "NOT_COMPUTABLE"
         ready = False
-        findings: list[dict[str, Any]] = []
+        findings = []
         summary = {
             "scanned_drop_count": 0,
             "conflict_count": 0,
@@ -246,7 +266,6 @@ def build_research_cross_drop_conflict_scan(
         }
         next_lane = RECOMMENDED_NEXT_LANE_ON_BLOCK
     else:
-        findings = _build_conflict_findings(records)
         conflict_count = sum(len(f.get("detected_conflicts", [])) for f in findings)
         blocking = any(f.get("blocking_conflict_detected") for f in findings)
         status = "CONFLICTS_DETECTED" if conflict_count else "PASS"
@@ -256,12 +275,9 @@ def build_research_cross_drop_conflict_scan(
             "conflict_count": conflict_count,
             "blocking_conflict_detected": blocking,
         }
-        # Still advisory: even with conflicts, recommend operator path — never auto-resolve
-        next_lane = (
-            RECOMMENDED_NEXT_LANE_ON_PASS
-            if not blocking
-            else RECOMMENDED_NEXT_LANE_ON_PASS  # operator decision record still the disposition path
-        )
+        # Still advisory: even with conflicts, recommend operator path — never auto-resolve.
+        # Operator decision record remains the disposition path whether or not blocking.
+        next_lane = RECOMMENDED_NEXT_LANE_ON_PASS
 
     packet_base: dict[str, Any] = {
         "lane_id": LANE_ID,
