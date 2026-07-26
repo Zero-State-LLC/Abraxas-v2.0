@@ -34,7 +34,7 @@ def test_registry_output_unchanged_when_runtime_profiling_disabled(
         patch.object(run_registry, "CONTRACTS_DIR", Path("contracts/pipelines")),
         patch.object(run_registry, "load_contracts", return_value=[object()]),
         patch.object(run_registry, "build_registry", return_value=registry_payload),
-        patch.object(run_registry, "write_canonical_json") as mock_write,
+        patch.object(run_registry, "write_classified_json") as mock_write,
     ):
         run_registry.main()
 
@@ -45,4 +45,5 @@ def test_registry_output_unchanged_when_runtime_profiling_disabled(
     assert first_payload == registry_payload
     assert Path(second_path) == global_registry_path
     assert second_payload == registry_payload
+    assert mock_write.call_args_list[0].kwargs.get("out_root") == runtime_paths.out_dir
     assert not profile_path.exists()
