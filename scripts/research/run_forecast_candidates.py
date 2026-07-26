@@ -10,8 +10,9 @@ from core.forecast.runtime import run_forecast_candidates
 def main() -> None:
     oracle = json.loads(Path("out/oracle/latest.json").read_text(encoding="utf-8"))
     sandbox = json.loads(Path("out/sandbox/latest.json").read_text(encoding="utf-8"))
+    # Sole-writer scripts/runtime/run_observability_pipeline.py emits here.
     observability = json.loads(
-        Path("out/run_observability_pipeline/latest.json").read_text(encoding="utf-8")
+        Path("out/observability/latest.json").read_text(encoding="utf-8")
     )
     out = run_forecast_candidates(oracle, sandbox, observability)
     write_canonical_json(Path("out/forecast/latest.json"), out)
