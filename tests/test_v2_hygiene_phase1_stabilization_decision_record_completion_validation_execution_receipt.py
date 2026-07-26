@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -10,6 +11,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
     NEXT_OPERATOR_GATE_LANE,
     READY_STATUS,
     RECEIPT_JSON_PATH,
+    _sha256,
+    _source_chain_hash_blockers,
     build_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt,
     render_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt_markdown,
     write_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt,
@@ -264,3 +267,63 @@ def test_completion_validation_execution_receipt_markdown() -> None:
     assert any("## Execution Packet" in line for line in markdown)
     assert any("telemetry_only: True" in line for line in markdown)
     assert any("forecast_routing_authorized: False" in line for line in markdown)
+
+
+def _lf_payload() -> bytes:
+    return b'{"portability":"lf","value":1}\n'
+
+
+def test_source_chain_hash_exact_lf_hash_succeeds(tmp_path: Path) -> None:
+    payload = _lf_payload()
+    path = tmp_path / "source.json"
+    path.write_bytes(payload)
+    expected = hashlib.sha256(payload).hexdigest()
+    assert _sha256(path) == expected
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {"source_records": [{"path": "source.json", "file_hash": expected}]},
+    )
+    assert blockers == []
+
+
+def test_source_chain_hash_accepts_crlf_equivalent_content(tmp_path: Path) -> None:
+    """Windows checkout CRLF bytes may differ from sealed LF raw hash."""
+    lf_payload = _lf_payload()
+    crlf_payload = lf_payload.replace(b"\n", b"\r\n")
+    path = tmp_path / "source.json"
+    path.write_bytes(crlf_payload)
+    expected_lf_hash = hashlib.sha256(lf_payload).hexdigest()
+    assert _sha256(path) != expected_lf_hash
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {"source_records": [{"path": "source.json", "file_hash": expected_lf_hash}]},
+    )
+    assert blockers == []
+
+
+def test_source_chain_hash_rejects_one_byte_mutation(tmp_path: Path) -> None:
+    lf_payload = _lf_payload()
+    mutated = lf_payload[:-2] + b"2" + lf_payload[-1:]
+    path = tmp_path / "source.json"
+    path.write_bytes(mutated)
+    expected = hashlib.sha256(lf_payload).hexdigest()
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {"source_records": [{"path": "source.json", "file_hash": expected}]},
+    )
+    assert blockers == ["implementation_receipt_source_hash_mismatch:source.json"]
+
+
+def test_source_chain_hash_rejects_json_field_mutation(tmp_path: Path) -> None:
+    lf_payload = _lf_payload()
+    mutated_obj = json.loads(lf_payload.decode("utf-8"))
+    mutated_obj["value"] = 999
+    mutated = (json.dumps(mutated_obj, separators=(",", ":")) + "\n").encode("utf-8")
+    path = tmp_path / "source.json"
+    path.write_bytes(mutated)
+    expected = hashlib.sha256(lf_payload).hexdigest()
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {"source_records": [{"path": "source.json", "file_hash": expected}]},
+    )
+    assert blockers == ["implementation_receipt_source_hash_mismatch:source.json"]

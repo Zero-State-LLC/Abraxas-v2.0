@@ -2,15 +2,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
 from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_validation_implementation_receipt import (
     RECEIPT_JSON_PATH as SOURCE_IMPLEMENTATION_RECEIPT_JSON_PATH,
 )
-
-from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
 
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordCompletionValidationExecutionReceipt.v1"
@@ -105,11 +105,38 @@ def _read_json(path: Path) -> dict[str, Any] | None:
     return parsed if isinstance(parsed, dict) else None
 
 
+def _sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
 def _sha256(path: Path) -> str:
+    """Raw-byte SHA-256 for source records (preserve original sealing hash)."""
     try:
-        return hashlib.sha256(path.read_bytes()).hexdigest()
+        return _sha256_bytes(path.read_bytes())
     except OSError:
         return NOT_COMPUTABLE
+
+
+def _sha256_lf_normalized(path: Path) -> str:
+    """SHA-256 after CRLF/CR → LF only. No other content transforms."""
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        return NOT_COMPUTABLE
+    normalized = raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return _sha256_bytes(normalized)
+
+
+def _file_hash_matches_expected(path: Path, expected_file_hash: str) -> bool:
+    """Accept exact raw hash; else accept LF-normalized equivalence only."""
+    if not expected_file_hash or expected_file_hash == NOT_COMPUTABLE:
+        return False
+    observed_raw = _sha256(path)
+    if observed_raw == expected_file_hash:
+        return True
+    if observed_raw == NOT_COMPUTABLE:
+        return False
+    return _sha256_lf_normalized(path) == expected_file_hash
 
 
 def _locks_all_false(value: Any) -> bool:
@@ -225,8 +252,7 @@ def _source_chain_hash_blockers(
         if not path:
             blockers.append("implementation_receipt_source_record_path_missing")
             continue
-        observed_hash = _sha256(_resolve(root, path))
-        if observed_hash != expected_file_hash:
+        if not _file_hash_matches_expected(_resolve(root, path), expected_file_hash):
             blockers.append(f"implementation_receipt_source_hash_mismatch:{path}")
     return blockers
 
