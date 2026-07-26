@@ -1,7 +1,7 @@
 # Bounded Product Activation Policy
 
-**Status:** ACTIVE ENGINEERING POLICY  
-**Effective:** 2026-07-23  
+**Status:** ACTIVE ENGINEERING POLICY
+**Effective:** 2026-07-23
 **Authority:** Operator-approved under Governance V3
 
 ## Decision
@@ -9,6 +9,8 @@
 Abraxas no longer treats all product activation as one binary production gate.
 
 Activation is separated into bounded lanes so engineering can move quickly without treating internal experimentation as external production deployment.
+
+**Runtime authority:** [`core/governance/activation_policy.py`](../../core/governance/activation_policy.py) (ADR-0017).
 
 ## Activation lanes
 

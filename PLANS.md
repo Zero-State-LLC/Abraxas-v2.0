@@ -1,5 +1,28 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
+## Current objective
+
+**Production Convergence** — converge Abraxas onto one supported application spine, one activation policy, and clear supported vs experimental surfaces, without a wholesale rewrite. Fit **Alembic Spine** as an optional advisory specialist on that spine (not a second kernel).
+
+Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
+
+### Active workstreams
+
+1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation, advisory spine stub
+2. Phase 3–4: golden-path hardening + CLI consolidation behind shims
+3. Phase 5+: canonical writer/artifact class enforcement, settings DI, service hardening
+
+### Next three milestones
+
+1. Unified `abraxas` CLI command tree (analyze/validate/replay/status) with compatibility shims
+2. `create_app(settings)` factory + bounded analysis endpoint on supported service
+3. Artifact classification enforcement on governed writers (ADR-0018)
+
+### Blocked / held
+
+- EXTERNAL_PRODUCTION activation (operator-gated; out of scope for routine engineering)
+- Mass deletion of historical runners/artifacts (requires CLEAR-phase reference analysis)
+
 ## Governance V3 (active)
 
 ```yaml
@@ -19,10 +42,16 @@ removed:
   - execution_eligibility_gates
   - approval_receipts
   - operator_decision_chains
+activation:
+  local_dev: allowed
+  sandbox: allowed
+  internal_canary: conditional
+  external_production: operator_gated
 ```
 
 Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
 Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
+Activation policy module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py)
 
 ## Product 2.5.0 — Full Features (merged)
 

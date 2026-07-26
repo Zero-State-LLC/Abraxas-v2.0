@@ -1,8 +1,21 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-23 (Atlas sync + Soft Facades + Conflict Gap Closure G1–G4 on main)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–2 + Alembic spine on main lineage)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
+
+## Current-state block (replace, do not append)
+
+| Field | Value | Evidence |
+|-------|--------|----------|
+| HEAD / branch tip | see git; convergence branch `cursor/production-convergence-spine-6a0a` | git |
+| Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
+| Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
+| Production readiness | **NOT_READY** · deploy held | `out/production_readiness/ws8/*` |
+| Supported interfaces (WS1 + activation_policy) | canonical_json, run_fast_ci, validation_service, artifact_provenance, activation_policy, apps/api | `out/production_convergence/interface_inventory.v1.json` |
+| Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
+| Convergence audit | Phase 0–2 package emitted | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Active objective | Converge one product spine; no mass deletion this slice | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 
@@ -15,7 +28,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Oracle intake conflict population | **MERGED** · no auto-resolve | PR #997 |
 | Research cross-drop dimension checks | **MERGED** · advisory | PR #998 |
 | AtlasSyncReceipt.v1 schema | **ADVISORY** contract | `contracts/receipts/atlas_sync_receipt.v1.schema.json` |
-| Production activation | **DENIED / HELD_FOR_OPERATOR** | unchanged |
+| Production activation | **EXTERNAL_PRODUCTION operator-gated / HELD** | LOCAL_DEV+SANDBOX allowed under V3 |
 
 **Doctrine (conflicts):** Detect → Classify → Operator disposition. Never auto-resolve.
 

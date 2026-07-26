@@ -2,7 +2,7 @@
 
 ![Abraxas — Governed Symbolic Intelligence](assets/hero-abraxas-readme.jpg)
 
-**Governed Symbolic Intelligence**  
+**Governed Symbolic Intelligence**
 *Deterministic • Observable • Recursive*
 
 > Structure before narrative. Evidence before authority. Governance before autonomy.
@@ -44,7 +44,13 @@ Grok and Codex operate as **peer collaborators** under a shared engineering cont
 
 ### Status & Philosophy
 
-Abraxas operates in a **frozen governance state** with **advisory-only canon status**. All execution paths require operator review. It is deliberately constrained to prevent Goodhart's law violations, upward blindness, and ungameable reality anchors.
+Abraxas runs under **Governance V3** (implementation-first) with **advisory-only canon** and **lane-based activation**:
+
+- `LOCAL_DEV` / `SANDBOX` — allowed for engineering without authorization-packet ceremony
+- `INTERNAL_CANARY` — conditional
+- `EXTERNAL_PRODUCTION` — operator-gated (`NOT_READY` as a production product)
+
+SHADOW/FORECAST separation and fail-closed authority locks remain. Production convergence target and Alembic placement: [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
 **IYKYK** — If you know, you know. This is not a generic AI wrapper but a rigorously governed symbolic companion engineered for precision, shadow work, and long-term research utility.
 
