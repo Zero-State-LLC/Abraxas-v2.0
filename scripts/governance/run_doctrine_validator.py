@@ -125,6 +125,7 @@ def _build_summary(
         active_milestone_gate = True
         milestone_evidence_gate = True
         stale_metadata_gate = True
+        milestone_status_passed = True
     else:
         milestone_registry_gate = milestone_registry_status == "passed"
         active_milestone_gate = (
@@ -136,43 +137,14 @@ def _build_summary(
             "code_verified",
         }
         stale_metadata_gate = not milestone_validation.stale_metadata_detected
-        if not (
-            milestone_registry_gate
-            and active_milestone_gate
-            and milestone_evidence_gate
-            and stale_metadata_gate
-            and milestone_validation.status == "passed"
-        ):
-            counts["failed"] += 1
-    seal = (
-        "repair"
-        if counts["failed"] > 0 or counts["repair_required"] > 0
-        else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
-    )
+        milestone_status_passed = milestone_validation.status == "passed"
     overlay_governance_status = overlay_governance_status or {}
     overlay_governance_event_gate = _overlay_gate_status(overlay_governance_status, "event_gate", "passed")
     overlay_governance_ledger_gate = _overlay_gate_status(overlay_governance_status, "ledger_gate", "passed")
     overlay_governance_continuity_gate = _overlay_gate_status(overlay_governance_status, "continuity_gate", "passed")
     overlay_governance_replay_gate = _overlay_gate_status(overlay_governance_status, "replay_gate", "passed")
     overlay_governance_operator_review_gate = _overlay_gate_status(overlay_governance_status, "operator_review_gate", "passed")
-    if "failed" in {
-        overlay_governance_event_gate,
-        overlay_governance_ledger_gate,
-        overlay_governance_continuity_gate,
-        overlay_governance_replay_gate,
-        overlay_governance_operator_review_gate,
-    }:
-        counts["failed"] += 1
-    return {
-        "schema_version": "DoctrineValidationSummary.v1",
-        "compliant_count": counts["doctrine_compliant"],
-        "repair_required_count": counts["repair_required"],
-        "legacy_contract_posture_count": counts["legacy_contract_posture"],
-        "not_computable_count": counts["not_computable"],
-        "failed_count": counts["failed"],
-        "active_milestone": active_milestone,
-        "seal_recommendation": seal,
-        "status": "failed" if counts["failed"] > 0 else "ok",
+    gate_statuses: dict[str, object] = {
         "milestone_registry_gate": "passed" if milestone_registry_gate else "failed",
         "active_milestone_gate": "passed" if active_milestone_gate else "failed",
         "milestone_evidence_gate": "passed" if milestone_evidence_gate else "failed",
@@ -373,6 +345,35 @@ def _build_summary(
         "human_decision_continuity_replay_gate": overlay_governance_status.get("human_decision_continuity_replay_gate", "not_computable"),
         "human_decision_continuity_operator_review_gate": overlay_governance_status.get("human_decision_continuity_operator_review_gate", "not_computable"),
     }
+    failed_gate_count = sum(1 for value in gate_statuses.values() if value == "failed")
+    counts["failed"] += failed_gate_count
+    # Packet-level milestone failure can occur even when individual gates still read passed.
+    if (
+        not milestone_status_passed
+        and milestone_registry_gate
+        and active_milestone_gate
+        and milestone_evidence_gate
+        and stale_metadata_gate
+    ):
+        counts["failed"] += 1
+    seal = (
+        "repair"
+        if counts["failed"] > 0 or counts["repair_required"] > 0
+        else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
+    )
+    return {
+        "schema_version": "DoctrineValidationSummary.v1",
+        "compliant_count": counts["doctrine_compliant"],
+        "repair_required_count": counts["repair_required"],
+        "legacy_contract_posture_count": counts["legacy_contract_posture"],
+        "not_computable_count": counts["not_computable"],
+        "failed_count": counts["failed"],
+        "active_milestone": active_milestone,
+        "seal_recommendation": seal,
+        "status": "failed" if counts["failed"] > 0 else "ok",
+        **gate_statuses,
+    }
+
 
 
 def main() -> None:
