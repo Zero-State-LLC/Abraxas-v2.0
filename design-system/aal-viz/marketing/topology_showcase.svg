@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Topology visualization">
+  <title>Topology visualization</title>
+  <desc>PRODUCT VISION. Marketing visual without production availability claims.</desc>
+  <rect width="1280" height="720" fill="#0B1020"/>
+  <rect x="0" y="0" width="1280" height="4" fill="#00D4F5"/>
+  <g transform="scale(1.3333 1.3333)" opacity="0.85">
+  <path d="M480 80 V420" stroke="#00D4F5" stroke-width="2" fill="none"/>
+  <path d="M480 160 L280 280 M480 160 L680 280 M480 280 L300 400 M480 280 L660 400" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <g fill="#0B1020" stroke="#00D4F5" stroke-width="1.5">
+    <circle cx="480" cy="80" r="7"/>
+    <circle cx="280" cy="280" r="6"/>
+    <circle cx="680" cy="280" r="6"/>
+    <circle cx="300" cy="400" r="5"/>
+    <circle cx="660" cy="400" r="5"/>
+    <circle cx="480" cy="280" r="6"/>
+  </g>
+  </g>
+  <text x="32" y="36" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" letter-spacing="0.16em" fill="#F59E0B">PRODUCT VISION</text>
+  <text x="32" y="324" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="28" font-weight="600" fill="#E8EEF7">Topology visualization</text>
+  <text x="32" y="360" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" fill="#64748B">YGGDRASIL-style routing field</text>
+  <text x="32" y="696" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO PRODUCTION CLAIM</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Drift field">
+  <title>Drift field</title>
+  <desc>Subtle geometric spatial field. Interface chrome remains quiet. Projection only.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <g stroke="#F59E0B" stroke-width="1" opacity="0.25" fill="none">
+    <path d="M-540 0 L0 540"/>
+    <path d="M-516 0 L24 540"/>
+    <path d="M-492 0 L48 540"/>
+    <path d="M-468 0 L72 540"/>
+    <path d="M-444 0 L96 540"/>
+    <path d="M-420 0 L120 540"/>
+    <path d="M-396 0 L144 540"/>
+    <path d="M-372 0 L168 540"/>
+    <path d="M-348 0 L192 540"/>
+    <path d="M-324 0 L216 540"/>
+    <path d="M-300 0 L240 540"/>
+    <path d="M-276 0 L264 540"/>
+    <path d="M-252 0 L288 540"/>
+    <path d="M-228 0 L312 540"/>
+    <path d="M-204 0 L336 540"/>
+    <path d="M-180 0 L360 540"/>
+    <path d="M-156 0 L384 540"/>
+    <path d="M-132 0 L408 540"/>
+    <path d="M-108 0 L432 540"/>
+    <path d="M-84 0 L456 540"/>
+    <path d="M-60 0 L480 540"/>
+    <path d="M-36 0 L504 540"/>
+    <path d="M-12 0 L528 540"/>
+    <path d="M12 0 L552 540"/>
+    <path d="M36 0 L576 540"/>
+    <path d="M60 0 L600 540"/>
+    <path d="M84 0 L624 540"/>
+    <path d="M108 0 L648 540"/>
+    <path d="M132 0 L672 540"/>
+    <path d="M156 0 L696 540"/>
+    <path d="M180 0 L720 540"/>
+    <path d="M204 0 L744 540"/>
+    <path d="M228 0 L768 540"/>
+    <path d="M252 0 L792 540"/>
+    <path d="M276 0 L816 540"/>
+    <path d="M300 0 L840 540"/>
+    <path d="M324 0 L864 540"/>
+    <path d="M348 0 L888 540"/>
+    <path d="M372 0 L912 540"/>
+    <path d="M396 0 L936 540"/>
+    <path d="M420 0 L960 540"/>
+    <path d="M444 0 L984 540"/>
+    <path d="M468 0 L1008 540"/>
+    <path d="M492 0 L1032 540"/>
+    <path d="M516 0 L1056 540"/>
+    <path d="M540 0 L1080 540"/>
+    <path d="M564 0 L1104 540"/>
+    <path d="M588 0 L1128 540"/>
+    <path d="M612 0 L1152 540"/>
+    <path d="M636 0 L1176 540"/>
+    <path d="M660 0 L1200 540"/>
+    <path d="M684 0 L1224 540"/>
+    <path d="M708 0 L1248 540"/>
+    <path d="M732 0 L1272 540"/>
+    <path d="M756 0 L1296 540"/>
+    <path d="M780 0 L1320 540"/>
+    <path d="M804 0 L1344 540"/>
+    <path d="M828 0 L1368 540"/>
+    <path d="M852 0 L1392 540"/>
+    <path d="M876 0 L1416 540"/>
+    <path d="M900 0 L1440 540"/>
+    <path d="M924 0 L1464 540"/>
+    <path d="M948 0 L1488 540"/>
+  </g>
+  <path d="M80 400 L240 200 L400 320 L560 140 L880 300" fill="none" stroke="#F59E0B" stroke-width="1.5" opacity="0.6"/>
+  <text x="24" y="520" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" letter-spacing="0.12em" fill="#64748B">DRIFT_FIELD · FIELD · PROJECTION ONLY</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="AAL-Viz mobile header mark">
+  <title>AAL-Viz</title>
+  <rect width="32" height="32" rx="6" fill="#0B1020"/>
+  <path d="M7 22 L16 8 L25 22 Z" fill="none" stroke="#00D4F5" stroke-width="1.75" stroke-linejoin="round"/>
+  <circle cx="16" cy="17" r="2.5" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <circle cx="11" cy="14" r="1" fill="#A78BFA"/>
+  <circle cx="21" cy="14" r="1" fill="#A78BFA"/>
+</svg>

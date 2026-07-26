@@ -52,5 +52,28 @@
       "format": "SVG",
       "source": "brand/wordmark-watermark.svg"
     }
+  ],
+  "batch4": [
+    {
+      "id": "field-960",
+      "source": "fields/console_bg_dark.svg"
+    },
+    {
+      "id": "pwa-512",
+      "source": "pwa/icon_512.svg"
+    },
+    {
+      "id": "pwa-maskable",
+      "source": "pwa/icon_maskable_512.svg"
+    },
+    {
+      "id": "motion-css",
+      "source": "motion/aal_viz_motion.primitives.css"
+    },
+    {
+      "id": "marketing-overview",
+      "source": "marketing/product_overview.svg",
+      "label_required": "PRODUCT VISION"
+    }
   ]
 }

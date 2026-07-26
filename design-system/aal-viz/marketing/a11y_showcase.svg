@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Accessibility showcase">
+  <title>Accessibility showcase</title>
+  <desc>PRODUCT VISION. Marketing visual without production availability claims.</desc>
+  <rect width="1280" height="720" fill="#0B1020"/>
+  <rect x="0" y="0" width="1280" height="4" fill="#00D4F5"/>
+  <g transform="scale(1.3333 1.3333)" opacity="0.85">
+  <g stroke="#243049" stroke-width="1" opacity="0.3" fill="none">
+    <path d="M0 0 V540"/>
+    <path d="M64 0 V540"/>
+    <path d="M128 0 V540"/>
+    <path d="M192 0 V540"/>
+    <path d="M256 0 V540"/>
+    <path d="M320 0 V540"/>
+    <path d="M384 0 V540"/>
+    <path d="M448 0 V540"/>
+    <path d="M512 0 V540"/>
+    <path d="M576 0 V540"/>
+    <path d="M640 0 V540"/>
+    <path d="M704 0 V540"/>
+    <path d="M768 0 V540"/>
+    <path d="M832 0 V540"/>
+    <path d="M896 0 V540"/>
+    <path d="M960 0 V540"/>
+    <path d="M0 0 H960"/>
+    <path d="M0 64 H960"/>
+    <path d="M0 128 H960"/>
+    <path d="M0 192 H960"/>
+    <path d="M0 256 H960"/>
+    <path d="M0 320 H960"/>
+    <path d="M0 384 H960"/>
+    <path d="M0 448 H960"/>
+    <path d="M0 512 H960"/>
+  </g>
+  </g>
+  <text x="32" y="36" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" letter-spacing="0.16em" fill="#F59E0B">PRODUCT VISION</text>
+  <text x="32" y="324" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="28" font-weight="600" fill="#E8EEF7">Accessibility showcase</text>
+  <text x="32" y="360" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" fill="#64748B">Patterns, mono, and honest empty states</text>
+  <text x="32" y="696" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO PRODUCTION CLAIM</text>
+</svg>

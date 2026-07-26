@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Fail-closed field">
+  <title>Fail-closed field</title>
+  <desc>Subtle geometric spatial field. Interface chrome remains quiet. Projection only.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <rect x="80" y="80" width="800" height="380" rx="12" fill="none" stroke="#EF4444" stroke-width="1.5" opacity="0.5"/>
+  <path d="M200 200 H760 M200 270 H760 M200 340 H760" stroke="#64748B" stroke-width="1" opacity="0.35"/>
+  <path d="M400 180 L560 360 M560 180 L400 360" stroke="#EF4444" stroke-width="2" opacity="0.55"/>
+  <text x="24" y="520" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" letter-spacing="0.12em" fill="#64748B">FAIL_CLOSED_FIELD · FIELD · PROJECTION ONLY</text>
+</svg>

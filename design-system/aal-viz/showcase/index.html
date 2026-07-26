@@ -182,13 +182,13 @@
     <header class="top">
       <img class="lockup" src="../brand/lockup-compact.svg" alt="AAL-VIZ" width="120" height="32" />
       <span class="pill">PROJECTION ONLY</span>
-      <span class="meta">Batches 0–3 · Hallmark Workbench</span>
+      <span class="meta">Batches 0–4 COMPLETE · Hallmark Workbench</span>
     </header>
 
     <h1>Projection-layer visual language</h1>
     <p class="lede">
-      Hand-built SVG masters — foundation (0), runtime (1), runes (2), and docs/comms (3):
-      architecture diagrams, infographic templates, report chrome, and honesty-labeled banners.
+      Authored pack complete (batches 0–4): foundation, runtime chrome, runes, docs/comms,
+      deterministic motion, spatial fields, responsive/PWA marks, and honesty-labeled showcases.
       Not a product screenshot. Activation remains denied.
     </p>
     <p class="note">
@@ -291,9 +291,27 @@
       </div>
     </section>
 
+    <section>
+      <h2>Motion states (batch 4)</h2>
+      <div class="grid" id="motion-grid"></div>
+    </section>
+
+    <section>
+      <h2>Spatial fields (batch 4)</h2>
+      <div class="grid wide" id="field-grid"></div>
+    </section>
+
+    <section>
+      <h2>Marketing showcases (batch 4)</h2>
+      <div class="brand-row">
+        <img src="../marketing/product_overview.svg" alt="Product overview PRODUCT VISION" width="480" height="270" />
+        <img src="../marketing/projection_explainer.svg" alt="Projection explainer PRODUCT VISION" width="480" height="270" />
+      </div>
+    </section>
+
     <footer>
-      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B3</span>
-      <span>Regenerate: batch0–3 scripts under <code>scripts/design/</code></span>
+      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B4 COMPLETE</span>
+      <span>Regenerate: batch0–4 scripts under <code>scripts/design/</code></span>
     </footer>
   </div>
   <script>
@@ -406,6 +424,22 @@
         "benchmark","release_summary","operator_decision","research_finding",
         "provider_comparison","drift_report","forecast_calibration","evidence_gap",
         "canon_change","notion_reconciliation"
+      ] },
+      "motion-grid": { dir: "motion/states", names: [
+        "projection_arrival","artifact_detected","source_refresh","validation_pass",
+        "validation_failure","fail_closed_transition","drift_detected","threshold_crossing",
+        "operator_review_required","route_blocked","route_restored","node_selected",
+        "node_expanded","lineage_reveal","trace_traversal","timeline_scrub",
+        "cluster_formation","cluster_separation","provider_conflict","evidence_attachment",
+        "copy_confirmation","transport_reconnect","polling_fallback","replay_start",
+        "replay_complete","archived_transition","not_computable_reveal"
+      ] },
+      "field-grid": { dir: "fields", wide: true, names: [
+        "console_bg_dark","console_bg_light","report_neutral","canon_spine_field",
+        "projection_field","shadow_field","forecast_field","yggdrasil_field",
+        "belief_graph_field","evidence_memory_field","temporal_field","cluster_field",
+        "drift_field","operator_review_field","fail_closed_field","archive_field",
+        "presentation_wallpaper","docs_banner_bg","social_preview_bg","print_safe_bg"
       ] }
     };
 

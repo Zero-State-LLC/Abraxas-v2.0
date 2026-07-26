@@ -1,5 +1,5 @@
 class,planned,shipped,batch,status,notes
-identity,10,11,0,PARTIAL,
+identity,10,11,0,SHIPPED,
 authority,30,30,0,SHIPPED,
 activation,16,16,0,SHIPPED,
 navigation,44,44,0,SHIPPED,
@@ -12,11 +12,12 @@ empty_error,26,26,1,SHIPPED,
 panels,22,22,1,SHIPPED,
 a11y_patterns,19,28,1,SHIPPED,
 runes,30,30,2,SHIPPED,×4 variants
-architecture_diagrams,25,25,3,SHIPPED,honesty labels
-infographics,20,20,3,SHIPPED,templates
+architecture_diagrams,25,25,3,SHIPPED,
+infographics,20,20,3,SHIPPED,
 report_assets,22,25,3,SHIPPED,
-banners_comms,10,10,3,SHIPPED,readme/notion/social/slides
-motion,27,0,4,DEFERRED,
-backgrounds,20,0,4,DEFERRED,
-responsive_pwa,17,0,4,DEFERRED,
-marketing_showcases,13,0,4,DEFERRED,partial via banners
+banners_comms,10,10,3,SHIPPED,
+motion,27,27,4,SHIPPED,CSS + first-frame SVG
+backgrounds,20,20,4,SHIPPED,geometric fields
+responsive_pwa,17,26,4,SHIPPED,headers+controls+pwa
+marketing_showcases,17,17,4,SHIPPED,honesty-labeled
+inventory_status,—,COMPLETE,0-4,COMPLETE,authored pack closed

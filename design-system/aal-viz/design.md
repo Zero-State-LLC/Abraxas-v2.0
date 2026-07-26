@@ -72,7 +72,9 @@
 | **1** | Empty/error, workflow, metrics, weather (×3 variants), panels, a11y patterns | **Shipped** |
 | **2** | AAL-Viz + shared engineering runes (outline/solid/engrave/motion) | **Shipped** |
 | **3** | Architecture diagrams, infographics, reports, banners | **Shipped** |
-| 4 | Motion primitives, wallpapers, PWA raster set | Planned |
+| **4** | Motion primitives, spatial fields, responsive/PWA, marketing showcases | **Shipped** |
+
+**Inventory status:** authored pack **COMPLETE** (batches 0–4).
 
 ### Batch 1–2 paths
 
@@ -91,7 +93,11 @@
 | Infographics | `infographics/` | batch3 |
 | Reports | `reports/` | batch3 |
 | Banners | `banners/` | batch3 |
-| Manifests | `aal_viz_asset_manifest.batch{1,2,3}.v1.json` | batch1–3 |
+| Motion | `motion/` (+ `aal_viz_motion.primitives.css`) | `generate_aal_viz_batch4_assets.py` |
+| Fields | `fields/` | batch4 |
+| Responsive / PWA | `responsive/` · `pwa/` | batch4 |
+| Marketing showcases | `marketing/` | batch4 |
+| Manifests | `aal_viz_asset_manifest.batch{1,2,3,4}.v1.json` | batch1–4 |
 
 ### Rune grammar (batch 2)
 

@@ -1,7 +1,8 @@
 # AAL-Viz Asset Inventory
 
+**Status:** authored pack **COMPLETE** (batches 0–4)  
 **Hallmark:** atmospheric-technical · custom Abraxas grammar · Tier B SVG  
-**Authority:** projection-only · activation DENIED · deploy NO_GO
+**Authority:** projection-only · activation **DENIED** · deploy **NO_GO**
 
 ## Batch 0 — Visual foundation
 
@@ -13,7 +14,6 @@
 | Navigation (+ solid) | 44 (88 files) | `navigation/` |
 | Subsystem (+ solid) | 24 (48 files) | `subsystem/` |
 | Graph nodes / edges / ports | 51 | `graph/` |
-| Manifest | `aal_viz_asset_manifest.v1.json` | |
 
 ## Batch 1 — Runtime console completeness
 
@@ -21,51 +21,55 @@
 |--------|------:|------|
 | Workflow states | 30 | `workflow/` |
 | Metrics + chart annotations | 44 | `metrics/` |
-| Signal weather compact | 17 | `weather/compact/` |
-| Signal weather panel | 17 | `weather/panel/` |
-| Signal weather timeline | 17 | `weather/timeline/` |
-| Empty / error illustrations | 26 | `empty/` (badge: NOT_COMPUTABLE / FAIL_CLOSED / …) |
-| Panel / container frames | 22 | `panels/` |
-| A11y pattern fills | 12 | `a11y/patterns/` |
-| A11y line styles | 6 | `a11y/lines/` |
-| A11y focus chrome | 3 | `a11y/focus/` |
-| A11y templates | 7 | `a11y/templates/` |
-| Manifest | `aal_viz_asset_manifest.batch1.v1.json` | |
+| Signal weather (×3 variants) | 51 | `weather/` |
+| Empty / error | 26 | `empty/` |
+| Panel frames | 22 | `panels/` |
+| A11y patterns / lines / focus / templates | 28+ | `a11y/` |
 
-## Batch 2 — Symbolic operating language (runes)
+## Batch 2 — Runes
 
 | Family | Count | Path |
 |--------|------:|------|
-| AAL-Viz-specific runes | 11 × 4 variants | `runes/aal_viz/` |
-| Shared ABX runes (viz-visible) | 19 × 4 variants | `runes/shared/` |
-| Rune registry | 1 | `AAL_VIZ_RUNE_REGISTRY.json` |
-| Manifest | `aal_viz_asset_manifest.batch2.v1.json` | |
+| AAL-Viz runes × 4 variants | 11 | `runes/aal_viz/` |
+| Shared ABX runes × 4 variants | 19 | `runes/shared/` |
 
-Variants per rune: outline · solid · engrave · motion (segmented paths).
-
-## Batch 3 — Documentation and communication
+## Batch 3 — Docs & communication
 
 | Family | Count | Path |
 |--------|------:|------|
-| Architecture diagrams | 25 | `diagrams/` (honesty: IMPLEMENTED / CONCEPT / PRODUCT VISION) |
+| Architecture diagrams | 25 | `diagrams/` |
 | Infographic templates | 20 | `infographics/` |
 | Report / export assets | 25 | `reports/` |
-| Banners / social / slides | 10 | `banners/` |
-| Diagram registry | 1 | `AAL_VIZ_DIAGRAM_REGISTRY.json` |
-| Manifest | `aal_viz_asset_manifest.batch3.v1.json` | |
+| Banners | 10 | `banners/` |
 
-**Approx SVG total (batches 0–3):** ~684
+## Batch 4 — Motion, fields, PWA, marketing
 
-## Deferred
+| Family | Count | Path |
+|--------|------:|------|
+| Motion state icons (+ reduced) | 27 × 2 | `motion/states/` |
+| Motion CSS primitives | 1 | `motion/aal_viz_motion.primitives.css` |
+| Spatial / wallpaper fields | 20 | `fields/` |
+| Responsive headers + controls | 21 | `responsive/` |
+| PWA / pinned icons | 5 | `pwa/` |
+| Marketing showcases (honesty-labeled) | 17 | `marketing/` |
 
-| Batch | Scope |
-|-------|--------|
-| 4 | Motion primitives, wallpapers/fields, responsive/PWA, remaining marketing showcases |
+**Approx SVG total:** ~800+ under `design-system/aal-viz/`
+
+## Registries
+
+| File | Role |
+|------|------|
+| `aal_viz_asset_manifest.v1.json` + `.batch{1,2,3,4}.v1.json` | Machine inventory |
+| `AAL_VIZ_ICON_REGISTRY.json` | Name indexes |
+| `AAL_VIZ_RUNE_REGISTRY.json` | Rune ID → files |
+| `AAL_VIZ_DIAGRAM_REGISTRY.json` | Diagram honesty labels |
+| `AAL_VIZ_MOTION_REGISTRY.json` | Motion tokens + CSS classes |
+| `AAL_VIZ_EXPORT_PRESET_REGISTRY.json` | Export presets |
 
 ## Existing system (do not duplicate)
 
 - `design-system/icons/system/*` — general Abraxas icons
-- `design-system/runes/glyphs/*` — engineering runes
+- `design-system/runes/glyphs/*` — legacy engineering runes
 - `design-system/brand/*` — **Abraxas root** mark
 
 ## Regenerate
@@ -75,4 +79,5 @@ python scripts/design/generate_aal_viz_batch0_assets.py
 python scripts/design/generate_aal_viz_batch1_assets.py
 python scripts/design/generate_aal_viz_batch2_assets.py
 python scripts/design/generate_aal_viz_batch3_assets.py
+python scripts/design/generate_aal_viz_batch4_assets.py
 ```
