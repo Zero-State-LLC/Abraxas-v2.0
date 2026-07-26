@@ -1,16 +1,17 @@
 from __future__ import annotations
 
 # WP-D4-C1: pure builder — sole-writer scripts own out/ publication.
-from core.manual_execution.authorization import ManualExecutionAuthorizationPacket
-from core.manual_execution.envelopes import ManualExecutionEnvelopePacket
-from core.manual_execution.eligibility import ManualExecutionEligibilityPacket
-from core.manual_execution.scope import ManualExecutionScopePacket, FORBIDDEN_ACTIONS
+from core.governance.upstream_evidence import require_upstream_packets
 from core.manual_execution.acknowledgements import HumanAcknowledgementPacket
+from core.manual_execution.authorization import ManualExecutionAuthorizationPacket
 from core.manual_execution.continuity import ManualExecutionContinuityPacket
-from core.manual_execution.replay import ManualExecutionReplayPacket
-from core.manual_execution.lineage import ManualExecutionLineagePacket
 from core.manual_execution.diagnostics import ManualExecutionDiagnosticPacket
+from core.manual_execution.eligibility import ManualExecutionEligibilityPacket
+from core.manual_execution.envelopes import ManualExecutionEnvelopePacket
+from core.manual_execution.lineage import ManualExecutionLineagePacket
 from core.manual_execution.operator_review import ManualExecutionOperatorReviewPacket
+from core.manual_execution.replay import ManualExecutionReplayPacket
+from core.manual_execution.scope import FORBIDDEN_ACTIONS, ManualExecutionScopePacket
 from core.manual_execution.validators import validate_manual_execution
 
 
@@ -21,6 +22,14 @@ def run_manual_execution_authorization(
     readiness_packets: list[dict],
     replay_packets: list[dict],
 ) -> dict[str, object]:
+    require_upstream_packets(
+        ("review_resolution_packets", review_resolution_packets),
+        ("operator_queue_packets", operator_queue_packets),
+        ("firewall_packets", firewall_packets),
+        ("readiness_packets", readiness_packets),
+        ("replay_packets", replay_packets),
+        surface="manual_execution_authorization",
+    )
     del (
         review_resolution_packets,
         operator_queue_packets,
