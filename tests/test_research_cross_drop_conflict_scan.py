@@ -49,6 +49,52 @@ def test_invalid_p98_returns_not_computable() -> None:
     assert packet["conflict_findings"] == []
 
 
+def test_bare_string_proof_records_fail_closed() -> None:
+    """Non-dict proof IDs must not produce a false-clean PASS."""
+    packet = build_research_cross_drop_conflict_scan(
+        p98_packet={
+            **_VALID_P98_PACKET,
+            "stabilization_proof_records": [
+                "DROP006_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN",
+                "DROP007_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN",
+            ],
+        }
+    )
+    assert packet["conflict_scan_status"] == "NOT_COMPUTABLE"
+    assert packet["conflict_scan_ready"] is False
+    assert packet["conflict_summary"]["scanned_drop_count"] == 0
+    assert any(
+        item.startswith("stabilization_proof_record_malformed:")
+        for item in packet["missing_or_invalid_inputs"]
+    )
+    assert packet["recommended_next_lane"] == (
+        "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN_REGENERATION"
+    )
+
+
+def test_mixed_dict_and_string_proof_records_fail_closed() -> None:
+    """One unscanned string sibling must not hide authority claims on the dict."""
+    packet = build_research_cross_drop_conflict_scan(
+        p98_packet={
+            **_VALID_P98_PACKET,
+            "stabilization_proof_records": [
+                {
+                    "proof_id": "DROP006_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN",
+                    "execution_authority": True,
+                    "production_activation": True,
+                },
+                "DROP007_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN",
+            ],
+        }
+    )
+    assert packet["conflict_scan_status"] == "NOT_COMPUTABLE"
+    assert packet["conflict_scan_ready"] is False
+    assert packet["conflict_findings"] == []
+    assert "stabilization_proof_record_malformed:index=1:type=str" in (
+        packet["missing_or_invalid_inputs"]
+    )
+
+
 def test_valid_p98_returns_pass_with_one_pairwise_finding() -> None:
     packet = build_research_cross_drop_conflict_scan(p98_packet=_VALID_P98_PACKET)
     assert packet["conflict_scan_status"] == "PASS"
