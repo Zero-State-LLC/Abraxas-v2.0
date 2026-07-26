@@ -69,10 +69,11 @@ IMPORT_ALLOWLIST = frozenset(
         "skills/abx-stabilization-readiness/models.py",
         "skills/abx-stabilization-readiness/contract_inventory.py",
         "skills/abx-stabilization-readiness/director.py",
-        # FastAPI app — RuntimePaths via core.config
+        # FastAPI app — RuntimePaths via core.config; analyze uses activation lanes
         "apps/api/deps.py",
         "apps/api/routers/validation.py",
         "apps/api/routers/registry.py",
+        "apps/api/routers/analyze.py",
     }
 )
 
