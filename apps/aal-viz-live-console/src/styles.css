@@ -5435,6 +5435,13 @@ html, body, #root {
   margin-top: 4px;
   word-break: break-word;
 }
+/* Status-glance rows: readable monospace lines, still non-interactive */
+.operator-loop-surface__item {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #b8c9cf;
+  padding-left: 2px;
+  line-height: 1.35;
+}
 .operator-loop-packet {
   margin-top: 8px;
   font-size: 12px;
