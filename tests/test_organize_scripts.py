@@ -63,6 +63,7 @@ def test_prefix_map_coverage():
 def test_no_duplicate_targets():
     # Multiple prefixes may share a domain; assert the known domain set.
     assert set(PREFIX_MAP.values()) == {
+        "alembic",
         "artifact",
         "belief",
         "campaign",
@@ -100,6 +101,7 @@ def test_resolve_target_dir_wave3_prefixes():
     assert resolve_target_dir("run_brier_ledger.py") == "belief"
     assert resolve_target_dir("run_fusion_governance_audit.py") == "viz"
     assert resolve_target_dir("run_global_ingest_adapter_spine_alignment_plan.py") == "ingest"
+    assert resolve_target_dir("run_alembic_spine.py") == "alembic"
     assert resolve_target_dir("run_writer_debt_triage.py") == "readiness"
     assert resolve_target_dir("run_fast_ci.py") is None  # sole root keeper
     assert resolve_target_dir("run_operator_review_routing_enhancer.py") == "operator"
