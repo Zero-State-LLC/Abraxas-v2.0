@@ -73,8 +73,9 @@
 | **2** | AAL-Viz + shared engineering runes (outline/solid/engrave/motion) | **Shipped** |
 | **3** | Architecture diagrams, infographics, reports, banners | **Shipped** |
 | **4** | Motion primitives, spatial fields, responsive/PWA, marketing showcases | **Shipped** |
+| **0.5** | Operator-loop roles, nodes, edges, provenance badges, work states | **Shipped** |
 
-**Inventory status:** authored pack **COMPLETE** (batches 0–4).
+**Inventory status:** authored pack **COMPLETE** (batches 0–4 + operator-loop 0.5).
 
 ### Batch 1–2 paths
 
@@ -97,7 +98,8 @@
 | Fields | `fields/` | batch4 |
 | Responsive / PWA | `responsive/` · `pwa/` | batch4 |
 | Marketing showcases | `marketing/` | batch4 |
-| Manifests | `aal_viz_asset_manifest.batch{1,2,3,4}.v1.json` | batch1–4 |
+| Operator loop | `operator_loop/` | `generate_aal_viz_operator_loop_assets.py` |
+| Manifests | `aal_viz_asset_manifest.batch{1,2,3,4}.v1.json` + `.operator_loop.v1.json` | batch1–4 + 0.5 |
 
 ### Rune grammar (batch 2)
 

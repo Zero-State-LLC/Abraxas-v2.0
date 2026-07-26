@@ -1,0 +1,1128 @@
+{
+  "schema_version": "AALVizAssetManifest.v1",
+  "name": "aal-viz-operator-loop",
+  "batch": "0.5",
+  "version": "0.1.0",
+  "updated": "2026-07-26",
+  "companion_spec": "docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md",
+  "hallmark": {
+    "genre": "atmospheric-technical",
+    "enrichment": "Tier B systems glyphs (not mascots)",
+    "rule": "Producer identity records provenance; it does not grant authority."
+  },
+  "producer_system": "GROK+HALLMARK",
+  "asset_count": 31,
+  "file_count_approx": 39,
+  "assets": [
+    {
+      "asset_id": "AALVIZ-OPLOOP-HUMAN_OPERATOR",
+      "name": "human_operator",
+      "category": "operator_loop_role",
+      "semantic_role": "HUMAN_OPERATOR",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Human operator",
+      "source_file": "design-system/aal-viz/operator_loop/roles/human_operator.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/human_operator.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-HERMES_ORCHESTRATOR",
+      "name": "hermes_orchestrator",
+      "category": "operator_loop_role",
+      "semantic_role": "HERMES_ORCHESTRATOR",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Hermes orchestrator",
+      "source_file": "design-system/aal-viz/operator_loop/roles/hermes_orchestrator.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/hermes_orchestrator.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-GROK_PRODUCER",
+      "name": "grok_producer",
+      "category": "operator_loop_role",
+      "semantic_role": "GROK_PRODUCER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Grok producer",
+      "source_file": "design-system/aal-viz/operator_loop/roles/grok_producer.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/grok_producer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-CODEX_CURSOR_PRODUCER",
+      "name": "codex_cursor_producer",
+      "category": "operator_loop_role",
+      "semantic_role": "CODEX_CURSOR_PRODUCER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Codex/Cursor producer",
+      "source_file": "design-system/aal-viz/operator_loop/roles/codex_cursor_producer.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/codex_cursor_producer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-GITHUB_IMPLEMENTATION_TRUTH",
+      "name": "github_implementation_truth",
+      "category": "operator_loop_role",
+      "semantic_role": "GITHUB_IMPLEMENTATION_TRUTH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "GitHub implementation truth",
+      "source_file": "design-system/aal-viz/operator_loop/roles/github_implementation_truth.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/github_implementation_truth.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-NOTION_ARCHITECTURE_TRUTH",
+      "name": "notion_architecture_truth",
+      "category": "operator_loop_role",
+      "semantic_role": "NOTION_ARCHITECTURE_TRUTH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Notion architecture truth",
+      "source_file": "design-system/aal-viz/operator_loop/roles/notion_architecture_truth.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/notion_architecture_truth.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-CI_VALIDATOR",
+      "name": "ci_validator",
+      "category": "operator_loop_role",
+      "semantic_role": "CI_VALIDATOR",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "CI validator",
+      "source_file": "design-system/aal-viz/operator_loop/roles/ci_validator.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/ci_validator.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-AAL_VIZ_PROJECTION",
+      "name": "aal_viz_projection",
+      "category": "operator_loop_role",
+      "semantic_role": "AAL_VIZ_PROJECTION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz projection",
+      "source_file": "design-system/aal-viz/operator_loop/roles/aal_viz_projection.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/roles/aal_viz_projection.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-WORK_PACKET",
+      "name": "work_packet",
+      "category": "operator_loop_node",
+      "semantic_role": "WORK_PACKET",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work packet node",
+      "source_file": "design-system/aal-viz/operator_loop/nodes/work_packet.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/nodes/work_packet.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-HANDOFF",
+      "name": "handoff",
+      "category": "operator_loop_node",
+      "semantic_role": "HANDOFF",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Handoff node",
+      "source_file": "design-system/aal-viz/operator_loop/nodes/handoff.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/nodes/handoff.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-INTEGRATION",
+      "name": "integration",
+      "category": "operator_loop_node",
+      "semantic_role": "INTEGRATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Integration node",
+      "source_file": "design-system/aal-viz/operator_loop/nodes/integration.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/nodes/integration.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-CONFLICT",
+      "name": "conflict",
+      "category": "operator_loop_node",
+      "semantic_role": "CONFLICT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Conflict node",
+      "source_file": "design-system/aal-viz/operator_loop/nodes/conflict.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/nodes/conflict.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-OPERATOR_DECISION",
+      "name": "operator_decision",
+      "category": "operator_loop_node",
+      "semantic_role": "OPERATOR_DECISION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator decision node",
+      "source_file": "design-system/aal-viz/operator_loop/nodes/operator_decision.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/nodes/operator_decision.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-ASSIGNMENT",
+      "name": "assignment",
+      "category": "operator_loop_edge",
+      "semantic_role": "ASSIGNMENT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Assignment edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/assignment.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/assignment.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-PEER_REVIEW",
+      "name": "peer_review",
+      "category": "operator_loop_edge",
+      "semantic_role": "PEER_REVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Peer review edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/peer_review.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/peer_review.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-VALIDATION",
+      "name": "validation",
+      "category": "operator_loop_edge",
+      "semantic_role": "VALIDATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Validation edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/validation.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/validation.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-HANDOFF_EDGE",
+      "name": "handoff_edge",
+      "category": "operator_loop_edge",
+      "semantic_role": "HANDOFF_EDGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Handoff edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/handoff_edge.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/handoff_edge.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-MERGE",
+      "name": "merge",
+      "category": "operator_loop_edge",
+      "semantic_role": "MERGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Merge edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/merge.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/merge.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BLOCKED_DEPENDENCY",
+      "name": "blocked_dependency",
+      "category": "operator_loop_edge",
+      "semantic_role": "BLOCKED_DEPENDENCY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Blocked dependency edge",
+      "source_file": "design-system/aal-viz/operator_loop/edges/blocked_dependency.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/edges/blocked_dependency.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BADGE_HERMES",
+      "name": "badge_hermes",
+      "category": "operator_loop_badge",
+      "semantic_role": "HERMES",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        88,
+        24
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Producer provenance HERMES",
+      "source_file": "design-system/aal-viz/operator_loop/badges/badge_hermes.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/badges/badge_hermes.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BADGE_GROK",
+      "name": "badge_grok",
+      "category": "operator_loop_badge",
+      "semantic_role": "GROK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        88,
+        24
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Producer provenance GROK",
+      "source_file": "design-system/aal-viz/operator_loop/badges/badge_grok.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/badges/badge_grok.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BADGE_CODEX",
+      "name": "badge_codex",
+      "category": "operator_loop_badge",
+      "semantic_role": "CODEX",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        88,
+        24
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Producer provenance CODEX",
+      "source_file": "design-system/aal-viz/operator_loop/badges/badge_codex.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/badges/badge_codex.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BADGE_MIXED",
+      "name": "badge_mixed",
+      "category": "operator_loop_badge",
+      "semantic_role": "MIXED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        88,
+        24
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Producer provenance MIXED",
+      "source_file": "design-system/aal-viz/operator_loop/badges/badge_mixed.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/badges/badge_mixed.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BADGE_HUMAN",
+      "name": "badge_human",
+      "category": "operator_loop_badge",
+      "semantic_role": "HUMAN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        88,
+        24
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Producer provenance HUMAN",
+      "source_file": "design-system/aal-viz/operator_loop/badges/badge_human.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/badges/badge_human.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-ACTIVE",
+      "name": "active",
+      "category": "operator_loop_work_state",
+      "semantic_role": "ACTIVE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state ACTIVE",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/active.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/active.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-WAITING",
+      "name": "waiting",
+      "category": "operator_loop_work_state",
+      "semantic_role": "WAITING",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state WAITING",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/waiting.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/waiting.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-BLOCKED",
+      "name": "blocked",
+      "category": "operator_loop_work_state",
+      "semantic_role": "BLOCKED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state BLOCKED",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/blocked.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/blocked.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-REVIEW",
+      "name": "review",
+      "category": "operator_loop_work_state",
+      "semantic_role": "REVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state REVIEW",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/review.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/review.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-INTEGRATED",
+      "name": "integrated",
+      "category": "operator_loop_work_state",
+      "semantic_role": "INTEGRATED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state INTEGRATED",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/integrated.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/integrated.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-SUPERSEDED",
+      "name": "superseded",
+      "category": "operator_loop_work_state",
+      "semantic_role": "SUPERSEDED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Work state SUPERSEDED",
+      "source_file": "design-system/aal-viz/operator_loop/work_states/superseded.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/work_states/superseded.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    },
+    {
+      "asset_id": "AALVIZ-OPLOOP-CANONICAL_OPERATOR_LOOP",
+      "name": "canonical_operator_loop",
+      "category": "operator_loop_diagram",
+      "semantic_role": "OPERATOR_LOOP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        420
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Canonical multi-agent operator loop",
+      "source_file": "design-system/aal-viz/operator_loop/diagrams/canonical_operator_loop.svg",
+      "export_files": [
+        "design-system/aal-viz/operator_loop/diagrams/canonical_operator_loop.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "0.5",
+      "hallmark": "hand-built-svg-tier-B"
+    }
+  ]
+}

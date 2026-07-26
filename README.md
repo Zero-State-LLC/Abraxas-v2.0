@@ -17,7 +17,7 @@
 | **Live status** | [`STATUS.md`](STATUS.md) — replace block, do not invent readiness |
 | **License** | [Apache-2.0](LICENSE) |
 
-**Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
+**Do not claim production go-live.** Candidate ≠ activation. Merge ≠ go-live.
 
 ---
 
@@ -42,11 +42,14 @@ It is **not** a generic chatbot wrapper. Default posture is **advisory / project
 | **Oracle / ingest** | Signal intake, shadow execution | `docs/atlas/research-canary.md` |
 | **Alembic Spine** | Advisory multi-architecture orchestration | [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
 | **YGGDRASIL** | Deterministic routing topology | ARCHITECTURE.md |
-| **Belief Graph / Phase Percolation** | Structured knowledge + temporal regimes | contracts + tests |
+| **Belief Graph Engine** | Structured knowledge representation (advisory) | contracts + tests |
+| **Phase Percolation** | Temporal regime surfaces (advisory) | contracts + tests |
+| **Codegen Intelligence Spine** | **hygiene-only** by default; expansion operator-gated | gap-analysis plan under `out/audit/` |
 | **CFAR** | Construct-first research gate (before retrieval) | [`docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md`](docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md) · `core/cfar.py` |
 | **AAL-Viz** | Projection-layer console + visual language | [`apps/aal-viz-live-console/`](apps/aal-viz-live-console/) · [`design-system/aal-viz/`](design-system/aal-viz/) |
 | **Design system** | Tokens, icons, runes, Visual OS | [`design-system/`](design-system/) |
 | **Agent artifact metadata** | Multi-agent provenance schema | [`contracts/engineering/agent_artifact_metadata.v1.schema.json`](contracts/engineering/agent_artifact_metadata.v1.schema.json) |
+| **Multi-agent operator loop** | Hermes/Grok/Codex responsibilities (provenance ≠ authority) | [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) · glyphs in `design-system/aal-viz/operator_loop/` |
 
 ---
 

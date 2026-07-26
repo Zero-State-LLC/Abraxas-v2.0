@@ -309,9 +309,32 @@
       </div>
     </section>
 
+    <section>
+      <h2>Operator loop roles (batch 0.5)</h2>
+      <p class="note"><strong>Rule:</strong> producer identity records provenance; it does not grant authority.</p>
+      <div class="grid" id="opl-roles"></div>
+    </section>
+
+    <section>
+      <h2>Operator loop nodes &amp; edges</h2>
+      <div class="grid" id="opl-nodes"></div>
+      <div class="grid" id="opl-edges" style="margin-top:12px"></div>
+    </section>
+
+    <section>
+      <h2>Provenance badges &amp; work states</h2>
+      <div class="brand-row" id="opl-badges"></div>
+      <div class="grid" id="opl-states" style="margin-top:12px"></div>
+    </section>
+
+    <section>
+      <h2>Canonical operator loop diagram</h2>
+      <img class="banner" src="../operator_loop/diagrams/canonical_operator_loop.svg" alt="Canonical multi-agent operator loop" width="960" height="420" />
+    </section>
+
     <footer>
-      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B4 COMPLETE</span>
-      <span>Regenerate: batch0–4 scripts under <code>scripts/design/</code></span>
+      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B4 + operator-loop 0.5</span>
+      <span>Regenerate: batch0–4 + operator_loop scripts under <code>scripts/design/</code></span>
     </footer>
   </div>
   <script>
@@ -440,6 +463,19 @@
         "belief_graph_field","evidence_memory_field","temporal_field","cluster_field",
         "drift_field","operator_review_field","fail_closed_field","archive_field",
         "presentation_wallpaper","docs_banner_bg","social_preview_bg","print_safe_bg"
+      ] },
+      "opl-roles": { dir: "operator_loop/roles", names: [
+        "human_operator","hermes_orchestrator","grok_producer","codex_cursor_producer",
+        "github_implementation_truth","notion_architecture_truth","ci_validator","aal_viz_projection"
+      ] },
+      "opl-nodes": { dir: "operator_loop/nodes", names: [
+        "work_packet","handoff","integration","conflict","operator_decision"
+      ] },
+      "opl-edges": { dir: "operator_loop/edges", names: [
+        "assignment","peer_review","validation","handoff_edge","merge","blocked_dependency"
+      ] },
+      "opl-states": { dir: "operator_loop/work_states", names: [
+        "active","waiting","blocked","review","integrated","superseded"
       ] }
     };
 
@@ -462,6 +498,17 @@
     }
     for (const [id, conf] of Object.entries(families)) {
       fill(id, conf.dir, conf.names, !!conf.wide);
+    }
+    // provenance badges (wider)
+    const badges = document.getElementById("opl-badges");
+    if (badges) {
+      for (const name of ["badge_hermes","badge_grok","badge_codex","badge_mixed","badge_human"]) {
+        const img = document.createElement("img");
+        img.src = `../operator_loop/badges/${name}.svg`;
+        img.alt = name;
+        img.height = 24;
+        badges.append(img);
+      }
     }
   </script>
 </body>

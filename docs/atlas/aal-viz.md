@@ -8,7 +8,8 @@ See [ABRAXAS_ATLAS.md#aal-viz](./ABRAXAS_ATLAS.md#aal-viz).
 |---------|------|
 | Live console | `apps/aal-viz-live-console/` |
 | Projection runners | `scripts/viz/run_aal_viz_*.py` (domain folder — **not** repo root) |
-| Visual language pack | `design-system/aal-viz/` (batches **0–4 COMPLETE**) |
+| Visual language pack | `design-system/aal-viz/` (batches **0–4 COMPLETE** + **operator-loop 0.5**) |
+| Operator-loop glyphs | `design-system/aal-viz/operator_loop/` (roles, nodes, edges, badges, work states) |
 | Pack showcase | `design-system/aal-viz/showcase/index.html` |
 | Design system root | `design-system/README.md` |
 

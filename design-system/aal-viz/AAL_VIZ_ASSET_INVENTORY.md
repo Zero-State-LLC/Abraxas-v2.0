@@ -53,7 +53,23 @@
 | PWA / pinned icons | 5 | `pwa/` |
 | Marketing showcases (honesty-labeled) | 17 | `marketing/` |
 
-**Approx SVG total:** ~800+ under `design-system/aal-viz/`
+## Operator loop (batch 0.5 — multi-agent projection)
+
+Companion: `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`  
+**Rule:** Producer identity = provenance only; no authority grant.
+
+| Family | Count | Path |
+|--------|------:|------|
+| Role glyphs (+ solid) | 8 (16 files) | `operator_loop/roles/` |
+| Loop nodes | 5 | `operator_loop/nodes/` |
+| Loop edges | 6 | `operator_loop/edges/` |
+| Provenance badges | 5 | `operator_loop/badges/` (HERMES·GROK·CODEX·MIXED·HUMAN) |
+| Work states | 6 | `operator_loop/work_states/` |
+| Loop diagram | 1 | `operator_loop/diagrams/` |
+| Manifest | `aal_viz_asset_manifest.operator_loop.v1.json` | |
+| Generator | `scripts/design/generate_aal_viz_operator_loop_assets.py` | |
+
+**Approx SVG total:** ~840+ under `design-system/aal-viz/`
 
 ## Registries
 
@@ -80,4 +96,5 @@ python scripts/design/generate_aal_viz_batch1_assets.py
 python scripts/design/generate_aal_viz_batch2_assets.py
 python scripts/design/generate_aal_viz_batch3_assets.py
 python scripts/design/generate_aal_viz_batch4_assets.py
+python scripts/design/generate_aal_viz_operator_loop_assets.py
 ```

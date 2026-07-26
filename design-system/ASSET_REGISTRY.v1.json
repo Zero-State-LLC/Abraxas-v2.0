@@ -7,7 +7,7 @@
   "packages": {
     "aal_viz_projection": {
       "path": "design-system/aal-viz/",
-      "batch": "0+1+2+3+4",
+      "batch": "0+1+2+3+4+operator_loop_0.5",
       "status": "COMPLETE",
       "hallmark": "atmospheric-technical · custom Abraxas grammar · Tier B SVG",
       "manifest_batch0": "design-system/aal-viz/aal_viz_asset_manifest.v1.json",
@@ -15,6 +15,9 @@
       "manifest_batch2": "design-system/aal-viz/aal_viz_asset_manifest.batch2.v1.json",
       "manifest_batch3": "design-system/aal-viz/aal_viz_asset_manifest.batch3.v1.json",
       "manifest_batch4": "design-system/aal-viz/aal_viz_asset_manifest.batch4.v1.json",
+      "manifest_operator_loop": "design-system/aal-viz/aal_viz_asset_manifest.operator_loop.v1.json",
+      "operator_loop": "design-system/aal-viz/operator_loop/",
+      "operator_loop_spec": "docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md",
       "rune_registry": "design-system/aal-viz/AAL_VIZ_RUNE_REGISTRY.json",
       "diagram_registry": "design-system/aal-viz/AAL_VIZ_DIAGRAM_REGISTRY.json",
       "motion_registry": "design-system/aal-viz/AAL_VIZ_MOTION_REGISTRY.json",
@@ -27,9 +30,10 @@
         "scripts/design/generate_aal_viz_batch1_assets.py",
         "scripts/design/generate_aal_viz_batch2_assets.py",
         "scripts/design/generate_aal_viz_batch3_assets.py",
-        "scripts/design/generate_aal_viz_batch4_assets.py"
+        "scripts/design/generate_aal_viz_batch4_assets.py",
+        "scripts/design/generate_aal_viz_operator_loop_assets.py"
       ],
-      "note": "AAL-Viz projection-layer authored pack COMPLETE (batches 0–4); distinct from root Abraxas brand/"
+      "note": "AAL-Viz projection-layer authored pack COMPLETE (batches 0–4 + operator-loop 0.5); distinct from root Abraxas brand/"
     },
     "tokens": {
       "path": "design-system/tokens/",

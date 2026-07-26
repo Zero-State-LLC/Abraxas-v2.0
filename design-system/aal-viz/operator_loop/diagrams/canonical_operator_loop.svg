@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="Canonical multi-agent operator loop">
+  <title>Canonical multi-agent operator loop</title>
+  <rect width="960" height="420" fill="#0B1020"/>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+  <text x="24" y="28" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">IMPLEMENTED SYSTEM MAP · PROJECTION ONLY</text>
+  <text x="24" y="56" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="20" font-weight="600" fill="#E8EEF7">Canonical multi-agent operator loop</text>
+  <text x="24" y="80" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12" fill="#64748B">Producer identity = provenance only · Operator retains merge/deploy authority</text>
+  <rect x="28" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="40" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">INTAKE</text>
+  <path d="M168 142 H183" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M178 138 L183 142 L178 146" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="183" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="195" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">CONTEXT</text>
+  <path d="M323 142 H338" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M333 138 L338 142 L333 146" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="338" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="350" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">CLASSIFY</text>
+  <path d="M478 142 H493" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M488 138 L493 142 L488 146" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="493" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="505" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">DECOMPOSE</text>
+  <path d="M633 142 H648" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M643 138 L648 142 L643 146" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="648" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="660" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">ROUTE</text>
+  <path d="M788 142 H803" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M798 138 L803 142 L798 146" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="803" y="120" width="140" height="44" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="815" y="147" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">PRODUCE</text>
+  <path d="M873 164 V186" stroke="#64748B" stroke-width="1.5"/>
+  <rect x="28" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="40" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">VALIDATE</text>
+  <path d="M168 252 H183" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M178 248 L183 252 L178 256" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="183" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="195" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">RECONCILE</text>
+  <path d="M323 252 H338" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M333 248 L338 252 L333 256" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="338" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="350" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">OP REVIEW</text>
+  <path d="M478 252 H493" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M488 248 L493 252 L488 256" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="493" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="505" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">INTEGRATE</text>
+  <path d="M633 252 H648" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M643 248 L648 252 L643 256" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="648" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="660" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">SEAL</text>
+  <path d="M788 252 H803" stroke="#64748B" stroke-width="1.5"/>
+  <path d="M798 248 L803 252 L798 256" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="803" y="230" width="140" height="44" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="815" y="257" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8EEF7">CONTINUE</text>
+  <text x="24" y="396" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · OPERATOR LOOP · NO EXECUTION AUTHORITY</text>
+</svg>

@@ -585,5 +585,45 @@
     "yggdrasil_showcase",
     "readiness_showcase",
     "case_study_cover"
+  ],
+  "operator_loop_roles": [
+    "human_operator",
+    "hermes_orchestrator",
+    "grok_producer",
+    "codex_cursor_producer",
+    "github_implementation_truth",
+    "notion_architecture_truth",
+    "ci_validator",
+    "aal_viz_projection"
+  ],
+  "operator_loop_nodes": [
+    "work_packet",
+    "handoff",
+    "integration",
+    "conflict",
+    "operator_decision"
+  ],
+  "operator_loop_edges": [
+    "assignment",
+    "peer_review",
+    "validation",
+    "handoff_edge",
+    "merge",
+    "blocked_dependency"
+  ],
+  "operator_loop_badges": [
+    "badge_hermes",
+    "badge_grok",
+    "badge_codex",
+    "badge_mixed",
+    "badge_human"
+  ],
+  "operator_loop_work_states": [
+    "active",
+    "waiting",
+    "blocked",
+    "review",
+    "integrated",
+    "superseded"
   ]
 }
