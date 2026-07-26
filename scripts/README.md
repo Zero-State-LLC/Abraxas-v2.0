@@ -6,6 +6,7 @@ Domain-organized runners and helpers. Mass-org waves 1–3 + finish pass.
 
 | Domain | Role |
 |--------|------|
+| `alembic` | Alembic Spine multi-architecture orchestration |
 | `artifact` | Artifact contracts / regeneration |
 | `belief` | Belief graph / Brier / hyperstition |
 | `campaign` | Campaign / external action |

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/alembic/task_envelope.v1.schema.json",
+  "title": "TaskEnvelope.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "run_id",
+    "goal",
+    "task_type",
+    "input_modalities",
+    "required_output_contract"
+  ],
+  "properties": {
+    "schema_version": { "const": "TaskEnvelope.v1" },
+    "task_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "goal": { "type": "string", "minLength": 1 },
+    "task_type": { "type": "string", "minLength": 1 },
+    "input_modalities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "input_artifacts": { "type": "array", "items": { "type": "object" } },
+    "required_output_contract": { "type": "string", "minLength": 1 },
+    "constraints": { "type": "object" },
+    "latency_budget_ms": { "type": ["number", "null"], "minimum": 0 },
+    "compute_budget": { "type": ["number", "null"], "minimum": 0 },
+    "cost_budget": { "type": ["number", "null"], "minimum": 0 },
+    "energy_budget": { "type": ["number", "null"], "minimum": 0 },
+    "privacy_class": { "type": "string" },
+    "security_class": { "type": "string" },
+    "required_determinism": {
+      "type": "string",
+      "enum": [
+        "STRICT_DETERMINISTIC",
+        "BOUNDED_DETERMINISTIC",
+        "STOCHASTIC_REPLAYABLE",
+        "NONDETERMINISTIC"
+      ]
+    },
+    "uncertainty_tolerance": { "type": "number", "minimum": 0, "maximum": 1 },
+    "verification_requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "allowed_architecture_families": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "disallowed_architecture_families": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_runes": { "type": "array", "items": { "type": "string" } },
+    "operator_policy_ref": { "type": ["string", "null"] },
+    "governance_context": { "type": "object" },
+    "historical_context_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "lane": { "type": "string", "enum": ["ADVISORY", "SHADOW", "FORECAST"] },
+    "require_calibration": { "type": "boolean" },
+    "provenance": { "type": "object" }
+  }
+}

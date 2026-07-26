@@ -1,0 +1,64 @@
+{
+  "schema_version": "ArchitectureRegistry.v1",
+  "registry_id": "alembic.architecture_registry.v1",
+  "architectures": [
+    {
+      "architecture_id": "arch.symbolic_verifier.v1",
+      "architecture_family": "symbolic_expert",
+      "adapter_id": "adapter.symbolic_verifier",
+      "status": "ENABLED",
+      "is_stub": false
+    },
+    {
+      "architecture_id": "arch.deterministic_solver.v1",
+      "architecture_family": "deterministic_tool",
+      "adapter_id": "adapter.deterministic_solver",
+      "status": "ENABLED",
+      "is_stub": false
+    },
+    {
+      "architecture_id": "arch.statistical_calibrator.v1",
+      "architecture_family": "statistical_ml",
+      "adapter_id": "adapter.statistical_calibrator",
+      "status": "ENABLED",
+      "is_stub": false
+    },
+    {
+      "architecture_id": "arch.graph_memetic.v1",
+      "architecture_family": "graph_neural",
+      "adapter_id": "adapter.graph_memetic",
+      "status": "ENABLED",
+      "is_stub": false
+    },
+    {
+      "architecture_id": "arch.ssm_sequence.v1",
+      "architecture_family": "state_space_sequence",
+      "adapter_id": "adapter.ssm_sequence.stub",
+      "status": "NOT_IMPLEMENTED",
+      "is_stub": true
+    },
+    {
+      "architecture_id": "arch.generative.v1",
+      "architecture_family": "generative",
+      "adapter_id": "adapter.generative.stub",
+      "status": "NOT_IMPLEMENTED",
+      "is_stub": true
+    },
+    {
+      "architecture_id": "arch.snn_neuromorphic.v1",
+      "architecture_family": "spiking_neuromorphic",
+      "adapter_id": "adapter.snn_neuromorphic.stub",
+      "status": "UNAVAILABLE",
+      "is_stub": true
+    },
+    {
+      "architecture_id": "arch.human_operator_review.v1",
+      "architecture_family": "human_operator_review",
+      "adapter_id": "adapter.operator_review",
+      "status": "ENABLED",
+      "is_stub": false
+    }
+  ],
+  "notes": "Canonical adapter implementations live in core/alembic/adapters; this file is the deterministic registry snapshot contract.",
+  "FINAL_STATUS": "ALEMBIC_SPINE_ADVISORY_ONLY"
+}

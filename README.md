@@ -24,6 +24,7 @@ Built on principles of strict provenance, observable execution, and human-in-the
 ### Key Subsystems & Components
 
 - **Oracle Signal Layer**: Intake, normalization, shadow execution, and signal foraging.
+- **Alembic Spine**: Advisory multi-architecture orchestration (taxonomy, eligibility router, adapters, verification, deterministic fusion, multi-level metrics). See [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md). Status: `ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`.
 - **YGGDRASIL Routing**: Deterministic route/dependency topology with authority boundaries, rune bindings, and Shadow Map (T0–T4) hygiene. Residual unbound nodes default to Zone Isolation (T0).
 - **Continuity Spine & Artifact Registry**: Temporal evidence tracking and deterministic snapshots.
 - **Belief Graph Engine**: Structured knowledge representation with frozen `SignalGraph.v1`. Advisory Graph Signal Processing (contractive confidence fixed-point) and zone extraction surfaces exist for shadow use.

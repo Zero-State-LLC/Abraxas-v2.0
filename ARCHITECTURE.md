@@ -58,6 +58,10 @@ Key subdirectories:
   subsystem implementations organized by domain.
 - `core/yggdrasil/` — route graph models, validator, and runtime topology.
 - `core/belief_graph/` — Belief Graph contracts and builders (SignalGraph.v1 frozen).
+- `core/alembic/` — **Alembic Spine** advisory multi-architecture orchestration
+  (taxonomy, registry, eligibility router, adapters, verification, fusion,
+  shadow compare, proposal-only meta-optimization). Status:
+  `ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`. See `docs/alembic/ALEMBIC_SPINE.md`.
 - `core/phase_percolation_engine_stub.py` — advisory temporal regime surface.
 - `core/hygiene/` — **optional Soft Facade advisory receipts** (OutputHygiene,
   YggdrasilScan, CommonPipeline, ProofPair + uniform checklist). Pure
@@ -80,6 +84,7 @@ from `core/` or `tests/`.
 - `contracts/phase_percolation/` — PhaseRegimeObject.v1 and TemporalFormula.v1.
 - `contracts/yggdrasil/` — Route graphs, binding matrix, coupling map, Shadow Map.v1.
 - `contracts/runes/` — Rune catalog and bind/merge receipt schemas.
+- `contracts/alembic/` — Alembic task/contribution/routing/fusion schemas, registry snapshot, router policy, rune proposals (non-live).
 
 ### `out/`
 

@@ -1,7 +1,9 @@
 # ALEMBIC SPINE: Multi-Architecture Unification Plan for Abraxas v2.0
 
-**Status**: PROPOSAL / ADVISORY_ONLY | GOVERNANCE: Operator Review Gate Required
-**Version**: 001 | Date: 2026-07-22
+**Status**: ADVISORY IMPLEMENTATION LANDED / ADVISORY_ONLY | Final status: `ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`
+**Version**: 001 | Date: 2026-07-22 | Implementation update: 2026-07-26
+**Canonical docs**: [`docs/alembic/ALEMBIC_SPINE.md`](../alembic/ALEMBIC_SPINE.md) · [`docs/alembic/AUDIT_AND_RECONCILIATION_001.md`](../alembic/AUDIT_AND_RECONCILIATION_001.md)
+**Code owners**: `core/alembic/` · `contracts/alembic/` · `scripts/alembic/run_alembic_spine.py`
 **Provenance**: Derived from comprehensive survey of AI architectures beyond LLMs (symbolic, statistical, connectionist variants incl. CNN/GNN/SSM/Mamba/RWKV, neuromorphic/SNN, neuro-symbolic hybrids, generative, agentic/world models, etc.). Integrated with Abraxas v2.0 governed symbolic intelligence core (Oracle Signal Layer, YGGDRASIL Routing, ABX-Runes, Governance Engine V3, Brier scoring, Temporal Continuity, Artifact Registry).
 
 ## Executive Summary
@@ -92,14 +94,13 @@ Central governance (runes, YGGDRASIL) as alchemical vessel. (See accompanying co
 - Positioning as governed pluralism exemplar.
 
 ## Immediate Next Steps
-1. Operator review & authorization of this plan (decision record / gate).
-2. Create/update PLANS.md or this file in repo with receipt.
-3. Phase 0 kickoff: Taxonomy + router prototype (advisory/sandbox).
-4. Propose new runes/contracts extensions.
-5. Schedule review gates.
-6. Reconcile with STATUS.md, ARCHITECTURE.md, Notion trackers.
+1. ~~Phase 0/1 advisory implementation~~ — landed under `core/alembic/` (advisory-complete with residuals).
+2. Operator review of residuals (live Alembic-native runes + YGGDRASIL pipeline binding).
+3. Keep SNN/SSM/generative paths stubbed until evaluation evidence justifies promotion.
+4. Reconcile Notion trackers with repo status (`ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`).
+5. Do not treat this surface as production authority.
 
-**Seal**: Proposal surface. Does not grant authority, mutate canon/runtime, or enable execution/writeback. All changes require explicit operator gates and receipts. Aligns with Governance V3, fail-closed posture, and evidence-first development.
+**Seal**: Advisory implementation surface. Does not grant authority, mutate canon/runtime, or enable execution/writeback. Router-change proposals remain operator-gated. Aligns with Governance V3, fail-closed posture, and evidence-first development.
 
 **Related**: Ties directly to existing Oracle Signal Layer, Global Ingest Adapter Spine, ABX Codegen Intelligence Spine, runes/YGGDRASIL, Brier telemetry, and hyperstition/memetic work. Supports Abraxas v2.0 recursive self-improvement and pluralistic intelligence goals.
 
