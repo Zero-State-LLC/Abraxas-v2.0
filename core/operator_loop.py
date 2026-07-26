@@ -169,11 +169,214 @@ def _projection_hash(payload: Mapping[str, Any]) -> str:
     return hashlib.sha256(_canonical_json(payload).encode("utf-8")).hexdigest()
 
 
+def build_truth_surfaces(
+    *,
+    github: Mapping[str, Any] | None = None,
+    notion: Mapping[str, Any] | None = None,
+    ci: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Normalize GitHub / Notion / CI evidence for projection.
+
+    Surfaces are display-only. They never grant merge, assignment, or deploy
+    authority. Missing sources are visible as empty lists with explicit status.
+    """
+
+    def _surface(
+        *,
+        role: str,
+        truth_claim: str,
+        glyph: str,
+        payload: Mapping[str, Any] | None,
+    ) -> dict[str, Any]:
+        data = dict(payload or {})
+        items = data.get("items")
+        if not isinstance(items, list):
+            items = []
+        status = str(data.get("status") or ("PRESENT" if items else "NOT_COMPUTABLE"))
+        return {
+            "role": role,
+            "truth_claim": truth_claim,
+            "glyph": glyph,
+            "status": status,
+            "source": str(data.get("source") or "none"),
+            "items": [dict(i) if isinstance(i, Mapping) else {"value": i} for i in items],
+            "notes": list(data.get("notes") or []),
+            "authority_implication": "none",
+            "can_assign": False,
+            "can_approve": False,
+            "can_merge": False,
+            "can_deploy": False,
+        }
+
+    return {
+        "github": _surface(
+            role="implementation_truth",
+            truth_claim="GitHub is implementation, PR, CI, and merge truth.",
+            glyph="github_implementation_truth",
+            payload=github,
+        ),
+        "notion": _surface(
+            role="architecture_truth",
+            truth_claim="Notion is architecture, ownership, and durable-spec truth.",
+            glyph="notion_architecture_truth",
+            payload=notion,
+        ),
+        "ci": _surface(
+            role="deterministic_evidence",
+            truth_claim="CI/validation supplies deterministic technical evidence only.",
+            glyph="ci_validator",
+            payload=ci,
+        ),
+        "lineage_rule": (
+            "Lineage projects request → packet → handoff → PR/commit → Notion update; "
+            "producer badges are provenance only."
+        ),
+    }
+
+
+def collect_local_truth_surfaces(
+    *,
+    repo_root: Path | None = None,
+    evidence_dir: Path | None = None,
+    git_head: str | None = None,
+    git_branch: str | None = None,
+    include_local_git: bool = True,
+) -> dict[str, Any]:
+    """Collect offline-friendly truth surfaces from files + optional git refs.
+
+    Never calls the network. Optional evidence files:
+      out/operator_loop/evidence/github.v1.json
+      out/operator_loop/evidence/notion.v1.json
+      out/operator_loop/evidence/ci.v1.json
+    each shaped as {status?, source?, items: [], notes?: []}.
+    """
+    root = repo_root or ROOT
+    evidence = evidence_dir or (root / "out" / "operator_loop" / "evidence")
+
+    def _load_optional(name: str) -> dict[str, Any]:
+        path = evidence / name
+        if not path.is_file():
+            return {}
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return {
+                "status": "NOT_COMPUTABLE",
+                "source": str(path),
+                "items": [],
+                "notes": [f"failed to parse {name}"],
+            }
+        return payload if isinstance(payload, dict) else {}
+
+    github = _load_optional("github.v1.json")
+    notion = _load_optional("notion.v1.json")
+    ci = _load_optional("ci.v1.json")
+
+    # Local git tip (no network) — implementation-truth pointer only.
+    if not github.get("items") and include_local_git:
+        head = git_head
+        branch = git_branch
+        if head is None or branch is None:
+            head_path = root / ".git" / "HEAD"
+            if head_path.is_file():
+                try:
+                    head_text = head_path.read_text(encoding="utf-8").strip()
+                except OSError:
+                    head_text = ""
+                if head_text.startswith("ref:"):
+                    ref = head_text.split(" ", 1)[1].strip()
+                    branch = branch or ref.rsplit("/", 1)[-1]
+                    ref_file = root / ".git" / ref
+                    if ref_file.is_file():
+                        try:
+                            head = ref_file.read_text(encoding="utf-8").strip()
+                        except OSError:
+                            head = None
+                elif len(head_text) >= 7:
+                    head = head_text
+        items: list[dict[str, Any]] = []
+        if head:
+            items.append(
+                {
+                    "kind": "git_tip",
+                    "sha": head[:40],
+                    "branch": branch or "unknown",
+                    "authority_implication": "none",
+                }
+            )
+        github = {
+            "status": "PRESENT" if items else "NOT_COMPUTABLE",
+            "source": "local_git_refs",
+            "items": items,
+            "notes": [
+                (
+                    "Local tip only — open PR/CI lists require optional evidence "
+                    "files or an explicit live gatherer; never auto-merged."
+                )
+            ],
+        }
+    elif not github.get("items"):
+        github = {
+            "status": "NOT_COMPUTABLE",
+            "source": "none",
+            "items": [],
+            "notes": ["local git tip disabled; no github.v1.json evidence file"],
+        }
+
+    if not notion.get("items"):
+        notion = {
+            "status": "PRESENT",
+            "source": "repo_architecture_pointers",
+            "items": [
+                {
+                    "kind": "architecture_doc",
+                    "path": "docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md",
+                    "title": "Multi-Agent Operator Loop 001",
+                },
+                {
+                    "kind": "status_doc",
+                    "path": "STATUS.md",
+                    "title": "Repository STATUS (readiness table)",
+                },
+                {
+                    "kind": "plans_doc",
+                    "path": "PLANS.md",
+                    "title": "PLANS roadmap front door",
+                },
+                {
+                    "kind": "notion_pointer",
+                    "title": "Abraxas — Master System (AAL Canon)",
+                    "note": "Architecture truth lives in Notion; repo docs are pointers.",
+                },
+            ],
+            "notes": [
+                "Notion remains architecture/ownership truth; these are projection pointers only."
+            ],
+        }
+
+    if not ci.get("items"):
+        ci = {
+            "status": "NOT_COMPUTABLE",
+            "source": "none",
+            "items": [],
+            "notes": [
+                (
+                    "Provide out/operator_loop/evidence/ci.v1.json for check "
+                    "evidence, or rely on GitHub Actions UI. Projection never "
+                    "flips deploy gates."
+                )
+            ],
+        }
+
+    return build_truth_surfaces(github=github, notion=notion, ci=ci)
+
+
 def build_operator_loop_projection(
     *,
     work_packets: Sequence[Mapping[str, Any]] | None = None,
     handoffs: Sequence[Mapping[str, Any]] | None = None,
     source_paths: Sequence[str] | None = None,
+    truth_surfaces: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build a read-only AAL-Viz operator-loop projection.
 
@@ -183,6 +386,11 @@ def build_operator_loop_projection(
     """
     packets = list(work_packets or [])
     envelopes = list(handoffs or [])
+    surfaces = (
+        dict(truth_surfaces)
+        if truth_surfaces is not None
+        else build_truth_surfaces()
+    )
 
     validated_packets: list[dict[str, Any]] = []
     packet_errors: list[dict[str, str]] = []
@@ -266,10 +474,18 @@ def build_operator_loop_projection(
             "by_producer": dict(sorted(by_producer.items())),
             "by_work_state": dict(sorted(by_state.items())),
             "validation_error_count": len(packet_errors) + len(handoff_errors),
+            "github_item_count": len(
+                (surfaces.get("github") or {}).get("items") or []
+            ),
+            "notion_item_count": len(
+                (surfaces.get("notion") or {}).get("items") or []
+            ),
+            "ci_item_count": len((surfaces.get("ci") or {}).get("items") or []),
         },
         "work_packets": packet_nodes,
         "handoffs": handoff_nodes,
         "file_overlaps": overlaps,
+        "truth_surfaces": surfaces,
         "validation_errors": {
             "work_packets": packet_errors,
             "handoffs": handoff_errors,
@@ -316,6 +532,10 @@ def build_operator_loop_projection(
             "Producer identity records provenance; it does not grant authority.",
             "AAL-Viz projects the operator loop; it does not run it.",
             "Semantic and architectural conflicts require operator disposition.",
+            (
+                "GitHub = implementation truth; Notion = architecture truth; "
+                "CI = deterministic evidence; none assign or approve."
+            ),
         ],
     }
     body["projection_hash"] = _projection_hash(
@@ -413,10 +633,10 @@ def example_handoff(
         "inferred_findings": [],
         "conflicts_detected": [],
         "residual_risks": [
-            "Hermes/Grok prompt updates still pending (implementation sequence 6–8)"
+            "Sequence 9–10: truth surfaces project only; assignment stays outside AAL-Viz"
         ],
         "next_recommended_action": (
-            "Operator review of contracts; wire Hermes skills to emit WorkPacket.v1"
+            "Operator review of contracts; project truth surfaces via builder script"
         ),
         "branch": "feat/operator-loop-work-packet-contracts",
         "pull_request": None,
