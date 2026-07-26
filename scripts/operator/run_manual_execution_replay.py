@@ -1,25 +1,16 @@
 #!/usr/bin/env python3
-"""Print manual execution replay slice; ensure packet via sole-writer if missing."""
+"""Print manual execution replay slice; fail closed if packet is missing."""
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
-from core.manual_execution.runtime import run_manual_execution_authorization
-
-
 if __name__ == "__main__":
-    p = Path("out/manual_execution/latest.json")
-    if not p.exists():
-        packet = run_manual_execution_authorization([], [], [], [], [])
-        write_canonical_json("out/manual_execution/latest.json", packet)
-        write_canonical_json("out/manual_execution_replay/latest.json", packet["replay"])
-        write_canonical_json(
-            "out/manual_execution_lineage/latest.json", packet["lineage"]
+    replay_path = Path("out/manual_execution_replay/latest.json")
+    if not replay_path.exists():
+        raise FileNotFoundError(
+            "required artifact missing: out/manual_execution_replay/latest.json "
+            "(refuse empty-list synthetic manual execution packet)"
         )
-        write_canonical_json(
-            "out/manual_execution_diagnostics/latest.json", packet["diagnostics"]
-        )
-    print(json.loads(Path("out/manual_execution_replay/latest.json").read_text()))
+    print(json.loads(replay_path.read_text(encoding="utf-8")))

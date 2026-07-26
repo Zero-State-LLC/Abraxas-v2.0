@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 # WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
+from core.governance.upstream_evidence import require_upstream_packets
 from core.human_decision_continuity.blockers import HumanDecisionContinuityBlockerPacket
 from core.human_decision_continuity.chains import HumanDecisionChainPacket
 from core.human_decision_continuity.continuity import HumanDecisionContinuityPacket
-from core.human_decision_continuity.deferrals import HumanDecisionContinuityDeferralPacket
-from core.human_decision_continuity.diagnostics import HumanDecisionContinuityDiagnosticPacket
-from core.human_decision_continuity.escalations import HumanDecisionContinuityEscalationPacket
+from core.human_decision_continuity.deferrals import (
+    HumanDecisionContinuityDeferralPacket,
+)
+from core.human_decision_continuity.diagnostics import (
+    HumanDecisionContinuityDiagnosticPacket,
+)
+from core.human_decision_continuity.escalations import (
+    HumanDecisionContinuityEscalationPacket,
+)
 from core.human_decision_continuity.inheritance import HumanDecisionInheritancePacket
 from core.human_decision_continuity.lineage import HumanDecisionContinuityLineagePacket
 from core.human_decision_continuity.operator_review import (
@@ -22,6 +29,13 @@ def run_human_decision_continuity(
     operator_queue_packets: list[dict],
     replay_packets: list[dict],
 ) -> dict[str, object]:
+    require_upstream_packets(
+        ("human_decision_ledger_packets", human_decision_ledger_packets),
+        ("proposal_decision_bridge_packets", proposal_decision_bridge_packets),
+        ("operator_queue_packets", operator_queue_packets),
+        ("replay_packets", replay_packets),
+        surface="human_decision_continuity",
+    )
     _ = (
         human_decision_ledger_packets,
         proposal_decision_bridge_packets,
