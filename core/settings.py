@@ -38,6 +38,8 @@ class RuntimeSettings(BaseSettings):
     # Integration boundaries (fail-closed when enabled; adapters not wired yet).
     require_auth: bool = False
     require_rate_limit: bool = False
+    # Provider invoke gate (FixtureProvider / future adapters). Default deny.
+    allow_provider_invoke: bool = False
 
     @field_validator("default_activation_lane", mode="before")
     @classmethod
@@ -80,6 +82,7 @@ class RuntimeSettings(BaseSettings):
             "require_public_readonly_for_analyze": self.require_public_readonly_for_analyze,
             "require_auth": self.require_auth,
             "require_rate_limit": self.require_rate_limit,
+            "allow_provider_invoke": self.allow_provider_invoke,
         }
 
 

@@ -127,6 +127,7 @@ write_canonical_artifact(
 - `core.config.RuntimePaths` — filesystem layout catalog derived from settings roots
 - `core.runtime_context.RuntimeContext` — settings + clock/storage/provider ports
 - Default provider is `DeniedProvider` (fail-closed; no network at import/construct)
+- `FixtureProvider` + `gated_invoke` for deterministic no-network invokes; requires `ABRAXAS_ALLOW_PROVIDER_INVOKE` and never permits EXTERNAL_PRODUCTION
 - Do not treat `RuntimePaths` as the universal DI container
 
 ## 6c. OpenAPI supported surface

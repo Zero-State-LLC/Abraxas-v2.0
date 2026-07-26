@@ -12,14 +12,15 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
 3. Phase 5: classified writer + RuntimeSettings — **landed on PR #1021**
 4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on PR #1021**
-5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **in progress on PR #1021**
-6. Phase 8+: continue residual writer migration; real provider adapters when authorized
+5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on PR #1021**
+6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **in progress on PR #1021**
+7. Phase 9+: residual replay/viz writers; CLEAR reference analysis; live providers only when authorized
 
 ### Next three milestones
 
-1. Keep migrating residual `write_canonical_json` callers outside runtime/readiness
-2. Optional real provider adapters behind lane gates (still no network at import)
-3. CLEAR-phase reference analysis before mass runner deletion
+1. Migrate `*_replay.py` companions and viz overlay sole-writers
+2. CLEAR-phase reference analysis before mass runner deletion
+3. Live provider adapters only behind explicit operator authorization (still no network at import)
 
 ### Blocked / held
 

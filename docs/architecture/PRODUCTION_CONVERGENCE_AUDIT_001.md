@@ -122,6 +122,12 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 3. OpenAPI supported-surface freeze contract `contracts/api/openapi_supported_surface.v1.json`
 4. Recovery drill: analyze → persist → replay (`core/production_convergence/recovery_drill.py`)
 
+### Phase 8
+1. Fourteen spine-adjacent sole-writers migrated to `write_classified_json` (ingest/oracle, brier, forecast, operator, proposal/review, campaign)
+2. `FixtureProvider` + `gated_invoke` (EXTERNAL_PRODUCTION always denied; `ABRAXAS_ALLOW_PROVIDER_INVOKE` default false)
+3. Receipt: `out/production_convergence/phase8_writer_migration.v1.json`
+4. Deferred: `*_replay.py`, viz overlays, artifact-contract repair, doctrine validator, research_canary
+
 ## CLEAR
 
 No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration.
@@ -129,4 +135,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 8+ — residual writer migration; lane-gated real provider adapters when authorized
+- Next action: Phase 9+ — residual replay/viz writers; CLEAR reference analysis; live providers only when authorized
