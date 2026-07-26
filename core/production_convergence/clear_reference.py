@@ -20,6 +20,7 @@ _INPUT_RELS: tuple[str, ...] = (
     "out/production_convergence/phase10_writer_migration.v1.json",
     "out/production_convergence/phase11_writer_migration.v1.json",
     "out/production_convergence/phase12_writer_migration.v1.json",
+    "out/production_convergence/phase13_writer_migration.v1.json",
 )
 
 _RECOMMENDED_ACTIONS = frozenset(
@@ -242,7 +243,7 @@ def build_clear_reference_analysis(repo_root: Path | None = None) -> dict[str, A
             "No mass deletion in this phase.",
             "Historical out/ remains archived provenance.",
             "CLEAR analysis is advisory; operator review required before any removal.",
-            "Phase 8–12 writer migrations consumed as inputs; mass_deletion_authorized remains false.",
+            "Phase 8–13 writer migrations consumed as inputs; mass_deletion_authorized remains false.",
         ],
     }
     payload["canonical_hash"] = canonical_hash(
