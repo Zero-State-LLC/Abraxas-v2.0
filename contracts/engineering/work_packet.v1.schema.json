@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/contracts/engineering/work_packet.v1.schema.json",
+  "title": "WorkPacket.v1",
+  "description": "Bounded multi-agent operator-loop work packet. Declares ownership and routing; does not grant merge, canon, or production authority. Companion to ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_packet_id",
+    "goal",
+    "producer_system",
+    "primary_agent",
+    "secondary_reviewer",
+    "scope",
+    "exclusions",
+    "inputs",
+    "activation_lane",
+    "expected_outputs",
+    "validation_commands",
+    "acceptance_criteria",
+    "dependencies",
+    "conflict_policy",
+    "handoff_target",
+    "work_state",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "WorkPacket.v1"},
+    "work_packet_id": {
+      "type": "string",
+      "pattern": "^WP-[A-Za-z0-9][A-Za-z0-9._:-]{0,62}$",
+      "description": "Stable packet identifier (WP-...)."
+    },
+    "goal": {"type": "string", "minLength": 1},
+    "producer_system": {
+      "enum": ["HERMES", "GROK", "CODEX", "MIXED", "HUMAN"],
+      "description": "Provenance of the assigned producer. Identity is not authority."
+    },
+    "primary_agent": {"type": "string", "minLength": 1},
+    "secondary_reviewer": {"type": ["string", "null"]},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["files", "concepts"],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "concepts": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["notion_pages", "repository_paths", "source_artifacts"],
+      "properties": {
+        "notion_pages": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "repository_paths": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "source_artifacts": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      }
+    },
+    "activation_lane": {
+      "enum": ["LOCAL_DEV", "SANDBOX", "INTERNAL_CANARY", "EXTERNAL_PRODUCTION"]
+    },
+    "expected_outputs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "validation_commands": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "conflict_policy": {
+      "const": "DETECT_CLASSIFY_OPERATOR_DISPOSITION"
+    },
+    "handoff_target": {"type": "string", "minLength": 1},
+    "work_state": {
+      "enum": [
+        "ACTIVE",
+        "WAITING",
+        "BLOCKED",
+        "REVIEW",
+        "INTEGRATED",
+        "SUPERSEDED"
+      ]
+    },
+    "branch": {"type": ["string", "null"]},
+    "pull_request": {"type": ["integer", "null"], "minimum": 1},
+    "notes": {"type": ["string", "null"]},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_identity_grants_authority",
+        "auto_merge",
+        "auto_canon_promotion",
+        "auto_deploy",
+        "assignment_authority",
+        "execution_authority",
+        "operator_review_on_semantic_conflict"
+      ],
+      "properties": {
+        "producer_identity_grants_authority": {"const": false},
+        "auto_merge": {"const": false},
+        "auto_canon_promotion": {"const": false},
+        "auto_deploy": {"const": false},
+        "assignment_authority": {"const": false},
+        "execution_authority": {"const": false},
+        "operator_review_on_semantic_conflict": {"const": true}
+      }
+    }
+  }
+}
