@@ -125,7 +125,13 @@ write_canonical_artifact(
 
 - `core.settings.RuntimeSettings` — activation lane, roots, feature flags (explicit load)
 - `core.config.RuntimePaths` — filesystem layout catalog derived from settings roots
+- `core.runtime_context.RuntimeContext` — settings + clock/storage/provider ports
+- Default provider is `DeniedProvider` (fail-closed; no network at import/construct)
 - Do not treat `RuntimePaths` as the universal DI container
+
+## 6c. OpenAPI supported surface
+
+Frozen routes live in `contracts/api/openapi_supported_surface.v1.json`. Live OpenAPI may grow; it must not shrink the frozen path/method set.
 
 ## 7. What must remain separate
 

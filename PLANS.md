@@ -11,14 +11,15 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
 2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
 3. Phase 5: classified writer + RuntimeSettings — **landed on PR #1021**
-4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **in progress on PR #1021**
-5. Phase 7+: broader writer migration, OpenAPI freeze, provider adapters
+4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on PR #1021**
+5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **in progress on PR #1021**
+6. Phase 8+: continue residual writer migration; real provider adapters when authorized
 
 ### Next three milestones
 
-1. Continue migrating legacy `write_canonical_json` callers → `write_canonical_artifact`
-2. Wire provider adapter ports (still no network at import/construct)
-3. Harden OpenAPI freeze + expand recovery drills beyond unit scope
+1. Keep migrating residual `write_canonical_json` callers outside runtime/readiness
+2. Optional real provider adapters behind lane gates (still no network at import)
+3. CLEAR-phase reference analysis before mass runner deletion
 
 ### Blocked / held
 

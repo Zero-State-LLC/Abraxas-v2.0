@@ -116,6 +116,12 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 3. Service hardening slice: request-id + security headers, sanitized 500s, fail-closed authn/rate-limit seams on `POST /analyze`
 4. OpenAPI route presence check + minimal recovery-drill (FixedClock + storage rewrite)
 
+### Phase 7
+1. `write_classified_json` migration helper + runtime/readiness sole-writer migrations
+2. Provider port (`DeniedProvider` fail-closed; no network at import/construct)
+3. OpenAPI supported-surface freeze contract `contracts/api/openapi_supported_surface.v1.json`
+4. Recovery drill: analyze → persist → replay (`core/production_convergence/recovery_drill.py`)
+
 ## CLEAR
 
 No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration.
@@ -123,4 +129,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 7+ — broader writer migration, fuller OpenAPI freeze, provider adapter seams
+- Next action: Phase 8+ — residual writer migration; lane-gated real provider adapters when authorized

@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 SUBSYSTEMS = [
     ("external_action_proposals", "external_action_proposal_summary", ["external_action_proposal_gate"]),
@@ -109,9 +110,25 @@ def main() -> None:
         "authority_leak_detected": projection.get("inference_authority") is not False,
     }
 
-    write_canonical_json("out/contracts/runtime_test_coverage_correlation.latest.json", inventory)
-    write_canonical_json("out/contracts/runtime_test_coverage_correlation_report.latest.json", report)
-    write_canonical_json("out/contracts/runtime_test_coverage_correlation_gaps.latest.json", gaps)
+    out_root = Path("out")
+    write_classified_json(
+        "out/contracts/runtime_test_coverage_correlation.latest.json",
+        inventory,
+        artifact_class=ArtifactClass.BUILD_EVIDENCE,
+        out_root=out_root,
+    )
+    write_classified_json(
+        "out/contracts/runtime_test_coverage_correlation_report.latest.json",
+        report,
+        artifact_class=ArtifactClass.BUILD_EVIDENCE,
+        out_root=out_root,
+    )
+    write_classified_json(
+        "out/contracts/runtime_test_coverage_correlation_gaps.latest.json",
+        gaps,
+        artifact_class=ArtifactClass.BUILD_EVIDENCE,
+        out_root=out_root,
+    )
 
 
 if __name__ == "__main__":

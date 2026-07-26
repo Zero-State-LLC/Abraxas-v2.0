@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/api/openapi_supported_surface.v1.json",
+  "title": "OpenAPISupportedSurface.v1",
+  "description": "Frozen supported HTTP surface for apps.api.create_app. Live OpenAPI may add routes; it must not shrink these.",
+  "schema_version": "openapi_supported_surface.v1",
+  "candidate_status": "NOT_READY",
+  "routes": [
+    { "path": "/ready", "methods": ["GET"] },
+    { "path": "/version", "methods": ["GET"] },
+    { "path": "/analyze", "methods": ["POST"] },
+    { "path": "/health", "methods": ["GET"] },
+    { "path": "/registry", "methods": ["GET"] },
+    { "path": "/validation", "methods": ["GET"] }
+  ]
+}

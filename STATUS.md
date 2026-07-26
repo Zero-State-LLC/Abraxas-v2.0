@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–6 on PR #1021)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–7 on PR #1021)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -18,9 +18,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
 | Runtime settings | `core.settings.RuntimeSettings` + `RuntimeContext` ports | `core/settings.py`, `core/runtime_context.py` |
 | Service hardening | request-id/headers · sanitized 500 · authn/rate-limit seams | `apps/api/middleware.py`, `apps/api/boundaries.py` |
+| Provider port | `DeniedProvider` default · no network at import | `core/ports/provider.py` |
+| OpenAPI freeze | supported surface contract | `contracts/api/openapi_supported_surface.v1.json` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–6 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
-| Active objective | Broader writer migration; provider adapters; OpenAPI freeze | `PLANS.md` |
+| Convergence audit | Phase 0–7 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Active objective | Residual writer migration; authorized provider adapters later | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

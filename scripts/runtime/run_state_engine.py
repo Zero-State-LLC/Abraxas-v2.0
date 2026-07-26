@@ -5,7 +5,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.config import RuntimePaths
 from core.diagnostics import (
     get_structured_logger,
@@ -136,14 +137,33 @@ def main() -> None:
         result = run_state_engine(execution, replay, telemetry, topology)
     with profiler.measure("state_engine_runtime_write", "write_state_runtime"):
         # Sole-writer publication (WP-D batch2): core/state/runtime is pure builder
-        write_canonical_json(_STATE_RUNTIME_PATH, result)
+        out_root = _PATHS.out_dir
+        write_classified_json(
+            _STATE_RUNTIME_PATH,
+            result,
+            artifact_class=ArtifactClass.RUNTIME_EVENT,
+            out_root=out_root,
+        )
         if "snapshot" in result:
-            write_canonical_json(Path("out/state/latest.json"), result["snapshot"])
+            write_classified_json(
+                Path("out/state/latest.json"),
+                result["snapshot"],
+                artifact_class=ArtifactClass.RUNTIME_EVENT,
+                out_root=out_root,
+            )
         if "lineage" in result:
-            write_canonical_json(Path("out/state_lineage/latest.json"), result["lineage"])
+            write_classified_json(
+                Path("out/state_lineage/latest.json"),
+                result["lineage"],
+                artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+                out_root=out_root,
+            )
         if "stabilization" in result:
-            write_canonical_json(
-                Path("out/stabilization/latest.json"), result["stabilization"]
+            write_classified_json(
+                Path("out/stabilization/latest.json"),
+                result["stabilization"],
+                artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+                out_root=out_root,
             )
 
     correlation_namespace = "state_runtime_write"

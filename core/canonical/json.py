@@ -171,3 +171,46 @@ def write_canonical_artifact(
         return write_canonical_json_if_changed(target, stamped)
     write_canonical_json(target, stamped)
     return True
+
+
+def infer_out_root(path: str | Path, *, fallback: str | Path | None = "out") -> Path | None:
+    """Infer the ``out/`` root that contains *path*, else *fallback*."""
+    target = Path(path)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    for parent in (target.parent, *target.parents):
+        if parent.name == "out":
+            return parent.resolve()
+    if fallback is None:
+        return None
+    return Path(fallback).resolve()
+
+
+def write_classified_json(
+    path: str | Path,
+    value: Any,
+    *,
+    artifact_class: ArtifactClass | str = ArtifactClass.AUDIT_EVIDENCE,
+    out_root: str | Path | None = None,
+    append_only: bool = False,
+    if_changed: bool = True,
+) -> bool:
+    """Migration helper: classified write for dicts; legacy writer for non-dicts.
+
+    Prefer this (or ``write_canonical_artifact``) over bare ``write_canonical_json``
+    for governed ``out/`` publication paths.
+    """
+    if isinstance(value, dict):
+        resolved_root = out_root if out_root is not None else infer_out_root(path)
+        return write_canonical_artifact(
+            path,
+            value,
+            artifact_class=artifact_class,
+            out_root=resolved_root,
+            append_only=append_only,
+            if_changed=if_changed,
+        )
+    if if_changed:
+        return write_canonical_json_if_changed(path, value)
+    write_canonical_json(path, value)
+    return True

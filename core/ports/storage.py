@@ -44,7 +44,10 @@ class FilesystemArtifactStore:
             raise CanonicalWriteError(f"path traversal denied: {relative_path}")
         if not ref.startswith("out/"):
             raise CanonicalWriteError(f"path must be under out/: {relative_path}")
-        target = (self.repo_root / ref).resolve()
+        # Map logical out/... paths into the configured out_dir (may differ from
+        # repo_root/out when RuntimeSettings.out_dir is overridden for drills).
+        suffix = ref[len("out/") :]
+        target = (self.out_dir / suffix).resolve()
         try:
             target.relative_to(self.out_dir)
         except ValueError as exc:

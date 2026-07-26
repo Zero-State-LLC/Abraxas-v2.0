@@ -114,6 +114,22 @@ def test_append_only_collision(tmp_path: Path) -> None:
         )
 
 
+def test_write_classified_json_helper(tmp_path: Path) -> None:
+    from core.canonical.json import write_classified_json
+
+    out_root = tmp_path / "out"
+    target = out_root / "helper.json"
+    assert write_classified_json(
+        target,
+        {"k": 1},
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=out_root,
+    )
+    loaded = json.loads(target.read_text(encoding="utf-8"))
+    assert loaded["artifact_class"] == "AUDIT_EVIDENCE"
+    assert write_classified_json(tmp_path / "legacy.json", ["not", "a", "dict"]) is True
+
+
 def test_prepare_is_idempotent_for_class_fields() -> None:
     first = prepare_canonical_artifact({"x": 1}, ArtifactClass.AUDIT_EVIDENCE)
     second = prepare_canonical_artifact(first, ArtifactClass.AUDIT_EVIDENCE)
