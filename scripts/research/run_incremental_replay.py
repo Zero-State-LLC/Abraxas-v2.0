@@ -41,7 +41,6 @@ from core.replay_incremental import (
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.incremental_replay_latest
-_OUT_ROOT = _PATHS.out_dir
 
 logger = logging.getLogger(__name__)
 
@@ -194,7 +193,7 @@ def main() -> None:
         OUT_PATH,
         receipt,
         artifact_class=ArtifactClass.AUDIT_EVIDENCE,
-        out_root=_OUT_ROOT,
+        out_root=_PATHS.out_dir,
     )
 
     log_event(
