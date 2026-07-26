@@ -89,6 +89,9 @@ Key subdirectories:
   shadow compare, proposal-only meta-optimization). Status:
   `ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`. See `docs/alembic/ALEMBIC_SPINE.md`.
 - `core/phase_percolation_engine_stub.py` — advisory temporal regime surface.
+- `core/cfar.py` — **CFAR** construct-first analytical reasoning gate (deterministic
+  route before evidence retrieval; advisory research surface). See
+  `docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md`.
 - `core/hygiene/` — **optional Soft Facade advisory receipts** (OutputHygiene,
   YggdrasilScan, CommonPipeline, ProofPair + uniform checklist). Pure
   observability composites; individual runes remain the sole authority.
@@ -96,7 +99,11 @@ Key subdirectories:
 
 ### `scripts/`
 
-Runner scripts: `scripts/run_<name>.py`. Each runner is a thin shell around a
+Runners are **domain-organized**: `scripts/<domain>/run_*.py` (mass-org complete).
+Root keeper: `scripts/run_fast_ci.py`. See `scripts/README.md` and
+`python scripts/organize_scripts.py status` → `complete: true`.
+
+Historical note: older docs may say root-only `scripts/run_<name>.py`. Each runner is a thin shell around a
 `core/` module. A runner loads paths from `RuntimePaths.from_env()`, calls a
 `build_*` function, validates the result, and writes the artifact to `out/`.
 
@@ -111,6 +118,20 @@ from `core/` or `tests/`.
 - `contracts/yggdrasil/` — Route graphs, binding matrix, coupling map, Shadow Map.v1.
 - `contracts/runes/` — Rune catalog and bind/merge receipt schemas.
 - `contracts/alembic/` — Alembic task/contribution/routing/fusion schemas, registry snapshot, router policy, rune proposals (non-live).
+- `contracts/cfar/` — ConstructPacket.v1 schema for CFAR.
+- `contracts/engineering/` — multi-agent companion schemas (e.g. AgentArtifactMetadata.v1).
+
+### `design-system/`
+
+Visual Operating System: tokens, brand, system icons, engineering runes, components.
+**AAL-Viz projection pack** (`design-system/aal-viz/`) — authored identity, status glyphs,
+runes, diagrams, motion, and fields for the live console (batches 0–4). Projection-only;
+does not grant execution authority. See `design-system/aal-viz/README.md`.
+
+### `apps/`
+
+- `apps/api/` — FastAPI service factory (`create_app`); supported OpenAPI surface frozen.
+- `apps/aal-viz-live-console/` — Vite/React projection console (LOCAL_DEV).
 
 ### `out/`
 

@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–11 landed)
+> **Last Updated:** 2026-07-26 (CFAR + AgentArtifactMetadata + AAL-Viz pack 0–4 on main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,10 +8,14 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; Phase 9 merged via #1022 | git |
+| HEAD / branch tip | see git; tip after **#1030** CFAR reintro | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
-| Production readiness | **NOT_READY** · deploy held | `out/production_readiness/ws8/*` |
+| Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
+| Scripts organization | **COMPLETE** · domain `scripts/<domain>/run_*.py` | `python scripts/organize_scripts.py status` · #972–#975 |
+| AAL-Viz visual pack | **COMPLETE** batches 0–4 · projection-only assets | `design-system/aal-viz/` · #1028 |
+| Agent artifact metadata | **AgentArtifactMetadata.v1** on main | `contracts/engineering/agent_artifact_metadata.v1.schema.json` · #1029 |
+| CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
 | Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
@@ -23,10 +27,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
 | Convergence audit | Phase 0–11 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
-| Issue backlog | #546 #547 #881 #892 closed (advisory; probe gate unissued) | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
+| Issue backlog | open issues **0** · prior closed advisarily | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
-| Active objective | Phase 12+: CLEAR operator review before deletion | `PLANS.md` |
+| Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
+| Active objective | Phase 12+: CLEAR operator review before deletion · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
 
 ## Session closeout surfaces (2026-07-23)
 
@@ -57,13 +62,13 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
 | Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
 | Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
-| Active plan | CONTINUATION_PLAN.v12 | [`out/production_readiness/CONTINUATION_PLAN.v12.md`](out/production_readiness/CONTINUATION_PLAN.v12.md) |
+| Active plan | CONTINUATION_PLAN.v16 (draft) | [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) |
 | Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
-| Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
-| Landed PR (prior marker) | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
-| Session landings (2026-07-23) | **#990–#998 MERGED** | Soft Facades, scans, conflict gap closure |
-| Debug plan | **DEBUG_PLAN.v2** (whole-repo reaudit) | [`out/production_readiness/DEBUG_PLAN.v2.md`](out/production_readiness/DEBUG_PLAN.v2.md) |
+| Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
+| AAL-Viz projection pack | batches **0–4 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 |
+| Recent landings (2026-07-26) | **#1027–#1030 MERGED** | docs inventory · visual pack · AgentArtifactMetadata · CFAR |
+| Debug plan | **DEBUG_PLAN.v3 COMPLETE** | [`out/production_readiness/DEBUG_PLAN.v3.md`](out/production_readiness/DEBUG_PLAN.v3.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 
 **Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
