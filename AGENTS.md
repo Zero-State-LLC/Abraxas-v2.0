@@ -38,7 +38,7 @@ Consult `out/` artifacts when working on surfaces that depend on historical prov
 - Work packets / handoffs: `contracts/engineering/work_packet.v1.schema.json`, `contracts/engineering/handoff_envelope.v1.schema.json` · `core/operator_loop.py`
 - Agent provenance schema: `contracts/engineering/agent_artifact_metadata.v1.schema.json` — identity ≠ authority
 - CFAR: `core/cfar.py` — research construct gate; not activation
-- Operator-loop projection (read-only dry-run):  
+- Operator-loop projection (read-only dry-run):
   `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`
 
 ### Grok / Grok Build requirements
