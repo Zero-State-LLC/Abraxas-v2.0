@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 64" width="480" height="64" role="img" aria-label="Callout fail_closed">
+  <title>Callout fail_closed</title>
+  <rect width="480" height="64" rx="4" fill="#121A2A" stroke="#243049"/>
+  <rect x="0" y="0" width="4" height="64" fill="#EF4444"/>
+  <text x="20" y="28" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.12em" fill="#EF4444">FAIL_CLOSED</text>
+  <text x="20" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12" fill="#E8EEF7">Callout body — honest, sourced, projection-only.</text>
+</svg>

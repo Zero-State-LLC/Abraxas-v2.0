@@ -7,19 +7,23 @@
   "packages": {
     "aal_viz_projection": {
       "path": "design-system/aal-viz/",
-      "batch": "0+1+2",
+      "batch": "0+1+2+3",
       "hallmark": "atmospheric-technical · custom Abraxas grammar · Tier B SVG",
       "manifest_batch0": "design-system/aal-viz/aal_viz_asset_manifest.v1.json",
       "manifest_batch1": "design-system/aal-viz/aal_viz_asset_manifest.batch1.v1.json",
       "manifest_batch2": "design-system/aal-viz/aal_viz_asset_manifest.batch2.v1.json",
+      "manifest_batch3": "design-system/aal-viz/aal_viz_asset_manifest.batch3.v1.json",
       "rune_registry": "design-system/aal-viz/AAL_VIZ_RUNE_REGISTRY.json",
+      "diagram_registry": "design-system/aal-viz/AAL_VIZ_DIAGRAM_REGISTRY.json",
+      "export_presets": "design-system/aal-viz/AAL_VIZ_EXPORT_PRESET_REGISTRY.json",
       "design_md": "design-system/aal-viz/design.md",
       "showcase": "design-system/aal-viz/showcase/index.html",
       "icon_registry": "design-system/aal-viz/AAL_VIZ_ICON_REGISTRY.json",
       "generators": [
         "scripts/design/generate_aal_viz_batch0_assets.py",
         "scripts/design/generate_aal_viz_batch1_assets.py",
-        "scripts/design/generate_aal_viz_batch2_assets.py"
+        "scripts/design/generate_aal_viz_batch2_assets.py",
+        "scripts/design/generate_aal_viz_batch3_assets.py"
       ],
       "note": "AAL-Viz projection-layer authored pack; distinct from root Abraxas brand/"
     },

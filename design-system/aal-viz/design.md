@@ -71,7 +71,7 @@
 | **0** | Identity + authority + activation + nav + subsystem + graph + governance | **Shipped** |
 | **1** | Empty/error, workflow, metrics, weather (×3 variants), panels, a11y patterns | **Shipped** |
 | **2** | AAL-Viz + shared engineering runes (outline/solid/engrave/motion) | **Shipped** |
-| 3 | Architecture diagrams, reports, README/Notion banners | Planned |
+| **3** | Architecture diagrams, infographics, reports, banners | **Shipped** |
 | 4 | Motion primitives, wallpapers, PWA raster set | Planned |
 
 ### Batch 1–2 paths
@@ -87,7 +87,11 @@
 | Runes AAL-Viz | `runes/aal_viz/` | `generate_aal_viz_batch2_assets.py` |
 | Runes shared | `runes/shared/` | batch2 |
 | Rune registry | `AAL_VIZ_RUNE_REGISTRY.json` | batch2 |
-| Manifests | `aal_viz_asset_manifest.batch{1,2}.v1.json` | batch1/2 |
+| Diagrams | `diagrams/` | `generate_aal_viz_batch3_assets.py` |
+| Infographics | `infographics/` | batch3 |
+| Reports | `reports/` | batch3 |
+| Banners | `banners/` | batch3 |
+| Manifests | `aal_viz_asset_manifest.batch{1,2,3}.v1.json` | batch1–3 |
 
 ### Rune grammar (batch 2)
 

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Canon Spine map">
+  <title>Canon Spine map</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">CONCEPT VISUAL</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">Canon Spine map</text>
+  <path d="M120 280 H840" stroke="#00D4F5" stroke-width="3" fill="none"/>
+  <circle cx="140" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="140" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Identity</text>
+  <circle cx="260" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="260" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Contracts</text>
+  <circle cx="380" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="380" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Runtime</text>
+  <circle cx="500" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="500" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Governance</text>
+  <circle cx="620" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="620" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Evidence</text>
+  <circle cx="740" cy="280" r="10" fill="#0B1020" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="740" y="320" text-anchor="middle" font-size="11" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">Projection</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

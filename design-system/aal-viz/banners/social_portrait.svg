@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350" role="img" aria-label="AAL-VIZ">
+  <title>AAL-VIZ</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="1080" height="1350" fill="#0B1020"/>
+  <rect width="1080" height="1350" fill="#0B1020"/>
+  <rect x="0" y="0" width="1080" height="4" fill="#00D4F5"/>
+  <path d="M0 877.5 C270.0 405.0, 540.0 1080.0, 1080 607.5" fill="none" stroke="#243049" stroke-width="1"/>
+  <path d="M0 1012.5 C324.0 675.0, 648.0 1215.0, 1080 742.5000000000001" fill="none" stroke="#64748B" stroke-width="1" opacity="0.5"/>
+  <circle cx="162" cy="607" r="3" fill="#00D4F5"/>
+  <circle cx="356" cy="769" r="3" fill="#A78BFA"/>
+  <circle cx="550" cy="607" r="3" fill="#00D4F5"/>
+  <circle cx="745" cy="769" r="3" fill="#A78BFA"/>
+  <circle cx="939" cy="607" r="3" fill="#00D4F5"/>
+  <text x="24" y="28" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">PRODUCT VISION</text>
+  <text x="32" y="567" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="36" font-weight="600" fill="#E8EEF7">AAL-VIZ</text>
+  <text x="32" y="603" font-size="14" fill="#64748B" font-family="IBM Plex Sans, system-ui, sans-serif">Observation · topology · evidence</text>
+  <text x="32" y="1326" font-size="10" fill="#64748B" font-family="IBM Plex Mono, monospace">AAL-VIZ · PROJECTION ONLY · NO PRODUCTION CLAIM</text>
+</svg>

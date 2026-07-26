@@ -1,0 +1,2822 @@
+{
+  "schema_version": "AALVizAssetManifest.v1",
+  "name": "aal-viz-batch3-docs-comms",
+  "batch": "3",
+  "version": "0.1.0",
+  "updated": "2026-07-19",
+  "hallmark": {
+    "genre": "atmospheric-technical",
+    "theme": "custom (Abraxas projection grammar)",
+    "enrichment": "Tier B hand-built SVG diagrams/templates"
+  },
+  "producer_system": "GROK+HALLMARK",
+  "asset_count": 80,
+  "file_count_approx": 80,
+  "assets": [
+    {
+      "asset_id": "AALVIZ-DIAG-SPINE_E2E",
+      "name": "spine_e2e",
+      "category": "architecture_diagram",
+      "semantic_role": "SPINE_E2E",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Abraxas end-to-end supported spine",
+      "source_file": "design-system/aal-viz/diagrams/spine_e2e.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/spine_e2e.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-AUTHORITY_BOUNDARY",
+      "name": "authority_boundary",
+      "category": "architecture_diagram",
+      "semantic_role": "AUTHORITY_BOUNDARY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz authority-boundary diagram",
+      "source_file": "design-system/aal-viz/diagrams/authority_boundary.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/authority_boundary.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-SHADOW_VS_FORECAST",
+      "name": "shadow_vs_forecast",
+      "category": "architecture_diagram",
+      "semantic_role": "SHADOW_VS_FORECAST",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "SHADOW versus FORECAST diagram",
+      "source_file": "design-system/aal-viz/diagrams/shadow_vs_forecast.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/shadow_vs_forecast.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-PROJECTION_ENVELOPE",
+      "name": "projection_envelope",
+      "category": "architecture_diagram",
+      "semantic_role": "PROJECTION_ENVELOPE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Projection Envelope lifecycle",
+      "source_file": "design-system/aal-viz/diagrams/projection_envelope.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/projection_envelope.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-ARTIFACT_LINEAGE",
+      "name": "artifact_lineage",
+      "category": "architecture_diagram",
+      "semantic_role": "ARTIFACT_LINEAGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Artifact lineage diagram",
+      "source_file": "design-system/aal-viz/diagrams/artifact_lineage.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/artifact_lineage.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-ACTIVATION_LANES",
+      "name": "activation_lanes",
+      "category": "architecture_diagram",
+      "semantic_role": "ACTIVATION_LANES",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Governance activation lanes",
+      "source_file": "design-system/aal-viz/diagrams/activation_lanes.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/activation_lanes.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-CANON_SPINE",
+      "name": "canon_spine",
+      "category": "architecture_diagram",
+      "semantic_role": "CANON_SPINE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Canon Spine map",
+      "source_file": "design-system/aal-viz/diagrams/canon_spine.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/canon_spine.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-YGGDRASIL",
+      "name": "yggdrasil",
+      "category": "architecture_diagram",
+      "semantic_role": "YGGDRASIL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "YGGDRASIL routing map",
+      "source_file": "design-system/aal-viz/diagrams/yggdrasil.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/yggdrasil.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-BELIEF_GRAPH",
+      "name": "belief_graph",
+      "category": "architecture_diagram",
+      "semantic_role": "BELIEF_GRAPH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Belief Graph architecture",
+      "source_file": "design-system/aal-viz/diagrams/belief_graph.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/belief_graph.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-EVIDENCE_MEMORY",
+      "name": "evidence_memory",
+      "category": "architecture_diagram",
+      "semantic_role": "EVIDENCE_MEMORY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Compositional evidence memory flow",
+      "source_file": "design-system/aal-viz/diagrams/evidence_memory.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/evidence_memory.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-ORACLE_PIPELINE",
+      "name": "oracle_pipeline",
+      "category": "architecture_diagram",
+      "semantic_role": "ORACLE_PIPELINE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Oracle analysis pipeline",
+      "source_file": "design-system/aal-viz/diagrams/oracle_pipeline.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/oracle_pipeline.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-BRIER_LOOP",
+      "name": "brier_loop",
+      "category": "architecture_diagram",
+      "semantic_role": "BRIER_LOOP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Brier feedback loop",
+      "source_file": "design-system/aal-viz/diagrams/brier_loop.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/brier_loop.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-DRIFT_LOOP",
+      "name": "drift_loop",
+      "category": "architecture_diagram",
+      "semantic_role": "DRIFT_LOOP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Drift detection loop",
+      "source_file": "design-system/aal-viz/diagrams/drift_loop.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/drift_loop.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-OPERATOR_REVIEW_LOOP",
+      "name": "operator_review_loop",
+      "category": "architecture_diagram",
+      "semantic_role": "OPERATOR_REVIEW_LOOP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator review loop",
+      "source_file": "design-system/aal-viz/diagrams/operator_review_loop.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/operator_review_loop.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-FAIL_CLOSED",
+      "name": "fail_closed",
+      "category": "architecture_diagram",
+      "semantic_role": "FAIL_CLOSED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Fail-closed behavior",
+      "source_file": "design-system/aal-viz/diagrams/fail_closed.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/fail_closed.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-PROVIDER_RELIABILITY",
+      "name": "provider_reliability",
+      "category": "architecture_diagram",
+      "semantic_role": "PROVIDER_RELIABILITY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Provider reliability flow",
+      "source_file": "design-system/aal-viz/diagrams/provider_reliability.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/provider_reliability.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-REPLAY_RECOVERY",
+      "name": "replay_recovery",
+      "category": "architecture_diagram",
+      "semantic_role": "REPLAY_RECOVERY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Replay and recovery flow",
+      "source_file": "design-system/aal-viz/diagrams/replay_recovery.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/replay_recovery.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-FRONTEND_ARCH",
+      "name": "frontend_arch",
+      "category": "architecture_diagram",
+      "semantic_role": "FRONTEND_ARCH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz frontend architecture",
+      "source_file": "design-system/aal-viz/diagrams/frontend_arch.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/frontend_arch.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-BUNDLE_CONSTRUCTION",
+      "name": "bundle_construction",
+      "category": "architecture_diagram",
+      "semantic_role": "BUNDLE_CONSTRUCTION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Projection bundle construction",
+      "source_file": "design-system/aal-viz/diagrams/bundle_construction.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/bundle_construction.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-TRANSPORT_FALLBACK",
+      "name": "transport_fallback",
+      "category": "architecture_diagram",
+      "semantic_role": "TRANSPORT_FALLBACK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "WebSocket/polling/sample-fallback",
+      "source_file": "design-system/aal-viz/diagrams/transport_fallback.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/transport_fallback.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-VISUAL_TAXONOMY",
+      "name": "visual_taxonomy",
+      "category": "architecture_diagram",
+      "semantic_role": "VISUAL_TAXONOMY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Canonical visual taxonomy sheet",
+      "source_file": "design-system/aal-viz/diagrams/visual_taxonomy.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/visual_taxonomy.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-ASSET_LIFECYCLE",
+      "name": "asset_lifecycle",
+      "category": "architecture_diagram",
+      "semantic_role": "ASSET_LIFECYCLE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Asset lifecycle diagram",
+      "source_file": "design-system/aal-viz/diagrams/asset_lifecycle.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/asset_lifecycle.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-FOLDER_MAP",
+      "name": "folder_map",
+      "category": "architecture_diagram",
+      "semantic_role": "FOLDER_MAP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Asset folder map",
+      "source_file": "design-system/aal-viz/diagrams/folder_map.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/folder_map.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-VISUAL_QA",
+      "name": "visual_qa",
+      "category": "architecture_diagram",
+      "semantic_role": "VISUAL_QA",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Visual QA pipeline",
+      "source_file": "design-system/aal-viz/diagrams/visual_qa.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/visual_qa.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-DIAG-A11Y_PIPELINE",
+      "name": "a11y_pipeline",
+      "category": "architecture_diagram",
+      "semantic_role": "A11Y_PIPELINE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Accessibility rendering pipeline",
+      "source_file": "design-system/aal-viz/diagrams/a11y_pipeline.svg",
+      "export_files": [
+        "design-system/aal-viz/diagrams/a11y_pipeline.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-PROCESS",
+      "name": "process",
+      "category": "infographic_template",
+      "semantic_role": "PROCESS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Process infographic",
+      "source_file": "design-system/aal-viz/infographics/process.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/process.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-TIMELINE",
+      "name": "timeline",
+      "category": "infographic_template",
+      "semantic_role": "TIMELINE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Timeline infographic",
+      "source_file": "design-system/aal-viz/infographics/timeline.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/timeline.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-COMPARISON",
+      "name": "comparison",
+      "category": "infographic_template",
+      "semantic_role": "COMPARISON",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Comparison infographic",
+      "source_file": "design-system/aal-viz/infographics/comparison.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/comparison.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-STATUS_BOARD",
+      "name": "status_board",
+      "category": "infographic_template",
+      "semantic_role": "STATUS_BOARD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Status-board infographic",
+      "source_file": "design-system/aal-viz/infographics/status_board.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/status_board.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-CLUSTER_CARD",
+      "name": "cluster_card",
+      "category": "infographic_template",
+      "semantic_role": "CLUSTER_CARD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Cluster-card infographic",
+      "source_file": "design-system/aal-viz/infographics/cluster_card.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/cluster_card.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-PROOF_CHAIN",
+      "name": "proof_chain",
+      "category": "infographic_template",
+      "semantic_role": "PROOF_CHAIN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Proof-chain infographic",
+      "source_file": "design-system/aal-viz/infographics/proof_chain.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/proof_chain.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-INCIDENT_SUMMARY",
+      "name": "incident_summary",
+      "category": "infographic_template",
+      "semantic_role": "INCIDENT_SUMMARY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Incident summary",
+      "source_file": "design-system/aal-viz/infographics/incident_summary.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/incident_summary.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-PRODUCTION_READINESS",
+      "name": "production_readiness",
+      "category": "infographic_template",
+      "semantic_role": "PRODUCTION_READINESS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Production-readiness summary",
+      "source_file": "design-system/aal-viz/infographics/production_readiness.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/production_readiness.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-VALIDATION_REPORT",
+      "name": "validation_report",
+      "category": "infographic_template",
+      "semantic_role": "VALIDATION_REPORT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Validation report",
+      "source_file": "design-system/aal-viz/infographics/validation_report.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/validation_report.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-THREAT_MODEL",
+      "name": "threat_model",
+      "category": "infographic_template",
+      "semantic_role": "THREAT_MODEL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Threat-model summary",
+      "source_file": "design-system/aal-viz/infographics/threat_model.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/threat_model.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-BENCHMARK",
+      "name": "benchmark",
+      "category": "infographic_template",
+      "semantic_role": "BENCHMARK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Benchmark summary",
+      "source_file": "design-system/aal-viz/infographics/benchmark.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/benchmark.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-RELEASE_SUMMARY",
+      "name": "release_summary",
+      "category": "infographic_template",
+      "semantic_role": "RELEASE_SUMMARY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Release summary",
+      "source_file": "design-system/aal-viz/infographics/release_summary.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/release_summary.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-OPERATOR_DECISION",
+      "name": "operator_decision",
+      "category": "infographic_template",
+      "semantic_role": "OPERATOR_DECISION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator decision summary",
+      "source_file": "design-system/aal-viz/infographics/operator_decision.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/operator_decision.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-RESEARCH_FINDING",
+      "name": "research_finding",
+      "category": "infographic_template",
+      "semantic_role": "RESEARCH_FINDING",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Research finding summary",
+      "source_file": "design-system/aal-viz/infographics/research_finding.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/research_finding.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-PROVIDER_COMPARISON",
+      "name": "provider_comparison",
+      "category": "infographic_template",
+      "semantic_role": "PROVIDER_COMPARISON",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Provider comparison",
+      "source_file": "design-system/aal-viz/infographics/provider_comparison.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/provider_comparison.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-DRIFT_REPORT",
+      "name": "drift_report",
+      "category": "infographic_template",
+      "semantic_role": "DRIFT_REPORT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Drift report",
+      "source_file": "design-system/aal-viz/infographics/drift_report.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/drift_report.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-FORECAST_CALIBRATION",
+      "name": "forecast_calibration",
+      "category": "infographic_template",
+      "semantic_role": "FORECAST_CALIBRATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Forecast calibration report",
+      "source_file": "design-system/aal-viz/infographics/forecast_calibration.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/forecast_calibration.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-EVIDENCE_GAP",
+      "name": "evidence_gap",
+      "category": "infographic_template",
+      "semantic_role": "EVIDENCE_GAP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence-gap report",
+      "source_file": "design-system/aal-viz/infographics/evidence_gap.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/evidence_gap.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-CANON_CHANGE",
+      "name": "canon_change",
+      "category": "infographic_template",
+      "semantic_role": "CANON_CHANGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Canon-change summary",
+      "source_file": "design-system/aal-viz/infographics/canon_change.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/canon_change.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-INFO-NOTION_RECONCILIATION",
+      "name": "notion_reconciliation",
+      "category": "infographic_template",
+      "semantic_role": "NOTION_RECONCILIATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        800,
+        1000
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Repository/Notion reconciliation",
+      "source_file": "design-system/aal-viz/infographics/notion_reconciliation.svg",
+      "export_files": [
+        "design-system/aal-viz/infographics/notion_reconciliation.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "TEMPLATE \u00b7 PROJECTION ONLY"
+    },
+    {
+      "asset_id": "AALVIZ-RPT-COVER",
+      "name": "cover",
+      "category": "report_asset",
+      "semantic_role": "COVER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "PDF report cover",
+      "source_file": "design-system/aal-viz/reports/cover.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/cover.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-SECTION_DIVIDER",
+      "name": "section_divider",
+      "category": "report_asset",
+      "semantic_role": "SECTION_DIVIDER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "PDF section divider",
+      "source_file": "design-system/aal-viz/reports/section_divider.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/section_divider.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-FOOTER",
+      "name": "footer",
+      "category": "report_asset",
+      "semantic_role": "FOOTER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Report footer",
+      "source_file": "design-system/aal-viz/reports/footer.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/footer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-PROVENANCE_FOOTER",
+      "name": "provenance_footer",
+      "category": "report_asset",
+      "semantic_role": "PROVENANCE_FOOTER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Provenance footer",
+      "source_file": "design-system/aal-viz/reports/provenance_footer.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/provenance_footer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-PAGE_NUMBER",
+      "name": "page_number",
+      "category": "report_asset",
+      "semantic_role": "PAGE_NUMBER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Page number treatment",
+      "source_file": "design-system/aal-viz/reports/page_number.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/page_number.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-SOURCE_CHIP",
+      "name": "source_chip",
+      "category": "report_asset",
+      "semantic_role": "SOURCE_CHIP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Source-reference chip",
+      "source_file": "design-system/aal-viz/reports/source_chip.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/source_chip.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-ARTIFACT_HASH_CHIP",
+      "name": "artifact_hash_chip",
+      "category": "report_asset",
+      "semantic_role": "ARTIFACT_HASH_CHIP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Artifact-hash chip",
+      "source_file": "design-system/aal-viz/reports/artifact_hash_chip.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/artifact_hash_chip.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-QR_CONTAINER",
+      "name": "qr_container",
+      "category": "report_asset",
+      "semantic_role": "QR_CONTAINER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "QR/reference-link container",
+      "source_file": "design-system/aal-viz/reports/qr_container.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/qr_container.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-DIAGRAM_CAPTION",
+      "name": "diagram_caption",
+      "category": "report_asset",
+      "semantic_role": "DIAGRAM_CAPTION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Diagram caption style",
+      "source_file": "design-system/aal-viz/reports/diagram_caption.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/diagram_caption.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-TABLE_HEADER",
+      "name": "table_header",
+      "category": "report_asset",
+      "semantic_role": "TABLE_HEADER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Table header style",
+      "source_file": "design-system/aal-viz/reports/table_header.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/table_header.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CODE_EXCERPT",
+      "name": "code_excerpt",
+      "category": "report_asset",
+      "semantic_role": "CODE_EXCERPT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Code/JSON excerpt style",
+      "source_file": "design-system/aal-viz/reports/code_excerpt.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/code_excerpt.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CALLOUT_INFO",
+      "name": "callout_info",
+      "category": "report_asset",
+      "semantic_role": "CALLOUT_INFO",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Callout info",
+      "source_file": "design-system/aal-viz/reports/callout_info.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/callout_info.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CALLOUT_WARNING",
+      "name": "callout_warning",
+      "category": "report_asset",
+      "semantic_role": "CALLOUT_WARNING",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Callout warning",
+      "source_file": "design-system/aal-viz/reports/callout_warning.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/callout_warning.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CALLOUT_FAIL_CLOSED",
+      "name": "callout_fail_closed",
+      "category": "report_asset",
+      "semantic_role": "CALLOUT_FAIL_CLOSED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Callout fail-closed",
+      "source_file": "design-system/aal-viz/reports/callout_fail_closed.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/callout_fail_closed.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CALLOUT_PROJECTION",
+      "name": "callout_projection",
+      "category": "report_asset",
+      "semantic_role": "CALLOUT_PROJECTION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Callout projection-only",
+      "source_file": "design-system/aal-viz/reports/callout_projection.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/callout_projection.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CARD_EXECUTIVE",
+      "name": "card_executive",
+      "category": "report_asset",
+      "semantic_role": "CARD_EXECUTIVE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Executive-summary card",
+      "source_file": "design-system/aal-viz/reports/card_executive.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/card_executive.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CARD_RISK",
+      "name": "card_risk",
+      "category": "report_asset",
+      "semantic_role": "CARD_RISK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Risk-summary card",
+      "source_file": "design-system/aal-viz/reports/card_risk.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/card_risk.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CARD_DECISION",
+      "name": "card_decision",
+      "category": "report_asset",
+      "semantic_role": "CARD_DECISION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Decision-summary card",
+      "source_file": "design-system/aal-viz/reports/card_decision.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/card_decision.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-CARD_EVIDENCE",
+      "name": "card_evidence",
+      "category": "report_asset",
+      "semantic_role": "CARD_EVIDENCE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence-summary card",
+      "source_file": "design-system/aal-viz/reports/card_evidence.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/card_evidence.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-CONFIDENTIAL_INTERNAL",
+      "name": "marker_confidential",
+      "category": "report_marker",
+      "semantic_role": "CONFIDENTIAL / INTERNAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "CONFIDENTIAL / INTERNAL",
+      "source_file": "design-system/aal-viz/reports/marker_confidential.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_confidential.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-PROJECTION_ONLY",
+      "name": "marker_projection_only",
+      "category": "report_marker",
+      "semantic_role": "PROJECTION ONLY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "PROJECTION ONLY",
+      "source_file": "design-system/aal-viz/reports/marker_projection_only.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_projection_only.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-DRAFT",
+      "name": "marker_draft",
+      "category": "report_marker",
+      "semantic_role": "DRAFT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "DRAFT",
+      "source_file": "design-system/aal-viz/reports/marker_draft.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_draft.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-SUPERSEDED",
+      "name": "marker_superseded",
+      "category": "report_marker",
+      "semantic_role": "SUPERSEDED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "SUPERSEDED",
+      "source_file": "design-system/aal-viz/reports/marker_superseded.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_superseded.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-CANON_ACTIVE",
+      "name": "marker_canon_active",
+      "category": "report_marker",
+      "semantic_role": "CANON ACTIVE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "CANON ACTIVE",
+      "source_file": "design-system/aal-viz/reports/marker_canon_active.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_canon_active.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RPT-MARK-REVIEW_REQUIRED",
+      "name": "marker_review_required",
+      "category": "report_marker",
+      "semantic_role": "REVIEW REQUIRED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "REVIEW REQUIRED",
+      "source_file": "design-system/aal-viz/reports/marker_review_required.svg",
+      "export_files": [
+        "design-system/aal-viz/reports/marker_review_required.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-README_HEADER",
+      "name": "readme_header",
+      "category": "banner",
+      "semantic_role": "README_HEADER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1280,
+        320
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/readme_header.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/readme_header.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-NOTION_COVER",
+      "name": "notion_cover",
+      "category": "banner",
+      "semantic_role": "NOTION_COVER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1500,
+        600
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/notion_cover.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/notion_cover.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-DOCS_PORTAL_HERO",
+      "name": "docs_portal_hero",
+      "category": "banner",
+      "semantic_role": "DOCS_PORTAL_HERO",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1440,
+        480
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Documentation \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/docs_portal_hero.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/docs_portal_hero.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-GITHUB_REPO_CARD",
+      "name": "github_repo_card",
+      "category": "banner",
+      "semantic_role": "GITHUB_REPO_CARD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1280,
+        640
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz visual pack \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/github_repo_card.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/github_repo_card.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-SOCIAL_SQUARE",
+      "name": "social_square",
+      "category": "banner",
+      "semantic_role": "SOCIAL_SQUARE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1080,
+        1080
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-VIZ \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/social_square.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/social_square.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-SOCIAL_PORTRAIT",
+      "name": "social_portrait",
+      "category": "banner",
+      "semantic_role": "SOCIAL_PORTRAIT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1080,
+        1350
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-VIZ \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/social_portrait.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/social_portrait.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-SOCIAL_LANDSCAPE",
+      "name": "social_landscape",
+      "category": "banner",
+      "semantic_role": "SOCIAL_LANDSCAPE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1200,
+        630
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-VIZ \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/social_landscape.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/social_landscape.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-OG_DEFAULT",
+      "name": "og_default",
+      "category": "banner",
+      "semantic_role": "OG_DEFAULT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1200,
+        630
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/og_default.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/og_default.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-SLIDE_TITLE_BG",
+      "name": "slide_title_bg",
+      "category": "banner",
+      "semantic_role": "SLIDE_TITLE_BG",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1920,
+        1080
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/slide_title_bg.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/slide_title_bg.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-BANNER-SLIDE_SECTION_BG",
+      "name": "slide_section_bg",
+      "category": "banner",
+      "semantic_role": "SLIDE_SECTION_BG",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "diagram",
+        "monochrome"
+      ],
+      "sizes": [
+        1920,
+        1080
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Section \u2014 PRODUCT VISION",
+      "source_file": "design-system/aal-viz/banners/slide_section_bg.svg",
+      "export_files": [
+        "design-system/aal-viz/banners/slide_section_bg.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "3",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    }
+  ]
+}

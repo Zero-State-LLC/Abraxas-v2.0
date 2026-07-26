@@ -4,18 +4,19 @@ Hallmark-locked **projection-layer** asset pack for Abraxas AAL-Viz.
 
 | | |
 |--|--|
-| **Status** | CANDIDATE masters · Batches **0 + 1 + 2** |
+| **Status** | CANDIDATE masters · Batches **0–3** |
 | **Authority** | Visual only — activation **DENIED**, deploy **NO_GO** |
 | **Method** | Hallmark · atmospheric-technical · Tier B hand-built SVG |
-| **Generators** | `generate_aal_viz_batch{0,1,2}_assets.py` |
+| **Generators** | `generate_aal_viz_batch{0,1,2,3}_assets.py` |
 
 ## Start here
 
 1. [`design.md`](./design.md) — locked system
 2. [`AAL_VIZ_ASSET_INVENTORY.md`](./AAL_VIZ_ASSET_INVENTORY.md) — counts
 3. [`showcase/index.html`](./showcase/index.html) — open in a browser
-4. Manifests: `aal_viz_asset_manifest.v1.json` (B0) · `.batch1.v1.json` · `.batch2.v1.json`
+4. Manifests: `aal_viz_asset_manifest.v1.json` + `.batch{1,2,3}.v1.json`
 5. Runes: [`AAL_VIZ_RUNE_REGISTRY.json`](./AAL_VIZ_RUNE_REGISTRY.json)
+6. Diagrams: [`AAL_VIZ_DIAGRAM_REGISTRY.json`](./AAL_VIZ_DIAGRAM_REGISTRY.json)
 
 ## Layout
 
@@ -34,6 +35,10 @@ panels/         scalable panel / rail / frame treatments             [B1]
 a11y/           patterns, line styles, focus, templates              [B1]
 runes/aal_viz/  11 projection-layer runes × 4 variants               [B2]
 runes/shared/   19 shared ABX runes × 4 variants                     [B2]
+diagrams/       architecture maps (honesty-labeled)                  [B3]
+infographics/   report infographic templates                         [B3]
+reports/        covers, footers, markers, chips, cards               [B3]
+banners/        README / Notion / OG / social / slides               [B3]
 docs/           naming, QA, a11y, provenance, handoff, gaps
 showcase/       Hallmark workbench preview
 ```

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Artifact lineage diagram">
+  <title>Artifact lineage diagram</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">IMPLEMENTED SYSTEM MAP</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">Artifact lineage</text>
+  <rect x="60" y="220" width="130" height="48" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="70" y="248" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Source</text>
+  <path d="M190 244 L230 244" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M224 240 L230 244 L224 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="230" y="220" width="130" height="48" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="240" y="248" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Transform</text>
+  <path d="M360 244 L400 244" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M394 240 L400 244 L394 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="400" y="220" width="130" height="48" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="410" y="248" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Validate</text>
+  <path d="M530 244 L570 244" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M564 240 L570 244 L564 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="570" y="220" width="130" height="48" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="580" y="248" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Receipt</text>
+  <path d="M700 244 L740 244" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M734 240 L740 244 L734 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="740" y="220" width="130" height="48" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="750" y="248" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Projection</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

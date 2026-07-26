@@ -1,13 +1,194 @@
 {
   "schema_version": "AALVizDiagramRegistry.v1",
-  "status": "PARTIAL",
-  "note": "Batch 0 ships graph primitives only. Full architecture diagrams deferred to batch 3.",
+  "status": "SHIPPED_CANDIDATE",
+  "batch": "3",
+  "count": 25,
+  "entries": [
+    {
+      "id": "spine_e2e",
+      "title": "Abraxas end-to-end supported spine",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/spine_e2e.svg",
+      "batch": "3"
+    },
+    {
+      "id": "authority_boundary",
+      "title": "AAL-Viz authority-boundary diagram",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/authority_boundary.svg",
+      "batch": "3"
+    },
+    {
+      "id": "shadow_vs_forecast",
+      "title": "SHADOW versus FORECAST diagram",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/shadow_vs_forecast.svg",
+      "batch": "3"
+    },
+    {
+      "id": "projection_envelope",
+      "title": "Projection Envelope lifecycle",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/projection_envelope.svg",
+      "batch": "3"
+    },
+    {
+      "id": "artifact_lineage",
+      "title": "Artifact lineage diagram",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/artifact_lineage.svg",
+      "batch": "3"
+    },
+    {
+      "id": "activation_lanes",
+      "title": "Governance activation lanes",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/activation_lanes.svg",
+      "batch": "3"
+    },
+    {
+      "id": "canon_spine",
+      "title": "Canon Spine map",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/canon_spine.svg",
+      "batch": "3"
+    },
+    {
+      "id": "yggdrasil",
+      "title": "YGGDRASIL routing map",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/yggdrasil.svg",
+      "batch": "3"
+    },
+    {
+      "id": "belief_graph",
+      "title": "Belief Graph architecture",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/belief_graph.svg",
+      "batch": "3"
+    },
+    {
+      "id": "evidence_memory",
+      "title": "Compositional evidence memory flow",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/evidence_memory.svg",
+      "batch": "3"
+    },
+    {
+      "id": "oracle_pipeline",
+      "title": "Oracle analysis pipeline",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/oracle_pipeline.svg",
+      "batch": "3"
+    },
+    {
+      "id": "brier_loop",
+      "title": "Brier feedback loop",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/brier_loop.svg",
+      "batch": "3"
+    },
+    {
+      "id": "drift_loop",
+      "title": "Drift detection loop",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/drift_loop.svg",
+      "batch": "3"
+    },
+    {
+      "id": "operator_review_loop",
+      "title": "Operator review loop",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/operator_review_loop.svg",
+      "batch": "3"
+    },
+    {
+      "id": "fail_closed",
+      "title": "Fail-closed behavior",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/fail_closed.svg",
+      "batch": "3"
+    },
+    {
+      "id": "provider_reliability",
+      "title": "Provider reliability flow",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/provider_reliability.svg",
+      "batch": "3"
+    },
+    {
+      "id": "replay_recovery",
+      "title": "Replay and recovery flow",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/replay_recovery.svg",
+      "batch": "3"
+    },
+    {
+      "id": "frontend_arch",
+      "title": "AAL-Viz frontend architecture",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/frontend_arch.svg",
+      "batch": "3"
+    },
+    {
+      "id": "bundle_construction",
+      "title": "Projection bundle construction",
+      "honesty_label": "CONCEPT VISUAL",
+      "path": "design-system/aal-viz/diagrams/bundle_construction.svg",
+      "batch": "3"
+    },
+    {
+      "id": "transport_fallback",
+      "title": "WebSocket/polling/sample-fallback",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/transport_fallback.svg",
+      "batch": "3"
+    },
+    {
+      "id": "visual_taxonomy",
+      "title": "Canonical visual taxonomy sheet",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/visual_taxonomy.svg",
+      "batch": "3"
+    },
+    {
+      "id": "asset_lifecycle",
+      "title": "Asset lifecycle diagram",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/asset_lifecycle.svg",
+      "batch": "3"
+    },
+    {
+      "id": "folder_map",
+      "title": "Asset folder map",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/folder_map.svg",
+      "batch": "3"
+    },
+    {
+      "id": "visual_qa",
+      "title": "Visual QA pipeline",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/visual_qa.svg",
+      "batch": "3"
+    },
+    {
+      "id": "a11y_pipeline",
+      "title": "Accessibility rendering pipeline",
+      "honesty_label": "IMPLEMENTED SYSTEM MAP",
+      "path": "design-system/aal-viz/diagrams/a11y_pipeline.svg",
+      "batch": "3"
+    }
+  ],
   "primitives": {
     "nodes": "graph/nodes/",
     "edges": "graph/edges/",
     "ports": "graph/ports/"
   },
-  "legacy_illustrations": "docs/media/",
-  "node_edge_language": "design-system/illustrations/node_edge_language.v1.json",
-  "entries": []
+  "honesty_labels": [
+    "IMPLEMENTED SYSTEM MAP",
+    "CONCEPT VISUAL",
+    "PRODUCT VISION",
+    "TEMPLATE \u00b7 PROJECTION ONLY"
+  ]
 }

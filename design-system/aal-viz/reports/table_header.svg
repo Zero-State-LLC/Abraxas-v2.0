@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 36" width="600" height="36" role="img" aria-label="Table header style">
+  <title>Table header</title>
+  <rect width="600" height="36" fill="#121A2A"/>
+  <path d="M0 35 H600" stroke="#00D4F5" stroke-width="1"/>
+  <text x="12" y="22" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.1em" fill="#64748B">COL · COL · COL · STATUS</text>
+</svg>

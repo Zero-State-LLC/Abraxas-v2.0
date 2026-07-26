@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Replay and recovery">
+  <title>Replay and recovery</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">CONCEPT VISUAL</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">Replay and recovery</text>
+  <rect x="40" y="220" width="130" height="56" rx="6" fill="#121A2A" stroke="#64748B" stroke-width="1.5"/>
+  <text x="50" y="252" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Archive</text>
+  <path d="M170 248 L200 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M194 244 L200 248 L194 252" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="200" y="220" width="130" height="56" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="210" y="252" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Replay</text>
+  <path d="M330 248 L360 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M354 244 L360 248 L354 252" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="360" y="220" width="130" height="56" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="370" y="252" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Validate</text>
+  <path d="M490 248 L520 248" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M514 244 L520 248 L514 252" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="520" y="220" width="130" height="56" rx="6" fill="#121A2A" stroke="#10B981" stroke-width="1.5"/>
+  <text x="530" y="252" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Recover</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

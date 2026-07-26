@@ -1,5 +1,5 @@
 class,planned,shipped,batch,status,notes
-identity,10,11,0,PARTIAL,SVG masters
+identity,10,11,0,PARTIAL,
 authority,30,30,0,SHIPPED,
 activation,16,16,0,SHIPPED,
 navigation,44,44,0,SHIPPED,
@@ -11,7 +11,12 @@ weather,17,51,1,SHIPPED,×3 variants
 empty_error,26,26,1,SHIPPED,
 panels,22,22,1,SHIPPED,
 a11y_patterns,19,28,1,SHIPPED,
-runes,30,30,2,SHIPPED,4 variants each; aal_viz+shared
-motion,27,0,4,DEFERRED,rune.motion segments ready for wiring
-marketing,23,0,3,DEFERRED,
-architecture_diagrams,25,0,3,DEFERRED,
+runes,30,30,2,SHIPPED,×4 variants
+architecture_diagrams,25,25,3,SHIPPED,honesty labels
+infographics,20,20,3,SHIPPED,templates
+report_assets,22,25,3,SHIPPED,
+banners_comms,10,10,3,SHIPPED,readme/notion/social/slides
+motion,27,0,4,DEFERRED,
+backgrounds,20,0,4,DEFERRED,
+responsive_pwa,17,0,4,DEFERRED,
+marketing_showcases,13,0,4,DEFERRED,partial via banners

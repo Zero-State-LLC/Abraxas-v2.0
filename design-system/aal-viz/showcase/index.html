@@ -182,13 +182,13 @@
     <header class="top">
       <img class="lockup" src="../brand/lockup-compact.svg" alt="AAL-VIZ" width="120" height="32" />
       <span class="pill">PROJECTION ONLY</span>
-      <span class="meta">Batches 0–2 · Hallmark Workbench</span>
+      <span class="meta">Batches 0–3 · Hallmark Workbench</span>
     </header>
 
     <h1>Projection-layer visual language</h1>
     <p class="lede">
-      Hand-built SVG masters — foundation (0), runtime completeness (1), and engineering runes (2).
-      One operator alphabet: outline, solid, engrave, and motion-segmented variants.
+      Hand-built SVG masters — foundation (0), runtime (1), runes (2), and docs/comms (3):
+      architecture diagrams, infographic templates, report chrome, and honesty-labeled banners.
       Not a product screenshot. Activation remains denied.
     </p>
     <p class="note">
@@ -273,9 +273,27 @@
       <div class="grid" id="rune-shared-grid"></div>
     </section>
 
+    <section>
+      <h2>Architecture diagrams (batch 3)</h2>
+      <div class="grid wide" id="diag-grid"></div>
+    </section>
+
+    <section>
+      <h2>Infographic templates (batch 3)</h2>
+      <div class="grid wide" id="info-grid"></div>
+    </section>
+
+    <section>
+      <h2>Banners (batch 3)</h2>
+      <div class="brand-row" id="banner-row">
+        <img src="../banners/readme_header.svg" alt="README header PRODUCT VISION" width="640" height="160" />
+        <img src="../banners/og_default.svg" alt="Open Graph default PRODUCT VISION" width="400" height="210" />
+      </div>
+    </section>
+
     <footer>
-      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B2</span>
-      <span>Regenerate: batch0–2 scripts under <code>scripts/design/</code></span>
+      <span>AAL-VIZ · PROJECTION ONLY · CANDIDATE masters · B0–B3</span>
+      <span>Regenerate: batch0–3 scripts under <code>scripts/design/</code></span>
     </footer>
   </div>
   <script>
@@ -373,6 +391,21 @@
         "ingest","lineage","belief","oracle","validate","route","bind","merge","replay",
         "archive","drift","forecast","provenance","operator","gate","receipt","ledger",
         "canon","shadow"
+      ] },
+      "diag-grid": { dir: "diagrams", wide: true, names: [
+        "spine_e2e","authority_boundary","shadow_vs_forecast","projection_envelope",
+        "artifact_lineage","activation_lanes","canon_spine","yggdrasil","belief_graph",
+        "evidence_memory","oracle_pipeline","brier_loop","drift_loop","operator_review_loop",
+        "fail_closed","provider_reliability","replay_recovery","frontend_arch",
+        "bundle_construction","transport_fallback","visual_taxonomy","asset_lifecycle",
+        "folder_map","visual_qa","a11y_pipeline"
+      ] },
+      "info-grid": { dir: "infographics", wide: true, names: [
+        "process","timeline","comparison","status_board","cluster_card","proof_chain",
+        "incident_summary","production_readiness","validation_report","threat_model",
+        "benchmark","release_summary","operator_decision","research_finding",
+        "provider_comparison","drift_report","forecast_calibration","evidence_gap",
+        "canon_change","notion_reconciliation"
       ] }
     };
 

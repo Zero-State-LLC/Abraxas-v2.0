@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Asset folder map">
+  <title>Asset folder map</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">IMPLEMENTED SYSTEM MAP</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">AAL-Viz asset folder map</text>
+  <text x="48" y="140" font-family="IBM Plex Mono, monospace" font-size="14" fill="#00D4F5">design-system/aal-viz/</text>
+  <text x="48" y="176" font-family="IBM Plex Mono, monospace" font-size="14" fill="#E8EEF7">  brand/ authority/ activation/ navigation/</text>
+  <text x="48" y="212" font-family="IBM Plex Mono, monospace" font-size="14" fill="#E8EEF7">  subsystem/ graph/ workflow/ metrics/</text>
+  <text x="48" y="248" font-family="IBM Plex Mono, monospace" font-size="14" fill="#E8EEF7">  weather/ empty/ panels/ a11y/ runes/</text>
+  <text x="48" y="284" font-family="IBM Plex Mono, monospace" font-size="14" fill="#E8EEF7">  diagrams/ infographics/ reports/ banners/</text>
+  <text x="48" y="320" font-family="IBM Plex Mono, monospace" font-size="14" fill="#E8EEF7">  docs/ showcase/</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

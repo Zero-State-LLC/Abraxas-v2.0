@@ -43,14 +43,24 @@
 
 Variants per rune: outline · solid · engrave · motion (segmented paths).
 
-**Approx SVG total (batches 0–2):** ~604
+## Batch 3 — Documentation and communication
+
+| Family | Count | Path |
+|--------|------:|------|
+| Architecture diagrams | 25 | `diagrams/` (honesty: IMPLEMENTED / CONCEPT / PRODUCT VISION) |
+| Infographic templates | 20 | `infographics/` |
+| Report / export assets | 25 | `reports/` |
+| Banners / social / slides | 10 | `banners/` |
+| Diagram registry | 1 | `AAL_VIZ_DIAGRAM_REGISTRY.json` |
+| Manifest | `aal_viz_asset_manifest.batch3.v1.json` | |
+
+**Approx SVG total (batches 0–3):** ~684
 
 ## Deferred
 
 | Batch | Scope |
 |-------|--------|
-| 3 | Architecture diagrams, reports, marketing derivatives |
-| 4 | Motion primitives, wallpapers, PWA rasters |
+| 4 | Motion primitives, wallpapers/fields, responsive/PWA, remaining marketing showcases |
 
 ## Existing system (do not duplicate)
 
@@ -64,4 +74,5 @@ Variants per rune: outline · solid · engrave · motion (segmented paths).
 python scripts/design/generate_aal_viz_batch0_assets.py
 python scripts/design/generate_aal_viz_batch1_assets.py
 python scripts/design/generate_aal_viz_batch2_assets.py
+python scripts/design/generate_aal_viz_batch3_assets.py
 ```

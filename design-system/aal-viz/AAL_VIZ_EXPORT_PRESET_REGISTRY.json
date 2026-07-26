@@ -1,38 +1,56 @@
 {
   "schema_version": "AALVizExportPresetRegistry.v1",
+  "batch": "3",
   "presets": [
     {
-      "id": "console-icon-24",
+      "id": "diagram-960",
       "format": "SVG",
-      "size_px": 24,
-      "color": "currentColor",
-      "use": "live console chrome"
+      "size_px": [
+        960,
+        540
+      ],
+      "use": "docs architecture"
     },
     {
-      "id": "docs-icon-24",
+      "id": "infographic-portrait",
       "format": "SVG",
-      "size_px": 24,
-      "color": "#E8EEF7",
-      "use": "dark documentation"
+      "size_px": [
+        800,
+        1000
+      ],
+      "use": "report templates"
     },
     {
-      "id": "social-og",
+      "id": "report-cover",
       "format": "SVG",
-      "size_px": [1200, 630],
-      "source": "brand/social-preview-1200x630.svg",
-      "use": "Open Graph; rasterize at ship time if host requires PNG"
+      "source": "reports/cover.svg"
     },
     {
-      "id": "readme-hero",
+      "id": "readme-banner",
       "format": "SVG",
-      "source": "brand/hero-banner-product-vision.svg",
+      "source": "banners/readme_header.svg",
       "label_required": "PRODUCT VISION"
     },
     {
-      "id": "diagram-watermark",
+      "id": "notion-cover",
       "format": "SVG",
-      "source": "brand/wordmark-watermark.svg",
-      "use": "export corner mark"
+      "source": "banners/notion_cover.svg",
+      "label_required": "PRODUCT VISION"
+    },
+    {
+      "id": "og-default",
+      "format": "SVG",
+      "source": "banners/og_default.svg"
+    },
+    {
+      "id": "social-square",
+      "format": "SVG",
+      "source": "banners/social_square.svg"
+    },
+    {
+      "id": "watermark",
+      "format": "SVG",
+      "source": "brand/wordmark-watermark.svg"
     }
   ]
 }
