@@ -35,10 +35,33 @@ Consult `out/` artifacts when working on surfaces that depend on historical prov
 
 - AAL-Viz assets: [`design-system/aal-viz/`](design-system/aal-viz/) — visual identity only
 - Operator loop: [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) — Hermes routes; Grok/Codex produce; operator decides
-- Work packets / handoffs: `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json` · `core/operator_loop.py`
+- Work packets / handoffs: `contracts/engineering/work_packet.v1.schema.json`, `contracts/engineering/handoff_envelope.v1.schema.json` · `core/operator_loop.py`
 - Agent provenance schema: `contracts/engineering/agent_artifact_metadata.v1.schema.json` — identity ≠ authority
 - CFAR: `core/cfar.py` — research construct gate; not activation
-- Operator-loop projection (read-only): `python3 scripts/viz/build_aal_viz_operator_loop_projection.py`
+- Operator-loop projection (read-only dry-run):
+  `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`
+
+### Grok / Grok Build requirements
+
+Central rule: **producer identity records provenance; it does not grant authority.**
+
+When Grok (or Grok Build) produces durable work under an operator-loop packet:
+
+1. **Honor active scope** — stay inside the issued `WorkPacket.v1` (`scope.files`, `scope.concepts`, `exclusions`, `activation_lane`). Do not expand scope silently.
+2. **No overlap with active Codex packets** — before editing shared surfaces, inspect peer packets in `ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW`. On `FILE_OVERLAP`, stop contested paths and wait for operator disposition (`DETECT_CLASSIFY_OPERATOR_DISPOSITION`). Prefer non-overlapping packets with Codex/Cursor.
+3. **Return a file manifest** — list every changed path and every generated asset (visuals, design outputs, exploratory code). Tag durable artifacts `producer_system: GROK` (or `MIXED` when co-authoring).
+4. **Return a HandoffEnvelope.v1** on completion (or partial/blocked), matching `contracts/engineering/handoff_envelope.v1.schema.json`. Minimum fields:
+   - `schema_version`, `handoff_id`, `work_packet_id`
+   - `producer_system` (`GROK` | `MIXED`) — provenance only
+   - `status` (`COMPLETE` | `PARTIAL` | `BLOCKED` | `NOT_COMPUTABLE`)
+   - `changed_files`, `generated_assets` (the manifest)
+   - `commands_run`, `tests.passed` / `tests.failed`
+   - `observed_findings`, `inferred_findings`, `conflicts_detected`, `residual_risks`
+   - `next_recommended_action` (advisory; not auto-approved)
+   - `authority` with all grants false and `operator_review_on_semantic_conflict: true`
+5. **Hard stops** — no production activation / deploy unhold; no CLEAR mass deletion; no `scripts/operator/__init__.py` unless the packet explicitly owns it and operator disposition is recorded.
+
+Helpers: `core.operator_loop.validate_handoff`, `example_handoff`, `detect_work_packet_file_overlaps`, `default_authority`. Wiring companions: Hermes skill `skills/abraxas-master-loop-workflow/` (§3b + references); Codex `docs/CODEX_CUSTOM_INSTRUCTIONS.md` + `.cursor/rules/operator-loop-ownership.mdc`.
 
 ## Preserved controls
 
