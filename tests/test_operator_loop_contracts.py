@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import json
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,10 @@ from core.operator_loop import (
     validate_handoff,
     validate_work_packet,
     work_packet_schema,
+)
+from core.operator_loop_github_ci_evidence import (
+    build_ci_evidence,
+    build_github_evidence,
 )
 
 WORK_PACKET_SCHEMA_PATH = Path(
@@ -270,3 +275,70 @@ def test_collect_local_truth_surfaces_uses_explicit_git_tip() -> None:
     assert surfaces["notion"]["status"] == "PRESENT"
     assert surfaces["ci"]["status"] == "NOT_COMPUTABLE"
     assert surfaces["ci"]["can_merge"] is False
+
+
+def test_projection_loads_gathered_github_evidence(tmp_path: Path) -> None:
+    """Smoke: evidence files → collect_local_truth_surfaces → projection."""
+    evidence = tmp_path / "evidence"
+    evidence.mkdir()
+    (evidence / "github.v1.json").write_text(
+        json.dumps(
+            build_github_evidence(
+                repo="o/r",
+                main_sha="e" * 40,
+                main_branch="main",
+                open_prs=[
+                    {
+                        "number": 9,
+                        "title": "t",
+                        "isDraft": False,
+                        "mergeable": "MERGEABLE",
+                        "headRefName": "f",
+                        "baseRefName": "main",
+                        "url": "https://x/9",
+                    }
+                ],
+                gathered_at="2026-07-26T00:00:00Z",
+            )
+        ),
+        encoding="utf-8",
+    )
+    (evidence / "ci.v1.json").write_text(
+        json.dumps(
+            build_ci_evidence(
+                main_runs=[
+                    {
+                        "name": "ci",
+                        "conclusion": "success",
+                        "status": "completed",
+                        "headSha": "e" * 40,
+                        "url": "https://x/run",
+                    }
+                ],
+                pr_check_summaries=[
+                    {
+                        "pr_number": 9,
+                        "pass": 2,
+                        "fail": 0,
+                        "pending": 0,
+                        "primary": "pass",
+                    }
+                ],
+                gathered_at="2026-07-26T00:00:00Z",
+            )
+        ),
+        encoding="utf-8",
+    )
+    surfaces = collect_local_truth_surfaces(
+        evidence_dir=evidence,
+        include_local_git=False,
+    )
+    proj = build_operator_loop_projection(truth_surfaces=surfaces)
+    assert proj["truth_surfaces"]["github"]["status"] == "PRESENT"
+    assert proj["summary"]["github_item_count"] >= 2
+    assert any(
+        item.get("kind") == "open_pr" and item.get("number") == 9
+        for item in proj["truth_surfaces"]["github"]["items"]
+    )
+    assert proj["truth_surfaces"]["ci"]["status"] == "PRESENT"
+    assert proj["authority"]["assignment_authority"] is False
