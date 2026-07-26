@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–9; #1021 on main)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–9 on main; #1022; issue backlog closure)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; convergence branch `cursor/production-convergence-spine-6a0a` | git |
+| HEAD / branch tip | see git; Phase 9 merged via #1022 | git |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held | `out/production_readiness/ws8/*` |
@@ -23,7 +23,8 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
 | Convergence audit | Phase 0–9 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
-| Active objective | Residual canary/viz replays; CLEAR operator review before deletion | `PLANS.md` |
+| Issue backlog | #546 #547 #881 #892 closed (advisory; probe gate unissued) | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
+| Active objective | Phase 10: residual canary/viz replays; CLEAR operator review before deletion | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

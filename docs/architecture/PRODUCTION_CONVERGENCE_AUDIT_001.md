@@ -142,4 +142,5 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
+- Pre–Phase 10 issue backlog closed advisarily (#546 #547 #881 #892); `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued — see `docs/status/ISSUE_BACKLOG_CLOSURE_001.md`
 - Next action: Phase 10+ — residual canary/viz replays; CLEAR operator review before any deletion; live providers only when authorized

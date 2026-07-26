@@ -14,19 +14,24 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on main (#1021)**
 5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on main (#1021)**
 6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **landed on main (#1021)**
-7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **in progress**
+7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **landed on main (#1022)**
 8. Phase 10+: residual canary/viz replays; mass deletion only after CLEAR operator review; live providers only when authorized
 
 ### Next three milestones
 
-1. Migrate remaining viz `*_replay.py` and non-viz WP-D research runners
+1. Migrate remaining viz `*_replay.py` and non-viz WP-D research runners (Phase 10)
 2. Operator review of CLEAR reference analysis before any deletion
 3. Live provider adapters only behind explicit operator authorization (still no network at import)
+
+### Issue backlog (pre–Phase 10)
+
+Advisory closeout of open GitHub issues #546, #547, #881, #892 — see [`docs/status/ISSUE_BACKLOG_CLOSURE_001.md`](docs/status/ISSUE_BACKLOG_CLOSURE_001.md). `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued.
 
 ### Blocked / held
 
 - EXTERNAL_PRODUCTION activation (operator-gated; out of scope for routine engineering)
 - Mass deletion of historical runners/artifacts (requires CLEAR-phase reference analysis)
+- Sandbox probe execution (requires explicit `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`)
 
 ## Governance V3 (active)
 
