@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://appliedalchemylabs.com/schemas/cfar/construct_packet.v1.schema.json",
+  "title": "ConstructPacket.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "object_id",
+    "input_hash",
+    "lane",
+    "status",
+    "provenance",
+    "query",
+    "construct",
+    "construct_status",
+    "variable_class",
+    "dimensions",
+    "assumptions",
+    "abstraction_level",
+    "measurement_equivalence_required",
+    "route",
+    "rationale",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "cfar.v1"},
+    "object_id": {"type": "string", "pattern": "^cfar-[a-f0-9]{16}$"},
+    "input_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "lane": {"const": "SHADOW"},
+    "status": {"enum": ["VALID", "NOT_COMPUTABLE", "FAILED_VALIDATION"]},
+    "provenance": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "query": {"type": "string", "minLength": 1},
+    "construct": {"type": ["string", "null"]},
+    "construct_status": {"enum": ["STANDARDIZED", "COMPETING", "EMERGENT", "UNDEFINED"]},
+    "variable_class": {"enum": ["OBSERVABLE", "LATENT", "HYBRID"]},
+    "dimensions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "abstraction_level": {"type": "integer", "minimum": 1, "maximum": 5},
+    "measurement_equivalence_required": {"type": "boolean"},
+    "route": {"enum": ["EVIDENCE_RETRIEVAL", "FRAMEWORK_ONLY", "HYPOTHESIS_ONLY", "NOT_COMPUTABLE"]},
+    "rationale": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["truth_assignment", "forecast_routing", "canon_mutation", "execution_authority", "retrieval_authority"],
+      "properties": {
+        "truth_assignment": {"const": false},
+        "forecast_routing": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "retrieval_authority": {"type": "boolean"}
+      }
+    }
+  }
+}
