@@ -1,40 +1,59 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
+> **Last refreshed:** 2026-07-26 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md)
+
 ## Current objective
 
-**Production Convergence** — converge Abraxas onto one supported application spine, one activation policy, and clear supported vs experimental surfaces, without a wholesale rewrite. Fit **Alembic Spine** as an optional advisory specialist on that spine (not a second kernel).
+**Phase 12+ of Production Convergence** — operator-reviewed CLEAR disposition, residual research/artifact writers only under full chains, and live providers only when explicitly authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
-Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
+Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
-### Active workstreams
+### Closed workstreams (do not reopen without new evidence)
 
-1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
-2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
-3. Phase 5: classified writer + RuntimeSettings — **landed on main (#1021)**
-4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on main (#1021)**
-5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on main (#1021)**
-6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **landed on main (#1021)**
-7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **landed on main (#1022)**
-8. Phase 10: viz overlay replays + remaining WP-D/canary research writers — **landed**
-9. Phase 11: doctrine/fusion/shadow + governance-spine residual writers — **landed**
-10. Phase 12+: CLEAR operator review before deletion; live providers only when authorized
+| Stream | Status | Evidence |
+|--------|--------|----------|
+| Convergence Phase 0–11 | **Landed** | #1021–#1026 · writer migrations, freeze, OpenAPI surface |
+| Scripts mass-org + hygiene | **COMPLETE** | #972–#975 · `python scripts/organize_scripts.py status` → `complete: true` |
+| DEBUG_PLAN.v3 eng ranks 1–4 | **COMPLETE** | #976–#980 · `out/production_readiness/DEBUG_PLAN.v3.md` |
+| AAL-Viz visual pack batches 0–4 | **COMPLETE** | #1027–#1028 · `design-system/aal-viz/` |
+| AgentArtifactMetadata.v1 | **Landed** | #1029 · `contracts/engineering/agent_artifact_metadata.v1.schema.json` |
+| CFAR construct-first gate | **Landed** | #1030 · `core/cfar.py` |
+| Docs front door (README/STATUS/maps) | **Landed** | #1031 |
+
+### Active workstreams (Phase 12+)
+
+1. **CLEAR operator review** — review [`out/production_convergence/clear_reference_analysis.v1.json`](out/production_convergence/clear_reference_analysis.v1.json) before any mass deletion (`mass_deletion_authorized: false` until dual-control)
+2. **Residual writers** — artifact-contract / research_canary companions only with full provenance chain (no blind regen of `out/research_canary_*`)
+3. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
+4. **Program ops (CONTINUATION.v16 P0)** — Notion hub note for scripts/debug/visual posture; sole-writer pin at tip; main CI watch
 
 ### Next three milestones
 
-1. Operator review of CLEAR reference analysis before any deletion
-2. Residual artifact-contract / research_canary writers (no regen of research_canary_* without full chain)
-3. Live provider adapters only behind explicit operator authorization (still no network at import)
+1. Operator disposition of CLEAR analysis (keep / archive / delete classes) — **no deletion without mandate**
+2. Optional residual research_canary / artifact writers under sealed chains only
+3. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
 
-### Issue backlog (pre–Phase 10)
+### Issue backlog
 
-Advisory closeout of open GitHub issues #546, #547, #881, #892 — see [`docs/status/ISSUE_BACKLOG_CLOSURE_001.md`](docs/status/ISSUE_BACKLOG_CLOSURE_001.md). `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued.
+GitHub open issues: **0** (advisory closeout of #546, #547, #881, #892 — see [`docs/status/ISSUE_BACKLOG_CLOSURE_001.md`](docs/status/ISSUE_BACKLOG_CLOSURE_001.md)). `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains **unissued**.
 
 ### Blocked / held
 
-- EXTERNAL_PRODUCTION activation (operator-gated; out of scope for routine engineering)
-- Mass deletion of historical runners/artifacts (requires CLEAR-phase reference analysis)
+- EXTERNAL_PRODUCTION activation (operator-gated dual-control; not a routine eng PR)
+- Mass deletion of historical runners/artifacts (CLEAR operator review first)
 - Sandbox probe execution (requires explicit `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`)
+- RISK-008 soft→hard sole-writer in shared CI (no flip without operator approval)
 
+### CONTINUATION_PLAN.v16 alignment
+
+| CONTINUATION ID | Roadmap mapping | Status |
+|-----------------|-----------------|--------|
+| P0.1 Notion hub note | Ops visibility | Operator |
+| P0.2 Sole-writer pin / tip links | Eng/ops | Open |
+| P0.3 Main CI watch | Eng | Ongoing |
+| P1.1–P1.3 DEBUG track | Whole-repo debug | **CLOSED** (DEBUG_PLAN.v3) |
+| P2.* polish | Optional DX | Defer freely |
+| H.1 / H.2 deploy & activation | Authority process | **Held** |
 ## Governance V3 (active)
 
 ```yaml

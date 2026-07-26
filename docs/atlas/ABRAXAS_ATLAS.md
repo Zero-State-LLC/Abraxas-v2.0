@@ -47,20 +47,23 @@
 ## Temporal Continuity
 - **What it is:** Continuity lane evidence and deterministic spine progression (54 lanes observed, highest P102C).
 - **What it is not:** Hardcoded milestone claims or speculative lane advancement.
-- **Evidence paths:** `docs/status/continuity-spine.json`, `scripts/run_temporal_continuity_*.py`, `out/temporal_continuity_*/latest.json`.
+- **Evidence paths:** `docs/status/continuity-spine.json`, `scripts/temporal/run_temporal_continuity_*.py`, `out/temporal_continuity_*/latest.json`.
 - **Governance posture:** Continuity is observational and evidence-gated.
+- **Scripts layout:** domain folder `scripts/temporal/` (not repository root). See `scripts/README.md`.
 
 ## Research Canary
 - **What it is:** Controlled research surfaces held behind advisory boundaries.
 - **What it is not:** Operational activation or production authority.
-- **Evidence paths:** `scripts/run_research_canary_*.py`, `out/research_*`, `docs/audits/REPO_FINAL_SEAL_P101_P130_research_canary_evidence_chain_closed.md`.
+- **Evidence paths:** `scripts/research/run_research_canary_*.py`, `out/research_*`, `docs/audits/REPO_FINAL_SEAL_P101_P130_research_canary_evidence_chain_closed.md`.
 - **Governance posture:** Hold routing and authorization constraints remain in force.
+- **Scripts layout:** domain folder `scripts/research/`.
 
 ## AAL-Viz
-- **What it is:** Projection and visualization surfaces for observational overlays.
+- **What it is:** Projection and visualization surfaces for observational overlays, plus authored visual language.
 - **What it is not:** Runtime control authority or canon mutation logic.
-- **Evidence paths:** `scripts/run_aal_viz_*.py`, `out/projections/`, `docs/audits/REPO_AUDIT_AAL_VIZ_GEOMETRIC_RENDERER_PLANNING_v0_1.md`.
+- **Evidence paths:** `scripts/viz/run_aal_viz_*.py`, `apps/aal-viz-live-console/`, `design-system/aal-viz/`, `out/projections/`, `docs/audits/REPO_AUDIT_AAL_VIZ_GEOMETRIC_RENDERER_PLANNING_v0_1.md`.
 - **Governance posture:** Projection-only and non-authoritative.
+- **Scripts layout:** domain folder `scripts/viz/`. Visual pack batches 0–4 complete under `design-system/aal-viz/`.
 
 ## Artifact Registry
 - **What it is:** Deterministic artifact inventory, regeneration, and drift validation (488 artifacts observed).
@@ -74,10 +77,20 @@
 - **Evidence paths:** `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`.
 - **Status:** PARTIAL — strong implementation exists for YGGDRASIL, ABX-Runes, Tier-1 registry, research shadow replay; Runtime Integration Gate now has an advisory receipt, Belief Graph remains planning-only, and Codegen Intelligence Spine has an advisory gap-analysis plan.
 
-## Not-Computable Surfaces
-- **Belief Graph Engine:** `NOT_COMPUTABLE` — no module, contract, runner, or artifact observed.
+## Scripts organization (repo-wide)
+
+- **Status:** `complete: true` — mass-org landed (#972–#975).
+- **Layout:** `scripts/<domain>/run_*.py` (e.g. `temporal/`, `research/`, `viz/`, `governance/`, `operator/`, `ingest/`).
+- **Root keeper:** `scripts/run_fast_ci.py` (local CI mirror only).
+- **Guide:** [`scripts/README.md`](../../scripts/README.md) · `python scripts/organize_scripts.py status`
+- **Do not** invent root `scripts/run_*.py` for new work; place runners under the correct domain.
+
+## Partial / advisory surfaces (not production authority)
+
+- **Belief Graph Engine:** advisory / structured graph surfaces exist under `core/belief_graph/` and contracts; not an activation path.
+- **Phase Percolation:** advisory temporal regime surfaces; not full LTL product kernel.
+- **CFAR:** construct-first research gate on main (`core/cfar.py`) — advisory routing before retrieval; no activation.
 - **ABX Codegen Intelligence Spine:** `GAP_ANALYSIS_PLAN_READY` — `out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json`; implementation, code generation, code mutation, file writeback, and execution remain blocked.
-- **Phase Percolation Engine:** `NOT_COMPUTABLE` (partial temporal surfaces only).
 
 ## Final Seal
 ```

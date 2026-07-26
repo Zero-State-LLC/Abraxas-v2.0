@@ -124,10 +124,13 @@ Scripts are **domain-organized** (`scripts/<domain>/run_*.py`). Root keeps `scri
 | Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/atlas/ABRAXAS_ATLAS.md](docs/atlas/ABRAXAS_ATLAS.md) |
 | Roadmap | [PLANS.md](PLANS.md) |
 | Production readiness | [out/production_readiness/README.md](out/production_readiness/README.md) |
+| Program roadmap | [PLANS.md](PLANS.md) · [CONTINUATION_PLAN.v16](out/production_readiness/CONTINUATION_PLAN.v16.md) |
+| HTTP API (human) | [docs/api/HTTP_API.md](docs/api/HTTP_API.md) · OpenAPI freeze: `contracts/api/openapi_supported_surface.v1.json` |
 | Glossary | [docs/GLOSSARY.md](docs/GLOSSARY.md) |
 | Design system | [design-system/README.md](design-system/README.md) |
 | AAL-Viz assets | [design-system/aal-viz/README.md](design-system/aal-viz/README.md) · [showcase](design-system/aal-viz/showcase/index.html) |
 | Multi-agent contract | Peer collaborators (Grok/Codex) — `producer_system` provenance only; schema above |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) (semantic-release tags + Unreleased digest) |
 | Security / secrets | Do not commit credentials; see CI security workflows |
 
 ---
