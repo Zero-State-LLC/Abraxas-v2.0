@@ -10,6 +10,9 @@ See [ABRAXAS_ATLAS.md#aal-viz](./ABRAXAS_ATLAS.md#aal-viz).
 | Projection runners | `scripts/viz/run_aal_viz_*.py` (domain folder — **not** repo root) |
 | Visual language pack | `design-system/aal-viz/` (batches **0–4 COMPLETE** + **operator-loop 0.5**) |
 | Operator-loop glyphs | `design-system/aal-viz/operator_loop/` (roles, nodes, edges, badges, work states) |
+| Work packet / handoff contracts | `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json` |
+| Operator-loop core | `core/operator_loop.py` (validate, overlap detect, projection) |
+| Operator-loop projection builder | `scripts/viz/build_aal_viz_operator_loop_projection.py` |
 | Pack showcase | `design-system/aal-viz/showcase/index.html` |
 | Design system root | `design-system/README.md` |
 

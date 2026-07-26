@@ -34,8 +34,11 @@ Consult `out/` artifacts when working on surfaces that depend on historical prov
 ## Projection / multi-agent
 
 - AAL-Viz assets: [`design-system/aal-viz/`](design-system/aal-viz/) — visual identity only
+- Operator loop: [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) — Hermes routes; Grok/Codex produce; operator decides
+- Work packets / handoffs: `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json` · `core/operator_loop.py`
 - Agent provenance schema: `contracts/engineering/agent_artifact_metadata.v1.schema.json` — identity ≠ authority
 - CFAR: `core/cfar.py` — research construct gate; not activation
+- Operator-loop projection (read-only): `python3 scripts/viz/build_aal_viz_operator_loop_projection.py`
 
 ## Preserved controls
 

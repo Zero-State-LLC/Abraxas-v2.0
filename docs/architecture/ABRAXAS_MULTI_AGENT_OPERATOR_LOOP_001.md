@@ -370,11 +370,11 @@ No new orchestration database, agent authority layer, or parallel runtime kernel
 
 ## Implementation sequence
 
-1. Add role and work-packet assets to the AAL-Viz Batch 0 backlog.
-2. Formalize a JSON Schema for work packet and handoff envelopes using existing contract conventions.
-3. Add a read-only AAL-Viz operator-loop projection adapter.
-4. Extend conflict scanning to report active work-packet overlap where evidence exists.
-5. Add tests proving producer identity does not affect authority decisions.
+1. **DONE** — Add role and work-packet assets to the AAL-Viz Batch 0 backlog (`design-system/aal-viz/operator_loop/`, #1033).
+2. **DONE** — Formalize JSON Schema for work packet and handoff envelopes (`contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json`).
+3. **DONE** — Read-only AAL-Viz operator-loop projection adapter (`core/operator_loop.py`, `scripts/viz/build_aal_viz_operator_loop_projection.py`).
+4. **DONE (partial)** — Work-packet file-overlap detection in `core/operator_loop.detect_work_packet_file_overlaps` (advisory; operator disposition required). Full integration into legacy `core/conflict_scan.py` pipelines remains optional.
+5. **DONE** — Tests prove producer identity does not affect authority decisions (`tests/test_operator_loop_contracts.py`).
 6. Update Hermes workflow skills to emit and consume the shared packet shape.
 7. Update Codex/Cursor prompts to honor packet ownership boundaries.
 8. Update Grok Build prompts to return manifests and integration handoffs.

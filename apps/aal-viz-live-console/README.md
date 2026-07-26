@@ -100,9 +100,14 @@ Run both adapters to keep the console current after any chain step completes:
 ```bash
 python scripts/viz/build_aal_viz_projection_bundle.py
 python scripts/viz/build_aal_viz_operator_action_packets.py
+python scripts/viz/build_aal_viz_operator_loop_projection.py
 ```
 
-Both scripts are idempotent and safe to re-run at any time.
+All three scripts are idempotent and safe to re-run at any time.
+
+Operator-loop projection (`operator-loop-projection.json`) is **display-only**:
+work packets, handoffs, and file-overlap findings. It never assigns work, approves
+merges, or grants authority. See `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`.
 
 ---
 

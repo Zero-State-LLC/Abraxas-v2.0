@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/contracts/engineering/handoff_envelope.v1.schema.json",
+  "title": "HandoffEnvelope.v1",
+  "description": "Completion handoff for a multi-agent operator-loop work packet. Records evidence and residual risk; does not grant merge, canon, or production authority. Companion to ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "handoff_id",
+    "work_packet_id",
+    "producer_system",
+    "status",
+    "changed_files",
+    "generated_assets",
+    "commands_run",
+    "tests",
+    "observed_findings",
+    "inferred_findings",
+    "conflicts_detected",
+    "residual_risks",
+    "next_recommended_action",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HandoffEnvelope.v1"},
+    "handoff_id": {
+      "type": "string",
+      "pattern": "^HO-[A-Za-z0-9][A-Za-z0-9._:-]{0,62}$",
+      "description": "Stable handoff identifier (HO-...)."
+    },
+    "work_packet_id": {
+      "type": "string",
+      "pattern": "^WP-[A-Za-z0-9][A-Za-z0-9._:-]{0,62}$"
+    },
+    "producer_system": {
+      "enum": ["GROK", "CODEX", "MIXED", "HUMAN"],
+      "description": "Provenance of the completing producer. Identity is not authority."
+    },
+    "status": {
+      "enum": ["COMPLETE", "PARTIAL", "BLOCKED", "NOT_COMPUTABLE"]
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "generated_assets": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "commands_run": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "failed"],
+      "properties": {
+        "passed": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "failed": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      }
+    },
+    "observed_findings": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "inferred_findings": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "conflicts_detected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_class", "detail"],
+        "properties": {
+          "conflict_class": {
+            "enum": [
+              "FILE_OVERLAP",
+              "CONTRACT_CONFLICT",
+              "ARCHITECTURE_CONFLICT",
+              "SEMANTIC_CONFLICT",
+              "TEST_EVIDENCE_CONFLICT",
+              "SOURCE_TRUTH_CONFLICT",
+              "VISUAL_LANGUAGE_CONFLICT",
+              "SCHEDULE_OR_DEPENDENCY_CONFLICT"
+            ]
+          },
+          "detail": {"type": "string", "minLength": 1},
+          "subject_ids": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "next_recommended_action": {"type": "string", "minLength": 1},
+    "branch": {"type": ["string", "null"]},
+    "pull_request": {"type": ["integer", "null"], "minimum": 1},
+    "notes": {"type": ["string", "null"]},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_identity_grants_authority",
+        "auto_merge",
+        "auto_canon_promotion",
+        "auto_deploy",
+        "assignment_authority",
+        "execution_authority",
+        "operator_review_on_semantic_conflict"
+      ],
+      "properties": {
+        "producer_identity_grants_authority": {"const": false},
+        "auto_merge": {"const": false},
+        "auto_canon_promotion": {"const": false},
+        "auto_deploy": {"const": false},
+        "assignment_authority": {"const": false},
+        "execution_authority": {"const": false},
+        "operator_review_on_semantic_conflict": {"const": true}
+      }
+    }
+  }
+}
