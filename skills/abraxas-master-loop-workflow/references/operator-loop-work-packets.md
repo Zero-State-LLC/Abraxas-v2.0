@@ -67,10 +67,10 @@ Optional: `branch`, `pull_request`, `notes`.
 ### Emit checklist (Hermes)
 
 1. Decompose the goal into non-overlapping file/concept scope.
-2. Call `detect_work_packet_file_overlaps` against **all known active packets** (including this draft).
-3. If any `FILE_OVERLAP` finding appears → do **not** start the producer; classify and surface for operator disposition.
-4. `validate_work_packet` before recording/routing.
-5. Set `work_state` to `ACTIVE` (or `WAITING` if blocked on dependency).
+2. Build the full draft packet, including provisional `work_state` in an **active** state (`ACTIVE`, or `WAITING` if blocked on a dependency) and locked `authority` from `default_authority()`. The draft **must** already carry an active `work_state` so `detect_work_packet_file_overlaps` includes it (`ACTIVE_OVERLAP_STATES`); missing or non-active `work_state` is silently excluded from detection.
+3. Call `detect_work_packet_file_overlaps([*known_active_packets, draft])`.
+4. If any `FILE_OVERLAP` finding appears → do **not** start the producer; classify and surface for operator disposition.
+5. `validate_work_packet(draft)` before recording/routing (schema requires `work_state` and the full required set).
 6. Hand the validated packet to the producer; retain the same `work_packet_id` for the handoff.
 
 ## HandoffEnvelope.v1 — consume on completion
@@ -179,7 +179,7 @@ python scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples 
 
 - Treating HERMES / GROK / CODEX identity as merge, canon, or deploy authority.
 - Starting producer work without a validated WorkPacket.v1.
-- Accepting completion without a validated HandoffEnvelope.v1 (or explicit BLOCKED/PARTIAL envelope).
+- Accepting completion without a validated HandoffEnvelope.v1 for any terminal status, including `status` in `{COMPLETE, PARTIAL, BLOCKED, NOT_COMPUTABLE}`.
 - Overlapping `scope.files` with another active packet without operator disposition.
 - Inventing a second packet schema or task database.
 - Production activation, deploy unhold, or CLEAR mass deletion from this skill path.

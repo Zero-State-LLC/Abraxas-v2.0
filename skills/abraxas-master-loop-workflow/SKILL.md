@@ -159,7 +159,7 @@ Execute per cycle:
 - AGENTS.md, GOVERNANCE_V3.md, README.md, PLANS.md
 - Multi-agent packets: `references/operator-loop-work-packets.md` (WorkPacket.v1 / HandoffEnvelope.v1 emit-consume)
 - Architecture: `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`
-- Contracts: `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json`
+- Contracts: `contracts/engineering/work_packet.v1.schema.json`, `contracts/engineering/handoff_envelope.v1.schema.json`
 - Helpers: `core/operator_loop.py`
 - `references/loop-building-blocks.md` (detailed 5 blocks + Anthropic patterns)
 - `references/loop-types-and-controls.md`
