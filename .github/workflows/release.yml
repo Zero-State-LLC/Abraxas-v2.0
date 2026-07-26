@@ -26,7 +26,9 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci || echo "No package.json found - skipping npm install"
+        # Root package.json pins semantic-release plugins referenced by release.config.js.
+        # npm ci must succeed so @semantic-release/* modules resolve under npx.
+        run: npm ci
 
       - name: Release
         env:
