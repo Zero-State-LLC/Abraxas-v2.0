@@ -16,12 +16,13 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **landed on main (#1021)**
 7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **landed on main (#1022)**
 8. Phase 10: viz overlay replays + remaining WP-D/canary research writers — **landed**
-9. Phase 11+: doctrine validator / fusion_evidence / CLEAR operator review; live providers only when authorized
+9. Phase 11: doctrine/fusion/shadow + governance-spine residual writers — **landed**
+10. Phase 12+: CLEAR operator review before deletion; live providers only when authorized
 
 ### Next three milestones
 
 1. Operator review of CLEAR reference analysis before any deletion
-2. Residual deferred writers (doctrine validator, fusion_evidence, shadow_execution)
+2. Residual artifact-contract / research_canary writers (no regen of research_canary_* without full chain)
 3. Live provider adapters only behind explicit operator authorization (still no network at import)
 
 ### Issue backlog (pre–Phase 10)

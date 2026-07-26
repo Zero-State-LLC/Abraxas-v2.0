@@ -3,15 +3,22 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash, write_classified_json
 from core.governance.authority import locked_authority
 from core.pipelines.registry import load_contracts
+
+_OUT_ROOT = Path("out")
 
 
 def main() -> None:
     contracts = load_contracts(Path("contracts/pipelines"))
-    contract = next((c for c in contracts if c.pipeline_id == "research_intake"), contracts[0])
-    invocation_plan = [{"rune_id": rune, "mode": "shadow"} for rune in sorted(contract.required_runes)]
+    contract = next(
+        (c for c in contracts if c.pipeline_id == "research_intake"), contracts[0]
+    )
+    invocation_plan = [
+        {"rune_id": rune, "mode": "shadow"} for rune in sorted(contract.required_runes)
+    ]
     execution = {
         "schema_version": "ShadowExecutionRun.v1",
         "pipeline_id": contract.pipeline_id,
@@ -27,9 +34,21 @@ def main() -> None:
         "authority": locked_authority(),
         "status": "valid",
     }
-    write_canonical_json("out/execution/latest.json", execution)
-    write_canonical_json("out/execution/receipts.latest.json", receipt)
-    print(json.dumps({"status": execution["status"], "pipeline_id": contract.pipeline_id}))
+    write_classified_json(
+        "out/execution/latest.json",
+        execution,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/execution/receipts.latest.json",
+        receipt,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    print(
+        json.dumps({"status": execution["status"], "pipeline_id": contract.pipeline_id})
+    )
 
 
 if __name__ == "__main__":

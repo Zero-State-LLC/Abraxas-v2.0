@@ -9,7 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 from core.operators.review_queue import build_review_queue
@@ -25,6 +26,8 @@ from core.spine.milestone_validator import (
     validate_active_milestone,
 )
 from core.yggdrasil.validator import load_route_graphs
+
+_OUT_ROOT = Path("out")
 
 CONTRACTS_DIR = Path("contracts/pipelines")
 RUNE_CATALOG_PATH = Path("contracts/runes/catalog.v1.json")
@@ -396,9 +399,11 @@ def main() -> None:
     with profiler.measure("validation_generation", "validate_milestone_continuity"):
         continuity = validate_milestone_continuity()
         # TD Wave 1: pure builder; sole-write continuity packet here
-        write_canonical_json(
+        write_classified_json(
             Path("out/spine/milestone_continuity.latest.json"),
             continuity.model_dump(),
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=_OUT_ROOT,
         )
 
     results = []
@@ -1314,7 +1319,7 @@ def main() -> None:
         )
 
     with profiler.measure("validation_generation", "write_validation_outputs"):
-        write_canonical_json(
+        write_classified_json(
             OUT_VALIDATION,
             {
                 "schema_version": "DoctrineValidationRun.v1",
@@ -1322,12 +1327,14 @@ def main() -> None:
                 "results": results,
                 "summary": summary,
             },
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=_OUT_ROOT,
         )
-        write_canonical_json(OUT_QUEUE, queue)
-        write_canonical_json(OUT_MILESTONE_REG, milestone_registry.model_dump())
-        write_canonical_json(OUT_MILESTONE_VAL, milestone_validation.model_dump())
+        write_classified_json(OUT_QUEUE, queue, artifact_class=ArtifactClass.AUDIT_EVIDENCE, out_root=_OUT_ROOT)
+        write_classified_json(OUT_MILESTONE_REG, milestone_registry.model_dump(), artifact_class=ArtifactClass.AUDIT_EVIDENCE, out_root=_OUT_ROOT)
+        write_classified_json(OUT_MILESTONE_VAL, milestone_validation.model_dump(), artifact_class=ArtifactClass.AUDIT_EVIDENCE, out_root=_OUT_ROOT)
     with profiler.measure("projection_generation", "write_projection_output"):
-        write_canonical_json(OUT_AAL_VIZ, projection)
+        write_classified_json(OUT_AAL_VIZ, projection, artifact_class=ArtifactClass.AUDIT_EVIDENCE, out_root=_OUT_ROOT)
     validation_correlation_namespace = "validation_generation"
     validation_correlation_id = stable_correlation_id(
         validation_correlation_namespace,
