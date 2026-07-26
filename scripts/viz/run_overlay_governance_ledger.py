@@ -10,8 +10,14 @@ from core.overlay_governance.runtime import run_overlay_governance_ledger
 def _load(path: str) -> list[dict]:
     p = Path(path)
     if not p.exists():
-        return [{}]
-    return [json.loads(p.read_text())]
+        raise FileNotFoundError(
+            f"required overlay governance upstream missing: {path} "
+            "(refuse empty-packet fallback)"
+        )
+    payload = json.loads(p.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise TypeError(f"overlay governance upstream must be a JSON object: {path}")
+    return [payload]
 
 
 if __name__ == "__main__":
