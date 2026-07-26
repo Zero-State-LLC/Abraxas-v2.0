@@ -1,11 +1,11 @@
 {
-    "schema_version": 1,
-    "commit": "d7d2342310c85ecdd8010f427eba4dacaffad21c",
-    "indexed_at": "2026-07-13T05:50:15Z",
-    "project": "Users-appliedalchemylabs-Documents-Abraxas-v2.0",
-    "nodes": 120657,
-    "edges": 346191,
-    "original_size": 317652992,
-    "compressed_size": 35839181,
-    "compression_level": 3
+    "schema_version": 2,
+    "commit": "0317669bb9d11046f0003942df9d091be587c89c",
+    "indexed_at": "2026-07-25T09:01:45Z",
+    "project": "abraxas-v2-full",
+    "nodes": 125856,
+    "edges": 414687,
+    "original_size": 160497664,
+    "compressed_size": 22661287,
+    "compression_level": 9
 }

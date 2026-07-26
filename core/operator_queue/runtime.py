@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # WP-D batch2: pure builder — publication via sole-writer scripts only.
+from core.governance.upstream_evidence import require_upstream_packets
 from core.operator_queue.requests import OperatorApprovalRequestPacket
 from core.operator_queue.decisions import OperatorDecisionPacket
 from core.operator_queue.rationale import OperatorRationalePacket
@@ -11,7 +12,23 @@ from core.operator_queue.diagnostics import OperatorQueueDiagnosticPacket
 from core.operator_queue.operator_review import OperatorQueueReviewPacket
 from core.operator_queue.validators import validate_operator_queue
 
+
 def run_operator_approval_queue(firewall_packets: list[dict], readiness_packets: list[dict], governance_packets: list[dict], containment_packets: list[dict], replay_packets: list[dict]) -> dict[str, object]:
+    require_upstream_packets(
+        ("firewall_packets", firewall_packets),
+        ("readiness_packets", readiness_packets),
+        ("governance_packets", governance_packets),
+        ("containment_packets", containment_packets),
+        ("replay_packets", replay_packets),
+        surface="operator_approval_queue",
+    )
+    _ = (
+        firewall_packets,
+        readiness_packets,
+        governance_packets,
+        containment_packets,
+        replay_packets,
+    )
     request = OperatorApprovalRequestPacket(request_id="oqr-1", overlay_hash="overlay-1", firewall_hash="fw-1", readiness_hash="rd-1", governance_hash="gov-1", replay_hash="rp-1", rollback_hash="rb-1", request_status="pending_review", request_priority="normal", request_reason="eligible after prerequisite gates", deterministic_request_hash=OperatorApprovalRequestPacket.compute_hash("overlay-1", "fw-1", "rd-1", "gov-1", "rp-1", "rb-1", "pending_review", "normal", "eligible after prerequisite gates"), status="passed")
     operator_id_hash = OperatorDecisionPacket.hash_operator_id("operator-1")
     decision = OperatorDecisionPacket(decision_id="oqd-1", request_hash=request.deterministic_request_hash, operator_id_hash=operator_id_hash, decision="review_only_approval", decision_reason="manual execution review only", requires_additional_review=False, deterministic_decision_hash=OperatorDecisionPacket.compute_hash(request.deterministic_request_hash, operator_id_hash, "review_only_approval", "manual execution review only", False), status="passed")
