@@ -4,7 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 DEFAULT_OUTPUT_ROOT = Path("out/contracts")
 
@@ -129,11 +130,12 @@ def build() -> tuple[dict, dict, list[dict]]:
 def main(output_root: str | Path = DEFAULT_OUTPUT_ROOT) -> None:
     out, report, actions = build()
     root = Path(output_root)
-    write_canonical_json(root / "artifact_contract_p2c_d_manual_review_triage.latest.json", out)
-    write_canonical_json(root / "artifact_contract_p2c_d_manual_review_triage_report.latest.json", report)
-    write_canonical_json(
+    write_classified_json(root / "artifact_contract_p2c_d_manual_review_triage.latest.json", out, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json(root / "artifact_contract_p2c_d_manual_review_triage_report.latest.json", report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json(
         root / "artifact_contract_p2c_d_manual_review_triage_actions.latest.json",
         sorted(actions, key=lambda x: x["target"]),
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
     )
 
 

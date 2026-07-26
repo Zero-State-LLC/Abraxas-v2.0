@@ -157,6 +157,12 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 4. Receipt: `out/production_convergence/phase12_writer_migration.v1.json`
 5. Deferred: artifact-contract repair runners, `research_canary_*` regen, live providers, dual-control deletion mandate
 
+### Phase 13
+1. Twenty-seven artifact-contract repair / inventory / triage runners → `write_classified_json`
+2. CLEAR reference analysis refreshed to consume Phase 12 migration receipt
+3. Receipt: `out/production_convergence/phase13_writer_migration.v1.json`
+4. Deferred: `research_canary_*` regen, dual-control CLEAR deletion mandate, live providers
+
 ## CLEAR
 
 No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration. CLEAR reference analysis is advisory-only until operator review.
@@ -165,4 +171,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 
 - Candidate status remains `NOT_READY`
 - Pre–Phase 10 issue backlog closed advisarily (#546 #547 #881 #892); `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued — see `docs/status/ISSUE_BACKLOG_CLOSURE_001.md`
-- Next action: dual-control CLEAR disposition (Phase 12 landed #1035); artifact-contract/research_canary residuals; live providers only when authorized
+- Next action: dual-control CLEAR disposition; research_canary residual only under sealed chain; live providers only when authorized

@@ -5,10 +5,12 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
-
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from scripts.artifact import run_artifact_contract_global_closure_audit as closure_audit
-from scripts.artifact import run_artifact_contract_post_closure_operator_receipt as operator_receipt
+from scripts.artifact import (
+    run_artifact_contract_post_closure_operator_receipt as operator_receipt,
+)
 
 
 def _load(path: str) -> Any:
@@ -109,9 +111,9 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
 
 def main() -> None:
     payload, report, actions = build()
-    write_canonical_json("out/contracts/artifact_contract_canon_sync_receipt.latest.json", payload)
-    write_canonical_json("out/contracts/artifact_contract_canon_sync_receipt_report.latest.json", report)
-    write_canonical_json("out/contracts/artifact_contract_canon_sync_receipt_actions.latest.json", actions)
+    write_classified_json("out/contracts/artifact_contract_canon_sync_receipt.latest.json", payload, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_canon_sync_receipt_report.latest.json", report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_canon_sync_receipt_actions.latest.json", actions, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–12 landed; CLEAR disposition pending)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 13 in progress; CLEAR disposition pending)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -26,15 +26,16 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Provider port | `DeniedProvider` default · `FixtureProvider` + `gated_invoke` | `core/ports/provider.py` |
 | OpenAPI freeze | supported surface contract | `contracts/api/openapi_supported_surface.v1.json` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–12 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Convergence audit | Phase 0–13 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
 | Issue backlog | open issues **0** · prior closed advisarily | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
 | Phase 12 writers | **Landed** · residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` · #1035 |
+| Phase 13 writers | artifact-contract inventory/repair/triage runners (27) | `out/production_convergence/phase13_writer_migration.v1.json` |
 | CLEAR operator review | advisory · `PENDING_OPERATOR` · no deletion | `out/production_convergence/clear_operator_review.v1.json` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
-| Active objective | CLEAR dual-control disposition · deferred residuals · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
+| Active objective | Land Phase 13; CLEAR dual-control disposition · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
 
 ## Session closeout surfaces (2026-07-23)
 
