@@ -171,4 +171,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 
 - Candidate status remains `NOT_READY`
 - Pre–Phase 10 issue backlog closed advisarily (#546 #547 #881 #892); `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued — see `docs/status/ISSUE_BACKLOG_CLOSURE_001.md`
-- Next action: dual-control CLEAR disposition; research_canary residual only under sealed chain; live providers only when authorized
+- Next action: dual-control CLEAR disposition (Phase 13 landed #1037); research_canary residual only under sealed chain; live providers only when authorized
