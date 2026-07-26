@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 12 in progress; CFAR/AAL-Viz on main)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 12 in progress; operator-loop contracts on main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,13 +8,14 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1030** CFAR reintro | `git log -1 --oneline` |
+| HEAD / branch tip | see git; tip after **#1034** operator-loop contracts | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
 | Scripts organization | **COMPLETE** · domain `scripts/<domain>/run_*.py` | `python scripts/organize_scripts.py status` · #972–#975 |
-| AAL-Viz visual pack | **COMPLETE** batches 0–4 · projection-only assets | `design-system/aal-viz/` · #1028 |
+| AAL-Viz visual pack | **COMPLETE** batches 0–4 + operator-loop 0.5 · projection-only | `design-system/aal-viz/` · #1028 · #1033 |
 | Agent artifact metadata | **AgentArtifactMetadata.v1** on main | `contracts/engineering/agent_artifact_metadata.v1.schema.json` · #1029 |
+| Operator loop contracts | **WorkPacket.v1 + HandoffEnvelope.v1** · projection adapter | `core/operator_loop.py` · `contracts/engineering/work_packet.v1.schema.json` |
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
 | Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
@@ -68,8 +69,8 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
-| AAL-Viz projection pack | batches **0–4 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 |
-| Recent landings (2026-07-26) | **#1027–#1030 MERGED** | docs inventory · visual pack · AgentArtifactMetadata · CFAR |
+| AAL-Viz projection pack | batches **0–4 + operator-loop 0.5 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 · #1033 |
+| Recent landings (2026-07-26) | **#1027–#1034 MERGED** · Phase 12 PR open | docs · visual pack · metadata · CFAR · operator-loop · WorkPacket |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** | [`out/production_readiness/DEBUG_PLAN.v3.md`](out/production_readiness/DEBUG_PLAN.v3.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 

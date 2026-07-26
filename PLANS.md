@@ -19,10 +19,11 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | AgentArtifactMetadata.v1 | **Landed** | #1029 · `contracts/engineering/agent_artifact_metadata.v1.schema.json` |
 | CFAR construct-first gate | **Landed** | #1030 · `core/cfar.py` |
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
+| WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 
 ### Active workstreams (Phase 12+)
 
-1. **Phase 12 residual writers + CLEAR review packet** — **in progress** on this branch (11 residual writers → `write_classified_json`; advisory CLEAR operator-review packet)
+1. **Phase 12 residual writers + CLEAR review packet** — **in progress** on this branch / #1035 (11 residual writers → `write_classified_json`; advisory CLEAR operator-review packet)
 2. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
 3. **Deferred residual writers** — artifact-contract / research_canary companions only with full provenance chain (no blind regen of `out/research_canary_*`)
 4. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
