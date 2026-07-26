@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Hermes orchestrator">
+  <title>Hermes orchestrator</title>
+  <desc>Operator-loop systems glyph. Projection only. No authority grant.</desc>
+  <circle cx="12" cy="12" r="3"/>
+  <path d="M12 5 V8 M5 12 H8 M16 12 H19"/>
+  <path d="M7 7 L9.5 9.5 M17 7 L14.5 9.5 M7 17 L9.5 14.5 M17 17 L14.5 14.5"/>
+  <circle cx="12" cy="4" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="20" cy="12" r="1" fill="currentColor" stroke="none"/>
+</svg>

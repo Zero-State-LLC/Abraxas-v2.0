@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 24" width="88" height="24" role="img" aria-label="Producer provenance CODEX">
+  <title>CODEX</title>
+  <desc>Producer identity is provenance only. Does not grant authority.</desc>
+  <rect x="1" y="1" width="86" height="22" rx="4" fill="none" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="44" y="16" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" letter-spacing="0.12em" fill="#2DD4BF">CODEX</text>
+</svg>

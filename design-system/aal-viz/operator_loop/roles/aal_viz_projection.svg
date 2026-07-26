@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="AAL-Viz projection">
+  <title>AAL-Viz projection</title>
+  <desc>Operator-loop systems glyph. Projection only. No authority grant.</desc>
+  <path d="M5 17 L12 6 L19 17 Z"/>
+  <circle cx="12" cy="13" r="2"/>
+  <circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/>
+</svg>
