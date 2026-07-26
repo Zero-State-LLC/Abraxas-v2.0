@@ -376,8 +376,8 @@ No new orchestration database, agent authority layer, or parallel runtime kernel
 4. **DONE (partial)** — Work-packet file-overlap detection in `core/operator_loop.detect_work_packet_file_overlaps` (advisory; operator disposition required). Full integration into legacy `core/conflict_scan.py` pipelines remains optional.
 5. **DONE** — Tests prove producer identity does not affect authority decisions (`tests/test_operator_loop_contracts.py`).
 6. **DONE** — Hermes workflow skill emit/consume of shared packet shape (`skills/abraxas-master-loop-workflow/SKILL.md` §3b; `skills/abraxas-master-loop-workflow/references/operator-loop-work-packets.md`; links `core/operator_loop.py` + WorkPacket.v1 / HandoffEnvelope.v1 schemas).
-7. Update Codex/Cursor prompts to honor packet ownership boundaries.
-8. Update Grok Build prompts to return manifests and integration handoffs.
+7. **DONE** — Codex/Cursor prompts honor packet ownership boundaries (`docs/CODEX_CUSTOM_INSTRUCTIONS.md`; `.cursor/rules/operator-loop-ownership.mdc`; WorkPacket.v1 scope + HandoffEnvelope.v1 completion; producer identity provenance-only).
+8. **DONE** — Grok/AGENTS handoff and manifest requirements (`AGENTS.md` Projection / multi-agent + Grok Build section; `design-system/aal-viz/operator_loop/README.md` contracts + projection pointer; dry-run `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`).
 9. Project GitHub/Notion/CI evidence in AAL-Viz.
 10. Keep assignment and approvals outside AAL-Viz.
 
