@@ -1,3 +1,66 @@
+# [1.146.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.145.0...v1.146.0) (2026-07-26)
+
+
+### Bug Fixes
+
+* address review feedback for Codex ownership instructions ([ca27ae0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ca27ae0071dca9739965d675178e943aa7290c63))
+* address review feedback for Grok handoff docs ([a7ae0fd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a7ae0fdcdabada08c4b825f9a797e64d399ce8f3))
+* address review feedback for Hermes WorkPacket skill wiring ([2ab0a2a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2ab0a2aab11d398b743e7b2cb7ed704afb344c87))
+* address review feedback for Release semantic-release Node engine ([77fca07](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/77fca07b71143c72e42b9f6a21fdc86a684d0e68))
+* **ci:** align binding matrix and README tests with current main ([56f8e93](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/56f8e93b9d72c6a63f212c84792d9b811d7ca5a0))
+* **ci:** install semantic-release plugins for Release workflow ([ef7483b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ef7483b6ac03bebe7a2742e6e2b2af7c4fa459b1))
+* **ci:** install semantic-release plugins for Release workflow ([#1043](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1043)) ([dcc2fb1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dcc2fb15a0add720c1f889586feb617a19965514))
+* **convergence:** allowlist analyze router for boundary advisory ([2b8ff78](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b8ff78f5906d26e4bcddc244752a3b19b6c34c5))
+* **convergence:** resolve Phase 9 incremental replay out_root under tests ([a3ba34a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a3ba34adc620a640fc376b3ca684c5cc1c89af56))
+* **docs:** restore README alignment phrases and avoid production-ready claim ([4c8d5c2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4c8d5c2cb838535833d9cb8a2c354c07359b728e))
+* **forecast:** fail closed on observability telemetry hash ([8c1a1c5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8c1a1c596f444454d83396bd430f2e700e4fbd31))
+* **governance:** fail-closed doctrine seal on any failed gate ([f4c0647](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f4c06473adfd4109451025e55ac6c3d0ff750fa9))
+* **hygiene:** accept CRLF-equivalent source hashes in phase1 validation ([b8356fe](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b8356fe63c0ac3984c8a7b46ffc80b272f3cdce5))
+* **operator:** fail closed on empty authorization upstreams ([f4ac3b0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f4ac3b051c43b25310cc913486fb3a261f87bb1c))
+* **operator:** fail closed on empty spine upstream evidence ([1765365](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/176536574f01438f4db0ad7b2c1ec21b6c82e389))
+* **oracle:** fail closed on mixed source_id intake batches ([c119a9d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c119a9de45867d1498ee4bb2c69def9358047fad))
+* **overlay:** fail closed on missing governance upstream evidence ([f7543e4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f7543e455555368afa83f91ddded3d08248fe23e))
+* **research:** fail closed on malformed P99 proof records ([ddb56d3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ddb56d38fca017b93ee7ab6a9c5bb951ad79b879))
+* **runtime:** fail closed on sandbox/state telemetry hash ([8c181a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8c181a6d10dfc47d10114ca8fef191cd182301f2))
+
+
+### Features
+
+* **alembic:** bind YGGDRASIL route and Oracle intake bridge ([03dc602](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/03dc6028b7b93182d55fb7b729bfae444cfc2669))
+* **alembic:** land advisory multi-architecture orchestration spine ([094baf7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/094baf7fd280eee46663339ce649219da51eff09))
+* assimilate MemEIC compositional evidence memory pattern ([#986](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/986)) ([b1c43e0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b1c43e04d57e9184c20aedf62b39d395f34e6972))
+* **atlas:** AtlasSyncReceipt.v1 schema + STATUS refresh for [#990](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/990)-[#998](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/998) ([5535155](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/553515596d8290d9a0af3d10ea5bfa87feff9f2b))
+* **cfar:** reintroduce construct-first analytical reasoning gate ([6e1656b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6e1656bf72d4208f9e7e86a9e11acb1b6312ae24)), closes [#1006](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1006)
+* **cfar:** reintroduce construct-first analytical reasoning gate ([#1030](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1030)) ([a7a578d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a7a578db42df16b0ce1b60d24d03010e09abe8f6))
+* **convergence:** Phase 0–2 production spine with Alembic fit ([1a56f20](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1a56f20aa74d893f8fc278bc26a2d90c94225185))
+* **convergence:** Phase 10 viz/canary WP-D writer migration ([796a220](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/796a220150cb3bb632648ceb63e3055b61b155a0))
+* **convergence:** Phase 11 doctrine/fusion/shadow writer migration ([e3bef0a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e3bef0a1ce031a7bd57c0592ca15b1a131f735c2))
+* **convergence:** Phase 12 residual writers and CLEAR review packet ([#1035](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1035)) ([a188508](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a188508ba20eef917fb74581f821e5c740610fd0))
+* **convergence:** Phase 13 artifact-contract writer migration ([#1037](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1037)) ([4f832e2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4f832e25b60b1e31d93f7e3884ae846ebd128587))
+* **convergence:** Phase 14 CLEAR disposition draft and canary writer ([#1039](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1039)) ([93280ea](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/93280ea3d6cd2837478906d97d568473a965218e))
+* **convergence:** Phase 3–4 CLI, create_app, and golden-path hardening ([c6b872e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c6b872eb6bc7a3ee7625129507caedba5e2bcee1))
+* **convergence:** Phase 5 classified writer and RuntimeSettings ([618e7dc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/618e7dc1ea33720b15ee9de466ab21da80079792))
+* **convergence:** Phase 6 ports, writer migration, service hardening ([1d6a233](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1d6a23370af3749e81fbe2db1c703085b2a2d558)), closes [hi#traffic](https://github.com/hi/issues/traffic)
+* **convergence:** Phase 7 writers, provider port, OpenAPI freeze ([b640ef1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b640ef11761fff77e424ba8a57bd864978f6e24a))
+* **convergence:** Phase 8 sole-writer migration and FixtureProvider ([0a77230](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0a772302852d7b1b6e87c2359e255dbdaf2e7ee3))
+* **convergence:** Phase 9 replay/viz writers and CLEAR analysis ([2785627](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2785627af991285336480fee89b1f0497383acdc))
+* **design-system:** AAL-Viz batch 2 engineering rune alphabet ([7577dd0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7577dd041c5a014ec2d1c536692ef8e6311d2228))
+* **design-system:** AAL-Viz batch 3 diagrams, reports, and banners ([49d1a3f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/49d1a3f971382857320c1e7c094b108881327f78))
+* **design-system:** AAL-Viz batch 4 motion, fields, PWA, marketing ([58a7e08](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/58a7e0870c1f09226b672c3ef02169e0333688e6))
+* **design-system:** AAL-Viz operator-loop glyphs and projection nodes ([02f9e62](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/02f9e62dbe9365579e58787dd347811dbd0cbf86))
+* **design-system:** AAL-Viz operator-loop glyphs and projection nodes ([#1033](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1033)) ([de887a3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/de887a3ba38ea1a6a3e66071cfafa2872a17ac9a))
+* **design-system:** AAL-Viz visual foundation batches 0–1 ([4fc0365](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4fc0365e0005ee6295eefb88573199bfde22d0c8))
+* **design-system:** AAL-Viz visual pack batches 0–4 COMPLETE ([#1028](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1028)) ([486944c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/486944c0fe4f39bf509c3a31b4a9eba1b07e5809))
+* **engineering:** add AgentArtifactMetadata.v1 schema ([4bec86a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4bec86a0f83bb73f695c34083954d6aa53564eb2)), closes [#989](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/989)
+* **engineering:** add AgentArtifactMetadata.v1 schema ([#1029](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1029)) ([612d99c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/612d99c29ec206ee78868cc1f3312a391bded23f))
+* **engineering:** WorkPacket.v1 and HandoffEnvelope.v1 operator-loop contracts ([f1da842](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f1da842c9485cabb4b35e345bcb08fcdabf4f183))
+* **engineering:** WorkPacket.v1 and HandoffEnvelope.v1 operator-loop contracts ([#1034](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1034)) ([c6dc568](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c6dc56822adae4ed4cfe474581ef0f6441969fed))
+* **hygiene:** advisory ConflictReport builder for CONFLICT_SCAN ([08f9c46](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/08f9c465dd9b60836a258c5618e48c56ba1a3dac))
+* **oracle:** populate intake conflicts on detection (no auto-resolve) ([7b22c51](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7b22c5164971d2b1cb087b8e799f9f2742873f3d))
+* **phase_percolation:** Phase 4 temporal harness — atomic leaves + tests ([17433e9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/17433e9496c0e4f4c57363aed18f62183fc6f48f))
+* **research:** real dimension checks in cross-drop conflict scan ([308fb36](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/308fb3694871e08dc95cfc5926655b53357ca5fc))
+* **yggdrasil:** pilot YGGDRASIL scan nodes on universal_ingest route ([2e1230d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2e1230db1d51c24f0ef8cb85ae47b0b3e2fa2dfc))
+
 # Changelog
 
 Tagged releases are written by **semantic-release** on merge to `main`.  
