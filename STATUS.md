@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–10; issue backlog closed; Phase 10 in progress)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–10 landed; issue backlog closed)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -25,7 +25,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
 | Issue backlog | #546 #547 #881 #892 closed (advisory; probe gate unissued) | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
-| Active objective | Land Phase 10; CLEAR operator review before deletion | `PLANS.md` |
+| Active objective | Phase 11+ residuals; CLEAR operator review before deletion | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 
