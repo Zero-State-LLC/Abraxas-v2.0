@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–10 landed; issue backlog closed)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–11; Phase 11 in progress)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -21,11 +21,12 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Provider port | `DeniedProvider` default · `FixtureProvider` + `gated_invoke` | `core/ports/provider.py` |
 | OpenAPI freeze | supported surface contract | `contracts/api/openapi_supported_surface.v1.json` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–10 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Convergence audit | Phase 0–11 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
 | Issue backlog | #546 #547 #881 #892 closed (advisory; probe gate unissued) | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
-| Active objective | Phase 11+ residuals; CLEAR operator review before deletion | `PLANS.md` |
+| Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
+| Active objective | Land Phase 11; CLEAR operator review before deletion | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

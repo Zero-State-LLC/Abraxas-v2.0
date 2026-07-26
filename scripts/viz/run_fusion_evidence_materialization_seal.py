@@ -7,9 +7,11 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash, write_classified_json
 
 OUT_PATH = Path("out/audit/fusion_evidence_materialization_seal_001.latest.json")
+_OUT_ROOT = Path("out")
 
 
 def build_receipt() -> dict[str, Any]:
@@ -21,9 +23,15 @@ def build_receipt() -> dict[str, Any]:
         "run_count": 12,
         "summary_hash": "32691a04eb6cf8bfcb9df1c6cc301364026e93f3a2e11b78c6d6a7277d203f8e",
         "artifact_hashes": {
-            "temporal_state_diff_pulse_ledger": "fc05c29510a75ed8ea0ed0e55725d0b3f6939cce0c340d587c75cdf6a87845e9",
-            "temporal_lineage_pulse_ledger": "9a8697c4901a7b1dda8020ee90acdc98a56986e800b29a25903efc4f91e567c9",
-            "cross_run_topology_fusion": "f0c1f8e09d2554910c4bf000c9887eb7568773614c0f1430f9ab3f3bc69f2a42",
+            "temporal_state_diff_pulse_ledger": (
+                "fc05c29510a75ed8ea0ed0e55725d0b3f6939cce0c340d587c75cdf6a87845e9"
+            ),
+            "temporal_lineage_pulse_ledger": (
+                "9a8697c4901a7b1dda8020ee90acdc98a56986e800b29a25903efc4f91e567c9"
+            ),
+            "cross_run_topology_fusion": (
+                "f0c1f8e09d2554910c4bf000c9887eb7568773614c0f1430f9ab3f3bc69f2a42"
+            ),
         },
         "final_fusion_status": "ADVISORY_ONLY",
         "remaining_blockers": [],
@@ -74,13 +82,23 @@ def _build_markdown(packet: dict[str, Any]) -> str:
 
 def main() -> None:
     packet = build_receipt()
-    write_canonical_json(OUT_PATH, packet)
+    write_classified_json(
+        OUT_PATH,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
     markdown = _build_markdown(packet)
     md_path = OUT_PATH.with_suffix(".md")
     # Avoid dirtying tracked markdown when content is unchanged (fast-ci drift hygiene).
     if not md_path.is_file() or md_path.read_text(encoding="utf-8") != markdown:
         md_path.write_text(markdown, encoding="utf-8")
-    print(json.dumps({"status": packet["status"], "receipt_hash": packet["receipt_hash"]}, sort_keys=True))
+    print(
+        json.dumps(
+            {"status": packet["status"], "receipt_hash": packet["receipt_hash"]},
+            sort_keys=True,
+        )
+    )
 
 
 if __name__ == "__main__":
