@@ -1,3 +1,30 @@
+# Changelog
+
+Tagged releases are written by **semantic-release** on merge to `main`.  
+This **Unreleased** section is a human-maintained digest of work already on `main` that may not yet have cut a version tag.
+
+## [Unreleased]
+
+### Features
+
+* **cfar:** construct-first analytical reasoning gate (`core/cfar.py`, ConstructPacket.v1) (#1030)
+* **engineering:** AgentArtifactMetadata.v1 multi-agent provenance schema (#1029)
+* **design-system:** AAL-Viz projection visual pack batches 0–4 (#1028)
+* **docs:** AAL-Viz asset backlog + multi-agent operator-loop map (#1027)
+* **convergence:** Production spine Phases 0–11 writer migrations (#1021–#1026)
+* **alembic:** advisory multi-architecture spine + YGGDRASIL/Oracle binding (#1019–#1020)
+
+### Documentation
+
+* **docs:** README / STATUS / ARCHITECTURE / AGENTS front-door refresh (#1031)
+* **docs:** PLANS Phase 12 + CONTINUATION.v16 alignment; atlas scripts domain paths; HTTP API guide
+
+### Continuous Integration
+
+* **ci(deps):** bump GitHub Actions group (#985)
+
+---
+
 # [1.145.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.6...v1.145.0) (2026-07-21)
 
 
