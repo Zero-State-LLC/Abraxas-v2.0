@@ -107,9 +107,13 @@ alembic_spine:
     shadow_to_active_promotion: false
     auto_apply_router_proposals: false
   residuals:
-    - live RUNE.ARCHITECTURE_* catalog entries deferred pending YGGDRASIL pipeline binding
+    - live RUNE.ARCHITECTURE_* catalog entries deferred (reuse bound existing runes via alembic_spine pipeline)
     - external SSM/generative/SNN backends remain explicit stubs
-    - deep Oracle/YGGDRASIL alembic route wiring deferred
+    - optional PIPELINE_INVENTORY registration / sealed doctrine out/ regeneration deferred
+  follow_up:
+    - contracts/pipelines/alembic_spine.v1_1.json
+    - contracts/yggdrasil/routes/alembic_spine.route.v1.json
+    - core/alembic/oracle_bridge.py
 ```
 
 Phase 1 advisory spine is implemented and tested. It does not grant production authority, mutate canon/runtime, auto-apply router proposals, or promote shadow results.

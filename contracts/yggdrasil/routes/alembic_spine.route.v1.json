@@ -1,0 +1,31 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "alembic_spine",
+  "nodes": [
+    {"node_id": "alembic.trigger", "node_type": "pipeline", "lane": "SHADOW"},
+    {"node_id": "alembic.route", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.ROUTE"},
+    {"node_id": "alembic.validate", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "alembic.conflict_scan", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN"},
+    {"node_id": "alembic.operator_review", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW"},
+    {"node_id": "alembic.not_computable_gate", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE"},
+    {"node_id": "alembic.route_receipt", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.YGGDRASIL.ROUTE_RECEIPT"},
+    {"node_id": "alembic.receipt", "node_type": "artifact", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.RECEIPT"}
+  ],
+  "edges": [
+    {"source": "alembic.trigger", "target": "alembic.route", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "alembic.route", "target": "alembic.validate", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "alembic.validate", "target": "alembic.conflict_scan", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "alembic.conflict_scan", "target": "alembic.not_computable_gate", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "alembic.not_computable_gate", "target": "alembic.operator_review", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "alembic.operator_review", "target": "alembic.route_receipt", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "alembic.route_receipt", "target": "alembic.receipt", "edge_type": "emits", "authority_boundary": "lane_crossing", "validation_required": true}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

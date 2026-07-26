@@ -16,6 +16,7 @@ OUT_MD = "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.md"
 
 _NOTION_NAMESPACES: dict[str, str] = {
     "aal_viz_projection": "AAL-Viz Projection Spine",
+    "alembic_spine": "Alembic Spine",
     "canon_sync": "Canon Sync",
     "outcome_brier": "Outcome Brier",
     "pse_forecast": "PSE Forecast",
