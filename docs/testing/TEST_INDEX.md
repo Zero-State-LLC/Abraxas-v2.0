@@ -43,6 +43,24 @@ python -m pytest -q -m "not slow and not integration and not canon and not artif
 | `test_repository_organization_indexes_001.py` | Navigation index link integrity |
 | `test_operator_hold_clearance.py` | Operator hold clearance integration |
 
+## Hygiene source-hash portability
+
+Phase 1 completion-validation execution receipt tests cover cross-platform source-chain hashing:
+
+```bash
+python -m pytest -q \
+  tests/test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt.py
+```
+
+| Concern | Expectation |
+|---------|-------------|
+| Exact LF hash | Accept |
+| CRLF-equivalent bytes vs LF-sealed hash | Accept (validator-only) |
+| One-byte / JSON field mutation | Fail closed |
+| Regenerating sealed `out/operator_review/*` to fix Windows hashes | **Do not** — see runbook |
+
+Runbook: [`../workflows/source-hash-line-ending-portability.md`](../workflows/source-hash-line-ending-portability.md)
+
 ## Coverage notes
 
 ### Missing coverage (documented, not blocking)
