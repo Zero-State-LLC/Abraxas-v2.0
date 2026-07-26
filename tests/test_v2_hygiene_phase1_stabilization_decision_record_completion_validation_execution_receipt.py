@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -10,6 +11,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
     NEXT_OPERATOR_GATE_LANE,
     READY_STATUS,
     RECEIPT_JSON_PATH,
+    _file_hash_matches_expected,
+    _source_chain_hash_blockers,
     build_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt,
     render_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt_markdown,
     write_v2_hygiene_phase1_stabilization_decision_record_completion_validation_execution_receipt,
@@ -264,3 +267,99 @@ def test_completion_validation_execution_receipt_markdown() -> None:
     assert any("## Execution Packet" in line for line in markdown)
     assert any("telemetry_only: True" in line for line in markdown)
     assert any("forecast_routing_authorized: False" in line for line in markdown)
+
+
+def test_source_hash_validation_accepts_exact_lf_hash(tmp_path: Path) -> None:
+    payload = b'{"status":"READY","value":1}\n'
+    source = tmp_path / "exact_lf.json"
+    source.write_bytes(payload)
+    expected = hashlib.sha256(payload).hexdigest()
+
+    assert _file_hash_matches_expected(source, expected) is True
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {
+            "source_records": [
+                {
+                    "source_id": "exact_lf",
+                    "path": source.name,
+                    "file_hash": expected,
+                }
+            ]
+        },
+    )
+    assert blockers == []
+
+
+def test_source_hash_validation_accepts_crlf_equivalent_content(tmp_path: Path) -> None:
+    lf_payload = b'{"status":"READY","value":1}\n'
+    crlf_payload = b'{"status":"READY","value":1}\r\n'
+    source = tmp_path / "crlf_equiv.json"
+    source.write_bytes(crlf_payload)
+    expected_lf_hash = hashlib.sha256(lf_payload).hexdigest()
+
+    assert hashlib.sha256(crlf_payload).hexdigest() != expected_lf_hash
+    assert _file_hash_matches_expected(source, expected_lf_hash) is True
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {
+            "source_records": [
+                {
+                    "source_id": "crlf_equiv",
+                    "path": source.name,
+                    "file_hash": expected_lf_hash,
+                }
+            ]
+        },
+    )
+    assert blockers == []
+
+
+def test_source_hash_validation_rejects_one_byte_mutation(tmp_path: Path) -> None:
+    original = b'{"status":"READY","value":1}\n'
+    mutated = b'{"status":"READY","value":2}\n'
+    source = tmp_path / "mutated_byte.json"
+    source.write_bytes(mutated)
+    expected = hashlib.sha256(original).hexdigest()
+
+    assert _file_hash_matches_expected(source, expected) is False
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {
+            "source_records": [
+                {
+                    "source_id": "mutated_byte",
+                    "path": source.name,
+                    "file_hash": expected,
+                }
+            ]
+        },
+    )
+    assert blockers == [
+        f"implementation_receipt_source_hash_mismatch:{source.name}"
+    ]
+
+
+def test_source_hash_validation_rejects_json_field_mutation(tmp_path: Path) -> None:
+    original = b'{"status":"READY","advisory_only":true}\n'
+    mutated = b'{"status":"READY","advisory_only":false}\n'
+    source = tmp_path / "mutated_field.json"
+    source.write_bytes(mutated)
+    expected = hashlib.sha256(original).hexdigest()
+
+    assert _file_hash_matches_expected(source, expected) is False
+    blockers = _source_chain_hash_blockers(
+        tmp_path,
+        {
+            "source_records": [
+                {
+                    "source_id": "mutated_field",
+                    "path": source.name,
+                    "file_hash": expected,
+                }
+            ]
+        },
+    )
+    assert blockers == [
+        f"implementation_receipt_source_hash_mismatch:{source.name}"
+    ]
