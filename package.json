@@ -2,6 +2,9 @@
   "name": "abraxas",
   "private": true,
   "description": "Root package for semantic-release CI (plugins resolved via npm ci)",
+  "engines": {
+    "node": "^22.22.2 || >=24.15"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",

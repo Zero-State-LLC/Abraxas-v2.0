@@ -23,7 +23,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 20
+          # semantic-release@25 + @semantic-release/changelog@7 / git@11 require
+          # Node ^22.22.2 || >=24.15 (see package.json engines / lockfile).
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
         # Root package.json pins semantic-release plugins referenced by release.config.js.
