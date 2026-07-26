@@ -10,14 +10,15 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 
 1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
 2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
-3. Phase 5: classified writer + RuntimeSettings — **in progress on PR #1021**
-4. Phase 6+: adapter/clock injection, service hardening, recovery drills
+3. Phase 5: classified writer + RuntimeSettings — **landed on PR #1021**
+4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **in progress on PR #1021**
+5. Phase 7+: broader writer migration, OpenAPI freeze, provider adapters
 
 ### Next three milestones
 
-1. Migrate high-traffic runners from `write_canonical_json` → `write_canonical_artifact`
-2. Inject explicit clock/storage/provider adapters into settings/DI
-3. Service hardening (authn boundary, rate-limit boundary, OpenAPI freeze, recovery drills)
+1. Continue migrating legacy `write_canonical_json` callers → `write_canonical_artifact`
+2. Wire provider adapter ports (still no network at import/construct)
+3. Harden OpenAPI freeze + expand recovery drills beyond unit scope
 
 ### Blocked / held
 

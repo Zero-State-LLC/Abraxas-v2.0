@@ -10,9 +10,13 @@ import uuid
 from pathlib import Path
 from typing import Any
 
+from core.canonical.artifact_classification import ArtifactClass
 from core.canonical.json import (
+    CanonicalWriteError,
     canonical_dumps,
     canonical_hash,
+    prepare_canonical_artifact,
+    write_canonical_artifact,
     write_canonical_json,
     write_canonical_json_if_changed,
 )
@@ -150,13 +154,46 @@ def execute(
                 evidence=[str(path_rel)],
             )
 
+        artifact_class_raw = request.get("artifact_class") or "AUDIT_EVIDENCE"
         try:
-            if operation == "write":
-                write_canonical_json(target, payload)
-                written = True
+            artifact_class = ArtifactClass(str(artifact_class_raw))
+        except ValueError:
+            return _error(
+                error_class="REQUEST_INVALID",
+                message=f"unknown artifact_class: {artifact_class_raw!r}",
+                execution_id=execution_id,
+            )
+
+        try:
+            if isinstance(payload, dict):
+                stamped = prepare_canonical_artifact(payload, artifact_class)
+                written = write_canonical_artifact(
+                    target,
+                    stamped,
+                    artifact_class=artifact_class,
+                    out_root=repo_root / "out",
+                    if_changed=(operation == "write_if_changed"),
+                )
+                if operation == "write" and not written:
+                    # Force publish semantics for explicit write.
+                    write_canonical_artifact(
+                        target,
+                        stamped,
+                        artifact_class=artifact_class,
+                        out_root=repo_root / "out",
+                        if_changed=False,
+                    )
+                    written = True
+                stored_hash = stamped["canonical_hash"]
             else:
-                written = write_canonical_json_if_changed(target, payload)
-        except OSError as exc:
+                # Non-object payloads remain on legacy writer (migration residual).
+                if operation == "write":
+                    write_canonical_json(target, payload)
+                    written = True
+                else:
+                    written = write_canonical_json_if_changed(target, payload)
+                stored_hash = canonical_hash(payload)
+        except (OSError, CanonicalWriteError) as exc:
             return _error(
                 error_class="WRITE_FAILED",
                 message=f"Write failed: {exc}",
@@ -165,17 +202,20 @@ def execute(
             )
 
         rel_out = str(target.relative_to(repo_root)).replace("\\", "/")
+        result: dict[str, Any] = {
+            "path": rel_out,
+            "written": written,
+            "canonical_hash": stored_hash,
+        }
+        if isinstance(payload, dict):
+            result["artifact_class"] = artifact_class.value
         return {
             "status": "OK",
             "service_id": SERVICE_ID,
             "service_version": SERVICE_VERSION,
             "execution_id": execution_id,
             "operation": operation,
-            "result": {
-                "path": rel_out,
-                "written": written,
-                "canonical_hash": canonical_hash(payload),
-            },
+            "result": result,
             "provenance": {
                 "implementation": "core.canonical.json",
                 "path_policy": "out/_only_no_traversal",

@@ -110,6 +110,12 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 4. `core.settings.RuntimeSettings` shared by CLI/API/client; `RuntimePaths` stays path-only
 5. Advisory bypass scanner `run_canonical_writer_bypass_check.py`
 
+### Phase 6
+1. Clock/storage ports (`core/ports/*`) + `RuntimeContext` injection into `AbraxasClient`
+2. High-traffic writer migrations: artifact provenance service + Alembic specialist CLI
+3. Service hardening slice: request-id + security headers, sanitized 500s, fail-closed authn/rate-limit seams on `POST /analyze`
+4. OpenAPI route presence check + minimal recovery-drill (FixedClock + storage rewrite)
+
 ## CLEAR
 
 No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration.
@@ -117,4 +123,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 6+ — migrate high-traffic writers; inject clock/storage adapters; service hardening
+- Next action: Phase 7+ — broader writer migration, fuller OpenAPI freeze, provider adapter seams

@@ -35,6 +35,9 @@ class RuntimeSettings(BaseSettings):
     require_classified_artifact_writes: bool = False
     enable_analyze_endpoint: bool = True
     require_public_readonly_for_analyze: bool = False
+    # Integration boundaries (fail-closed when enabled; adapters not wired yet).
+    require_auth: bool = False
+    require_rate_limit: bool = False
 
     @field_validator("default_activation_lane", mode="before")
     @classmethod
@@ -75,6 +78,8 @@ class RuntimeSettings(BaseSettings):
             "require_classified_artifact_writes": self.require_classified_artifact_writes,
             "enable_analyze_endpoint": self.enable_analyze_endpoint,
             "require_public_readonly_for_analyze": self.require_public_readonly_for_analyze,
+            "require_auth": self.require_auth,
+            "require_rate_limit": self.require_rate_limit,
         }
 
 

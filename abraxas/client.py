@@ -9,6 +9,7 @@ from typing import Any
 from core.application.advisory_spine import AdvisorySpineRequest, run_advisory_spine
 from core.application.status import build_status_snapshot
 from core.governance.activation_policy import ActivationLane
+from core.runtime_context import RuntimeContext
 from core.services.validation_service import validate as validation_validate
 from core.settings import RuntimeSettings, load_runtime_settings
 
@@ -24,11 +25,18 @@ class AbraxasClient:
         self,
         *,
         settings: RuntimeSettings | None = None,
+        context: RuntimeContext | None = None,
         repo_root: Path | None = None,
         default_lane: ActivationLane | str | None = None,
     ) -> None:
-        if settings is not None:
+        if context is not None and settings is not None:
+            raise ValueError("pass context or settings, not both")
+        if context is not None:
+            self.context = context
+            self.settings = context.settings
+        elif settings is not None:
             self.settings = settings
+            self.context = RuntimeContext.build(settings)
         else:
             overrides: dict[str, Any] = {}
             if repo_root is not None:
@@ -36,6 +44,7 @@ class AbraxasClient:
             if default_lane is not None:
                 overrides["default_activation_lane"] = default_lane
             self.settings = load_runtime_settings(**overrides)
+            self.context = RuntimeContext.build(self.settings)
         self.repo_root = Path(self.settings.repo_root).resolve()
         self.default_lane = ActivationLane(self.settings.default_activation_lane)
 

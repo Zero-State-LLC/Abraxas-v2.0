@@ -4,9 +4,13 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
+from apps.api.boundaries import (
+    check_authentication_boundary,
+    check_rate_limit_boundary,
+)
 from apps.api.deps import require_public_readonly_api_enabled
 from apps.api.settings import get_settings
 from core.application.advisory_spine import run_advisory_spine
@@ -28,7 +32,13 @@ class AnalyzeRequest(BaseModel):
     activation_lane: str | None = None
 
 
-@router.post("/analyze")
+@router.post(
+    "/analyze",
+    dependencies=[
+        Depends(check_authentication_boundary),
+        Depends(check_rate_limit_boundary),
+    ],
+)
 async def analyze(body: AnalyzeRequest) -> dict[str, Any]:
     settings = get_settings()
     if not settings.enable_analyze_endpoint:

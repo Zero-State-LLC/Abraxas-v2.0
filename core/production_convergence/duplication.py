@@ -120,7 +120,7 @@ def build_duplication_clusters() -> dict[str, Any]:
             ],
             "callers": ["runners"],
             "behavioral_differences": "RuntimePaths covers filesystem layout, not full DI/settings.",
-            "canonical_candidate": "core/config.py for paths; typed Settings root TBD (Phase 6)",
+            "canonical_candidate": "core/settings.py RuntimeSettings + core/runtime_context.py ports",
             "migration_difficulty": "HIGH",
             "deletion_risk": "HIGH",
             "recommended_action": ["KEEP", "ADAPT"],

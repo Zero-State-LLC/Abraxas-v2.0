@@ -19,6 +19,19 @@
     "path": {
       "type": "string",
       "description": "Repo-relative path under out/ for write operations"
+    },
+    "artifact_class": {
+      "type": "string",
+      "description": "ADR-0018 class for object writes (default AUDIT_EVIDENCE)",
+      "enum": [
+        "CANONICAL_DOMAIN_ARTIFACT",
+        "GOVERNANCE_DECISION",
+        "AUDIT_EVIDENCE",
+        "BUILD_EVIDENCE",
+        "RUNTIME_EVENT",
+        "GENERATED_PLAN",
+        "HISTORICAL_RECEIPT"
+      ]
     }
   },
   "additionalProperties": false
