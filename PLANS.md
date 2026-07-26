@@ -4,7 +4,7 @@
 
 ## Current objective
 
-**Phase 12+ of Production Convergence** — operator-reviewed CLEAR disposition, residual research/artifact writers only under full chains, and live providers only when explicitly authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+**Post–Phase 12 Production Convergence** — operator dual-control CLEAR disposition, residual research/artifact writers only under full chains, and live providers only when explicitly authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
 Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
@@ -12,7 +12,7 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 
 | Stream | Status | Evidence |
 |--------|--------|----------|
-| Convergence Phase 0–11 | **Landed** | #1021–#1026 · writer migrations, freeze, OpenAPI surface |
+| Convergence Phase 0–12 | **Landed** | #1021–#1026 · #1035 · writer migrations, freeze, OpenAPI, CLEAR review packet |
 | Scripts mass-org + hygiene | **COMPLETE** | #972–#975 · `python scripts/organize_scripts.py status` → `complete: true` |
 | DEBUG_PLAN.v3 eng ranks 1–4 | **COMPLETE** | #976–#980 · `out/production_readiness/DEBUG_PLAN.v3.md` |
 | AAL-Viz visual pack batches 0–4 | **COMPLETE** | #1027–#1028 · `design-system/aal-viz/` |
@@ -21,17 +21,16 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 
-### Active workstreams (Phase 12+)
+### Active workstreams (post–Phase 12)
 
-1. **Phase 12 residual writers + CLEAR review packet** — **in progress** on this branch / #1035 (11 residual writers → `write_classified_json`; advisory CLEAR operator-review packet)
-2. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
-3. **Deferred residual writers** — artifact-contract / research_canary companions only with full provenance chain (no blind regen of `out/research_canary_*`)
-4. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
-5. **Program ops (CONTINUATION.v16 P0)** — Notion hub note for scripts/debug/visual posture; sole-writer pin at tip; main CI watch
+1. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
+2. **Deferred residual writers** — artifact-contract / research_canary companions only with full provenance chain (no blind regen of `out/research_canary_*`)
+3. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
+4. **Program ops (CONTINUATION.v16 P0)** — Notion hub note for scripts/debug/visual posture; sole-writer pin at tip; main CI watch
 
 ### Next three milestones
 
-1. Land Phase 12; operator dual-control disposition of CLEAR classes — **no deletion without mandate**
+1. Operator dual-control disposition of CLEAR classes — **no deletion without mandate**
 2. Optional residual research_canary / artifact-contract writers under sealed chains only
 3. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
 
