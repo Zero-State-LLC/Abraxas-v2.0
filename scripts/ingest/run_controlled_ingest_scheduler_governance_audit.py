@@ -12,8 +12,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from core.canonical.json import write_canonical_json  # noqa: E402
-from core.ingest.controlled_ingest_scheduler_governance_audit import (  # noqa: E402
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import infer_out_root, write_classified_json
+from core.ingest.controlled_ingest_scheduler_governance_audit import (
     build_controlled_ingest_scheduler_governance_audit_packet,
     render_controlled_ingest_scheduler_governance_audit_markdown,
 )
@@ -28,7 +29,12 @@ def run(*, out_json: Path, repo_root: Path | None = None) -> dict:
     packet = build_controlled_ingest_scheduler_governance_audit_packet(repo_root=root)
     out_json = Path(out_json)
     out_json.parent.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(out_json, packet)
+    write_classified_json(
+        out_json,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=infer_out_root(out_json, fallback=root / "out"),
+    )
     out_json.with_suffix(".md").write_text(
         render_controlled_ingest_scheduler_governance_audit_markdown(packet),
         encoding="utf-8",

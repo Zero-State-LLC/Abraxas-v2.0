@@ -3,9 +3,15 @@
 
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+from pathlib import Path
+
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.governance.upstream_evidence import load_required_upstream_packet
 from core.manual_execution_receipts.runtime import run_manual_execution_receipt_ledger
+
+_OUT_ROOT = Path("out")
+
 
 if __name__ == "__main__":
     manual = load_required_upstream_packet("out/manual_execution/latest.json")
@@ -35,13 +41,27 @@ if __name__ == "__main__":
         load_required_upstream_packet("out/manual_execution_replay/latest.json"),
         [rollback],
     )
-    write_canonical_json("out/manual_execution_receipts/latest.json", packet)
-    write_canonical_json(
-        "out/manual_execution_receipts_replay/latest.json", packet["replay"]
+    write_classified_json(
+        "out/manual_execution_receipts/latest.json",
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )
-    write_canonical_json(
-        "out/manual_execution_receipts_lineage/latest.json", packet["lineage"]
+    write_classified_json(
+        "out/manual_execution_receipts_replay/latest.json",
+        packet["replay"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )
-    write_canonical_json(
-        "out/manual_execution_receipts_diagnostics/latest.json", packet["diagnostics"]
+    write_classified_json(
+        "out/manual_execution_receipts_lineage/latest.json",
+        packet["lineage"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/manual_execution_receipts_diagnostics/latest.json",
+        packet["diagnostics"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )

@@ -16,6 +16,9 @@ _INPUT_RELS: tuple[str, ...] = (
     "out/production_convergence/duplication_clusters.v1.json",
     "out/production_convergence/canonical_writer_bypass_advisory.v1.json",
     "out/production_convergence/phase8_writer_migration.v1.json",
+    "out/production_convergence/phase9_writer_migration.v1.json",
+    "out/production_convergence/phase10_writer_migration.v1.json",
+    "out/production_convergence/phase11_writer_migration.v1.json",
 )
 
 _RECOMMENDED_ACTIONS = frozenset(
@@ -142,7 +145,11 @@ def build_clear_reference_analysis(repo_root: Path | None = None) -> dict[str, A
                     role="EXPERIMENTAL",
                     replacement_candidate=None,
                     shim_behavior=None,
-                    deletion_blocker=["CI_REFERENCE", "PROVENANCE_LINEAGE", "OPERATOR_HOLD"],
+                    deletion_blocker=[
+                        "CI_REFERENCE",
+                        "PROVENANCE_LINEAGE",
+                        "OPERATOR_HOLD",
+                    ],
                     recommended_action="DEFER_CLEAR",
                 )
             )
@@ -234,6 +241,7 @@ def build_clear_reference_analysis(repo_root: Path | None = None) -> dict[str, A
             "No mass deletion in this phase.",
             "Historical out/ remains archived provenance.",
             "CLEAR analysis is advisory; operator review required before any removal.",
+            "Phase 8–11 writer migrations consumed as inputs; mass_deletion_authorized remains false.",
         ],
     }
     payload["canonical_hash"] = canonical_hash(

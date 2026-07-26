@@ -8,11 +8,12 @@ Classifies references in core/, scripts/, and tests/:
 
 Does not invent runners. Safe to re-run anytime.
 """
+
 from __future__ import annotations
 
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -20,10 +21,12 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.canonical.json import canonical_hash, write_canonical_json  # noqa: E402
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash, write_classified_json
 
 OUT_JSON = ROOT / "out/production_readiness/scripts_ghost_path_inventory.v1.json"
 OUT_MD = ROOT / "out/production_readiness/scripts_ghost_path_inventory.v1.md"
+_OUT_ROOT = ROOT / "out"
 
 PATH_RE = re.compile(r"\bscripts/(?:[a-z0-9_]+/)?run_[a-zA-Z0-9_]+\.py\b")
 FIXTURE_ALLOW = re.compile(
@@ -97,7 +100,7 @@ def build_inventory(repo: Path | None = None) -> dict[str, Any]:
     packet: dict[str, Any] = {
         "schema_version": "ScriptsGhostPathInventory.v1",
         "inventory_id": "SCRIPTS_GHOST_PATH_INVENTORY_001",
-        "produced_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "produced_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "producer": "scripts/tools/run_scripts_ghost_path_inventory.py",
         "advisory_only": True,
         "projection_only": True,
@@ -188,7 +191,12 @@ def render_markdown(packet: dict[str, Any]) -> str:
 def main() -> int:
     packet = build_inventory(ROOT)
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(OUT_JSON, packet)
+    write_classified_json(
+        OUT_JSON,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
     OUT_MD.write_text(render_markdown(packet), encoding="utf-8")
     summary = packet["summary"]
     print(

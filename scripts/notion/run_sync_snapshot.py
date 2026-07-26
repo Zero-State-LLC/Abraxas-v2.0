@@ -8,10 +8,11 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.canonical.json import write_canonical_json  # noqa: E402
-from core.sync.milestone_receipt import build_artifact_hashes  # noqa: E402
-from core.sync.notion_sync_packet import build_notion_sync_packet  # noqa: E402
-from core.sync.repo_state_snapshot import build_repo_state_snapshot  # noqa: E402
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import infer_out_root, write_classified_json
+from core.sync.milestone_receipt import build_artifact_hashes
+from core.sync.notion_sync_packet import build_notion_sync_packet
+from core.sync.repo_state_snapshot import build_repo_state_snapshot
 
 OUT_JSON = Path("out/sync/sync_snapshot.latest.json")
 OUT_MD = Path("out/sync/sync_snapshot.latest.md")
@@ -52,11 +53,23 @@ def _write_md(path: Path, packet: dict[str, object]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def run(*, repo_root: str | Path = ROOT, out_json: str | Path | None = None, out_md: str | Path | None = None, notion_page_id: str = "NOT_COMPUTABLE", milestone: str = "NOT_COMPUTABLE", ci_status: str = "NOT_COMPUTABLE", canon_status: str = "ADVISORY_ONLY", artifact_paths: list[str] | None = None) -> dict[str, object]:
+def run(
+    *,
+    repo_root: str | Path = ROOT,
+    out_json: str | Path | None = None,
+    out_md: str | Path | None = None,
+    notion_page_id: str = "NOT_COMPUTABLE",
+    milestone: str = "NOT_COMPUTABLE",
+    ci_status: str = "NOT_COMPUTABLE",
+    canon_status: str = "ADVISORY_ONLY",
+    artifact_paths: list[str] | None = None,
+) -> dict[str, object]:
     root = Path(repo_root)
     tracked = artifact_paths or ["out/canon_resume_state/latest.json"]
     repo_state = build_repo_state_snapshot(repo_root=root)
-    hashes, missing_paths = build_artifact_hashes(repo_root=root, artifact_paths=tracked)
+    hashes, missing_paths = build_artifact_hashes(
+        repo_root=root, artifact_paths=tracked
+    )
     payload = {
         "notion_page_id": notion_page_id,
         "milestone": milestone,
@@ -68,14 +81,24 @@ def run(*, repo_root: str | Path = ROOT, out_json: str | Path | None = None, out
     }
     packet = build_notion_sync_packet(payload=payload)
     missing_fields = packet.get("missing_evidence", [])
-    merged_missing = sorted(set([*missing_paths, *(missing_fields if isinstance(missing_fields, list) else [])]))
+    merged_missing = sorted(
+        {
+            *missing_paths,
+            *(missing_fields if isinstance(missing_fields, list) else []),
+        }
+    )
     if merged_missing:
         packet["missing_evidence"] = merged_missing
         packet["sync_status"] = "NOT_COMPUTABLE"
 
     target_json = Path(out_json) if out_json else root / OUT_JSON
     target_md = Path(out_md) if out_md else root / OUT_MD
-    write_canonical_json(target_json, packet)
+    write_classified_json(
+        target_json,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=infer_out_root(target_json, fallback=root / "out"),
+    )
     _write_md(target_md, packet)
     return packet
 
@@ -88,7 +111,13 @@ def main() -> int:
     parser.add_argument("--canon-status", default="ADVISORY_ONLY")
     parser.add_argument("--artifact", action="append", default=[])
     args = parser.parse_args()
-    packet = run(notion_page_id=args.notion_page_id, milestone=args.milestone, ci_status=args.ci_status, canon_status=args.canon_status, artifact_paths=args.artifact)
+    packet = run(
+        notion_page_id=args.notion_page_id,
+        milestone=args.milestone,
+        ci_status=args.ci_status,
+        canon_status=args.canon_status,
+        artifact_paths=args.artifact,
+    )
     print(packet["sync_status"])
     print(packet["packet_hash"])
     return 0
