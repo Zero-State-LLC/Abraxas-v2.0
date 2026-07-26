@@ -3,8 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.overlay_topology.runtime import run_overlay_topology_simulation
+
+_OUT_ROOT = Path("out")
 
 
 def _load(path: str) -> list[dict]:
@@ -19,9 +22,27 @@ if __name__ == "__main__":
         _load("out/canary_scheduler/latest.json"),
         _load("out/canary_promotion/latest.json"),
     )
-    write_canonical_json("out/overlay_topology/latest.json", packet)
-    write_canonical_json("out/overlay_topology_replay/latest.json", packet["replay"])
-    write_canonical_json("out/overlay_topology_lineage/latest.json", packet["lineage"])
-    write_canonical_json(
-        "out/overlay_topology_diagnostics/latest.json", packet["diagnostics"]
+    write_classified_json(
+        "out/overlay_topology/latest.json",
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/overlay_topology_replay/latest.json",
+        packet["replay"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/overlay_topology_lineage/latest.json",
+        packet["lineage"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/overlay_topology_diagnostics/latest.json",
+        packet["diagnostics"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )

@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–8 on PR #1021)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–9; #1021 on main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -21,8 +21,9 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Provider port | `DeniedProvider` default · `FixtureProvider` + `gated_invoke` | `core/ports/provider.py` |
 | OpenAPI freeze | supported surface contract | `contracts/api/openapi_supported_surface.v1.json` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–8 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
-| Active objective | Residual replay/viz writers; CLEAR analysis; live providers later | `PLANS.md` |
+| Convergence audit | Phase 0–9 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
+| Active objective | Residual canary/viz replays; CLEAR operator review before deletion | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

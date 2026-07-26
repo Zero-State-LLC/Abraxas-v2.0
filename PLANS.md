@@ -10,16 +10,17 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 
 1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
 2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
-3. Phase 5: classified writer + RuntimeSettings — **landed on PR #1021**
-4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on PR #1021**
-5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on PR #1021**
-6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **in progress on PR #1021**
-7. Phase 9+: residual replay/viz writers; CLEAR reference analysis; live providers only when authorized
+3. Phase 5: classified writer + RuntimeSettings — **landed on main (#1021)**
+4. Phase 6: clock/storage ports, high-traffic writer migration, service hardening slice — **landed on main (#1021)**
+5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on main (#1021)**
+6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **landed on main (#1021)**
+7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **in progress**
+8. Phase 10+: residual canary/viz replays; mass deletion only after CLEAR operator review; live providers only when authorized
 
 ### Next three milestones
 
-1. Migrate `*_replay.py` companions and viz overlay sole-writers
-2. CLEAR-phase reference analysis before mass runner deletion
+1. Migrate remaining viz `*_replay.py` and non-viz WP-D research runners
+2. Operator review of CLEAR reference analysis before any deletion
 3. Live provider adapters only behind explicit operator authorization (still no network at import)
 
 ### Blocked / held

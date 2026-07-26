@@ -24,7 +24,8 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash, write_classified_json
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 from core.replay_graph import (
@@ -40,6 +41,7 @@ from core.replay_incremental import (
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.incremental_replay_latest
+_OUT_ROOT = _PATHS.out_dir
 
 logger = logging.getLogger(__name__)
 
@@ -188,7 +190,12 @@ def main() -> None:
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(OUT_PATH, receipt)
+    write_classified_json(
+        OUT_PATH,
+        receipt,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
 
     log_event(
         diagnostics_logger,

@@ -128,11 +128,18 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 3. Receipt: `out/production_convergence/phase8_writer_migration.v1.json`
 4. Deferred: `*_replay.py`, viz overlays, artifact-contract repair, doctrine validator, research_canary
 
+### Phase 9
+1. Twelve spine-paired/adjacent `*_replay.py` writers → `write_classified_json`
+2. Eight viz WP-D sole-writers (overlays + execution firewall) → `write_classified_json`
+3. Advisory CLEAR reference analysis: `out/production_convergence/clear_reference_analysis.v1.json` (`mass_deletion_authorized: false`)
+4. Receipt: `out/production_convergence/phase9_writer_migration.v1.json`
+5. Deferred: viz `*_replay.py`, canary WP-D research runners, doctrine validator, research_canary, mass deletion
+
 ## CLEAR
 
-No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration.
+No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration. CLEAR reference analysis is advisory-only until operator review.
 
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 9+ — residual replay/viz writers; CLEAR reference analysis; live providers only when authorized
+- Next action: Phase 10+ — residual canary/viz replays; CLEAR operator review before any deletion; live providers only when authorized
