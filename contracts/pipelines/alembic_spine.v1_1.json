@@ -1,0 +1,43 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "alembic_spine",
+  "trigger": "run alembic",
+  "owner_subsystem": "Alembic Spine",
+  "lane": "SHADOW",
+  "typed_ir_schema": "TaskEnvelope.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT"
+  ],
+  "yggdrasil_nodes": [
+    "alembic.trigger",
+    "alembic.route",
+    "alembic.validate",
+    "alembic.conflict_scan",
+    "alembic.operator_review",
+    "alembic.not_computable_gate",
+    "alembic.route_receipt",
+    "alembic.receipt"
+  ],
+  "required_artifacts": [
+    "alembic.routing_decision",
+    "alembic.run_receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

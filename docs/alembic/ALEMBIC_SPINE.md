@@ -145,7 +145,8 @@ Abstention is a first-class outcome with typed reasons (`no_eligible_candidates`
 | Evaluation harness | implemented |
 | CLI | implemented |
 | Live Alembic-native runes | deferred (proposals only; reuse existing runes) |
-| Deep Oracle/YGGDRASIL pipeline binding | deferred residual |
+| YGGDRASIL pipeline/route | implemented advisory (`alembic_spine`) |
+| Oracle intake bridge | implemented read-only (`core/alembic/oracle_bridge.py`) |
 | External neuromorphic/SSM/generative backends | deferred experimental |
 
 See also: [`docs/plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md`](../plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md).

@@ -71,9 +71,9 @@
 
 | residual_id | classification | description | cause | risk | blocked_by | recommended_next_action | authority_required |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| RES-RUNE-001 | OBSERVED | Alembic-native runes not in live catalog | unbound_runes invariant | low | YGGDRASIL pipeline/route binding | Author alembic pipeline + bindings, then add catalog entries | operator |
-| RES-YGG-001 | INFERRED | No dedicated YGGDRASIL alembic route | scope consolidation | medium | route/pipeline design | Add advisory route after rune binding plan | operator |
-| RES-ORACLE-001 | INFERRED | Intake hooks only; not wired into live oracle runner | avoid second ingest pipeline | low | product priority | Optional metadata field plumbing in oracle intake | engineering |
+| RES-RUNE-001 | OBSERVED | Alembic-native runes not in live catalog | unbound_runes invariant | low | operator catalog authorization | Keep proposals file; reuse bound existing runes via `alembic_spine` pipeline | operator |
+| RES-YGG-001 | OBSERVED | Advisory Alembic YGGDRASIL route/pipeline landed | follow-up #post-1019 | low | none for advisory route | Keep advisory; optional PIPELINE_INVENTORY registration later | none |
+| RES-ORACLE-001 | OBSERVED | Read-only Oracle→Alembic bridge landed (`core/alembic/oracle_bridge.py`) | avoid mutating sealed intake receipts | low | none for bridge | Optional future field on live oracle runner remains operator-gated | engineering |
 | RES-SSM-001 | SPECULATIVE | SSM adapter stub | no in-repo backend | medium | backend + eval evidence | Keep stub until specialist available | operator for promotion |
 | RES-GEN-001 | SPECULATIVE | Generative adapter stub | no in-repo backend | medium | backend + eval evidence | Keep stub / shadow experiments | operator for promotion |
 | RES-SNN-001 | SPECULATIVE | SNN/neuromorphic stub UNAVAILABLE | experimental path | medium | simulator/hardware evidence | Shadow-only until justified | operator for promotion |

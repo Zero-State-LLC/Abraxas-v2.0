@@ -54,7 +54,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CI/CD | Excellent | Fast CI passes on `main` |
 | Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
 | Documentation | Updated | Production readiness package docs + migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
-| Alembic Spine | **`ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`** | Advisory multi-architecture orchestration landed under `core/alembic/`; stubs explicit; live Alembic-native runes deferred. Docs: [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
+| Alembic Spine | **`ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`** | Advisory multi-architecture orchestration under `core/alembic/`; YGGDRASIL `alembic_spine` route/pipeline + read-only Oracle bridge landed; live Alembic-native runes still deferred. Docs: [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
 
 ## v2.0 Hygiene Compliance (Product 2.5.0)
 
