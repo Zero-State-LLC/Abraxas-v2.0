@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Projection-only status">
+  <title>Projection-only status</title>
+  <rect x="4" y="6" width="16" height="12" rx="1"/>
+  <path d="M4 15 L8 11 L11 13 L16 8"/>
+  <path d="M8 19 H16"/>
+</svg>

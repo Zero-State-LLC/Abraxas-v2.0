@@ -1,0 +1,68 @@
+[
+  {
+    "date": "2026-07-26",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "motion fields pwa marketing pack complete",
+    "enrichment": "E5 Tier B SVG + deterministic CSS motion",
+    "brief": "AAL-Viz visual asset audit \u00b7 Batch 4 complete",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "4"
+  },
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "docs architecture diagrams honesty-labeled",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "brief": "AAL-Viz visual asset audit \u00b7 Batch 3 docs/comms",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "3"
+  },
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "engineering rune alphabet \u2014 projection operators",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "nav": "N9 edge-minimal",
+    "footer": "Ft2 inline",
+    "brief": "AAL-Viz visual asset audit \u00b7 Batch 2 runes",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "2"
+  },
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "runtime console completeness \u2014 empty, weather, workflow",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "nav": "N9 edge-minimal",
+    "footer": "Ft2 inline",
+    "brief": "AAL-Viz visual asset audit \u00b7 Batch 1 runtime console",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "1"
+  },
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "projection-only operator console visual language",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "nav": "N9 edge-minimal",
+    "footer": "Ft2 inline",
+    "brief": "AAL-Viz missing visual asset audit \u00b7 Batch 0 foundation",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "0"
+  }
+]

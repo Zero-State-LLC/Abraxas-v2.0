@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Clear / stable panel">
+  <title>Clear / stable</title>
+  <rect x="1" y="1" width="94" height="62" rx="6" stroke="#64748B" fill="#0B1020"/>
+  <g transform="translate(12,8) scale(1.6)">  <circle cx="12" cy="12" r="6"/>
+  <path d="M12 4 V6 M12 18 V20 M4 12 H6 M18 12 H20" opacity="0.5"/>
+  </g>
+  <text x="48" y="56" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="7" letter-spacing="0.06em" fill="currentColor" stroke="none">CLEAR / STABLE</text>
+</svg>

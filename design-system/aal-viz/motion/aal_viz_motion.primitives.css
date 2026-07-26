@@ -1,0 +1,188 @@
+/* Hallmark · AAL-Viz motion primitives · batch 4
+ * genre: atmospheric-technical · deterministic · no spectacle
+ * Animate transform/opacity only. No layout thrash. No false computation.
+ * prefers-reduced-motion → first-frame static (use .aalviz-motion--static).
+ */
+:root {
+  --aalviz-dur-xs: 100ms;
+  --aalviz-dur-sm: 160ms;
+  --aalviz-dur-md: 200ms;
+  --aalviz-dur-lg: 280ms;
+  --aalviz-dur-xl: 320ms;
+  --aalviz-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --aalviz-ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes aalviz-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes aalviz-fade-rise {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes aalviz-scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes aalviz-draw-line {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes aalviz-pulse-once {
+  0% { opacity: 1; }
+  50% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+
+.aalviz-motion {
+  animation-timing-function: var(--aalviz-ease-out);
+  animation-fill-mode: both;
+}
+.aalviz-motion--static,
+.aalviz-motion--reduced {
+  animation: none !important;
+}
+
+.aalviz-motion--projection_arrival {
+  animation-name: aalviz-fade-rise;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--artifact_detected {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--source_refresh {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--validation_pass {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--validation_failure {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--fail_closed_transition {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--drift_detected {
+  animation-name: aalviz-fade-rise;
+  animation-duration: var(--aalviz-dur-lg);
+}
+
+.aalviz-motion--threshold_crossing {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--operator_review_required {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--route_blocked {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--route_restored {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--node_selected {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-xs);
+}
+
+.aalviz-motion--node_expanded {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--lineage_reveal {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-lg);
+}
+
+.aalviz-motion--trace_traversal {
+  animation-name: aalviz-draw-line;
+  animation-duration: var(--aalviz-dur-xl);
+}
+
+.aalviz-motion--timeline_scrub {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-xs);
+}
+
+.aalviz-motion--cluster_formation {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-lg);
+}
+
+.aalviz-motion--cluster_separation {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-lg);
+}
+
+.aalviz-motion--provider_conflict {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--evidence_attachment {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--copy_confirmation {
+  animation-name: aalviz-scale-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--transport_reconnect {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--polling_fallback {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--replay_start {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--replay_complete {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+.aalviz-motion--archived_transition {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-md);
+}
+
+.aalviz-motion--not_computable_reveal {
+  animation-name: aalviz-fade-in;
+  animation-duration: var(--aalviz-dur-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aalviz-motion {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

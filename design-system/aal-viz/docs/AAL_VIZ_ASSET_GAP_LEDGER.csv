@@ -1,0 +1,23 @@
+class,planned,shipped,batch,status,notes
+identity,10,11,0,SHIPPED,
+authority,30,30,0,SHIPPED,
+activation,16,16,0,SHIPPED,
+navigation,44,44,0,SHIPPED,
+subsystem_p0,24,24,0,SHIPPED,
+graph_primitives,51,51,0,SHIPPED,
+workflow,30,30,1,SHIPPED,
+metrics,44,44,1,SHIPPED,
+weather,17,51,1,SHIPPED,×3 variants
+empty_error,26,26,1,SHIPPED,
+panels,22,22,1,SHIPPED,
+a11y_patterns,19,28,1,SHIPPED,
+runes,30,30,2,SHIPPED,×4 variants
+architecture_diagrams,25,25,3,SHIPPED,
+infographics,20,20,3,SHIPPED,
+report_assets,22,25,3,SHIPPED,
+banners_comms,10,10,3,SHIPPED,
+motion,27,27,4,SHIPPED,CSS + first-frame SVG
+backgrounds,20,20,4,SHIPPED,geometric fields
+responsive_pwa,17,26,4,SHIPPED,headers+controls+pwa
+marketing_showcases,17,17,4,SHIPPED,honesty-labeled
+inventory_status,—,COMPLETE,0-4,COMPLETE,authored pack closed

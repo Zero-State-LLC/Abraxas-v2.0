@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 600" width="1500" height="600" role="img" aria-label="AAL-Viz">
+  <title>AAL-Viz</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="1500" height="600" fill="#0B1020"/>
+  <rect width="1500" height="600" fill="#0B1020"/>
+  <rect x="0" y="0" width="1500" height="4" fill="#00D4F5"/>
+  <path d="M0 390.0 C375.0 180.0, 750.0 480.0, 1500 270.0" fill="none" stroke="#243049" stroke-width="1"/>
+  <path d="M0 450.0 C450.0 300.0, 900.0 540.0, 1500 330.0" fill="none" stroke="#64748B" stroke-width="1" opacity="0.5"/>
+  <circle cx="225" cy="270" r="3" fill="#00D4F5"/>
+  <circle cx="494" cy="342" r="3" fill="#A78BFA"/>
+  <circle cx="765" cy="270" r="3" fill="#00D4F5"/>
+  <circle cx="1035" cy="342" r="3" fill="#A78BFA"/>
+  <circle cx="1305" cy="270" r="3" fill="#00D4F5"/>
+  <text x="24" y="28" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">PRODUCT VISION</text>
+  <text x="32" y="252" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="36" font-weight="600" fill="#E8EEF7">AAL-Viz</text>
+  <text x="32" y="288" font-size="14" fill="#64748B" font-family="IBM Plex Sans, system-ui, sans-serif">Abraxas projection-layer visual system</text>
+  <text x="32" y="576" font-size="10" fill="#64748B" font-family="IBM Plex Mono, monospace">AAL-VIZ · PROJECTION ONLY · NO PRODUCTION CLAIM</text>
+</svg>

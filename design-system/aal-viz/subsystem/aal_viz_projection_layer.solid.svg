@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="AAL-Viz projection layer (solid badge)">
+  <title>AAL-Viz projection layer (solid badge)</title>
+  <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.12" stroke="none"/>
+  <path d="M5 18 L12 5 L19 18 Z"/>
+  <circle cx="12" cy="13" r="2"/>
+  <circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/>
+</svg>

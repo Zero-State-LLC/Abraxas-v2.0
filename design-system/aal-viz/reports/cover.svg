@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" width="800" height="1100" role="img" aria-label="PDF report cover">
+  <title>PDF report cover</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="800" height="1100" fill="#0B1020"/>
+  <rect width="800" height="1100" fill="#0B1020"/>
+  <rect x="0" y="0" width="800" height="6" fill="#00D4F5"/>
+  <text x="24" y="80" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#A78BFA">PROJECTION ONLY</text>
+  <text x="48" y="200" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="40" font-weight="600" fill="#E8EEF7">AAL-Viz Report</text>
+  <text x="48" y="250" font-size="16" fill="#64748B" font-family="IBM Plex Sans, system-ui, sans-serif">Observation · topology · evidence</text>
+  <rect x="48" y="320" width="280" height="40" rx="6" fill="#121A2A" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="58" y="344" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">STATUS: CANDIDATE</text>
+  <text x="48" y="1020" font-size="12" fill="#64748B" font-family="IBM Plex Mono, monospace">No production availability claim</text>
+  <text x="48" y="1050" font-size="12" fill="#64748B" font-family="IBM Plex Mono, monospace">AAL-VIZ · PROJECTION ONLY</text>
+</svg>

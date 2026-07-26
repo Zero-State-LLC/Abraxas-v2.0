@@ -1,0 +1,79 @@
+{
+  "schema_version": "AALVizExportPresetRegistry.v1",
+  "batch": "3",
+  "presets": [
+    {
+      "id": "diagram-960",
+      "format": "SVG",
+      "size_px": [
+        960,
+        540
+      ],
+      "use": "docs architecture"
+    },
+    {
+      "id": "infographic-portrait",
+      "format": "SVG",
+      "size_px": [
+        800,
+        1000
+      ],
+      "use": "report templates"
+    },
+    {
+      "id": "report-cover",
+      "format": "SVG",
+      "source": "reports/cover.svg"
+    },
+    {
+      "id": "readme-banner",
+      "format": "SVG",
+      "source": "banners/readme_header.svg",
+      "label_required": "PRODUCT VISION"
+    },
+    {
+      "id": "notion-cover",
+      "format": "SVG",
+      "source": "banners/notion_cover.svg",
+      "label_required": "PRODUCT VISION"
+    },
+    {
+      "id": "og-default",
+      "format": "SVG",
+      "source": "banners/og_default.svg"
+    },
+    {
+      "id": "social-square",
+      "format": "SVG",
+      "source": "banners/social_square.svg"
+    },
+    {
+      "id": "watermark",
+      "format": "SVG",
+      "source": "brand/wordmark-watermark.svg"
+    }
+  ],
+  "batch4": [
+    {
+      "id": "field-960",
+      "source": "fields/console_bg_dark.svg"
+    },
+    {
+      "id": "pwa-512",
+      "source": "pwa/icon_512.svg"
+    },
+    {
+      "id": "pwa-maskable",
+      "source": "pwa/icon_maskable_512.svg"
+    },
+    {
+      "id": "motion-css",
+      "source": "motion/aal_viz_motion.primitives.css"
+    },
+    {
+      "id": "marketing-overview",
+      "source": "marketing/product_overview.svg",
+      "label_required": "PRODUCT VISION"
+    }
+  ]
+}

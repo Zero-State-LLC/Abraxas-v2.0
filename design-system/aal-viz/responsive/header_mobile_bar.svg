@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40" role="img" aria-label="Mobile header lockup">
+  <title>Mobile header lockup</title>
+  <rect width="200" height="40" fill="#0B1020"/>
+  <g transform="translate(8,6)" fill="none" stroke="#00D4F5" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M2 22 L14 4 L26 22 Z"/>
+    <circle cx="14" cy="15" r="3" fill="#0B1020"/>
+  </g>
+  <text x="48" y="25" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" font-weight="600" letter-spacing="0.12em" fill="#E8EEF7">AAL-VIZ</text>
+  <text x="188" y="25" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="0.1em" fill="#A78BFA">PROJECTION</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.SHADOW" data-rune="RUNE.SHADOW">
+  <title>RUNE.SHADOW</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1" fill="none"/>
+  <circle cx="10" cy="12" r="5"/>
+  <path d="M14 8 A5 5 0 0 1 14 16" opacity="0.85"/>
+</svg>

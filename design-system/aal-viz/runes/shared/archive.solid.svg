@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.ARCHIVE solid" data-rune="RUNE.ARCHIVE solid">
+  <title>RUNE.ARCHIVE solid</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" fill="currentColor" opacity="0.12" stroke="#64748B" stroke-width="1"/>
+  <path d="M5 8 H19 V10 H5 Z"/>
+  <path d="M7 10 V17 H17 V10"/>
+  <path d="M10 13 H14"/>
+</svg>

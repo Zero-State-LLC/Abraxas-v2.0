@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Modal frame">
+  <title>Modal frame</title>
+  <rect x="4" y="4" width="88" height="56" rx="6"/>
+  <rect x="6" y="6" width="84" height="52" rx="5" opacity="0.25"/>
+</svg>

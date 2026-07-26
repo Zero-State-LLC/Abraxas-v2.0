@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Infographic template: Comparison infographic">
+  <title>Infographic template: Comparison infographic</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="800" height="1000" fill="#0B1020"/>
+  <rect width="800" height="1000" fill="#0B1020"/>
+  <rect x="0" y="0" width="800" height="4" fill="#00D4F5"/>
+  <text x="24" y="28" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">TEMPLATE · PROJECTION ONLY</text>
+  <text x="32" y="64" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="26" font-weight="600" fill="#E8EEF7">Comparison infographic</text>
+  <rect x="32" y="80" width="200" height="22" rx="4" fill="none" stroke="#A78BFA"/>
+  <text x="42" y="95" font-size="10" fill="#A78BFA" font-family="IBM Plex Mono, monospace" letter-spacing="0.12em">AUTHORITY: NONE</text>
+  <rect x="32" y="130" width="736" height="70" rx="6" fill="#121A2A" stroke="#243049"/>
+  <text x="48" y="158" font-size="11" fill="#64748B" font-family="IBM Plex Mono, monospace" letter-spacing="0.1em">OPTION A</text>
+  <text x="48" y="180" font-size="12" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">…</text>
+  <rect x="32" y="216" width="736" height="70" rx="6" fill="#121A2A" stroke="#243049"/>
+  <text x="48" y="244" font-size="11" fill="#64748B" font-family="IBM Plex Mono, monospace" letter-spacing="0.1em">OPTION B</text>
+  <text x="48" y="266" font-size="12" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">…</text>
+  <rect x="32" y="302" width="736" height="70" rx="6" fill="#121A2A" stroke="#243049"/>
+  <text x="48" y="330" font-size="11" fill="#64748B" font-family="IBM Plex Mono, monospace" letter-spacing="0.1em">DELTA</text>
+  <text x="48" y="352" font-size="12" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">…</text>
+  <rect x="32" y="388" width="736" height="70" rx="6" fill="#121A2A" stroke="#243049"/>
+  <text x="48" y="416" font-size="11" fill="#64748B" font-family="IBM Plex Mono, monospace" letter-spacing="0.1em">DECISION</text>
+  <text x="48" y="438" font-size="12" fill="#E8EEF7" font-family="IBM Plex Sans, system-ui, sans-serif">…</text>
+  <rect x="32" y="880" width="140" height="48" rx="4" fill="none" stroke="#64748B" stroke-dasharray="3 2"/>
+  <text x="40" y="908" font-size="9" fill="#64748B" font-family="IBM Plex Mono, monospace">PROVENANCE</text>
+  <rect x="180" y="880" width="140" height="48" rx="4" fill="none" stroke="#64748B" stroke-dasharray="3 2"/>
+  <text x="188" y="908" font-size="9" fill="#64748B" font-family="IBM Plex Mono, monospace">SOURCES</text>
+  <rect x="328" y="880" width="140" height="48" rx="4" fill="none" stroke="#64748B" stroke-dasharray="3 2"/>
+  <text x="336" y="908" font-size="9" fill="#64748B" font-family="IBM Plex Mono, monospace">BLOCKED CLAIMS</text>
+  <rect x="476" y="880" width="140" height="48" rx="4" fill="none" stroke="#64748B" stroke-dasharray="3 2"/>
+  <text x="484" y="908" font-size="9" fill="#64748B" font-family="IBM Plex Mono, monospace">NOT_COMPUTABLE</text>
+  <rect x="624" y="880" width="140" height="48" rx="4" fill="none" stroke="#64748B" stroke-dasharray="3 2"/>
+  <text x="632" y="908" font-size="9" fill="#64748B" font-family="IBM Plex Mono, monospace">DISCLAIMER</text>
+  <text x="32" y="960" font-size="10" fill="#64748B" font-family="IBM Plex Mono, monospace">Accessible text companion required · AAL-VIZ · PROJECTION ONLY</text>
+</svg>

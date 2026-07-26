@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Sparse dots pattern">
+  <title>Sparse dots pattern</title>
+  <defs>
+    <pattern id="dots_sparse" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="currentColor"/>
+    </pattern>
+  </defs>
+  <rect width="24" height="24" fill="url(#dots_sparse)" stroke="currentColor" stroke-width="1"/>
+</svg>

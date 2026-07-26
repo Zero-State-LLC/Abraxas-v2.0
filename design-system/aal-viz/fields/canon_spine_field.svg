@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Canon Spine field">
+  <title>Canon Spine field</title>
+  <desc>Subtle geometric spatial field. Interface chrome remains quiet. Projection only.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <path d="M80 270 H880" stroke="#00D4F5" stroke-width="2" fill="none" opacity="0.7"/>
+  <g fill="#0B1020" stroke="#00D4F5" stroke-width="1.5">
+    <circle cx="160" cy="270" r="8"/>
+    <circle cx="320" cy="270" r="8"/>
+    <circle cx="480" cy="270" r="8"/>
+    <circle cx="640" cy="270" r="8"/>
+    <circle cx="800" cy="270" r="8"/>
+  </g>
+  <text x="24" y="520" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" letter-spacing="0.12em" fill="#64748B">CANON_SPINE_FIELD · FIELD · PROJECTION ONLY</text>
+</svg>

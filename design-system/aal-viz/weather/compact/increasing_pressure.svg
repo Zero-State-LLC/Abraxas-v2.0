@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Increasing pressure">
+  <title>Increasing pressure</title>
+  <path d="M6 18 C8 14 10 10 12 8 S16 10 18 14"/>
+  <path d="M12 8 V4"/>
+  <path d="M10 6 L12 4 L14 6"/>
+</svg>

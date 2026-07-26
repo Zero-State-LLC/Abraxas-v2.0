@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Operator-review field">
+  <title>Operator-review field</title>
+  <desc>Subtle geometric spatial field. Interface chrome remains quiet. Projection only.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <g stroke="#F2C14E" stroke-width="1" opacity="0.25" fill="none">
+    <path d="M0 0 V540"/>
+    <path d="M72 0 V540"/>
+    <path d="M144 0 V540"/>
+    <path d="M216 0 V540"/>
+    <path d="M288 0 V540"/>
+    <path d="M360 0 V540"/>
+    <path d="M432 0 V540"/>
+    <path d="M504 0 V540"/>
+    <path d="M576 0 V540"/>
+    <path d="M648 0 V540"/>
+    <path d="M720 0 V540"/>
+    <path d="M792 0 V540"/>
+    <path d="M864 0 V540"/>
+    <path d="M936 0 V540"/>
+    <path d="M0 0 H960"/>
+    <path d="M0 72 H960"/>
+    <path d="M0 144 H960"/>
+    <path d="M0 216 H960"/>
+    <path d="M0 288 H960"/>
+    <path d="M0 360 H960"/>
+    <path d="M0 432 H960"/>
+    <path d="M0 504 H960"/>
+  </g>
+  <rect x="320" y="160" width="320" height="200" rx="8" fill="none" stroke="#F2C14E" stroke-width="1.5" opacity="0.5"/>
+  <text x="24" y="520" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" letter-spacing="0.12em" fill="#64748B">OPERATOR_REVIEW_FIELD · FIELD · PROJECTION ONLY</text>
+</svg>

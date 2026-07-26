@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Inferred register fill pattern">
+  <title>Inferred register fill pattern</title>
+  <defs>
+    <pattern id="inferred_fill" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="24" height="24" fill="url(#inferred_fill)" stroke="currentColor" stroke-width="1"/>
+</svg>

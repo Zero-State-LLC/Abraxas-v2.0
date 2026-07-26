@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Belief graph (solid badge)">
+  <title>Belief graph (solid badge)</title>
+  <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.12" stroke="none"/>
+  <circle cx="8" cy="10" r="3"/>
+  <circle cx="16" cy="10" r="3"/>
+  <circle cx="12" cy="17" r="3"/>
+  <path d="M10.5 11.5 L10.5 15 M13.5 11.5 L13.5 15"/>
+</svg>

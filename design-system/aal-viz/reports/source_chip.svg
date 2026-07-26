@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24" width="120" height="24" role="img" aria-label="Source reference chip">
+  <title>Source reference</title>
+  <rect x="1" y="1" width="118" height="22" rx="11" fill="none" stroke="#2DD4BF"/>
+  <text x="60" y="16" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#2DD4BF">SRC · ref</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Abraxas end-to-end supported spine">
+  <title>Abraxas end-to-end supported spine</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">IMPLEMENTED SYSTEM MAP</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">Abraxas supported spine → AAL-Viz projection</text>
+  <rect x="40" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="50" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Input</text>
+  <path d="M150 224 L170 224" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M164 220 L170 224 L164 228" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="170" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="180" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Evidence</text>
+  <path d="M280 224 L300 224" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M294 220 L300 224 L294 228" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="300" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="310" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Belief Graph</text>
+  <path d="M410 224 L450 224" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M444 220 L450 224 L444 228" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="450" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#5B6CFF" stroke-width="1.5"/>
+  <text x="460" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Oracle</text>
+  <path d="M560 224 L580 224" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M574 220 L580 224 L574 228" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="580" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5"/>
+  <text x="590" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Projection</text>
+  <path d="M690 224 L730 224" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <path d="M724 220 L730 224 L724 228" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <rect x="730" y="200" width="110" height="48" rx="6" fill="#121A2A" stroke="#F2C14E" stroke-width="1.5"/>
+  <text x="740" y="228" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">Operator</text>
+  <rect x="580" y="300" width="260" height="56" rx="6" fill="#121A2A" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="590" y="332" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">AAL-Viz (read + render only)</text>
+  <path d="M640 248 L640 300" stroke="#A78BFA" stroke-width="1.5" fill="none"/>
+  <path d="M636 294 L640 300 L644 294" stroke="#A78BFA" stroke-width="1.5" fill="none"/>
+  <text x="40" y="400" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12" fill="#64748B">Projection layer does not mutate canon, credentials, or external production.</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

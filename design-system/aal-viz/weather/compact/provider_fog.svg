@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Provider fog">
+  <title>Provider fog</title>
+  <path d="M5 14 H19" opacity="0.35"/>
+  <path d="M6 11 H18" opacity="0.5"/>
+  <path d="M7 8 H17" opacity="0.7"/>
+  <circle cx="12" cy="16" r="2"/>
+</svg>

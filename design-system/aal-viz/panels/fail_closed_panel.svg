@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Fail-closed panel treatment">
+  <title>Fail-closed panel treatment</title>
+  <rect x="4" y="4" width="88" height="56" rx="6"/>
+  <path d="M8 8 H16 M8 8 V16" opacity="0.7"/>
+  <path d="M88 8 H80 M88 8 V16" opacity="0.7"/>
+  <path d="M8 56 H16 M8 56 V48" opacity="0.7"/>
+  <path d="M88 56 H80 M88 56 V48" opacity="0.7"/>
+  <rect x="64" y="8" width="24" height="8" rx="2" stroke="#64748B"/>
+  <text x="76" y="14" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="4.5" fill="currentColor" stroke="none">FAIL</text>
+</svg>

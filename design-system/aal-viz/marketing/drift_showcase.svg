@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Drift detection">
+  <title>Drift detection</title>
+  <desc>PRODUCT VISION. Marketing visual without production availability claims.</desc>
+  <rect width="1280" height="720" fill="#0B1020"/>
+  <rect x="0" y="0" width="1280" height="4" fill="#00D4F5"/>
+  <g transform="scale(1.3333 1.3333)" opacity="0.85">
+  <path d="M0 200 C160 120, 320 280, 480 200 S800 120, 960 200" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>
+  <path d="M0 280 C160 200, 320 360, 480 280 S800 200, 960 280" fill="none" stroke="#64748B" stroke-width="1" opacity="0.5"/>
+  <path d="M0 360 C160 280, 320 440, 480 360 S800 280, 960 360" fill="none" stroke="#64748B" stroke-width="1" opacity="0.35"/>
+  </g>
+  <text x="32" y="36" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" letter-spacing="0.16em" fill="#F59E0B">PRODUCT VISION</text>
+  <text x="32" y="324" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="28" font-weight="600" fill="#E8EEF7">Drift detection</text>
+  <text x="32" y="360" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" fill="#64748B">Baseline vs observed — advisory until gated</text>
+  <text x="32" y="696" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO PRODUCTION CLAIM</text>
+</svg>

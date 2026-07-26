@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Trace (solid badge)">
+  <title>Trace (solid badge)</title>
+  <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.12" stroke="none"/>
+  <path d="M4 18 C8 18 8 6 12 6 S16 18 20 18"/>
+  <circle cx="12" cy="6" r="1.5" fill="currentColor" stroke="none"/>
+</svg>

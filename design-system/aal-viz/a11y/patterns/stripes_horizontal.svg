@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Horizontal stripes">
+  <title>Horizontal stripes</title>
+  <defs>
+    <pattern id="stripes_horizontal" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="1" x2="4" y2="1" stroke="currentColor" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="24" height="24" fill="url(#stripes_horizontal)" stroke="currentColor" stroke-width="1"/>
+</svg>

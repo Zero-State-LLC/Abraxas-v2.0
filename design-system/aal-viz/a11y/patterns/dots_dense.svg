@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Dense dots pattern">
+  <title>Dense dots pattern</title>
+  <defs>
+    <pattern id="dots_dense" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.8" fill="currentColor"/>
+    </pattern>
+  </defs>
+  <rect width="24" height="24" fill="url(#dots_dense)" stroke="currentColor" stroke-width="1"/>
+</svg>

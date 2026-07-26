@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Canon active status (solid badge)">
+  <title>Canon active status (solid badge)</title>
+  <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.12" stroke="none"/>
+  <path d="M12 3 L19 7 V17 L12 21 L5 17 V7 Z"/>
+  <path d="M9 12 L11 14 L15 10"/>
+</svg>

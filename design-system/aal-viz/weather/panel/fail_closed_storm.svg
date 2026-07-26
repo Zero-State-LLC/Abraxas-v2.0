@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Fail-closed storm panel">
+  <title>Fail-closed storm</title>
+  <rect x="1" y="1" width="94" height="62" rx="6" stroke="#64748B" fill="#0B1020"/>
+  <g transform="translate(12,8) scale(1.6)">  <rect x="5" y="5" width="14" height="14" rx="1"/>
+  <path d="M8 12 H16" stroke-width="2"/>
+  <path d="M7 8 L10 11 M17 8 L14 11" opacity="0.6"/>
+  </g>
+  <text x="48" y="56" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="7" letter-spacing="0.06em" fill="currentColor" stroke="none">FAIL-CLOSED STORM</text>
+</svg>

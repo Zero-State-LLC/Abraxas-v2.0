@@ -1,0 +1,3338 @@
+{
+  "schema_version": "AALVizAssetManifest.v1",
+  "name": "aal-viz-batch4-motion-fields-pwa",
+  "batch": "4",
+  "version": "0.1.0",
+  "updated": "2026-07-26",
+  "hallmark": {
+    "genre": "atmospheric-technical",
+    "theme": "custom (Abraxas projection grammar)",
+    "enrichment": "Tier B SVG + deterministic CSS motion"
+  },
+  "producer_system": "GROK+HALLMARK",
+  "asset_count": 91,
+  "file_count_approx": 118,
+  "assets": [
+    {
+      "asset_id": "AALVIZ-MOTION-CSS-MOTION_CSS",
+      "name": "aal_viz_motion_primitives_css",
+      "category": "motion_css",
+      "semantic_role": "MOTION_CSS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "CSS",
+      "variants": [
+        "css",
+        "reduced_motion"
+      ],
+      "sizes": [],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz motion primitives CSS",
+      "source_file": "design-system/aal-viz/motion/aal_viz_motion.primitives.css",
+      "export_files": [
+        "design-system/aal-viz/motion/aal_viz_motion.primitives.css"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-PROJECTION_ARRIVAL",
+      "name": "projection_arrival",
+      "category": "motion_primitive",
+      "semantic_role": "PROJECTION_ARRIVAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Projection arrival",
+      "source_file": "design-system/aal-viz/motion/states/projection_arrival.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/projection_arrival.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-ARTIFACT_DETECTED",
+      "name": "artifact_detected",
+      "category": "motion_primitive",
+      "semantic_role": "ARTIFACT_DETECTED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "New artifact detected",
+      "source_file": "design-system/aal-viz/motion/states/artifact_detected.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/artifact_detected.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-SOURCE_REFRESH",
+      "name": "source_refresh",
+      "category": "motion_primitive",
+      "semantic_role": "SOURCE_REFRESH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Source refresh",
+      "source_file": "design-system/aal-viz/motion/states/source_refresh.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/source_refresh.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-VALIDATION_PASS",
+      "name": "validation_pass",
+      "category": "motion_primitive",
+      "semantic_role": "VALIDATION_PASS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Validation pass",
+      "source_file": "design-system/aal-viz/motion/states/validation_pass.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/validation_pass.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-VALIDATION_FAILURE",
+      "name": "validation_failure",
+      "category": "motion_primitive",
+      "semantic_role": "VALIDATION_FAILURE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Validation failure",
+      "source_file": "design-system/aal-viz/motion/states/validation_failure.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/validation_failure.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-FAIL_CLOSED_TRANSITION",
+      "name": "fail_closed_transition",
+      "category": "motion_primitive",
+      "semantic_role": "FAIL_CLOSED_TRANSITION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Fail-closed transition",
+      "source_file": "design-system/aal-viz/motion/states/fail_closed_transition.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/fail_closed_transition.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-DRIFT_DETECTED",
+      "name": "drift_detected",
+      "category": "motion_primitive",
+      "semantic_role": "DRIFT_DETECTED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Drift detected",
+      "source_file": "design-system/aal-viz/motion/states/drift_detected.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/drift_detected.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-THRESHOLD_CROSSING",
+      "name": "threshold_crossing",
+      "category": "motion_primitive",
+      "semantic_role": "THRESHOLD_CROSSING",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Threshold crossing",
+      "source_file": "design-system/aal-viz/motion/states/threshold_crossing.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/threshold_crossing.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-OPERATOR_REVIEW_REQUIRED",
+      "name": "operator_review_required",
+      "category": "motion_primitive",
+      "semantic_role": "OPERATOR_REVIEW_REQUIRED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator review required",
+      "source_file": "design-system/aal-viz/motion/states/operator_review_required.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/operator_review_required.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-ROUTE_BLOCKED",
+      "name": "route_blocked",
+      "category": "motion_primitive",
+      "semantic_role": "ROUTE_BLOCKED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Route blocked",
+      "source_file": "design-system/aal-viz/motion/states/route_blocked.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/route_blocked.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-ROUTE_RESTORED",
+      "name": "route_restored",
+      "category": "motion_primitive",
+      "semantic_role": "ROUTE_RESTORED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Route restored",
+      "source_file": "design-system/aal-viz/motion/states/route_restored.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/route_restored.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-NODE_SELECTED",
+      "name": "node_selected",
+      "category": "motion_primitive",
+      "semantic_role": "NODE_SELECTED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Node selected",
+      "source_file": "design-system/aal-viz/motion/states/node_selected.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/node_selected.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-NODE_EXPANDED",
+      "name": "node_expanded",
+      "category": "motion_primitive",
+      "semantic_role": "NODE_EXPANDED",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Node expanded",
+      "source_file": "design-system/aal-viz/motion/states/node_expanded.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/node_expanded.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-LINEAGE_REVEAL",
+      "name": "lineage_reveal",
+      "category": "motion_primitive",
+      "semantic_role": "LINEAGE_REVEAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Lineage reveal",
+      "source_file": "design-system/aal-viz/motion/states/lineage_reveal.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/lineage_reveal.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-TRACE_TRAVERSAL",
+      "name": "trace_traversal",
+      "category": "motion_primitive",
+      "semantic_role": "TRACE_TRAVERSAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Trace traversal",
+      "source_file": "design-system/aal-viz/motion/states/trace_traversal.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/trace_traversal.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-TIMELINE_SCRUB",
+      "name": "timeline_scrub",
+      "category": "motion_primitive",
+      "semantic_role": "TIMELINE_SCRUB",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Timeline scrub indicator",
+      "source_file": "design-system/aal-viz/motion/states/timeline_scrub.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/timeline_scrub.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-CLUSTER_FORMATION",
+      "name": "cluster_formation",
+      "category": "motion_primitive",
+      "semantic_role": "CLUSTER_FORMATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Cluster formation",
+      "source_file": "design-system/aal-viz/motion/states/cluster_formation.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/cluster_formation.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-CLUSTER_SEPARATION",
+      "name": "cluster_separation",
+      "category": "motion_primitive",
+      "semantic_role": "CLUSTER_SEPARATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Cluster separation",
+      "source_file": "design-system/aal-viz/motion/states/cluster_separation.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/cluster_separation.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-PROVIDER_CONFLICT",
+      "name": "provider_conflict",
+      "category": "motion_primitive",
+      "semantic_role": "PROVIDER_CONFLICT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Provider conflict",
+      "source_file": "design-system/aal-viz/motion/states/provider_conflict.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/provider_conflict.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-EVIDENCE_ATTACHMENT",
+      "name": "evidence_attachment",
+      "category": "motion_primitive",
+      "semantic_role": "EVIDENCE_ATTACHMENT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence attachment",
+      "source_file": "design-system/aal-viz/motion/states/evidence_attachment.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/evidence_attachment.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-COPY_CONFIRMATION",
+      "name": "copy_confirmation",
+      "category": "motion_primitive",
+      "semantic_role": "COPY_CONFIRMATION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Copy confirmation",
+      "source_file": "design-system/aal-viz/motion/states/copy_confirmation.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/copy_confirmation.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-TRANSPORT_RECONNECT",
+      "name": "transport_reconnect",
+      "category": "motion_primitive",
+      "semantic_role": "TRANSPORT_RECONNECT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Transport reconnect",
+      "source_file": "design-system/aal-viz/motion/states/transport_reconnect.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/transport_reconnect.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-POLLING_FALLBACK",
+      "name": "polling_fallback",
+      "category": "motion_primitive",
+      "semantic_role": "POLLING_FALLBACK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Polling fallback transition",
+      "source_file": "design-system/aal-viz/motion/states/polling_fallback.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/polling_fallback.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-REPLAY_START",
+      "name": "replay_start",
+      "category": "motion_primitive",
+      "semantic_role": "REPLAY_START",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Replay start",
+      "source_file": "design-system/aal-viz/motion/states/replay_start.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/replay_start.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-REPLAY_COMPLETE",
+      "name": "replay_complete",
+      "category": "motion_primitive",
+      "semantic_role": "REPLAY_COMPLETE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Replay complete",
+      "source_file": "design-system/aal-viz/motion/states/replay_complete.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/replay_complete.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-ARCHIVED_TRANSITION",
+      "name": "archived_transition",
+      "category": "motion_primitive",
+      "semantic_role": "ARCHIVED_TRANSITION",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Archived transition",
+      "source_file": "design-system/aal-viz/motion/states/archived_transition.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/archived_transition.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MOTION-NOT_COMPUTABLE_REVEAL",
+      "name": "not_computable_reveal",
+      "category": "motion_primitive",
+      "semantic_role": "NOT_COMPUTABLE_REVEAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "state_icon",
+        "reduced_motion",
+        "css_class"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "NOT_COMPUTABLE reveal",
+      "source_file": "design-system/aal-viz/motion/states/not_computable_reveal.svg",
+      "export_files": [
+        "design-system/aal-viz/motion/states/not_computable_reveal.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-CONSOLE_BG_DARK",
+      "name": "console_bg_dark",
+      "category": "spatial_field",
+      "semantic_role": "CONSOLE_BG_DARK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Primary console background",
+      "source_file": "design-system/aal-viz/fields/console_bg_dark.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/console_bg_dark.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-CONSOLE_BG_LIGHT",
+      "name": "console_bg_light",
+      "category": "spatial_field",
+      "semantic_role": "CONSOLE_BG_LIGHT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Light-theme console background",
+      "source_file": "design-system/aal-viz/fields/console_bg_light.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/console_bg_light.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-REPORT_NEUTRAL",
+      "name": "report_neutral",
+      "category": "spatial_field",
+      "semantic_role": "REPORT_NEUTRAL",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Neutral report background",
+      "source_file": "design-system/aal-viz/fields/report_neutral.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/report_neutral.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-CANON_SPINE_FIELD",
+      "name": "canon_spine_field",
+      "category": "spatial_field",
+      "semantic_role": "CANON_SPINE_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Canon Spine field",
+      "source_file": "design-system/aal-viz/fields/canon_spine_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/canon_spine_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-PROJECTION_FIELD",
+      "name": "projection_field",
+      "category": "spatial_field",
+      "semantic_role": "PROJECTION_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Projection field",
+      "source_file": "design-system/aal-viz/fields/projection_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/projection_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-SHADOW_FIELD",
+      "name": "shadow_field",
+      "category": "spatial_field",
+      "semantic_role": "SHADOW_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Shadow field",
+      "source_file": "design-system/aal-viz/fields/shadow_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/shadow_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-FORECAST_FIELD",
+      "name": "forecast_field",
+      "category": "spatial_field",
+      "semantic_role": "FORECAST_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Forecast-reserved field",
+      "source_file": "design-system/aal-viz/fields/forecast_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/forecast_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-YGGDRASIL_FIELD",
+      "name": "yggdrasil_field",
+      "category": "spatial_field",
+      "semantic_role": "YGGDRASIL_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "YGGDRASIL topology field",
+      "source_file": "design-system/aal-viz/fields/yggdrasil_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/yggdrasil_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-BELIEF_GRAPH_FIELD",
+      "name": "belief_graph_field",
+      "category": "spatial_field",
+      "semantic_role": "BELIEF_GRAPH_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Belief Graph field",
+      "source_file": "design-system/aal-viz/fields/belief_graph_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/belief_graph_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-EVIDENCE_MEMORY_FIELD",
+      "name": "evidence_memory_field",
+      "category": "spatial_field",
+      "semantic_role": "EVIDENCE_MEMORY_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence-memory field",
+      "source_file": "design-system/aal-viz/fields/evidence_memory_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/evidence_memory_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-TEMPORAL_FIELD",
+      "name": "temporal_field",
+      "category": "spatial_field",
+      "semantic_role": "TEMPORAL_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Temporal field",
+      "source_file": "design-system/aal-viz/fields/temporal_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/temporal_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-CLUSTER_FIELD",
+      "name": "cluster_field",
+      "category": "spatial_field",
+      "semantic_role": "CLUSTER_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Cluster field",
+      "source_file": "design-system/aal-viz/fields/cluster_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/cluster_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-DRIFT_FIELD",
+      "name": "drift_field",
+      "category": "spatial_field",
+      "semantic_role": "DRIFT_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Drift field",
+      "source_file": "design-system/aal-viz/fields/drift_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/drift_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-OPERATOR_REVIEW_FIELD",
+      "name": "operator_review_field",
+      "category": "spatial_field",
+      "semantic_role": "OPERATOR_REVIEW_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator-review field",
+      "source_file": "design-system/aal-viz/fields/operator_review_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/operator_review_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-FAIL_CLOSED_FIELD",
+      "name": "fail_closed_field",
+      "category": "spatial_field",
+      "semantic_role": "FAIL_CLOSED_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Fail-closed field",
+      "source_file": "design-system/aal-viz/fields/fail_closed_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/fail_closed_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-ARCHIVE_FIELD",
+      "name": "archive_field",
+      "category": "spatial_field",
+      "semantic_role": "ARCHIVE_FIELD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Archive/historical field",
+      "source_file": "design-system/aal-viz/fields/archive_field.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/archive_field.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-PRESENTATION_WALLPAPER",
+      "name": "presentation_wallpaper",
+      "category": "spatial_field",
+      "semantic_role": "PRESENTATION_WALLPAPER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Presentation wallpaper",
+      "source_file": "design-system/aal-viz/fields/presentation_wallpaper.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/presentation_wallpaper.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-DOCS_BANNER_BG",
+      "name": "docs_banner_bg",
+      "category": "spatial_field",
+      "semantic_role": "DOCS_BANNER_BG",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Documentation banner background",
+      "source_file": "design-system/aal-viz/fields/docs_banner_bg.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/docs_banner_bg.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-SOCIAL_PREVIEW_BG",
+      "name": "social_preview_bg",
+      "category": "spatial_field",
+      "semantic_role": "SOCIAL_PREVIEW_BG",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Social-preview background",
+      "source_file": "design-system/aal-viz/fields/social_preview_bg.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/social_preview_bg.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-FIELD-PRINT_SAFE_BG",
+      "name": "print_safe_bg",
+      "category": "spatial_field",
+      "semantic_role": "PRINT_SAFE_BG",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "field",
+        "monochrome_via_currentColor_recolor"
+      ],
+      "sizes": [
+        960,
+        540
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Print-safe background",
+      "source_file": "design-system/aal-viz/fields/print_safe_bg.svg",
+      "export_files": [
+        "design-system/aal-viz/fields/print_safe_bg.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-HEADER_DESKTOP",
+      "name": "header_desktop",
+      "category": "responsive_header",
+      "semantic_role": "HEADER_DESKTOP",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        360,
+        40
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Desktop header lockup",
+      "source_file": "design-system/aal-viz/responsive/header_desktop.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/header_desktop.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-HEADER_TABLET",
+      "name": "header_tablet",
+      "category": "responsive_header",
+      "semantic_role": "HEADER_TABLET",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        280,
+        40
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Tablet header lockup",
+      "source_file": "design-system/aal-viz/responsive/header_tablet.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/header_tablet.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-HEADER_MOBILE_BAR",
+      "name": "header_mobile_bar",
+      "category": "responsive_header",
+      "semantic_role": "HEADER_MOBILE_BAR",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        200,
+        40
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile header lockup",
+      "source_file": "design-system/aal-viz/responsive/header_mobile_bar.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/header_mobile_bar.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-MOBILE_MARK",
+      "name": "mobile_header_mark",
+      "category": "responsive_header",
+      "semantic_role": "MOBILE_MARK",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        32
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile header mark",
+      "source_file": "design-system/aal-viz/responsive/mobile_header_mark.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/mobile_header_mark.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-GRAPH_PAN",
+      "name": "graph_pan",
+      "category": "responsive_control",
+      "semantic_role": "GRAPH_PAN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Touch graph pan",
+      "source_file": "design-system/aal-viz/responsive/controls/graph_pan.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/graph_pan.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-GRAPH_ZOOM_IN",
+      "name": "graph_zoom_in",
+      "category": "responsive_control",
+      "semantic_role": "GRAPH_ZOOM_IN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Touch graph zoom in",
+      "source_file": "design-system/aal-viz/responsive/controls/graph_zoom_in.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/graph_zoom_in.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-GRAPH_ZOOM_OUT",
+      "name": "graph_zoom_out",
+      "category": "responsive_control",
+      "semantic_role": "GRAPH_ZOOM_OUT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Touch graph zoom out",
+      "source_file": "design-system/aal-viz/responsive/controls/graph_zoom_out.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/graph_zoom_out.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-INSPECTOR_OPEN",
+      "name": "inspector_open",
+      "category": "responsive_control",
+      "semantic_role": "INSPECTOR_OPEN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile inspector open",
+      "source_file": "design-system/aal-viz/responsive/controls/inspector_open.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/inspector_open.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-INSPECTOR_CLOSE",
+      "name": "inspector_close",
+      "category": "responsive_control",
+      "semantic_role": "INSPECTOR_CLOSE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile inspector close",
+      "source_file": "design-system/aal-viz/responsive/controls/inspector_close.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/inspector_close.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-FILTER_OPEN",
+      "name": "filter_open",
+      "category": "responsive_control",
+      "semantic_role": "FILTER_OPEN",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile filter",
+      "source_file": "design-system/aal-viz/responsive/controls/filter_open.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/filter_open.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-TIMELINE_SCRUB_MOBILE",
+      "name": "timeline_scrub_mobile",
+      "category": "responsive_control",
+      "semantic_role": "TIMELINE_SCRUB_MOBILE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile timeline scrub",
+      "source_file": "design-system/aal-viz/responsive/controls/timeline_scrub_mobile.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/timeline_scrub_mobile.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-SOURCE_DRAWER",
+      "name": "source_drawer",
+      "category": "responsive_control",
+      "semantic_role": "SOURCE_DRAWER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile source drawer",
+      "source_file": "design-system/aal-viz/responsive/controls/source_drawer.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/source_drawer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-AUTHORITY_LEGEND",
+      "name": "authority_legend",
+      "category": "responsive_control",
+      "semantic_role": "AUTHORITY_LEGEND",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile authority legend",
+      "source_file": "design-system/aal-viz/responsive/controls/authority_legend.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/authority_legend.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-NAV_BOTTOM_OVERVIEW",
+      "name": "nav_bottom_overview",
+      "category": "responsive_control",
+      "semantic_role": "NAV_BOTTOM_OVERVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Bottom nav overview",
+      "source_file": "design-system/aal-viz/responsive/controls/nav_bottom_overview.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/nav_bottom_overview.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-NAV_BOTTOM_TOPOLOGY",
+      "name": "nav_bottom_topology",
+      "category": "responsive_control",
+      "semantic_role": "NAV_BOTTOM_TOPOLOGY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Bottom nav topology",
+      "source_file": "design-system/aal-viz/responsive/controls/nav_bottom_topology.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/nav_bottom_topology.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-NAV_BOTTOM_REVIEW",
+      "name": "nav_bottom_review",
+      "category": "responsive_control",
+      "semantic_role": "NAV_BOTTOM_REVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Bottom nav review",
+      "source_file": "design-system/aal-viz/responsive/controls/nav_bottom_review.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/nav_bottom_review.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-NAV_BOTTOM_SETTINGS",
+      "name": "nav_bottom_settings",
+      "category": "responsive_control",
+      "semantic_role": "NAV_BOTTOM_SETTINGS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Bottom nav settings",
+      "source_file": "design-system/aal-viz/responsive/controls/nav_bottom_settings.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/nav_bottom_settings.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-COLLAPSED_NAV",
+      "name": "collapsed_nav",
+      "category": "responsive_control",
+      "semantic_role": "COLLAPSED_NAV",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Collapsed navigation",
+      "source_file": "design-system/aal-viz/responsive/controls/collapsed_nav.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/collapsed_nav.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-EMPTY_MOBILE",
+      "name": "empty_mobile",
+      "category": "responsive_control",
+      "semantic_role": "EMPTY_MOBILE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Mobile empty state mark",
+      "source_file": "design-system/aal-viz/responsive/controls/empty_mobile.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/empty_mobile.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-NARROW_REPORT_CARD",
+      "name": "narrow_report_card",
+      "category": "responsive_control",
+      "semantic_role": "NARROW_REPORT_CARD",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Narrow-width report card",
+      "source_file": "design-system/aal-viz/responsive/controls/narrow_report_card.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/narrow_report_card.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-RESP-CTL-PINNED_TAB",
+      "name": "pinned_tab",
+      "category": "responsive_control",
+      "semantic_role": "PINNED_TAB",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        24,
+        44
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Browser pinned-tab mark",
+      "source_file": "design-system/aal-viz/responsive/controls/pinned_tab.svg",
+      "export_files": [
+        "design-system/aal-viz/responsive/controls/pinned_tab.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-PWA-ICON_180",
+      "name": "icon_180",
+      "category": "pwa_icon",
+      "semantic_role": "ICON_180",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        180
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "App icon 180px",
+      "source_file": "design-system/aal-viz/pwa/icon_180.svg",
+      "export_files": [
+        "design-system/aal-viz/pwa/icon_180.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-PWA-ICON_192",
+      "name": "icon_192",
+      "category": "pwa_icon",
+      "semantic_role": "ICON_192",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        192
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "App icon 192px",
+      "source_file": "design-system/aal-viz/pwa/icon_192.svg",
+      "export_files": [
+        "design-system/aal-viz/pwa/icon_192.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-PWA-ICON_512",
+      "name": "icon_512",
+      "category": "pwa_icon",
+      "semantic_role": "ICON_512",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        512
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "App icon 512px",
+      "source_file": "design-system/aal-viz/pwa/icon_512.svg",
+      "export_files": [
+        "design-system/aal-viz/pwa/icon_512.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-PWA-MASKABLE_512",
+      "name": "icon_maskable_512",
+      "category": "pwa_icon",
+      "semantic_role": "MASKABLE_512",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "maskable"
+      ],
+      "sizes": [
+        512
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Maskable app icon 512",
+      "source_file": "design-system/aal-viz/pwa/icon_maskable_512.svg",
+      "export_files": [
+        "design-system/aal-viz/pwa/icon_maskable_512.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-PWA-PINNED_TAB",
+      "name": "pinned_tab",
+      "category": "pwa_icon",
+      "semantic_role": "PINNED_TAB",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "default",
+        "reduced_motion"
+      ],
+      "sizes": [
+        16,
+        32
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Pinned tab mark",
+      "source_file": "design-system/aal-viz/pwa/pinned_tab.svg",
+      "export_files": [
+        "design-system/aal-viz/pwa/pinned_tab.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": ""
+    },
+    {
+      "asset_id": "AALVIZ-MKT-PRODUCT_OVERVIEW",
+      "name": "product_overview",
+      "category": "marketing_showcase",
+      "semantic_role": "PRODUCT_OVERVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "AAL-Viz overview (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/product_overview.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/product_overview.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-PROJECTION_EXPLAINER",
+      "name": "projection_explainer",
+      "category": "marketing_showcase",
+      "semantic_role": "PROJECTION_EXPLAINER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Projection only (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/projection_explainer.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/projection_explainer.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-FEATURE_CARD_TOPOLOGY",
+      "name": "feature_card_topology",
+      "category": "marketing_showcase",
+      "semantic_role": "FEATURE_CARD_TOPOLOGY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        640,
+        400
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Topology (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/feature_card_topology.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/feature_card_topology.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-FEATURE_CARD_EVIDENCE",
+      "name": "feature_card_evidence",
+      "category": "marketing_showcase",
+      "semantic_role": "FEATURE_CARD_EVIDENCE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        640,
+        400
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence & provenance (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/feature_card_evidence.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/feature_card_evidence.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-FEATURE_CARD_A11Y",
+      "name": "feature_card_a11y",
+      "category": "marketing_showcase",
+      "semantic_role": "FEATURE_CARD_A11Y",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        640,
+        400
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Accessibility (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/feature_card_a11y.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/feature_card_a11y.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-FEATURE_CARD_GOVERNANCE",
+      "name": "feature_card_governance",
+      "category": "marketing_showcase",
+      "semantic_role": "FEATURE_CARD_GOVERNANCE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        640,
+        400
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Governance (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/feature_card_governance.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/feature_card_governance.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-OPERATOR_CONSOLE_OVERVIEW",
+      "name": "operator_console_overview",
+      "category": "marketing_showcase",
+      "semantic_role": "OPERATOR_CONSOLE_OVERVIEW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Operator console (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/operator_console_overview.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/operator_console_overview.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-TOPOLOGY_SHOWCASE",
+      "name": "topology_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "TOPOLOGY_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Topology visualization (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/topology_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/topology_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-EVIDENCE_SHOWCASE",
+      "name": "evidence_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "EVIDENCE_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Evidence and provenance (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/evidence_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/evidence_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-A11Y_SHOWCASE",
+      "name": "a11y_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "A11Y_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Accessibility showcase (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/a11y_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/a11y_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-GOVERNANCE_SHOWCASE",
+      "name": "governance_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "GOVERNANCE_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Governance showcase (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/governance_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/governance_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-DRIFT_SHOWCASE",
+      "name": "drift_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "DRIFT_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Drift detection (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/drift_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/drift_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-BELIEF_SHOWCASE",
+      "name": "belief_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "BELIEF_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Belief Graph (CONCEPT VISUAL)",
+      "source_file": "design-system/aal-viz/marketing/belief_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/belief_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-ORACLE_SHOWCASE",
+      "name": "oracle_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "ORACLE_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Oracle integration (CONCEPT VISUAL)",
+      "source_file": "design-system/aal-viz/marketing/oracle_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/oracle_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-YGGDRASIL_SHOWCASE",
+      "name": "yggdrasil_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "YGGDRASIL_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "YGGDRASIL (CONCEPT VISUAL)",
+      "source_file": "design-system/aal-viz/marketing/yggdrasil_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/yggdrasil_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "CONCEPT VISUAL"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-READINESS_SHOWCASE",
+      "name": "readiness_showcase",
+      "category": "marketing_showcase",
+      "semantic_role": "READINESS_SHOWCASE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1280,
+        720
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Production readiness (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/readiness_showcase.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/readiness_showcase.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    },
+    {
+      "asset_id": "AALVIZ-MKT-CASE_STUDY_COVER",
+      "name": "case_study_cover",
+      "category": "marketing_showcase",
+      "semantic_role": "CASE_STUDY_COVER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "showcase",
+        "product_vision_labeled"
+      ],
+      "sizes": [
+        1200,
+        1600
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "Case study (PRODUCT VISION)",
+      "source_file": "design-system/aal-viz/marketing/case_study_cover.svg",
+      "export_files": [
+        "design-system/aal-viz/marketing/case_study_cover.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "4",
+      "hallmark": "hand-built-svg-tier-B",
+      "honesty_label": "PRODUCT VISION"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+/* Hallmark · genre: atmospheric-technical · theme: custom (Abraxas projection grammar)
+ * tone: technical · anchor hue: cyan ~195° · enrichment: Tier B hand-built SVG
+ * audience: operators · use: projection-layer visual language · batch: 0
+ * pre-emit critique: P4 H5 E4 S5 R4 V4
+ *
+ * Bridges AAL-Viz asset pack to Abraxas Visual OS tokens.
+ * Prefer design-system/tokens/abraxas.tokens.css in app shells; this file
+ * documents the projection-layer semantic aliases for showcase + exports.
+ */
+
+:root {
+  /* Paper */
+  --aalviz-paper: #0b1020;
+  --aalviz-paper-2: #121a2a;
+  --aalviz-paper-3: #162033;
+  --aalviz-ink: #e8eef7;
+  --aalviz-ink-muted: #94a3b8;
+  --aalviz-ink-faint: #64748b;
+
+  /* Accents — semantic roles, not decoration */
+  --aalviz-cyan: #00d4f5;
+  --aalviz-violet: #a78bfa;
+  --aalviz-amber: #f59e0b;
+  --aalviz-teal: #2dd4bf;
+  --aalviz-gold: #f2c14e;
+  --aalviz-error: #ef4444;
+  --aalviz-ok: #10b981;
+
+  /* Registers */
+  --aalviz-register-observed: #38bdf8;
+  --aalviz-register-inferred: #a78bfa;
+  --aalviz-register-speculative: #f472b6;
+  --aalviz-register-unknown: #6b7280;
+
+  /* Type */
+  --aalviz-font-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --aalviz-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Icon stroke grammar */
+  --aalviz-icon-stroke: 1.5;
+  --aalviz-icon-size-sm: 16px;
+  --aalviz-icon-size-md: 24px;
+  --aalviz-icon-size-lg: 48px;
+
+  /* Space (4pt) */
+  --aalviz-space-xs: 4px;
+  --aalviz-space-sm: 8px;
+  --aalviz-space-md: 16px;
+  --aalviz-space-lg: 24px;
+  --aalviz-space-xl: 40px;
+
+  /* Motion */
+  --aalviz-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --aalviz-dur-fast: 120ms;
+  --aalviz-dur: 200ms;
+
+  /* Focus */
+  --aalviz-focus: #7dd3fc;
+  --aalviz-rule: #243049;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --aalviz-dur-fast: 1ms;
+    --aalviz-dur: 1ms;
+  }
+}

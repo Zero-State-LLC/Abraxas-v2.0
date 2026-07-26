@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 40" width="800" height="40" role="img" aria-label="Report footer">
+  <title>Report footer</title>
+  <rect width="800" height="40" fill="#0B1020"/>
+  <path d="M0 1 H800" stroke="#243049"/>
+  <text x="16" y="24" font-family="IBM Plex Mono, monospace" font-size="10" fill="#64748B">AAL-VIZ · PROJECTION ONLY</text>
+  <text x="784" y="24" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#64748B">page · sources required</text>
+</svg>

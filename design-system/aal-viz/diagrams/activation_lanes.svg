@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Governance activation lanes">
+  <title>Governance activation lanes</title>
+  <desc>AAL-Viz documentation visual. Projection only. Not a live dashboard screenshot.</desc>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <text x="24" y="16" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.16em" fill="#F59E0B">IMPLEMENTED SYSTEM MAP</text>
+  <text x="24" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E8EEF7">Governance activation lanes</text>
+  <rect x="60" y="200" width="160" height="80" rx="6" fill="#121A2A" stroke="#00D4F5" stroke-width="1.5"/>
+  <text x="70" y="244" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">LOCAL_DEV</text>
+  <rect x="250" y="200" width="160" height="80" rx="6" fill="#121A2A" stroke="#2DD4BF" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="260" y="244" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">SANDBOX</text>
+  <rect x="440" y="200" width="160" height="80" rx="6" fill="#121A2A" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="450" y="244" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">INTERNAL_CANARY</text>
+  <rect x="630" y="200" width="160" height="80" rx="6" fill="#121A2A" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="640" y="244" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#E8EEF7">EXTERNAL_PRODUCTION</text>
+  <text x="630" y="320" font-size="11" fill="#EF4444" font-family="IBM Plex Mono, monospace">LOCKED without dual-control</text>
+  <text x="24" y="524" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9" letter-spacing="0.1em" fill="#64748B">AAL-VIZ · PROJECTION ONLY · NO EXECUTION AUTHORITY</text>
+  <rect x="0" y="0" width="960" height="3" fill="#00D4F5"/>
+</svg>

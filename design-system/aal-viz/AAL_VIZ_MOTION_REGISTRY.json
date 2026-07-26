@@ -1,0 +1,486 @@
+{
+  "schema_version": "AALVizMotionRegistry.v1",
+  "status": "SHIPPED_CANDIDATE",
+  "batch": "4",
+  "css": "design-system/aal-viz/motion/aal_viz_motion.primitives.css",
+  "principles": "design-system/motion/principles.md",
+  "rules": [
+    "Informational motion only",
+    "No simulated computation or false progress",
+    "prefers-reduced-motion \u2192 static first frame",
+    "Animate transform/opacity only",
+    "No random particles",
+    "No perpetual AI-thinking loops",
+    "State understandable on frame 0"
+  ],
+  "tokens": {
+    "dur_xs": "100ms",
+    "dur_sm": "160ms",
+    "dur_md": "200ms",
+    "dur_lg": "280ms",
+    "dur_xl": "320ms",
+    "ease_out": "cubic-bezier(0.22, 1, 0.36, 1)"
+  },
+  "count": 27,
+  "entries": [
+    {
+      "id": "projection_arrival",
+      "label": "Projection arrival",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--projection_arrival",
+      "first_frame_svg": "design-system/aal-viz/motion/states/projection_arrival.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/projection_arrival.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "artifact_detected",
+      "label": "New artifact detected",
+      "duration_ms": 180,
+      "css_class": "aalviz-motion--artifact_detected",
+      "first_frame_svg": "design-system/aal-viz/motion/states/artifact_detected.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/artifact_detected.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "source_refresh",
+      "label": "Source refresh",
+      "duration_ms": 220,
+      "css_class": "aalviz-motion--source_refresh",
+      "first_frame_svg": "design-system/aal-viz/motion/states/source_refresh.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/source_refresh.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "validation_pass",
+      "label": "Validation pass",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--validation_pass",
+      "first_frame_svg": "design-system/aal-viz/motion/states/validation_pass.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/validation_pass.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "validation_failure",
+      "label": "Validation failure",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--validation_failure",
+      "first_frame_svg": "design-system/aal-viz/motion/states/validation_failure.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/validation_failure.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "fail_closed_transition",
+      "label": "Fail-closed transition",
+      "duration_ms": 160,
+      "css_class": "aalviz-motion--fail_closed_transition",
+      "first_frame_svg": "design-system/aal-viz/motion/states/fail_closed_transition.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/fail_closed_transition.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "drift_detected",
+      "label": "Drift detected",
+      "duration_ms": 240,
+      "css_class": "aalviz-motion--drift_detected",
+      "first_frame_svg": "design-system/aal-viz/motion/states/drift_detected.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/drift_detected.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "threshold_crossing",
+      "label": "Threshold crossing",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--threshold_crossing",
+      "first_frame_svg": "design-system/aal-viz/motion/states/threshold_crossing.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/threshold_crossing.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "operator_review_required",
+      "label": "Operator review required",
+      "duration_ms": 180,
+      "css_class": "aalviz-motion--operator_review_required",
+      "first_frame_svg": "design-system/aal-viz/motion/states/operator_review_required.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/operator_review_required.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "route_blocked",
+      "label": "Route blocked",
+      "duration_ms": 160,
+      "css_class": "aalviz-motion--route_blocked",
+      "first_frame_svg": "design-system/aal-viz/motion/states/route_blocked.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/route_blocked.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "route_restored",
+      "label": "Route restored",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--route_restored",
+      "first_frame_svg": "design-system/aal-viz/motion/states/route_restored.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/route_restored.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "node_selected",
+      "label": "Node selected",
+      "duration_ms": 120,
+      "css_class": "aalviz-motion--node_selected",
+      "first_frame_svg": "design-system/aal-viz/motion/states/node_selected.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/node_selected.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "node_expanded",
+      "label": "Node expanded",
+      "duration_ms": 180,
+      "css_class": "aalviz-motion--node_expanded",
+      "first_frame_svg": "design-system/aal-viz/motion/states/node_expanded.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/node_expanded.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "lineage_reveal",
+      "label": "Lineage reveal",
+      "duration_ms": 280,
+      "css_class": "aalviz-motion--lineage_reveal",
+      "first_frame_svg": "design-system/aal-viz/motion/states/lineage_reveal.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/lineage_reveal.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "trace_traversal",
+      "label": "Trace traversal",
+      "duration_ms": 320,
+      "css_class": "aalviz-motion--trace_traversal",
+      "first_frame_svg": "design-system/aal-viz/motion/states/trace_traversal.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/trace_traversal.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "timeline_scrub",
+      "label": "Timeline scrub indicator",
+      "duration_ms": 100,
+      "css_class": "aalviz-motion--timeline_scrub",
+      "first_frame_svg": "design-system/aal-viz/motion/states/timeline_scrub.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/timeline_scrub.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "cluster_formation",
+      "label": "Cluster formation",
+      "duration_ms": 240,
+      "css_class": "aalviz-motion--cluster_formation",
+      "first_frame_svg": "design-system/aal-viz/motion/states/cluster_formation.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/cluster_formation.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "cluster_separation",
+      "label": "Cluster separation",
+      "duration_ms": 240,
+      "css_class": "aalviz-motion--cluster_separation",
+      "first_frame_svg": "design-system/aal-viz/motion/states/cluster_separation.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/cluster_separation.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "provider_conflict",
+      "label": "Provider conflict",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--provider_conflict",
+      "first_frame_svg": "design-system/aal-viz/motion/states/provider_conflict.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/provider_conflict.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "evidence_attachment",
+      "label": "Evidence attachment",
+      "duration_ms": 180,
+      "css_class": "aalviz-motion--evidence_attachment",
+      "first_frame_svg": "design-system/aal-viz/motion/states/evidence_attachment.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/evidence_attachment.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "copy_confirmation",
+      "label": "Copy confirmation",
+      "duration_ms": 160,
+      "css_class": "aalviz-motion--copy_confirmation",
+      "first_frame_svg": "design-system/aal-viz/motion/states/copy_confirmation.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/copy_confirmation.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "transport_reconnect",
+      "label": "Transport reconnect",
+      "duration_ms": 220,
+      "css_class": "aalviz-motion--transport_reconnect",
+      "first_frame_svg": "design-system/aal-viz/motion/states/transport_reconnect.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/transport_reconnect.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "polling_fallback",
+      "label": "Polling fallback transition",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--polling_fallback",
+      "first_frame_svg": "design-system/aal-viz/motion/states/polling_fallback.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/polling_fallback.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "replay_start",
+      "label": "Replay start",
+      "duration_ms": 160,
+      "css_class": "aalviz-motion--replay_start",
+      "first_frame_svg": "design-system/aal-viz/motion/states/replay_start.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/replay_start.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "replay_complete",
+      "label": "Replay complete",
+      "duration_ms": 180,
+      "css_class": "aalviz-motion--replay_complete",
+      "first_frame_svg": "design-system/aal-viz/motion/states/replay_complete.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/replay_complete.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "archived_transition",
+      "label": "Archived transition",
+      "duration_ms": 200,
+      "css_class": "aalviz-motion--archived_transition",
+      "first_frame_svg": "design-system/aal-viz/motion/states/archived_transition.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/archived_transition.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    },
+    {
+      "id": "not_computable_reveal",
+      "label": "NOT_COMPUTABLE reveal",
+      "duration_ms": 160,
+      "css_class": "aalviz-motion--not_computable_reveal",
+      "first_frame_svg": "design-system/aal-viz/motion/states/not_computable_reveal.svg",
+      "reduced_motion_svg": "design-system/aal-viz/motion/states/not_computable_reveal.reduced.svg",
+      "animates": [
+        "opacity",
+        "transform"
+      ],
+      "forbidden": [
+        "random particles",
+        "perpetual thinking loop",
+        "layout thrash"
+      ]
+    }
+  ]
+}
