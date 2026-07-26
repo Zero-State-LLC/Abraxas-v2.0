@@ -1,3 +1,11 @@
+# [1.147.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.146.0...v1.147.0) (2026-07-26)
+
+
+### Features
+
+* **aal-viz:** project GitHub/Notion/CI truth surfaces in operator loop ([07e4f81](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/07e4f81ec99bf21f512187c21ac633181c0ed010))
+* **aal-viz:** project GitHub/Notion/CI truth surfaces in operator loop ([#1045](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1045)) ([dc4aa4a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dc4aa4ab4e1075bc94e7ed2126b9300b5a36aeea))
+
 # [1.146.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.145.0...v1.146.0) (2026-07-26)
 
 
