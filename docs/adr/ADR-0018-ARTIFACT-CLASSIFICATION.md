@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (design); enforcement deferred to Phase 5
+Accepted (enforcement active for classified writer API) — 2026-07-26
 
 ## Context
 
@@ -15,7 +15,7 @@ Formalize artifact classes:
 | Class | Influences current canonical state |
 | --- | --- |
 | `CANONICAL_DOMAIN_ARTIFACT` | yes |
-| `GOVERNANCE_DECISION` | yes (requires valid authority) |
+| `GOVERNANCE_DECISION` | yes (requires valid authority locks) |
 | `AUDIT_EVIDENCE` | no |
 | `BUILD_EVIDENCE` | no |
 | `RUNTIME_EVENT` | no |
@@ -24,10 +24,19 @@ Formalize artifact classes:
 
 A receipt may prove an action occurred; it must not automatically become domain state.
 
-Production Convergence Phase 0–2 advisory spine results are emitted as `AUDIT_EVIDENCE` with `influences_current_state: false`.
+### Runtime API
+
+- Policy module: `core/canonical/artifact_classification.py`
+- Classified writer: `core/canonical.json.write_canonical_artifact` / `prepare_canonical_artifact`
+- Legacy `write_canonical_json` remains for migration compatibility
+- Advisory bypass scanner: `scripts/readiness/run_canonical_writer_bypass_check.py`
+
+`GOVERNANCE_DECISION` writes must include `authority_locks` with promotion/canon/forecast flags locked `false`.
+
+Supported product surfaces (CLI analyze/replay outputs, convergence package) use the classified writer. Mass migration of historical runners is deferred.
 
 ## Consequences
 
-- Inventory and target architecture document the taxonomy now.
-- Writer consolidation (Phase 5) will enforce classification + retention.
-- No mass regeneration or deletion of historical `out/` receipts in this slice.
+- New governed product writes should call `write_canonical_artifact`.
+- Advisory spine results remain `AUDIT_EVIDENCE` with `influences_current_state: false`.
+- Fail-closed CI on bypasses is not enabled yet (advisory report only).

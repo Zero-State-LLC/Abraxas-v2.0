@@ -1,0 +1,107 @@
+"""Typed runtime settings root (separate from RuntimePaths path catalog).
+
+Domain modules must not read environment variables at import time. Call
+``load_runtime_settings()`` / ``configure_runtime_settings()`` explicitly from
+CLI, API factory, or tests.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from core.config import RuntimePaths
+from core.governance.activation_policy import ActivationLane
+
+
+class RuntimeSettings(BaseSettings):
+    """Application settings: activation, layout roots, and feature flags."""
+
+    model_config = SettingsConfigDict(
+        env_prefix="ABRAXAS_",
+        extra="ignore",
+        frozen=True,
+    )
+
+    app_title: str = "ABRAXAS v2"
+    app_version: str = "2.5.0"
+    default_activation_lane: ActivationLane = ActivationLane.LOCAL_DEV
+    repo_root: Path = Field(default_factory=lambda: Path.cwd())
+    contracts_dir: Path = Path("contracts")
+    out_dir: Path = Path("out")
+    require_classified_artifact_writes: bool = False
+    enable_analyze_endpoint: bool = True
+    require_public_readonly_for_analyze: bool = False
+
+    @field_validator("default_activation_lane", mode="before")
+    @classmethod
+    def _lane(cls, value: Any) -> Any:
+        if isinstance(value, ActivationLane):
+            return value
+        return ActivationLane(str(value))
+
+    @field_validator("repo_root", "contracts_dir", "out_dir", mode="before")
+    @classmethod
+    def _path(cls, value: Any) -> Path:
+        return Path(value)
+
+    def resolved_contracts_dir(self) -> Path:
+        path = self.contracts_dir
+        return path if path.is_absolute() else (self.repo_root / path)
+
+    def resolved_out_dir(self) -> Path:
+        path = self.out_dir
+        return path if path.is_absolute() else (self.repo_root / path)
+
+    def runtime_paths(self) -> RuntimePaths:
+        """Filesystem layout helper; not a DI container for credentials/adapters."""
+        return RuntimePaths(
+            contracts_dir=self.resolved_contracts_dir(),
+            out_dir=self.resolved_out_dir(),
+        )
+
+    def redacted_diagnostics(self) -> dict[str, Any]:
+        """Safe settings dump for status/diagnostics (no secrets by construction)."""
+        return {
+            "app_title": self.app_title,
+            "app_version": self.app_version,
+            "default_activation_lane": self.default_activation_lane.value,
+            "repo_root": str(self.repo_root),
+            "contracts_dir": str(self.resolved_contracts_dir()),
+            "out_dir": str(self.resolved_out_dir()),
+            "require_classified_artifact_writes": self.require_classified_artifact_writes,
+            "enable_analyze_endpoint": self.enable_analyze_endpoint,
+            "require_public_readonly_for_analyze": self.require_public_readonly_for_analyze,
+        }
+
+
+_RUNTIME_SETTINGS: RuntimeSettings | None = None
+
+
+def load_runtime_settings(**overrides: object) -> RuntimeSettings:
+    if overrides:
+        return RuntimeSettings(**overrides)  # type: ignore[arg-type]
+    return RuntimeSettings()
+
+
+def configure_runtime_settings(
+    settings: RuntimeSettings | None = None,
+    **overrides: object,
+) -> RuntimeSettings:
+    global _RUNTIME_SETTINGS
+    if settings is not None and overrides:
+        raise ValueError("pass settings or overrides, not both")
+    _RUNTIME_SETTINGS = (
+        settings if settings is not None else load_runtime_settings(**overrides)
+    )
+    return _RUNTIME_SETTINGS
+
+
+def get_runtime_settings() -> RuntimeSettings:
+    global _RUNTIME_SETTINGS
+    if _RUNTIME_SETTINGS is None:
+        _RUNTIME_SETTINGS = load_runtime_settings()
+    return _RUNTIME_SETTINGS

@@ -5,7 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import prepare_canonical_artifact, write_canonical_artifact
 from core.production_convergence.baseline import build_baseline
 from core.production_convergence.deprecation_ledger import build_deprecation_ledger
 from core.production_convergence.duplication import build_duplication_clusters
@@ -29,8 +30,9 @@ def build_phase0_2_package(
 ) -> dict[str, Any]:
     root = Path(repo_root).resolve()
     out_dir = root / OUT_DIR_REL
+    out_root = root / "out"
 
-    artifacts = {
+    raw_artifacts = {
         "baseline.v1.json": build_baseline(root, run_validation=run_validation),
         "entrypoint_inventory.v1.json": build_entrypoint_inventory(root),
         "interface_inventory.v1.json": build_interface_inventory(root),
@@ -39,11 +41,20 @@ def build_phase0_2_package(
         "governance_contradiction_map.v1.json": build_governance_contradiction_map(),
         "deprecation_ledger.v1.json": build_deprecation_ledger(),
     }
+    artifacts = {
+        name: prepare_canonical_artifact(payload, ArtifactClass.BUILD_EVIDENCE)
+        for name, payload in raw_artifacts.items()
+    }
 
     if write:
         out_dir.mkdir(parents=True, exist_ok=True)
         for name, payload in artifacts.items():
-            write_canonical_json(out_dir / name, payload)
+            write_canonical_artifact(
+                out_dir / name,
+                payload,
+                artifact_class=ArtifactClass.BUILD_EVIDENCE,
+                out_root=out_root,
+            )
 
     return {
         "output_dir": OUT_DIR_REL.as_posix(),

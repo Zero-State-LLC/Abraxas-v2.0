@@ -103,11 +103,18 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 6. Deprecation warnings on Alembic specialist CLI + validation service shim
 7. `out/production_convergence/deprecation_ledger.v1.json`
 
+### Phase 5
+1. `core/canonical/artifact_classification.py` + ADR-0018 enforcement API
+2. `write_canonical_artifact` / `prepare_canonical_artifact` (path confinement, append-only)
+3. Migrated CLI outputs + convergence package to classified writer
+4. `core.settings.RuntimeSettings` shared by CLI/API/client; `RuntimePaths` stays path-only
+5. Advisory bypass scanner `run_canonical_writer_bypass_check.py`
+
 ## CLEAR
 
-No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Ceremony runners remain classified for later archive.
+No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration.
 
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 5 — artifact classification enforcement on governed writers; expand Settings DI
+- Next action: Phase 6+ — migrate high-traffic writers; inject clock/storage adapters; service hardening

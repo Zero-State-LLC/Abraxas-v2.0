@@ -8,8 +8,10 @@ from pathlib import Path
 from typing import Any
 
 from abraxas.client import AbraxasClient
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_canonical_artifact
 from core.governance.activation_policy import ActivationLane
+from core.settings import load_runtime_settings
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -23,7 +25,11 @@ def _print(payload: dict[str, Any]) -> None:
 
 
 def _cmd_analyze(args: argparse.Namespace) -> int:
-    client = AbraxasClient(repo_root=REPO_ROOT, default_lane=args.lane)
+    settings = load_runtime_settings(
+        repo_root=REPO_ROOT,
+        default_activation_lane=args.lane,
+    )
+    client = AbraxasClient(settings=settings)
     input_payload: dict[str, Any] = {}
     if args.input is not None:
         loaded = _load_json(args.input)
@@ -56,9 +62,20 @@ def _cmd_analyze(args: argparse.Namespace) -> int:
     )
     if args.out is not None:
         args.out.mkdir(parents=True, exist_ok=True)
-        write_canonical_json(args.out / "advisory_spine_result.json", result)
-        if result.get("alembic") is not None:
-            write_canonical_json(args.out / "alembic.json", result["alembic"])
+        out_root = args.out.resolve()
+        write_canonical_artifact(
+            args.out / "advisory_spine_result.json",
+            result,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=out_root,
+        )
+        if isinstance(result.get("alembic"), dict):
+            write_canonical_artifact(
+                args.out / "alembic.json",
+                result["alembic"],
+                artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+                out_root=out_root,
+            )
     _print(
         {
             "ok": result.get("status") == "OK",
@@ -79,7 +96,7 @@ def _cmd_analyze(args: argparse.Namespace) -> int:
 
 
 def _cmd_validate(args: argparse.Namespace) -> int:
-    client = AbraxasClient(repo_root=REPO_ROOT)
+    client = AbraxasClient(settings=load_runtime_settings(repo_root=REPO_ROOT))
     payload = _load_json(args.payload)
     result = client.validate(
         schema_ref=args.schema_ref,
@@ -101,7 +118,11 @@ def _cmd_validate(args: argparse.Namespace) -> int:
 
 
 def _cmd_replay(args: argparse.Namespace) -> int:
-    client = AbraxasClient(repo_root=REPO_ROOT, default_lane=args.lane)
+    settings = load_runtime_settings(
+        repo_root=REPO_ROOT,
+        default_activation_lane=args.lane,
+    )
+    client = AbraxasClient(settings=settings)
     receipt = _load_json(args.receipt)
     if not isinstance(receipt, dict):
         _print(
@@ -115,7 +136,12 @@ def _cmd_replay(args: argparse.Namespace) -> int:
     result = client.replay(receipt, run_id=args.run_id)
     if args.out is not None:
         args.out.mkdir(parents=True, exist_ok=True)
-        write_canonical_json(args.out / "replay_result.json", result)
+        write_canonical_artifact(
+            args.out / "replay_result.json",
+            result,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.resolve(),
+        )
     _print(
         {
             "ok": result.get("status") == "OK",
@@ -129,7 +155,8 @@ def _cmd_replay(args: argparse.Namespace) -> int:
 
 
 def _cmd_status(_args: argparse.Namespace) -> int:
-    client = AbraxasClient(repo_root=REPO_ROOT)
+    settings = load_runtime_settings(repo_root=REPO_ROOT)
+    client = AbraxasClient(settings=settings)
     snapshot = client.status()
     _print(
         {
@@ -141,6 +168,7 @@ def _cmd_status(_args: argparse.Namespace) -> int:
             "repository_sha": snapshot["repository_sha"],
             "supported_interfaces": snapshot["supported_interfaces"],
             "supported_spine": snapshot["supported_spine"],
+            "settings": snapshot.get("settings"),
             "canonical_hash": snapshot["canonical_hash"],
         }
     )

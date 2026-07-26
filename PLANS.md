@@ -9,13 +9,14 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 ### Active workstreams
 
 1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
-2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **in progress on PR #1021**
-3. Phase 5+: canonical writer/artifact class enforcement, settings DI expansion, service hardening
+2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **landed**
+3. Phase 5: classified writer + RuntimeSettings — **in progress on PR #1021**
+4. Phase 6+: adapter/clock injection, service hardening, recovery drills
 
 ### Next three milestones
 
-1. Artifact classification enforcement on governed writers (ADR-0018)
-2. Expand typed Settings beyond API; inject clock/storage/adapters
+1. Migrate high-traffic runners from `write_canonical_json` → `write_canonical_artifact`
+2. Inject explicit clock/storage/provider adapters into settings/DI
 3. Service hardening (authn boundary, rate-limit boundary, OpenAPI freeze, recovery drills)
 
 ### Blocked / held

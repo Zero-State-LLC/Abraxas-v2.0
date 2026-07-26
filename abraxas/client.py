@@ -10,6 +10,7 @@ from core.application.advisory_spine import AdvisorySpineRequest, run_advisory_s
 from core.application.status import build_status_snapshot
 from core.governance.activation_policy import ActivationLane
 from core.services.validation_service import validate as validation_validate
+from core.settings import RuntimeSettings, load_runtime_settings
 
 
 class AbraxasClient:
@@ -22,11 +23,21 @@ class AbraxasClient:
     def __init__(
         self,
         *,
+        settings: RuntimeSettings | None = None,
         repo_root: Path | None = None,
-        default_lane: ActivationLane | str = ActivationLane.LOCAL_DEV,
+        default_lane: ActivationLane | str | None = None,
     ) -> None:
-        self.repo_root = Path(repo_root or Path.cwd()).resolve()
-        self.default_lane = ActivationLane(default_lane)
+        if settings is not None:
+            self.settings = settings
+        else:
+            overrides: dict[str, Any] = {}
+            if repo_root is not None:
+                overrides["repo_root"] = Path(repo_root).resolve()
+            if default_lane is not None:
+                overrides["default_activation_lane"] = default_lane
+            self.settings = load_runtime_settings(**overrides)
+        self.repo_root = Path(self.settings.repo_root).resolve()
+        self.default_lane = ActivationLane(self.settings.default_activation_lane)
 
     def analyze(
         self,
@@ -73,7 +84,7 @@ class AbraxasClient:
         )
 
     def status(self) -> dict[str, Any]:
-        return build_status_snapshot(self.repo_root)
+        return build_status_snapshot(self.repo_root, settings=self.settings)
 
     def replay(
         self,
@@ -81,12 +92,7 @@ class AbraxasClient:
         *,
         run_id: str | None = None,
     ) -> dict[str, Any]:
-        """Replay a prior advisory-spine or Alembic-oriented receipt.
-
-        Accepts:
-        - advisory spine OK result with embedded alembic.task
-        - alembic execute payload / replay_manifest with task
-        """
+        """Replay a prior advisory-spine or Alembic-oriented receipt."""
         payload = dict(receipt)
         task = None
         if isinstance(payload.get("alembic"), dict) and payload["alembic"].get("task"):

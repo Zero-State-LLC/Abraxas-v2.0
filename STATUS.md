@@ -15,9 +15,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
 | Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
+| Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
+| Runtime settings | `core.settings.RuntimeSettings` (paths via `RuntimePaths`) | `core/settings.py` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–4 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
-| Active objective | Writer/artifact class enforcement next; no mass deletion | `PLANS.md` |
+| Convergence audit | Phase 0–5 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Active objective | Migrate legacy writers; service hardening next | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

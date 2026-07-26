@@ -107,6 +107,26 @@ See `docs/adr/ADR-0018-ARTIFACT-CLASSIFICATION.md`.
 
 Only `CANONICAL_DOMAIN_ARTIFACT` and `GOVERNANCE_DECISION` normally influence current canonical state. Advisory spine outputs are `AUDIT_EVIDENCE`.
 
+Runtime API:
+
+```python
+from core.canonical.json import write_canonical_artifact
+from core.canonical.artifact_classification import ArtifactClass
+
+write_canonical_artifact(
+    path,
+    payload,
+    artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+    out_root=settings.resolved_out_dir(),
+)
+```
+
+## 6b. Settings vs paths
+
+- `core.settings.RuntimeSettings` — activation lane, roots, feature flags (explicit load)
+- `core.config.RuntimePaths` — filesystem layout catalog derived from settings roots
+- Do not treat `RuntimePaths` as the universal DI container
+
 ## 7. What must remain separate
 
 Keep boundaries between: canonical serialization; evidence ingest; belief representation; Oracle analysis; Alembic routing/fusion; governance policy; storage; API adapters; observability; experimental research.

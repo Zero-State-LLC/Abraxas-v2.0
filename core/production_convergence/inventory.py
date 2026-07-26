@@ -110,6 +110,23 @@ _PATH_OVERRIDES: dict[str, dict[str, Any]] = {
         "activation_lane": "LOCAL_DEV",
         "replacement_candidate": None,
         "confidence": "HIGH",
+        "notes": "canonical_dumps/hash + write_canonical_json + write_canonical_artifact",
+    },
+    "core/canonical/artifact_classification.py": {
+        "classification": "SUPPORTED_LIBRARY_API",
+        "owner_module": "core.canonical",
+        "activation_lane": "LOCAL_DEV",
+        "replacement_candidate": None,
+        "confidence": "HIGH",
+        "notes": "ADR-0018 artifact classes and state-influence policy.",
+    },
+    "core/settings.py": {
+        "classification": "SUPPORTED_LIBRARY_API",
+        "owner_module": "core.settings",
+        "activation_lane": "LOCAL_DEV",
+        "replacement_candidate": None,
+        "confidence": "HIGH",
+        "notes": "Typed RuntimeSettings root; RuntimePaths remains path catalog only.",
     },
     "core/services/validation_service.py": {
         "classification": "SUPPORTED_LIBRARY_API",
@@ -372,6 +389,24 @@ def build_interface_inventory(repo_root: Path) -> dict[str, Any]:
             "classification": "SUPPORTED",
             "kind": "library",
             "evidence": ["out/production_readiness/ws1/interface_registry_snapshot.v1.json"],
+        },
+        {
+            "name": "write_canonical_artifact",
+            "path": "core/canonical/json.py",
+            "classification": "SUPPORTED",
+            "kind": "library",
+            "evidence": [
+                "docs/adr/ADR-0018-ARTIFACT-CLASSIFICATION.md",
+                "tests/test_artifact_classification.py",
+            ],
+            "notes": "Classified writer with path confinement and state-influence stamps.",
+        },
+        {
+            "name": "runtime_settings",
+            "path": "core/settings.py",
+            "classification": "SUPPORTED",
+            "kind": "library",
+            "evidence": ["tests/test_runtime_settings.py"],
         },
         {
             "name": "run_fast_ci",
