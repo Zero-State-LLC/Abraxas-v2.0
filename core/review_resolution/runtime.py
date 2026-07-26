@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
+from core.governance.upstream_evidence import require_upstream_packets
 from core.review_resolution.blockers import ReviewResolutionBlockerPacket
 from core.review_resolution.closure import ReviewResolutionClosurePacket
 from core.review_resolution.diagnostics import ReviewResolutionDiagnosticPacket
@@ -14,6 +15,21 @@ from core.review_resolution.validators import validate_review_resolution
 
 
 def run_review_resolution_spine(operator_queue_packets: list[dict], review_continuity_packets: list[dict], firewall_packets: list[dict], containment_packets: list[dict], diagnostics_packets: list[dict]) -> dict[str, object]:
+    require_upstream_packets(
+        ("operator_queue_packets", operator_queue_packets),
+        ("review_continuity_packets", review_continuity_packets),
+        ("firewall_packets", firewall_packets),
+        ("containment_packets", containment_packets),
+        ("diagnostics_packets", diagnostics_packets),
+        surface="review_resolution_spine",
+    )
+    _ = (
+        operator_queue_packets,
+        review_continuity_packets,
+        firewall_packets,
+        containment_packets,
+        diagnostics_packets,
+    )
     posture = ReviewResolutionPosturePacket(posture_id='rrp-1', request_hash='rq-1', queue_hash='oq-1', continuity_hash='rc-1', firewall_hash='fw-1', resolution_posture='review_only_resolved', unresolved_blockers=[], deterministic_posture_hash=ReviewResolutionPosturePacket.compute_hash('rq-1', 'oq-1', 'rc-1', 'fw-1', 'review_only_resolved', []), status='passed')
     blocker = ReviewResolutionBlockerPacket(blocker_id='rrb-1', posture_hash=posture.deterministic_posture_hash, blocker_type='missing_rationale', blocker_reason='operator rationale follow-up required', severity='warning', deterministic_blocker_hash=ReviewResolutionBlockerPacket.compute_hash(posture.deterministic_posture_hash, 'missing_rationale', 'operator rationale follow-up required', 'warning'), status='passed')
     blockers = [blocker]

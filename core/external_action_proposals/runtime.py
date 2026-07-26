@@ -13,8 +13,25 @@ from core.external_action_proposals.proposals import ExternalActionProposalPacke
 from core.external_action_proposals.readiness import ProposalReadinessPacket
 from core.external_action_proposals.replay import ExternalActionProposalReplayPacket
 from core.external_action_proposals.validators import validate_external_action_proposals
+from core.governance.upstream_evidence import require_upstream_packets
+
 
 def run_external_action_proposals(manual_action_custody_packets: list[dict], manual_execution_receipt_packets: list[dict], review_resolution_packets: list[dict], operator_queue_packets: list[dict], replay_packets: list[dict]) -> dict[str, object]:
+    require_upstream_packets(
+        ("manual_action_custody_packets", manual_action_custody_packets),
+        ("manual_execution_receipt_packets", manual_execution_receipt_packets),
+        ("review_resolution_packets", review_resolution_packets),
+        ("operator_queue_packets", operator_queue_packets),
+        ("replay_packets", replay_packets),
+        surface="external_action_proposals",
+    )
+    _ = (
+        manual_action_custody_packets,
+        manual_execution_receipt_packets,
+        review_resolution_packets,
+        operator_queue_packets,
+        replay_packets,
+    )
     proposal = ExternalActionProposalPacket(proposal_id="eap-1", proposal_status="proposed", proposed_action="review_operator", proposal_reason="manual operator-mediated advisory proposal", deterministic_proposal_hash=ExternalActionProposalPacket.compute_hash("proposed", "review_operator", "manual operator-mediated advisory proposal"), status="passed")
     category = ProposalCategoryPacket(proposal_hash=proposal.deterministic_proposal_hash, category="advisory", deterministic_category_hash=ProposalCategoryPacket.compute_hash(proposal.deterministic_proposal_hash, "advisory"), status="passed")
     constraint = ProposalConstraintPacket(proposal_hash=proposal.deterministic_proposal_hash, blocked_actions=["execute", "deploy", "activate"], deterministic_constraint_hash=ProposalConstraintPacket.compute_hash(proposal.deterministic_proposal_hash, ["execute", "deploy", "activate"]), status="passed")
