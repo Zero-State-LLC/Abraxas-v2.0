@@ -237,7 +237,12 @@ WP-2.1–2.5 · medium · receipt writer · **this PR track**
 
 ### Slice C — “Spine touch + CLI”
 
-WP-3.1–3.3 + WP-4.1–4.3 · medium
+WP-3.1–3.3 + WP-4.1–4.3 · medium · **this PR track**
+
+- [x] FamiliarSpineTouchpoint.v0 contract + `core/signal/spine_bridge.py`
+- [x] `python -m abraxas os status`
+- [x] `python -m abraxas forage validate|ingest|spine-touch`
+- [x] tests: `tests/test_ai_os_slice_c.py`
 
 ### Slice D — “Viz + traces”
 

@@ -1,4 +1,8 @@
-"""Signal OS primitives (EvidencePack and future forage/ingest bridges)."""
+"""Signal OS primitives (EvidencePack).
+
+Spine bridge lives in ``core.signal.spine_bridge`` — import it directly to
+avoid package init cycles with ``core.ingest.familiar_ingestion_receipt``.
+"""
 
 from core.signal.evidence_pack import (
     EVIDENCE_PACK_SCHEMA,
