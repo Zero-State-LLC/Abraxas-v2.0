@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Phase 0–14 + multi-agent operator loop complete; CLEAR dual-control pending)
+> **Last Updated:** 2026-07-27 (AI OS primitives map assimilation — advisory projection; Phase 0–14 + multi-agent operator loop complete; CLEAR dual-control pending)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -40,6 +40,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
 | Active objective | CLEAR dual-control attestations · live providers only when authorized | `PLANS.md` · CONTINUATION_PLAN.v16 |
+| AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing already in Notion Master System identity | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · 2026-07-27 |
 
 ## Session closeout surfaces (2026-07-23)
 
