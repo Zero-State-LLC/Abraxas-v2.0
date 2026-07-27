@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.signal.evidence_pack import validate_path  # noqa: E402
+from core.signal.evidence_pack import validate_path
 
 
 def main(argv: list[str] | None = None) -> int:

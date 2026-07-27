@@ -7,7 +7,7 @@ Canonical schema: ``contracts/signal/evidence_pack.v0.schema.json``
 from __future__ import annotations
 
 # Re-export OS primitive API for importlib stage loaders and legacy imports.
-from core.signal.evidence_pack import (  # noqa: F401
+from core.signal.evidence_pack import (
     COMMERCIAL_CLAIM_KEYS,
     EVIDENCE_PACK_SCHEMA,
     EVIDENCE_PACK_SCHEMA_VERSION,

@@ -16,7 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +24,7 @@ DEFAULT_OUT = ROOT / "out" / "signal_forage"
 
 
 def _utc_slug(topic: str) -> str:
-    day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    day = datetime.now(UTC).strftime("%Y-%m-%d")
     safe = "".join(c if c.isalnum() or c in "-_" else "-" for c in topic.lower())[:48].strip("-")
     return f"{day}_{safe or 'topic'}"
 

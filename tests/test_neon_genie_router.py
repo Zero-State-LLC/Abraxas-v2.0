@@ -13,8 +13,8 @@ SKILL = ROOT / "skills" / "abx-neon-genie"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(SKILL))
 
-import evidence_pack as ep  # noqa: E402
-import neon_genie_router as r  # noqa: E402
+import evidence_pack as ep
+import neon_genie_router as r
 
 LIVE_PACK = (
     ROOT

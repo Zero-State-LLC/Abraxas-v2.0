@@ -5,8 +5,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from core.signal.evidence_pack import (
     EVIDENCE_PACK_SCHEMA_VERSION,
     assert_valid_evidence_pack,
