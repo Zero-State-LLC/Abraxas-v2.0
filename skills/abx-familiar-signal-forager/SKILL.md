@@ -181,8 +181,11 @@ Do **not** resolve Brier outcomes from forage. Optional: attach `claim_id`s that
 
 ## References
 
-- `references/evidence_pack.v0.schema.json` — pack schema
+- **Canonical schema:** `contracts/signal/evidence_pack.v0.schema.json`
+- **Canonical validator:** `core/signal/evidence_pack.py` (`python scripts/research/run_evidence_pack_validate.py PATH`)
+- `references/evidence_pack.v0.schema.json` — skill mirror (must stay byte-equal to contracts)
 - `references/forage-playbook.md` — worked examples + quality bar
 - `references/source-rotation.md` — anti-grip rotation
 - `docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md` — OS mount + signal as syscall
+- `docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md` — realization WPs
 - `core/governance/signal_forager_brier_hook.py` — telemetry-only companion

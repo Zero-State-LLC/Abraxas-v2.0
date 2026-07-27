@@ -217,7 +217,13 @@ Prioritize only if they block the kernel path; otherwise stub contracts.
 
 ### Slice A — “Contracts” (after #1052)
 
-WP-1.1–1.5 · small · pure validate
+WP-1.1–1.5 · small · pure validate · **IN PROGRESS / this PR track**
+
+- [x] `contracts/signal/evidence_pack.v0.schema.json`
+- [x] `core/signal/evidence_pack.py` + package export
+- [x] Neon Genie facade re-exports core
+- [x] `scripts/research/run_evidence_pack_validate.py`
+- [x] tests: `tests/test_evidence_pack_core.py`
 
 ### Slice B — “Familiar ingestion”
 

@@ -16,7 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +24,7 @@ DEFAULT_OUT = ROOT / "out" / "signal_forage"
 
 
 def _utc_slug(topic: str) -> str:
-    day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    day = datetime.now(UTC).strftime("%Y-%m-%d")
     safe = "".join(c if c.isalnum() or c in "-_" else "-" for c in topic.lower())[:48].strip("-")
     return f"{day}_{safe or 'topic'}"
 
@@ -93,45 +93,32 @@ def emit_stub(topic: str, intent: str, out_dir: Path) -> Path:
 
 
 def validate_pack(path: Path) -> int:
-    data = json.loads(path.read_text(encoding="utf-8"))
-    required = [
-        "schema_version",
-        "pack_id",
-        "topic",
-        "intent",
-        "must_answer",
-        "sources",
-        "claims",
-        "authority",
-        "provenance",
-    ]
-    missing = [k for k in required if k not in data]
-    if missing:
-        print(f"INVALID missing keys: {missing}", file=sys.stderr)
-        return 2
-    if data.get("schema_version") != "EvidencePack.v0":
-        print("INVALID schema_version", file=sys.stderr)
-        return 2
-    auth = data.get("authority") or {}
-    if auth.get("execution_authority") is not False:
-        print("INVALID execution_authority must be false", file=sys.stderr)
-        return 2
-    for claim in data.get("claims") or []:
-        reg = claim.get("register")
-        if reg == "OBSERVED" and not claim.get("source_ids"):
-            print(f"INVALID OBSERVED claim without sources: {claim.get('claim_id')}", file=sys.stderr)
-            return 2
-        if reg == "INFERRED" and (not claim.get("join_logic") or len(claim.get("source_ids") or []) < 2):
-            print(f"INVALID INFERRED claim: {claim.get('claim_id')}", file=sys.stderr)
-            return 2
-    print(f"VALID {path}")
-    print(json.dumps({
-        "pack_id": data.get("pack_id"),
-        "topic": data.get("topic"),
-        "register_counts": data.get("register_counts"),
-        "source_count": len(data.get("sources") or []),
-    }, indent=2))
-    return 0
+    """Delegate to canonical core.signal.evidence_pack validator."""
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from core.signal.evidence_pack import validate_path
+
+    report = validate_path(path, repo_root=ROOT)
+    if report["ok"]:
+        print(f"VALID {report['path']}")
+        print(
+            json.dumps(
+                {
+                    "pack_id": report.get("pack_id"),
+                    "topic": report.get("topic"),
+                    "register_counts": report.get("register_counts"),
+                    "source_count": report.get("source_count"),
+                    "commercial_claims_blocked": report.get("commercial_claims_blocked"),
+                    "evidence_density": report.get("evidence_density"),
+                },
+                indent=2,
+            )
+        )
+        return 0
+    print(f"INVALID {report['path']}", file=sys.stderr)
+    for err in report.get("errors") or []:
+        print(f"  - {err}", file=sys.stderr)
+    return 2
 
 
 def main(argv: list[str] | None = None) -> int:
