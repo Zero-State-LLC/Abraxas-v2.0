@@ -1,6 +1,7 @@
 """Neon Genie Umbrella Router (thin coordinator).
 
 Loads stage modules directly (importlib) to support both package and direct-runner execution.
+Evidence: prefer EvidencePack.v0 via evidence_pack_path (abx-familiar-signal-forager).
 """
 
 from __future__ import annotations
@@ -35,6 +36,7 @@ _score = _load("neon_genie_score", "neon_genie_score.py")
 _shape = _load("neon_genie_shape", "neon_genie_shape.py")
 _package = _load("neon_genie_package", "neon_genie_package.py")
 _overlap = _load("overlap_registry", "overlap_registry.py")
+_evidence = _load("neon_genie_evidence_pack", "evidence_pack.py")
 
 def classify_mode(request: Dict[str, Any]) -> str:
     return request.get("mode", "PROMPT_LED").upper()
@@ -47,11 +49,7 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
     mode = classify_mode(request)
     needs_evidence = require_evidence(mode, request)
 
-    evidence_pack = request.get("evidence_pack") or (
-        {"status": "NOT_COMPUTABLE", "reason": "no evidence acquired"}
-        if needs_evidence
-        else {"status": "PROMPT_ONLY"}
-    )
+    evidence_pack = _evidence.resolve_evidence_for_request(request, needs_evidence=needs_evidence)
 
     seeds = _intake.intake(request)
     opportunities = _discover.discover(seeds, evidence_pack)
@@ -64,10 +62,13 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
 
     receipt = {
         "schema_version": "NeonGenieRunReceipt.v0.1",
-        "run_id": hashlib.sha256(json.dumps(request, sort_keys=True).encode()).hexdigest()[:12],
+        "run_id": hashlib.sha256(json.dumps(request, sort_keys=True, default=str).encode()).hexdigest()[:12],
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "input_mode": mode,
         "evidence_status": evidence_pack.get("status", "UNKNOWN"),
+        "evidence_pack_ref": evidence_pack.get("pack_ref"),
+        "evidence_density": evidence_pack.get("evidence_density"),
+        "commercial_claims_blocked": bool(evidence_pack.get("commercial_claims_blocked", True)),
         "overlap_classification": overlap.get("classification"),
         "venture_packet": venture_packet,
         "route_decision": {
@@ -77,6 +78,12 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
         "provenance": {
             "runner": "skills/abx-neon-genie/neon_genie_router.py",
             "skill": "abx-neon-genie",
+            "evidence_skill": "abx-familiar-signal-forager",
+        },
+        "authority": {
+            "execution_authority": False,
+            "promotion_authorized": False,
+            "canon_mutation_allowed": False,
         },
         "status": "CYCLE_COMPLETE" if overlap.get("classification") != "NOT_COMPUTABLE" else "INCOMPLETE",
     }
