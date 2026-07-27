@@ -1,3 +1,10 @@
+# [1.149.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.148.0...v1.149.0) (2026-07-27)
+
+
+### Features
+
+* **skills:** Hermes OS signal forage + Neon Genie EvidencePack path ([#1052](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1052)) ([9bad9d7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9bad9d72fea9932b088d01f1670519e30f660aa8))
+
 # [1.148.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.147.0...v1.148.0) (2026-07-26)
 
 
