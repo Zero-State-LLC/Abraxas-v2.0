@@ -10,7 +10,8 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, MutableMapping, Sequence
+from typing import Any
+from collections.abc import Mapping, MutableMapping
 
 EVIDENCE_PACK_SCHEMA_VERSION = "EvidencePack.v0"
 SCHEMA_REL = Path("contracts/signal/evidence_pack.v0.schema.json")
@@ -55,11 +56,11 @@ def load_schema(*, repo_root: Path | None = None) -> dict[str, Any]:
     return _load_schema_bytes(str(path))
 
 
-def _as_dict(obj: Any) -> Dict[str, Any]:
+def _as_dict(obj: Any) -> dict[str, Any]:
     return dict(obj) if isinstance(obj, Mapping) else {}
 
 
-def load_evidence_pack_file(path: str | Path) -> Dict[str, Any]:
+def load_evidence_pack_file(path: str | Path) -> dict[str, Any]:
     """Load JSON from disk. Raises FileNotFoundError / json.JSONDecodeError / ValueError."""
     p = Path(path).expanduser().resolve()
     if not p.is_file():
@@ -91,9 +92,9 @@ def register_counts(pack: Mapping[str, Any]) -> Dict[str, int]:
     return counts
 
 
-def semantic_errors(pack: Mapping[str, Any]) -> List[str]:
+def semantic_errors(pack: Mapping[str, Any]) -> list[str]:
     """Register / authority rules beyond JSON Schema."""
-    errors: List[str] = []
+    errors: list[str] = []
     if pack.get("schema_version") != EVIDENCE_PACK_SCHEMA_VERSION:
         errors.append(
             f"schema_version must be {EVIDENCE_PACK_SCHEMA_VERSION!r}, got {pack.get('schema_version')!r}"
@@ -160,9 +161,9 @@ def validate_evidence_pack(
     *,
     repo_root: Path | None = None,
     strict_schema: bool = True,
-) -> List[str]:
+) -> list[str]:
     """Return list of validation errors (empty == valid)."""
-    errors: List[str] = []
+    errors: list[str] = []
     if not isinstance(pack, Mapping):
         return ["pack must be a mapping"]
 
@@ -192,7 +193,7 @@ def assert_valid_evidence_pack(
     pack: Mapping[str, Any],
     *,
     repo_root: Path | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Raise ValueError if invalid; return pack as dict."""
     errs = validate_evidence_pack(pack, repo_root=repo_root)
     if errs:
@@ -252,7 +253,7 @@ def normalize_evidence_pack(
     source_path: str | None = None,
     validate: bool = False,
     repo_root: Path | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Return Neon/OS-facing evidence dict with status + density.
 
     When ``validate=True`` and pack claims EvidencePack.v0, schema+semantic
@@ -325,7 +326,7 @@ def resolve_evidence_for_request(
     needs_evidence: bool,
     validate: bool = True,
     repo_root: Path | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Resolve evidence_pack from request body or evidence_pack_path."""
     req = _as_dict(request)
 
@@ -413,7 +414,7 @@ def validate_path(
     path: str | Path,
     *,
     repo_root: Path | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """CLI/helper: load + validate a pack file; return report dict."""
     p = Path(path).expanduser()
     try:
@@ -429,7 +430,7 @@ def validate_path(
             },
         }
     errs = validate_evidence_pack(pack, repo_root=repo_root)
-    report: Dict[str, Any] = {
+    report: dict[str, Any] = {
         "ok": not errs,
         "path": str(p.resolve()) if p.exists() else str(p),
         "pack_id": pack.get("pack_id"),
