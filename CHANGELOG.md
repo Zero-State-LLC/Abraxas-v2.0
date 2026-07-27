@@ -1,3 +1,10 @@
+# [1.151.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.150.0...v1.151.0) (2026-07-27)
+
+
+### Features
+
+* **ingest:** FamiliarIngestionReceipt.v0 from EvidencePack (AI OS Slice B) ([#1054](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1054)) ([3b9ccae](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3b9ccaee97d621a02f5d033cf33b0ca7666ae788))
+
 # [1.150.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.149.0...v1.150.0) (2026-07-27)
 
 
