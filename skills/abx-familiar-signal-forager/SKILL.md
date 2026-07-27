@@ -121,7 +121,8 @@ Also emit a short markdown brief for humans (`evidence_brief.md`) with:
 | Downstream | How |
 |------------|-----|
 | Neon Genie | Attach pack path; market fields stay NOT_COMPUTABLE without OBSERVED density |
-| Ingest / Oracle | Point operator or runner at pack; do not self-promote to canon |
+| Familiar ingestion | `python scripts/ingest/run_familiar_ingestion_from_pack.py --pack PATH` → SHADOW receipt |
+| Ingest / Oracle | Point operator or runner at pack/receipt; do not self-promote to canon |
 | Skill evolution | Optional `OperationTrace` via hermes-surface emitter (`task_class: signal_forage`) |
 | Operator | Ask before external posts, paid APIs beyond normal search, or irreversible scrapes |
 
