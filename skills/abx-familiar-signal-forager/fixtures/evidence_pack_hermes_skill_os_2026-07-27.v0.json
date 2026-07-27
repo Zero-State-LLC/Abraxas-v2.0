@@ -1,0 +1,297 @@
+{
+  "schema_version": "EvidencePack.v0",
+  "pack_id": "ep_20260727_hermes_skill_os_001",
+  "topic": "Hermes Agent skill surfaces, external skill mounting, and agent-OS / skill-governance patterns (2026)",
+  "intent": "tech",
+  "time_horizon": "2026 H1\u2013H2 public discourse + official docs",
+  "must_answer": [
+    "What is Hermes Agent's official mechanism for mounting external skill directories?",
+    "What official self-evolution / skill-improvement surfaces exist for Hermes in 2026?",
+    "What recent research/surveys describe agent-skill architecture, security, and governance?",
+    "What product-level 'agent OS' framing appears in adjacent agent tooling discourse?",
+    "What market/TAM size can be claimed for Hermes Agent skill ecosystems from public sources in this forage window?"
+  ],
+  "hard_exclusions": [
+    "No production activation claims for Abraxas",
+    "No fabricated market sizing",
+    "No credential or private-corpus sources"
+  ],
+  "sources": [
+    {
+      "source_id": "S001",
+      "url_or_path": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills",
+      "title": "Skills System | Hermes Agent",
+      "publisher": "Nous Research",
+      "source_class": "primary",
+      "excerpt": "Add external_dirs under the skills section in ~/.hermes/config.yaml. Paths support ~ expansion and ${VAR} environment variable substitution. Existing skills are modified where they are found, including skills under external_dirs.",
+      "retrieved_note": "web_search/snippet + docs page; 2026-07-27 forage"
+    },
+    {
+      "source_id": "S002",
+      "url_or_path": "https://github.com/NousResearch/hermes-agent-self-evolution",
+      "title": "NousResearch/hermes-agent-self-evolution",
+      "publisher": "Nous Research (GitHub)",
+      "source_class": "primary",
+      "excerpt": "Hermes Agent Self-Evolution uses DSPy + GEPA (Genetic-Pareto Prompt Evolution) to automatically evolve and optimize Hermes Agent's skills, tool descriptions... Phase 1 Skill files (SKILL.md) DSPy + GEPA Implemented.",
+      "retrieved_note": "web_search primary repo page summary"
+    },
+    {
+      "source_id": "S003",
+      "url_or_path": "https://www.marktechpost.com/2026/06/24/nous-research-adds-learn-to-hermes-agents-skills-system-capturing-workflows-as-slash-commands-without-hand-writing-skill-md/",
+      "title": "Nous Research Adds /learn to Hermes Agent's Skills System",
+      "publisher": "MarkTechPost",
+      "source_class": "secondary",
+      "excerpt": "Nous Research adds /learn to Hermes Agent, authoring reusable SKILL.md files from directories, doc URLs, conversations, and pasted notes.",
+      "retrieved_note": "secondary coverage of /learn feature"
+    },
+    {
+      "source_id": "S004",
+      "url_or_path": "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog",
+      "title": "Bundled Skills Catalog - Hermes Agent",
+      "publisher": "Nous Research",
+      "source_class": "primary",
+      "excerpt": "Catalog of bundled skills including research/arxiv, blogwatcher, llm-wiki, polymarket under research category.",
+      "retrieved_note": "official catalog listing"
+    },
+    {
+      "source_id": "S005",
+      "url_or_path": "https://arxiv.org/html/2602.12430v4",
+      "title": "Agent Skills for Large Language Models: Architecture, Acquisition, Deployment, and Security (v4)",
+      "publisher": "arXiv",
+      "source_class": "primary",
+      "excerpt": "Organizes agent skills along architectural foundations (SKILL.md), skill acquisition (SAGE, SEAgent), deployment, and security; reports 26.1% of community-contributed skills contain vulnerabilities; proposes Skill Trust and Lifecycle Governance Framework with four-tier gate-based permissions.",
+      "retrieved_note": "arXiv HTML v4 abstract/intro"
+    },
+    {
+      "source_id": "S006",
+      "url_or_path": "https://arxiv.org/html/2606.26924v1",
+      "title": "A Deterministic Control Plane for LLM Coding Agents",
+      "publisher": "arXiv",
+      "source_class": "primary",
+      "excerpt": "Treats agent definitions as a managed supply chain (SHA-256 content addressing, HMAC-stamped lockfiles); handoff.md for delegation receipts; append-only hash-chained audit log.",
+      "retrieved_note": "arXiv HTML; control-plane / OS-adjacent framing"
+    },
+    {
+      "source_id": "S007",
+      "url_or_path": "https://medium.com/spillwave-solutions/build-agent-skills-faster-with-claude-code-2-1-release-6d821d5b8179",
+      "title": "Build Agent Skills Faster with Claude Code 2.1 Release",
+      "publisher": "Spillwave Solutions / Medium",
+      "source_class": "secondary",
+      "excerpt": "Frames Claude Code 2.1 as transforming into a full-fledged agent operating system via skill hot-reload, lifecycle hooks, and forked sub-agents using Markdown + YAML.",
+      "retrieved_note": "adjacent product discourse, not Hermes-specific"
+    },
+    {
+      "source_id": "S008",
+      "url_or_path": "/home/scrimshawlife/Abraxas-v2.0/docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md",
+      "title": "Abraxas \u2194 Hermes OS Unification 001",
+      "publisher": "Abraxas-v2.0 (local repo)",
+      "source_class": "code",
+      "excerpt": "Three-layer OS: Visual OS + Abraxas core/Alembic + Hermes Agent OS; signal acquisition as primary syscall via abx-familiar-signal-forager \u2192 EvidencePack.v0.",
+      "retrieved_note": "local OBSERVED repo artifact from this campaign"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C001",
+      "text": "Hermes mounts external skill trees via skills.external_dirs in config.yaml with ~ and ${VAR} expansion; skills under external_dirs are editable in place by skill_manage.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        0
+      ],
+      "source_ids": [
+        "S001"
+      ],
+      "join_logic": null,
+      "confidence_note": "Official docs wording"
+    },
+    {
+      "claim_id": "C002",
+      "text": "Official Hermes self-evolution surface hermes-agent-self-evolution uses DSPy + GEPA; Phase 1 targets SKILL.md evolution and is marked implemented.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        1
+      ],
+      "source_ids": [
+        "S002"
+      ],
+      "join_logic": null,
+      "confidence_note": "Primary GitHub repo description"
+    },
+    {
+      "claim_id": "C003",
+      "text": "Hermes ships a /learn command that authors SKILL.md from directories, docs, conversations, and notes without hand-writing the skill from scratch.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        1
+      ],
+      "source_ids": [
+        "S003"
+      ],
+      "join_logic": null,
+      "confidence_note": "Secondary coverage of Nous feature; treat as OBSERVED of press claim, verify against live docs if promoting"
+    },
+    {
+      "claim_id": "C004",
+      "text": "Hermes maintains an official bundled skills catalog including research tools such as arxiv and polymarket.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        1
+      ],
+      "source_ids": [
+        "S004"
+      ],
+      "join_logic": null,
+      "confidence_note": "Official catalog"
+    },
+    {
+      "claim_id": "C005",
+      "text": "A 2026 survey on agent skills proposes a Skill Trust and Lifecycle Governance Framework and reports 26.1% of community-contributed skills contain vulnerabilities.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        2
+      ],
+      "source_ids": [
+        "S005"
+      ],
+      "join_logic": null,
+      "confidence_note": "arXiv HTML v4"
+    },
+    {
+      "claim_id": "C006",
+      "text": "Deterministic control-plane research for coding agents emphasizes content-addressed agent definitions, HMAC lockfiles, handoff receipts, and hash-chained audit logs.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        2,
+        3
+      ],
+      "source_ids": [
+        "S006"
+      ],
+      "join_logic": null,
+      "confidence_note": "arXiv HTML"
+    },
+    {
+      "claim_id": "C007",
+      "text": "Adjacent agent tooling discourse (Claude Code 2.1) explicitly markets skill hot-reload + hooks + forked sub-agents as an 'agent operating system'.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        3
+      ],
+      "source_ids": [
+        "S007"
+      ],
+      "join_logic": null,
+      "confidence_note": "Secondary Medium article; product marketing language"
+    },
+    {
+      "claim_id": "C008",
+      "text": "Abraxas local OS unification doc defines Hermes as Agent OS layer with signal forage EvidencePack as the primary syscall into Abraxas core.",
+      "register": "OBSERVED",
+      "supports_questions": [
+        3
+      ],
+      "source_ids": [
+        "S008"
+      ],
+      "join_logic": null,
+      "confidence_note": "Local repo path"
+    },
+    {
+      "claim_id": "C009",
+      "text": "Governed skill ecosystems (external_dirs mount + SHADOW evolution + trust gates) are becoming a competitive dimension for agent runtimes, not just model quality.",
+      "register": "INFERRED",
+      "supports_questions": [
+        1,
+        2,
+        3
+      ],
+      "source_ids": [
+        "S001",
+        "S002",
+        "S005",
+        "S006"
+      ],
+      "join_logic": "Join official Hermes mount/evolution surfaces (S001/S002) with skill governance survey + control-plane research (S005/S006): multiple independent 2026 sources treat skills as governed supply-chain assets.",
+      "confidence_note": "Strategic inference for Abraxas positioning; not a market size claim"
+    },
+    {
+      "claim_id": "C010",
+      "text": "Public market TAM / revenue size for Hermes Agent skill ecosystems cannot be established from sources retrieved in this forage window.",
+      "register": "NOT_COMPUTABLE",
+      "supports_questions": [
+        4
+      ],
+      "source_ids": [],
+      "join_logic": null,
+      "confidence_note": "No filings, pricing tables, or audited adoption metrics retrieved"
+    }
+  ],
+  "answers": [
+    {
+      "question_index": 0,
+      "status": "ANSWERED_OBSERVED",
+      "summary": "skills.external_dirs in config.yaml; ~ and ${VAR} supported; external skills editable in place.",
+      "claim_ids": [
+        "C001"
+      ]
+    },
+    {
+      "question_index": 1,
+      "status": "ANSWERED_OBSERVED",
+      "summary": "Official DSPy+GEPA self-evolution repo (Phase 1 SKILL.md); /learn skill authoring; bundled skills catalog.",
+      "claim_ids": [
+        "C002",
+        "C003",
+        "C004"
+      ]
+    },
+    {
+      "question_index": 2,
+      "status": "ANSWERED_OBSERVED",
+      "summary": "Agent-skills survey (trust/governance + vulnerability rate) and deterministic control-plane paper (lockfiles/handoffs/audit).",
+      "claim_ids": [
+        "C005",
+        "C006"
+      ]
+    },
+    {
+      "question_index": 3,
+      "status": "ANSWERED_OBSERVED",
+      "summary": "Claude Code 2.1 'agent OS' marketing + Abraxas three-layer OS doc; control-plane paper supplies engineering substrate metaphors.",
+      "claim_ids": [
+        "C006",
+        "C007",
+        "C008"
+      ]
+    },
+    {
+      "question_index": 4,
+      "status": "NOT_COMPUTABLE",
+      "summary": "No public TAM/revenue figures grounded in this forage; refuse commercial sizing.",
+      "claim_ids": [
+        "C010"
+      ]
+    }
+  ],
+  "authority": {
+    "execution_authority": false,
+    "promotion_authorized": false,
+    "forecast_routing_authorized": false,
+    "canon_mutation_allowed": false,
+    "lane": "SHADOW"
+  },
+  "provenance": {
+    "producer_system": "HERMES",
+    "skill_id": "abx-familiar-signal-forager",
+    "tool_trace_summary": "web_search x4 families (hermes skills docs, self-evolution, agent skills survey, agent OS framing); local repo path S008",
+    "repo_root": "/home/scrimshawlife/Abraxas-v2.0",
+    "notes": "First live syscall proof for OS unification campaign 2026-07-27"
+  },
+  "observed_source_count": 8,
+  "register_counts": {
+    "OBSERVED": 8,
+    "INFERRED": 1,
+    "SPECULATIVE": 0,
+    "NOT_COMPUTABLE": 1
+  }
+}

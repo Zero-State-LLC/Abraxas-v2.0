@@ -50,6 +50,7 @@ It is **not** a generic chatbot wrapper. Default posture is **advisory / project
 | **Design system** | Tokens, icons, runes, Visual OS | [`design-system/`](design-system/) |
 | **Agent artifact metadata** | Multi-agent provenance schema | [`contracts/engineering/agent_artifact_metadata.v1.schema.json`](contracts/engineering/agent_artifact_metadata.v1.schema.json) |
 | **Multi-agent operator loop** | Hermes/Grok/Codex responsibilities (provenance ≠ authority) | [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) · glyphs in `design-system/aal-viz/operator_loop/` |
+| **Hermes OS unification** | Three-layer OS: Visual + Abraxas core + Hermes agent; signal forage syscall | [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · skill `abx-familiar-signal-forager` |
 
 ---
 

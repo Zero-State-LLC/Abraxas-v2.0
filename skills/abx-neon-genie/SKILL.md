@@ -74,6 +74,28 @@ Never present a renamed existing AAL subsystem as net-new.
 
 Evidence-backed market, revenue, competitor, or adoption claims require an EvidencePack (via Signal Forager + Ingest). Otherwise: NOT_COMPUTABLE.
 
+### EvidencePack.v0 hand-off (wired)
+
+Pass forager output into the router:
+
+```python
+run_venture_cycle({
+    "mode": "TREND_LED",  # or MARKET_LED / MONETIZATION_LED / …
+    "seed": "…",
+    "evidence_pack_path": "out/signal_forage/<slug>/evidence_pack.v0.json",
+    "require_evidence": True,
+})
+```
+
+Implementation:
+
+- `evidence_pack.py` — load/normalize EvidencePack.v0, density, commercial gate
+- `neon_genie_router.py` — resolves `evidence_pack_path` | `evidence_pack`
+- `neon_genie_score.py` — uses `evidence_density`; lowers monetization when blocked
+- `neon_genie_package.py` — sets `seed_evidence` + redacts `market_model` to NOT_COMPUTABLE when gated
+
+Modes that **require** evidence: `MARKET_LED`, `TREND_LED`, `PAINPOINT_LED`, `MONETIZATION_LED`, or `require_evidence: true`.
+
 ## Rune / YGGDRASIL Integration
 
 Before registering or changing Neon Genie runes/routes, invoke `abx-runes-yggdrasil-manager`.
