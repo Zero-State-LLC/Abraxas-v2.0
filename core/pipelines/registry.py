@@ -157,7 +157,9 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "SHADOW",
         "migration_status": "specified",
-        "next_action": "add receipt, proof, and review chain",
+        "next_action": "bridge FamiliarIngestionReceipt to Oracle/BeliefGraph shadow intake",
+        "contract_path": "contracts/ingest/familiar_ingestion_receipt.v0.schema.json",
+        "builder_module": "core.ingest.familiar_ingestion_receipt",
     },
     {
         "pipeline_id": "drift_scan",

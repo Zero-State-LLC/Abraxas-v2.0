@@ -227,7 +227,13 @@ WP-1.1–1.5 · small · pure validate · **IN PROGRESS / this PR track**
 
 ### Slice B — “Familiar ingestion”
 
-WP-2.1–2.5 · medium · receipt writer
+WP-2.1–2.5 · medium · receipt writer · **this PR track**
+
+- [x] `contracts/ingest/familiar_ingestion_receipt.v0.schema.json`
+- [x] `core/ingest/familiar_ingestion_receipt.py`
+- [x] `scripts/ingest/run_familiar_ingestion_from_pack.py`
+- [x] tests: `tests/test_familiar_ingestion_receipt.py`
+- [x] registry + ownership matrix next_action refresh
 
 ### Slice C — “Spine touch + CLI”
 

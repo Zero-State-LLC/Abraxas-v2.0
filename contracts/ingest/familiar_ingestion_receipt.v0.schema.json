@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/ingest/familiar_ingestion_receipt.v0.schema.json",
+  "title": "FamiliarIngestionReceipt.v0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "pipeline_id",
+    "pack_id",
+    "pack_hash",
+    "pack_ref",
+    "topic",
+    "intent",
+    "register_counts",
+    "source_count",
+    "claim_count",
+    "observed_claim_count",
+    "validation_status",
+    "status",
+    "commercial_claims_blocked",
+    "evidence_density",
+    "authority",
+    "advisory_only",
+    "lane",
+    "deterministic_timestamp",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FamiliarIngestionReceipt.v0" },
+    "receipt_id": { "type": "string", "minLength": 8 },
+    "pipeline_id": { "const": "familiar_ingestion" },
+    "pack_id": { "type": "string", "minLength": 1 },
+    "pack_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pack_ref": { "type": "string" },
+    "topic": { "type": "string" },
+    "intent": { "type": "string" },
+    "register_counts": {
+      "type": "object",
+      "required": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"],
+      "properties": {
+        "OBSERVED": { "type": "integer", "minimum": 0 },
+        "INFERRED": { "type": "integer", "minimum": 0 },
+        "SPECULATIVE": { "type": "integer", "minimum": 0 },
+        "NOT_COMPUTABLE": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "source_count": { "type": "integer", "minimum": 0 },
+    "claim_count": { "type": "integer", "minimum": 0 },
+    "observed_claim_count": { "type": "integer", "minimum": 0 },
+    "validation_status": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "NOT_COMPUTABLE"]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "INGESTED_SHADOW",
+        "REJECTED_INVALID_PACK",
+        "NO_INPUT"
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "commercial_claims_blocked": { "type": "boolean" },
+    "evidence_density": { "type": "number", "minimum": 0, "maximum": 1 },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "deterministic_timestamp": { "type": "string" },
+    "receipt_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_summaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_class", "url_or_path"],
+        "properties": {
+          "source_id": { "type": "string" },
+          "source_class": { "type": "string" },
+          "url_or_path": { "type": "string" },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "module": { "type": "string" },
+        "skill_id": { "type": "string" }
+      }
+    }
+  }
+}
