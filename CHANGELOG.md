@@ -1,3 +1,10 @@
+# [1.150.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.149.0...v1.150.0) (2026-07-27)
+
+
+### Features
+
+* **signal:** EvidencePack.v0 contracts + core validator (AI OS Slice A) ([#1053](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1053)) ([e76d271](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e76d271be5d50acf19316b28c1c80b2597a84a5b))
+
 # [1.149.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.148.0...v1.149.0) (2026-07-27)
 
 
