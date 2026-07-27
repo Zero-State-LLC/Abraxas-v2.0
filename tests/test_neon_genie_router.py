@@ -10,6 +10,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills" / "abx-neon-genie"
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(SKILL))
 
 import evidence_pack as ep  # noqa: E402
