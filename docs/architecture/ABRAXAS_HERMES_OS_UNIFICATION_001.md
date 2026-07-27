@@ -164,6 +164,12 @@ Distilled set: `artifacts/hermes-surface/DISTILLED_HERMES_SKILL_SET.md`.
 - Hyperagent roles for long-running foragers (LA signal etc.) — dry-run first
 - CLEAR dual-control remains separate operator track (do not couple)
 
+### Realization backlog (canonical task list)
+
+Full work-package breakdown: [`ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md)
+
+Order: merge #1052 → EvidencePack contracts/core → familiar_ingestion receipt → spine touch + CLI → viz/traces → STATUS declare `ACTIVE_SHADOW`.
+
 ---
 
 ## 7. Anti-goals
