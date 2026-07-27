@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Phase 0–14 + multi-agent operator loop complete; CLEAR dual-control pending)
+> **Last Updated:** 2026-07-27 (MemEIC pattern MERGED; AI OS primitives map open; CLEAR dual-control still highest-leverage)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -18,6 +18,9 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Operator loop contracts | **WorkPacket.v1 + HandoffEnvelope.v1** · projection adapter | `core/operator_loop.py` · `contracts/engineering/work_packet.v1.schema.json` · #1034 |
 | Operator loop (seq 1–10) | **COMPLETE** · glyphs, skills, truth surfaces, gh/CI glance | #1033–#1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
+| Compositional Evidence Memory (MemEIC pattern) | **MERGED** · Belief Graph surface only | PR #986 · `core/belief_graph/compositional_memory.py` · `docs/integrations/MEMEIC_ASSIMILATION_001.md` |
+| Oracle compositional-memory adapter | **HELD** · PR #987 closed unmerged | no authority granted; clean branch required for any future work |
+| AI OS primitives map | **ADVISORY / OPEN PR** · projection of existing identity | PR #1050 · `docs/architecture/AI_OS_PRIMITIVES_MAP_001.md` |
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
 | Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
