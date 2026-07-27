@@ -8,10 +8,10 @@ Canonical schema: ``contracts/signal/evidence_pack.v0.schema.json``
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping, MutableMapping
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-from collections.abc import Mapping, MutableMapping
 
 EVIDENCE_PACK_SCHEMA_VERSION = "EvidencePack.v0"
 SCHEMA_REL = Path("contracts/signal/evidence_pack.v0.schema.json")
@@ -45,7 +45,7 @@ def schema_path(*, repo_root: Path | None = None) -> Path:
 def _load_schema_bytes(path_str: str) -> dict[str, Any]:
     data = json.loads(Path(path_str).read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("EvidencePack schema root must be object")
+        raise TypeError("EvidencePack schema root must be object")
     return data
 
 
@@ -67,11 +67,11 @@ def load_evidence_pack_file(path: str | Path) -> dict[str, Any]:
         raise FileNotFoundError(f"evidence pack not found: {p}")
     data = json.loads(p.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("evidence pack root must be a JSON object")
+        raise TypeError("evidence pack root must be a JSON object")
     return data
 
 
-def register_counts(pack: Mapping[str, Any]) -> Dict[str, int]:
+def register_counts(pack: Mapping[str, Any]) -> dict[str, int]:
     raw = pack.get("register_counts")
     if isinstance(raw, Mapping) and raw:
         return {
@@ -146,9 +146,7 @@ def semantic_errors(pack: Mapping[str, Any]) -> list[str]:
                 for sid in c_sources:
                     if str(sid) not in source_ids:
                         errors.append(f"claim {cid}: unknown source_id {sid!r}")
-            elif reg == "NOT_COMPUTABLE":
-                pass
-            elif reg == "SPECULATIVE":
+            elif reg == "NOT_COMPUTABLE" or reg == "SPECULATIVE":
                 pass
             else:
                 errors.append(f"claim {cid}: invalid register {reg!r}")
