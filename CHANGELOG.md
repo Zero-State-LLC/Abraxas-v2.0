@@ -1,3 +1,10 @@
+# [1.152.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.151.0...v1.152.0) (2026-07-28)
+
+
+### Features
+
+* **cli:** AI OS kernel status + forage spine-touch (Slice C) ([#1055](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1055)) ([1bfe06f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1bfe06f2700cc8cafa8afc73743c4cc47bc320d2))
+
 # [1.151.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.150.0...v1.151.0) (2026-07-27)
 
 
