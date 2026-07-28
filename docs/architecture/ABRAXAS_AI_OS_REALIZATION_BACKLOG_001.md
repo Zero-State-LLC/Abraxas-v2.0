@@ -246,7 +246,13 @@ WP-3.1–3.3 + WP-4.1–4.3 · medium · **this PR track**
 
 ### Slice D — “Viz + traces”
 
-WP-5 + WP-6 · medium · projection + SHADOW emit
+WP-5 + WP-6 · medium · projection + SHADOW emit · **IN PROGRESS**
+
+- [x] `core/signal/operation_trace_adapter.py` — receipt / touchpoint → OperationTrace v0.1
+- [x] CLI `forage ingest` now emits `os_signal_*.latest.json` to `out/audit`
+- [x] Emitter updated to pick up OS signal traces
+- [x] `tests/test_operation_trace_adapter.py`
+- [ ] AAL-Viz chip / register for evidence density / signal tiers (visual bind)
 
 ### Slice E — “Declare”
 

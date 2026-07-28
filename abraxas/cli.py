@@ -17,6 +17,10 @@ from core.ingest.familiar_ingestion_receipt import (
 )
 from core.settings import load_runtime_settings
 from core.signal.evidence_pack import validate_path
+from core.signal.operation_trace_adapter import (
+    receipt_to_operation_trace,
+    write_operation_trace,
+)
 from core.signal.spine_bridge import (
     build_ai_os_kernel_status,
     build_touchpoint_from_pack_path,
@@ -214,6 +218,14 @@ def _cmd_forage_ingest(args: argparse.Namespace) -> int:
             receipt,
             out_root=REPO_ROOT / "out",
         )
+
+    # Slice D closed loop: emit OperationTrace for skill-evolution / learning
+    trace = receipt_to_operation_trace(
+        receipt,
+        source_artifact=str(out_path) if out_path else "cli:abraxas forage ingest",
+    )
+    trace_path = write_operation_trace(trace, out_dir=REPO_ROOT / "out" / "audit")
+
     _print(
         {
             "ok": receipt.get("status") == "INGESTED_SHADOW",
@@ -222,6 +234,7 @@ def _cmd_forage_ingest(args: argparse.Namespace) -> int:
             "pack_id": receipt.get("pack_id"),
             "receipt_hash": receipt.get("receipt_hash"),
             "wrote": str(out_path) if out_path and not args.print_only else None,
+            "operation_trace": str(trace_path),
             "commercial_claims_blocked": receipt.get("commercial_claims_blocked"),
             "evidence_density": receipt.get("evidence_density"),
             "lane": receipt.get("lane"),
