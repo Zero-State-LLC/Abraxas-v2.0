@@ -196,10 +196,22 @@ Order: merge #1052 → EvidencePack contracts/core → familiar_ingestion receip
 
 ```bash
 # Mount Abraxas skills (if not already)
-hermes config set skills.external_dirs '["/home/scrimshawlife/Abraxas-v2.0/skills"]'
+# skills.external_dirs must be a YAML list in ~/.hermes/config.yaml
+
+# AI OS kernel posture
+cd /home/scrimshawlife/Abraxas-v2.0
+env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m abraxas os status
+
+# Signal syscall
+env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m abraxas forage validate \
+  --pack skills/abx-familiar-signal-forager/fixtures/evidence_pack_hermes_skill_os_2026-07-27.v0.json
+env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m abraxas forage ingest \
+  --pack skills/abx-familiar-signal-forager/fixtures/evidence_pack_hermes_skill_os_2026-07-27.v0.json \
+  --print-only
+env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m abraxas forage spine-touch \
+  --pack skills/abx-familiar-signal-forager/fixtures/evidence_pack_hermes_skill_os_2026-07-27.v0.json
 
 # Scrubbed Abraxas work
-cd /home/scrimshawlife/Abraxas-v2.0
 env -u PYTHONPATH -u PYTHONHOME .venv/bin/python scripts/run_fast_ci.py
 
 # Evolution cycle (SHADOW)
