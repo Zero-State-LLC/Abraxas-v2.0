@@ -3,7 +3,7 @@ name: holler-calibrate
 description: Brier score calibration, model evaluation against real outcomes, regime detection (Bayesian online change point or rolling KL-divergence), adversarial dataset generation for robustness testing. Strict JSON output with OBSERVED/INFERRED/SPECULATIVE + provenance + Brier. Integrates with holler-ingest and holler-forecast. Cron-friendly.
 version: 1.0.0
 author: Hermes (Abraxas systems engineer)
-license: MIT
+license: Proprietary
 metadata:
   hermes:
     tags: [holler-sports, calibration, brier, model-evaluation, adversarial, regime-detection, provenance]

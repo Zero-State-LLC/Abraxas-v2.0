@@ -3,7 +3,7 @@ name: abx-familiar-signal-forager
 description: "Use when acquiring external or local signal into EvidencePacks for Abraxas/Hermes — web, papers, markets, social, repo. OBSERVED/INFERRED/SPECULATIVE/NOT_COMPUTABLE; SHADOW forage; never fabricates sources."
 version: 0.1.0
 author: Hermes / Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [linux, macos]
 metadata:
   hermes:

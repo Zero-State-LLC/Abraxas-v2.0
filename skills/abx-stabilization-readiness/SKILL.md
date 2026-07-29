@@ -3,7 +3,7 @@ name: abx-stabilization-readiness
 description: "Builds deterministic advisory evidence for stabilization readiness without freezing contracts, activating production, promoting runtime state, mutating canon, or writing externally."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

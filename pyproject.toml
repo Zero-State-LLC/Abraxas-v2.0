@@ -2,6 +2,8 @@
 name = "abraxas-v2"
 version = "2.5.0"
 description = "Governed symbolic execution substrate"
+license = { text = "Proprietary" }
+authors = [{ name = "Applied Alchemy Labs" }]
 readme = "README.md"
 requires-python = ">=3.12"
 

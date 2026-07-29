@@ -3,7 +3,7 @@ name: abx-noctis-dream-functions
 description: "Governed orchestration skill for the Abraxas NOCTIS dream lane (SHADOW_SYMBOLIC). Routes human or system dream material through current NOCTIS functions (or thin adapters), emits typed provenance-complete symbolic artifacts, enforces privacy, memory-candidate-only, SHADOW, and no-forecast/no-medical/no-direct-canon boundaries. Reuses existing surfaces; does not create a parallel dream engine."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

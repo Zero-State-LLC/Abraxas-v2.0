@@ -7,7 +7,7 @@
 > Structure before narrative. Evidence before authority. Governance before autonomy.
 
 [![CI](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Proprietary-334155.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 
 | Field | Value |
@@ -15,7 +15,7 @@
 | **Product posture** | Candidate · **deploy held** · production activation **DENIED** |
 | **Governance** | [Governance V3](GOVERNANCE_V3.md) (implementation-first) |
 | **Live status** | [`STATUS.md`](STATUS.md) — replace block, do not invent readiness |
-| **License** | [Apache-2.0](LICENSE) |
+| **License** | [Proprietary](LICENSE) — all rights reserved |
 
 **Do not claim production go-live.** Candidate ≠ activation. Merge ≠ go-live.
 
@@ -178,7 +178,10 @@ Details: [GOVERNANCE_V3.md](GOVERNANCE_V3.md) · [STATUS.md](STATUS.md) · [ADR-
 
 ## License
 
-Copyright and license: **[Apache License 2.0](LICENSE)**.
+**Proprietary** — Copyright (c) 2024–2026 Applied Alchemy Labs / Daniel Meyer / Zero State.  
+All rights reserved. No open-source license is granted.
+
+See [`LICENSE`](LICENSE) for the full proprietary notice. Contact the maintainers for commercial licensing.
 
 ---
 

@@ -3,7 +3,7 @@ name: abx-esoteric-intelligence
 description: "Governed symbolic-intelligence adapter for occult, esoteric, mythological, ritual, divinatory, archetypal, numerical, geometric, temporal, dream-symbol, and correspondence-based analysis within Abraxas. Umbrella orchestrator; reuses existing surfaces (Noctis, runes-manager, Oracle Signal, SHADOW). Does not create parallel ontology, forecast engine, or execution authority. Default lane: SHADOW. Runtime disabled by default. Divination explicit only."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

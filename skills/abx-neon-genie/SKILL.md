@@ -3,7 +3,7 @@ name: abx-neon-genie
 description: "Umbrella router and venture-cycle coordinator for Abraxas invention and opportunity synthesis. Classifies input modes, acquires evidence via existing skills, orchestrates bounded ideation stages, enforces subsystem ownership, performs overlap/duplicate detection, shapes venture packets, routes specialized work to owning subsystems, and emits operator-review + provenance receipts. Does not absorb forecasting, governance, execution, content virality, competitive intelligence, visualization rendering, or minting authority."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

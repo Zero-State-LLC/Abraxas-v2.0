@@ -3,7 +3,7 @@ name: abraxas-master-loop-workflow
 description: Use when executing full agentic coding, orchestration, autonomous/self-improving loops, or complex task lifecycles on Abraxas-v2.0. Fuses Jamon 0-18 agentic setup with Anthropic Loop Engineering (5 building blocks, generator/evaluator split, loop types) plus Abraxas governance (runes/YGGDRASIL, Brier, provenance, OBSERVED/INFERRED/SPECULATIVE, ingest-first, determinism).
 version: 1.0.0
 author: Hermes / Abraxas Governed Operator (appliedalchemylabs)
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

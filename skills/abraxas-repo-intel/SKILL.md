@@ -3,7 +3,7 @@ name: abraxas-repo-intel
 description: "Use when mapping Abraxas-v2.0 structure, gaps, ownership, call paths, or architecture before coding. Prefer codebase-memory MCP + rg/fd; emit smallest evidence packet."
 version: 0.1.0
 author: Hermes / Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [linux, macos]
 metadata:
   hermes:
