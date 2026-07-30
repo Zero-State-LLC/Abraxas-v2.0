@@ -1,3 +1,10 @@
+# [1.153.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.152.0...v1.153.0) (2026-07-30)
+
+
+### Features
+
+* **os:** Slice D OperationTrace closed loop + CLI trace emission ([#1056](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1056)) ([68e2597](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/68e25977e2653880c9a111cd423565f0104934c1))
+
 # [1.152.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.151.0...v1.152.0) (2026-07-28)
 
 
