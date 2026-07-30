@@ -1,3 +1,11 @@
+# [1.154.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.153.0...v1.154.0) (2026-07-30)
+
+
+### Features
+
+* minimal SHADOW ledger ingestion bridge for Hermes signal_forage volume (Task 4 TDD) ([1e21d1c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1e21d1ca89a76dd29859a36d5924ac8bd9fb82c1))
+* minimal SHADOW ledger ingestion for Hermes signal_forage volume (Task 4) ([f183892](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f183892adfc701a6cc1f809f065841b4e4b664e8))
+
 # [1.153.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.152.0...v1.153.0) (2026-07-30)
 
 
