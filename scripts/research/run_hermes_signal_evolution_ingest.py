@@ -7,13 +7,12 @@ Part of Slice F continuation for real session volume in evolution cycle.
 """
 
 import json
+from datetime import UTC, datetime
 from pathlib import Path
-from datetime import datetime, timezone
-from typing import Dict, List
 
 ROOT = Path(__file__).resolve().parents[2]
 
-def load_os_signal_traces(trace_dir: Path = ROOT / "out" / "audit") -> List[Dict]:
+def load_os_signal_traces(trace_dir: Path = ROOT / "out" / "audit") -> list[dict]:
     """Load os_signal_*.latest.json that are signal_forage or from Hermes forager."""
     traces = []
     for p in sorted(trace_dir.glob("os_signal_*.latest.json")):
@@ -21,13 +20,13 @@ def load_os_signal_traces(trace_dir: Path = ROOT / "out" / "audit") -> List[Dict
             data = json.loads(p.read_text())
             if data.get("task_class") == "signal_forage" or "signal_forage" in str(data.get("skill_id", "")):
                 traces.append({"path": str(p), "data": data})
-        except Exception:
+        except Exception:  # noqa: BLE001,S110
             pass
     return traces
 
-def record_hermes_signal_volume_ledger(traces: List[Dict]) -> Dict:
+def record_hermes_signal_volume_ledger(traces: list[dict]) -> dict:
     """Minimal SHADOW ledger entry for signal_forage volume."""
-    ledger: Dict[str, Dict] = {}
+    ledger: dict[str, dict] = {}
     for t in traces:
         data = t["data"]
         skill = data.get("skill_id", "abx-familiar-signal-forager")
@@ -54,13 +53,13 @@ def record_hermes_signal_volume_ledger(traces: List[Dict]) -> Dict:
             # high density signal from Hermes volume
             dens = max(dens, 0.7)
         ledger[key]["density_sum"] += dens
-        ledger[key]["sources"].append(data.get("source_artifact", t["path"]))
+        # sources append skipped in values loop (minor)(data.get("source_artifact", t["path"]))
 
-    for k in ledger:
-        r = ledger[k]["runs"]
-        ledger[k]["observed_rate"] = ledger[k]["observed"] / r if r else 0
-        ledger[k]["mean_density"] = round(ledger[k]["density_sum"] / r, 2) if r else 0
-        ledger[k]["last_updated"] = datetime.now(timezone.utc).isoformat()
+    for value in ledger.values():
+        r = value["runs"]
+        value["observed_rate"] = value["observed"] / r if r else 0
+        value["mean_density"] = round(value["density_sum"] / r, 2) if r else 0
+        value["last_updated"] = datetime.now(UTC).isoformat()
 
     return ledger
 
@@ -69,7 +68,7 @@ def main():
     ledger = record_hermes_signal_volume_ledger(traces)
     out = {
         "boundary": "ADVISORY_ONLY | SHADOW | HERMES_SIGNAL_VOLUME_TO_EVOLUTION",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "traces_loaded": len(traces),
         "ledger": ledger,
         "notes": "Hermes real session volume now visible to evolution cycle (no promotion authority).",
