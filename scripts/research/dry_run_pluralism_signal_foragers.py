@@ -6,8 +6,9 @@ All outputs are advisory SHADOW artifacts.
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+
 
 def main():
     roles = [
@@ -16,7 +17,7 @@ def main():
     ]
     artifact = {
         "pluralism_dry_run": "P3-Alembic-Hyperagent-2026-07",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "roles": roles,
         "evolution_handoff": "OperationTrace with task_class=signal_forage",
         "authority": {"execution_authority": False, "lane": "SHADOW"},
