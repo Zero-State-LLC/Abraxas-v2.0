@@ -6,8 +6,9 @@ All outputs are advisory SHADOW artifacts.
 """
 
 import json
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 from pathlib import Path
+
 
 def main():
     roles = [

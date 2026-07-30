@@ -1,9 +1,8 @@
 # tests/test_ai_os_slice_f_evolution_volume.py
-import json
 from pathlib import Path
-import pytest
 
 from core.signal.operation_trace_adapter import receipt_to_operation_trace
+
 
 def test_signal_forage_trace_has_correct_task_class():
     """Hermes volume traces must carry task_class=signal_forage for evolution ledger."""
@@ -30,7 +29,10 @@ def test_signal_forage_trace_ingested_into_ledger():
     # Use the bridge script logic directly for test
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent))
-    from scripts.research.run_hermes_signal_evolution_ingest import load_os_signal_traces, record_hermes_signal_volume_ledger
+    from scripts.research.run_hermes_signal_evolution_ingest import (
+        load_os_signal_traces,
+        record_hermes_signal_volume_ledger,
+    )
 
     # The bridge should find any existing os_signal traces (from previous runs)
     traces = load_os_signal_traces()
