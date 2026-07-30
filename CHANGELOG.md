@@ -1,3 +1,10 @@
+# [1.156.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.155.0...v1.156.0) (2026-07-30)
+
+
+### Features
+
+* **analyzer:** detect high_hermes_signal_volume from signal_forage traces ([873c0a9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/873c0a9f3c5b2a0cdf9cf9cde37caf9c504c790d))
+
 # [1.155.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.154.0...v1.155.0) (2026-07-30)
 
 
