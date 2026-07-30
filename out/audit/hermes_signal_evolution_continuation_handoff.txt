@@ -4,7 +4,7 @@ Post-Slice F Hermes Evolution Volume Continuation Handoff (2026-07-30)
 Completed per .hermes/plans/2026-07-30_080205-ai-os-post-slice-f-continuation.md
 
 Artifacts:
-- tests/test_ai_os_slice_f_evolution_volume.py (TDD baseline + ledger test)
+- tests/test_ai_os_slice_f_evolution_volume.py (TDD baseline + ledger tests)
 - scripts/research/run_hermes_signal_evolution_ingest.py (SHADOW ledger bridge for signal_forage)
 - scripts/research/dry_run_pluralism_signal_foragers.py (P3 pluralism)
 - Updated E2E and backlog
@@ -13,4 +13,4 @@ All SHADOW. execution_authority=false. No promotion.
 
 Next recommended: operator review of ledger snapshots, extend analyzer for task_class filtering.
 
-Verification passed (tests green, E2E runs, ruff clean on new files).
+Verification passed (tests green, E2E runs, targeted ruff clean on new files).

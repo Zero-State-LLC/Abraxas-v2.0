@@ -269,7 +269,7 @@ Hermes-native forager + visual registers (current branch).
 - [x] Minimal SHADOW ledger bridge: scripts/research/run_hermes_signal_evolution_ingest.py
 - [x] Additional P3 pluralism dry-run
 - [x] Enhanced E2E to call ledger bridge
-- [ ] Update full backlog with new artifacts and commit
+- [x] Update full backlog with new artifacts and commit
 
 
 
