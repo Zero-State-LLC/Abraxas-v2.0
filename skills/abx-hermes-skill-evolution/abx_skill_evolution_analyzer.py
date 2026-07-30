@@ -25,7 +25,7 @@ def load_traces(trace_dir: Path = Path("out/audit")) -> list[dict]:
             data = json.loads(p.read_text())
             if "operation_id" in data or "boundary" in data:
                 traces.append({"path": str(p), "data": data})
-        except Exception:
+        except Exception:  # noqa: BLE001,S110
             pass  # resilient stub (intentional for advisory surface)
 
     # New: os_signal traces carrying Hermes signal volume (signal_forage etc.)
@@ -34,7 +34,7 @@ def load_traces(trace_dir: Path = Path("out/audit")) -> list[dict]:
             data = json.loads(p.read_text())
             if data.get("task_class") or "signal_forage" in str(data.get("skill_id", "")):
                 traces.append({"path": str(p), "data": data})
-        except Exception:
+        except Exception:  # noqa: BLE001,S110
             pass  # resilient stub
 
     return traces

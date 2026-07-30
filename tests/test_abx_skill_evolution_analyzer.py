@@ -69,6 +69,6 @@ def test_main_runs(tmp_path, monkeypatch):
     # Should not crash
     try:
         a.main()
-    except Exception:
+    except Exception:  # noqa: BLE001,S110
         pass
     assert True
