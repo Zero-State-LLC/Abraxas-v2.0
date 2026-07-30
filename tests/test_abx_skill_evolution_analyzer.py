@@ -72,3 +72,21 @@ def test_main_runs(tmp_path, monkeypatch):
     except Exception:  # noqa: BLE001,S110
         pass
     assert True
+
+def test_detect_signals_high_hermes_signal_volume():
+    """New: sufficient signal_forage volume from Hermes triggers advisory candidate (even with good success rate)."""
+    ledger = {
+        "abx-familiar-signal-forager:signal_forage": {
+            "runs": 5,
+            "success": 5,
+            "success_rate": 1.0,
+            "brier_sum": 0.3,
+            "mean_brier": 0.06,
+            "failures": [],
+        }
+    }
+    cands = a.detect_signals(ledger)
+    sf_cand = [c for c in cands if "signal_forage" in c["skill_id"]][0]
+    assert "high_hermes_signal_volume" in sf_cand["triggering_patterns"]
+    assert sf_cand["status"] == "CANDIDATE_ONLY"
+    assert "Hermes sessions" in sf_cand["evidence_window"]

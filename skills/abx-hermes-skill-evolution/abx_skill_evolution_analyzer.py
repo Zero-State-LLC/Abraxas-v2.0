@@ -87,6 +87,16 @@ def detect_signals(ledger: dict) -> list[dict]:
                 "status": "CANDIDATE_ONLY",
                 "confidence": 0.7,
             })
+        if "signal_forage" in key and stats["runs"] >= 2:
+            # Hermes real-session volume is itself a signal (high observed density from live traces)
+            candidates.append({
+                "candidate_id": f"evocand-{key}-{datetime.now(UTC).strftime('%Y%m%d%H%M')}",
+                "skill_id": key,
+                "triggering_patterns": ["high_hermes_signal_volume"],
+                "evidence_window": f"{stats['runs']} runs (Hermes sessions)",
+                "status": "CANDIDATE_ONLY",
+                "confidence": 0.6,
+            })
     return candidates
 
 
