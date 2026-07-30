@@ -18,6 +18,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 RUNNER = ROOT / "scripts" / "research" / "run_shadow_signal_forage_template.py"
 EMITTER = ROOT / "scripts" / "abx_hermes_live_operation_trace_emitter.py"
+ANALYZER = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_evolution_analyzer.py"
+
 
 def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
     env = {"PATH": "/usr/bin:/bin"}
@@ -29,8 +31,9 @@ def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
     )
     return result.returncode, result.stdout + result.stderr
 
+
 def main():
-    print("=== Slice F End-to-End: Hermes volume → pack → trace → emitter ===\n")
+    print("=== Slice F End-to-End: Hermes volume → pack → trace → emitter → analyzer ===\n")
 
     # 1. Produce high-density pack from Hermes traces (or stub if no traces)
     print("1. Running --from-hermes-traces (Hermes-native enhanced forager)...")
@@ -70,21 +73,39 @@ def main():
     for line in lines:
         print("   " + line)
 
-    # 4. New: run the Hermes signal volume to evolution ledger bridge (Slice F continuation)
+    # 4. Run the Hermes signal volume to evolution ledger bridge (Slice F continuation)
     print("\n4. Running Hermes signal volume -> evolution ledger bridge...")
-    rc3, out3 = run(["python3", str(ROOT / "scripts" / "research" / "run_hermes_signal_evolution_ingest.py")])
+    rc3, out3 = run([ "python3", str(ROOT / "scripts" / "research" / "run_hermes_signal_evolution_ingest.py") ])
     print("   " + (out3.splitlines()[-5] if out3.splitlines() else "(no output)"))
 
-    # 5. Summary
+    # 5. Explicitly run the analyzer to surface volume candidates (new in this continuation)
+    print("\n5. Explicitly running abx-hermes-skill-evolution analyzer for volume candidates...")
+    rc4, out4 = run(["python3", str(ANALYZER)])
+    try:
+        analyzer_out = json.loads(out4)
+        volume_cands = [c for c in analyzer_out.get("candidates", []) if "signal_forage" in c.get("skill_id", "")]
+        if volume_cands:
+            print("   Volume candidates (high_hermes_signal_volume):")
+            for c in volume_cands:
+                print(f"     {json.dumps(c, indent=2)}")
+        else:
+            print("   (no signal_forage candidates in this run)")
+        print("   Full ledger_summary keys:", list(analyzer_out.get("ledger_summary", {}).keys()))
+    except Exception as e:
+        print(f"   (analyzer parse note: {e})")
+
+    # 6. Summary
     print("\n=== END-TO-END SUMMARY ===")
     print(f"Pack: {pack_path} (density high, OBSERVED bias from Hermes sessions)")
     print("Trace: written to out/audit/os_signal_*.latest.json (via core/signal/operation_trace_adapter)")
     print("Emitter: scans and normalizes for abx-hermes-skill-evolution (SHADOW learning loop)")
     print("Ledger bridge: signal_forage volume recorded in SHADOW evolution ledger")
-    print("Next (operator): use the trace/ledger in skill-evolution cycle or abx-hermes-skill-evolution SKILL.")
+    print("Analyzer: high_hermes_signal_volume candidate surfaced for skill:task_class (SHADOW)")
+    print("Next (operator): use the trace/ledger/candidate in skill-evolution cycle or abx-hermes-skill-evolution SKILL.")
     print("\nAll advisory / SHADOW. No execution or promotion authority.")
 
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

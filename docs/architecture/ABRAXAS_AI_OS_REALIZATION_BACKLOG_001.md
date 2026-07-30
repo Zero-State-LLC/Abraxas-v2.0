@@ -276,6 +276,17 @@ Hermes-native forager + visual registers (current branch).
 
 
 ### Next (P3 / Slice follow-on)
+
+### Next Small Slice: Plural Forager Roles + Analyzer Volume Feedback (SHADOW, 2026-07-30 continuation)
+
+- [x] E2E example explicitly invokes analyzer and surfaces high_hermes_signal_volume candidate in summary
+- [x] P3 pluralism forager: added hyperagent_forager (distinct task_class) that emits to os_signal path
+- [x] Light CLI surface: `abraxas os evolution-volume` (SHADOW view of volumes keyed by skill:task_class)
+- [ ] Feed plural volumes into Neon Genie / Oracle seeds (advisory feedback loop)
+- [ ] Operator review surface for volume-derived candidates
+
+All work remains SHADOW / advisory_only. Producer identity records provenance.
+
 - [x] TDD test for signal_forage trace in evolution
 - [x] Minimal SHADOW ledger bridge: scripts/research/run_hermes_signal_evolution_ingest.py
 - [x] Additional P3 pluralism dry-run

@@ -270,6 +270,49 @@ def _cmd_forage_spine_touch(args: argparse.Namespace) -> int:
     )
     return 0 if touchpoint.get("route") == "ORACLE_SHADOW_CANDIDATE" else 2
 
+def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
+    """Light SHADOW surface for Hermes signal volume in the evolution ledger.
+    Shows task_class keyed volumes (e.g. signal_forage, hyperagent_forager).
+    Advisory only.
+    """
+    audit = REPO_ROOT / "out" / "audit"
+    volumes: dict[str, dict] = {}
+    for p in sorted(audit.glob("os_signal_*.latest.json"), key=lambda x: x.stat().st_mtime, reverse=True)[:10]:
+        try:
+            data = json.loads(p.read_text())
+            tc = data.get("task_class", "unknown")
+            skill = data.get("skill_id", "unknown")
+            key = f"{skill}:{tc}" if tc else skill
+            if key not in volumes:
+                volumes[key] = {"runs": 0, "observed": 0, "last": None}
+            volumes[key]["runs"] += 1
+            prov = data.get("provenance", {})
+            volumes[key]["observed"] += prov.get("observed_count", 0)
+            volumes[key]["last"] = data.get("timestamp") or str(p)
+        except Exception:
+            pass
+
+    # Also try the bridge ledger snapshot if present
+    ledger_path = audit / "hermes_signal_evolution_ledger_snapshot.json"
+    if ledger_path.exists():
+        try:
+            snap = json.loads(ledger_path.read_text())
+            for k, v in snap.get("ledger", {}).items():
+                if k not in volumes:
+                    volumes[k] = {"runs": v.get("runs", 0), "observed": v.get("observed", 0), "last": v.get("last_updated")}
+        except Exception:
+            pass
+
+    payload = {
+        "boundary": "ADVISORY_ONLY | SHADOW | EVOLUTION_VOLUME",
+        "lane": "SHADOW",
+        "authority": {"execution_authority": False},
+        "volumes_by_task_class": volumes,
+        "note": "Hermes (and plural) forager volumes visible to evolution cycle. No promotion.",
+    }
+    _print(payload)
+    return 0
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -321,8 +364,12 @@ def build_parser() -> argparse.ArgumentParser:
     # --- AI OS kernel commands ---
     os_parser = sub.add_parser("os", help="AI OS kernel control plane")
     os_sub = os_parser.add_subparsers(dest="os_command", required=True)
+
     os_status = os_sub.add_parser("status", help="AI OS kernel posture (SHADOW)")
     os_status.set_defaults(func=_cmd_os_status)
+
+    ev_vol = os_sub.add_parser("evolution-volume", help="Light SHADOW view of Hermes/plural forager volume by task_class (advisory)")
+    ev_vol.set_defaults(func=_cmd_os_evolution_volume)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)
