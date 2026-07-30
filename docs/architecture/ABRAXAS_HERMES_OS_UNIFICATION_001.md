@@ -154,8 +154,8 @@ Distilled set: `artifacts/hermes-surface/DISTILLED_HERMES_SKILL_SET.md`.
 ### P2 — Closed loop
 
 - Adapter: forage receipt → OperationTrace
-- Evolution cycle volume from real Hermes sessions
-- AAL-Viz chips for pack tiers (Visual OS bind)
+- Evolution cycle volume from real Hermes sessions (advanced via --from-hermes-traces in forage template)
+- AAL-Viz chips for pack tiers (Visual OS bind) — COMPLETE (topology_palette + viz-primitives registers)
 - Repo-intel SKILL.md restore (dir exists, skill file missing)
 
 ### P3 — Pluralism
@@ -222,3 +222,16 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python \
 ---
 
 *Seal: advisory OS spine. Unifies mental model and skill mount; does not grant production activation.*
+
+
+## Slice F Progress (COMPLETE)
+- Hermes volume fed into OperationTrace + emitter
+- End-to-end example script
+- P3 dry-runs started (Hyperagent + Alembic/pluralism notes)
+
+
+## Post-Slice F Hermes Volume to Evolution (2026-07-30 continuation)
+- Ledger bridge implemented for signal_forage
+- Pluralism dry-runs expanded
+- Full E2E with ledger step
+**COMPLETE** (2026-07-30). All SHADOW, operator review pending for any future promotion.
