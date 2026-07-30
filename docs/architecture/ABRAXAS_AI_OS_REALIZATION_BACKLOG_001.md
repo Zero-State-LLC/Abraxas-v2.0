@@ -246,13 +246,32 @@ WP-3.1–3.3 + WP-4.1–4.3 · medium · **this PR track**
 
 ### Slice D — “Viz + traces”
 
-WP-5 + WP-6 · medium · projection + SHADOW emit · **IN PROGRESS**
+WP-5 + WP-6 · medium · projection + SHADOW emit · **COMPLETE**
 
 - [x] `core/signal/operation_trace_adapter.py` — receipt / touchpoint → OperationTrace v0.1
 - [x] CLI `forage ingest` now emits `os_signal_*.latest.json` to `out/audit`
 - [x] Emitter updated to pick up OS signal traces
 - [x] `tests/test_operation_trace_adapter.py`
-- [ ] AAL-Viz chip / register for evidence density / signal tiers (visual bind)
+- [x] AAL-Viz chip / register for evidence density / signal tiers (visual bind) — palette + viz-primitives + CSS
+
+
+### Slice F — “Real session volume in evolution cycle”
+
+Hermes-native forager + visual registers (current branch).
+
+- [x] Enhanced `--from-hermes-traces` → higher-density packs (0.82 achieved, strong OBSERVED bias)
+- [x] Better claims + direct `os_kernel.*` palette register mapping in provenance (palette_registers field + confidence notes)
+- [x] Feed volume into abx-hermes-skill-evolution (runner now emits OperationTrace via adapter; emitter picks os_signal traces)
+- [x] End-to-end example: scripts/research/run_slice_f_end_to_end_example.py (pack → trace → emitter)
+
+### Post-Slice F Continuation (current work)
+- [x] TDD test for signal_forage trace in evolution
+- [x] Minimal SHADOW ledger bridge: scripts/research/run_hermes_signal_evolution_ingest.py
+- [x] Additional P3 pluralism dry-run
+- [x] Enhanced E2E to call ledger bridge
+- [ ] Update full backlog with new artifacts and commit
+
+
 
 ### Slice E — “Declare”
 
@@ -266,9 +285,9 @@ WP-0.2–0.3 rest + WP-10 · docs only after A–C green
 2. **Slice A** — EvidencePack in `contracts/` + `core/signal`.
 3. **Slice B** — familiar_ingestion receipt closes ownership matrix gap.
 4. **Slice C** — CLI OS control plane + minimal spine adapter.
-5. **Slice D** — Visual bind + OperationTrace closed loop.
-6. **Slice E** — STATUS/PLANS declare AI OS kernel ACTIVE_SHADOW.
-7. Only then: optional WP-7/8 product depth; operator tracks stay separate.
+5. **Slice D** — Visual bind + OperationTrace closed loop. **COMPLETE**
+6. **Slice E** — STATUS/PLANS declare AI OS kernel ACTIVE_SHADOW. **COMPLETE**
+7. Hermes signal volume + evolution tie-in (current branch) + optional WP-7/8 product depth (SHADOW only).
 
 ---
 
