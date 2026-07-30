@@ -1,3 +1,15 @@
+# [1.155.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.154.0...v1.155.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **analyzer:** final verified state - noqa for stub resilience + clean ruff/pytest (signal_forage task_class keying) ([792e9fd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/792e9fdb7cb2dd3143428d6b53eed7b07670770f))
+
+
+### Features
+
+* **evolution:** extend analyzer v0.2 for Hermes signal_forage volume (task_class keying + os_signal loader) ([2cd7c6a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2cd7c6abb48d52365e791188b01cfd2a13c58f42))
+
 # [1.154.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.153.0...v1.154.0) (2026-07-30)
 
 
