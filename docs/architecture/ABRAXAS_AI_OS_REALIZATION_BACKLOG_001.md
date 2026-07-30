@@ -264,7 +264,18 @@ Hermes-native forager + visual registers (current branch).
 - [x] Feed volume into abx-hermes-skill-evolution (runner now emits OperationTrace via adapter; emitter picks os_signal traces)
 - [x] End-to-end example: scripts/research/run_slice_f_end_to_end_example.py (pack → trace → emitter)
 
-### Post-Slice F Continuation (current work)
+### Post-Slice F Continuation (COMPLETE)
+
+
+### Post-Slice F+ : Evolution Analyzer Extension (signal_forage volume)
+
+- [x] Extend abx_skill_evolution_analyzer.py (v0.2) to load os_signal_*.latest.json
+- [x] Ledger keyed by skill:task_class (e.g. "abx-familiar-signal-forager:signal_forage")
+- [x] New test coverage + end-to-end flow (bridge → analyzer shows volume)
+- [ ] Further P3: analyzer signals from signal volume; operator review surface
+
+
+### Next (P3 / Slice follow-on)
 - [x] TDD test for signal_forage trace in evolution
 - [x] Minimal SHADOW ledger bridge: scripts/research/run_hermes_signal_evolution_ingest.py
 - [x] Additional P3 pluralism dry-run

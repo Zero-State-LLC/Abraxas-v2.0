@@ -234,4 +234,5 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python \
 - Ledger bridge implemented for signal_forage
 - Pluralism dry-runs expanded
 - Full E2E with ledger step
+- Analyzer v0.2 extended: loads os_signal traces + task_class keying (skill:signal_forage visible in canonical ledger)
 **COMPLETE** (2026-07-30). All SHADOW, operator review pending for any future promotion.
