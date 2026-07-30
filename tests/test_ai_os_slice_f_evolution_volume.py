@@ -62,13 +62,13 @@ def test_signal_forage_ledger_ingestion_isolated():
     import sys
     import tempfile
     sys.path.insert(0, str(Path(__file__).parent.parent))
-    from scripts.research.run_hermes_signal_evolution_ingest import (
-        load_os_signal_traces,
-        record_hermes_signal_volume_ledger,
-    )
     from core.signal.operation_trace_adapter import (
         receipt_to_operation_trace,
         write_operation_trace,
+    )
+    from scripts.research.run_hermes_signal_evolution_ingest import (
+        load_os_signal_traces,
+        record_hermes_signal_volume_ledger,
     )
 
     # Simulate a pack produced by --from-hermes-traces (Slice F high-density)

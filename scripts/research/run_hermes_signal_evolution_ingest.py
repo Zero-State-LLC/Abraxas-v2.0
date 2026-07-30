@@ -53,7 +53,7 @@ def record_hermes_signal_volume_ledger(traces: list[dict]) -> dict:
             # high density signal from Hermes volume
             dens = max(dens, 0.7)
         ledger[key]["density_sum"] += dens
-        # sources append skipped in values loop (minor)(data.get("source_artifact", t["path"]))
+        ledger[key]["sources"].append(data.get("source_artifact", t["path"]))
 
     for value in ledger.values():
         r = value["runs"]
