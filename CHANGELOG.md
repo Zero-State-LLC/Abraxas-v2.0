@@ -1,3 +1,10 @@
+# [1.157.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.156.0...v1.157.0) (2026-07-30)
+
+
+### Features
+
+* E2E analyzer call + P3 plural hyperagent_forager + CLI evolution-volume + next slice def ([42d920b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/42d920bd2087019a33edcd177115f84f4134041d))
+
 # [1.156.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.155.0...v1.156.0) (2026-07-30)
 
 
