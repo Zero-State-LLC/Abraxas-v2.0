@@ -287,7 +287,7 @@ WP-0.2–0.3 rest + WP-10 · docs only after A–C green
 4. **Slice C** — CLI OS control plane + minimal spine adapter.
 5. **Slice D** — Visual bind + OperationTrace closed loop. **COMPLETE**
 6. **Slice E** — STATUS/PLANS declare AI OS kernel ACTIVE_SHADOW. **COMPLETE**
-7. Hermes signal volume + evolution tie-in (current branch) + optional WP-7/8 product depth (SHADOW only).
+7. Hermes signal volume + evolution tie-in (current branch) + optional WP-7/8 product depth (SHADOW only). **COMPLETE**
 
 ---
 
