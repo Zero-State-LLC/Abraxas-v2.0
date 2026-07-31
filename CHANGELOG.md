@@ -1,3 +1,10 @@
+# [1.170.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.169.0...v1.170.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** tiered ownership alignment (end false MISSING_CONTRACT) ([#1073](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1073)) ([f085e78](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f085e781962212c481a693ffb3af2f8033f7f561))
+
 # [1.169.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.168.0...v1.169.0) (2026-07-31)
 
 
