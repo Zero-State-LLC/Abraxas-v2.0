@@ -1,0 +1,39 @@
+{
+  "authority": {
+    "canon_mutation_allowed": false,
+    "execution_authority": false,
+    "forecast_routing_authorized": false,
+    "promotion_authorized": false
+  },
+  "evidence_pack": {
+    "authority": {
+      "canon_mutation_allowed": false,
+      "execution_authority": false,
+      "forecast_routing_authorized": false,
+      "promotion_authorized": false
+    },
+    "commercial_claims_blocked": true,
+    "evidence_density": 0.4,
+    "intent": "fixture",
+    "pack_id": "ep_fixture_neon_001",
+    "pack_ref": "fixtures/venture_request_trend_led_with_stub_pack.v0.json",
+    "register_counts": {
+      "INFERRED": 0,
+      "NOT_COMPUTABLE": 1,
+      "OBSERVED": 1,
+      "SPECULATIVE": 0
+    },
+    "schema_version": "EvidencePack.v0",
+    "status": "EVIDENCE_PACK",
+    "topic": "agent skill OS patterns"
+  },
+  "mode": "TREND_LED",
+  "require_evidence": true,
+  "schema_version": "NeonGenieVentureRequest.v0",
+  "seed": "agent OS skill surfaces",
+  "tags": [
+    "trend",
+    "hermes",
+    "fixture"
+  ]
+}

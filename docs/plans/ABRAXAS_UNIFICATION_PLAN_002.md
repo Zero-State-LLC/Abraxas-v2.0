@@ -176,6 +176,8 @@ No contract → no claim of production readiness.
 
 ### Track D — Authorization surface compression (ongoing, advisory)
 
+**Light inventory:** [`AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md) (terminal-hold rule + plan-family map).
+
 **Outcome:** Stop growing recursive plan/gate trees without terminal disposition.
 
 | Action | Why |
