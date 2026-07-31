@@ -23,7 +23,10 @@ from core.signal.operation_trace_adapter import (
 )
 from core.alembic.residual_inventory import build_alembic_residual_inventory
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
-from core.signal.familiar_operator_review import build_operator_review_from_pack_path
+from core.signal.familiar_operator_review import (
+    build_operator_review_from_pack_path,
+    build_operator_review_queue_dry_run_from_pack_path,
+)
 from core.signal.familiar_oracle_belief_bridge import build_bridge_from_pack_path
 from core.signal.spine_bridge import (
     build_ai_os_kernel_status,
@@ -336,6 +339,46 @@ def _cmd_forage_operator_review(args: argparse.Namespace) -> int:
     return 0 if review.get("disposition") == "READY_FOR_REVIEW" else 2
 
 
+def _cmd_forage_operator_review_dry_run(args: argparse.Namespace) -> int:
+    """Map pack → review seed → OperatorReviewQueueItem/Run dry-run (no queue write)."""
+    dry = build_operator_review_queue_dry_run_from_pack_path(
+        args.pack, repo_root=REPO_ROOT
+    )
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            dry,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    item = dry.get("queue_item") or {}
+    run = dry.get("queue_run") or {}
+    _print(
+        {
+            "ok": dry.get("queue_write_performed") is False
+            and dry.get("dry_run") is True,
+            "schema_version": dry.get("schema_version"),
+            "dry_run": True,
+            "queue_write_performed": dry.get("queue_write_performed"),
+            "disposition": dry.get("disposition"),
+            "recommended_action": dry.get("recommended_action"),
+            "review_id": dry.get("review_id"),
+            "queue_item_id": item.get("queue_item_id"),
+            "queue_item_state": item.get("state"),
+            "queue_item_priority": item.get("priority"),
+            "queue_run_id": run.get("run_id"),
+            "recommended_next_state": run.get("recommended_next_state"),
+            "target_queue_path": dry.get("target_queue_path"),
+            "authority": dry.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    # Exit 0 for successful dry-run projection; disposition may still be ABSTAIN.
+    return 0
+
+
 def _cmd_os_alembic_residuals(_args: argparse.Namespace) -> int:
     """Track C residual inventory for Alembic spine (stubs stay stubbed)."""
     inv = build_alembic_residual_inventory()
@@ -543,6 +586,23 @@ def build_parser() -> argparse.ArgumentParser:
     f_review.add_argument("--out", type=Path, default=None)
     f_review.add_argument("--out-root", type=Path, default=None)
     f_review.set_defaults(func=_cmd_forage_operator_review)
+
+    f_review_dry = forage_sub.add_parser(
+        "operator-review-dry-run",
+        help=(
+            "Map pack → FamiliarOperatorReviewPacket → OperatorReviewQueueItem.v1 "
+            "/ Run.v1 shape (SHADOW dry-run; never writes out/operator_review_queue)"
+        ),
+    )
+    f_review_dry.add_argument("--pack", type=Path, required=True)
+    f_review_dry.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not the live queue path)",
+    )
+    f_review_dry.add_argument("--out-root", type=Path, default=None)
+    f_review_dry.set_defaults(func=_cmd_forage_operator_review_dry_run)
 
     return parser
 

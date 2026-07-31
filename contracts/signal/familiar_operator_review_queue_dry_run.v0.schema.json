@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/signal/familiar_operator_review_queue_dry_run.v0.schema.json",
+  "title": "FamiliarOperatorReviewQueueDryRun.v0",
+  "description": "SHADOW dry-run projection of FamiliarOperatorReviewPacket.v0 onto OperatorReviewQueueItem.v1 / OperatorReviewQueueRun.v1. Never writes out/operator_review_queue; queue_write_performed is always false.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "dry_run",
+    "queue_write_performed",
+    "queue_write_authorized",
+    "target_queue_path",
+    "pipeline_id",
+    "disposition",
+    "queue_item",
+    "queue_run",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FamiliarOperatorReviewQueueDryRun.v0" },
+    "dry_run": { "const": true },
+    "queue_write_performed": { "const": false },
+    "queue_write_authorized": { "const": false },
+    "target_queue_path": { "const": "out/operator_review_queue" },
+    "pipeline_id": { "const": "familiar_ingestion" },
+    "review_id": { "type": ["string", "null"] },
+    "disposition": {
+      "type": "string",
+      "enum": [
+        "PENDING_OPERATOR",
+        "ABSTAIN",
+        "NOT_COMPUTABLE",
+        "READY_FOR_REVIEW"
+      ]
+    },
+    "recommended_action": { "type": "string" },
+    "review_packet_hash": { "type": ["string", "null"] },
+    "normalized_packet": { "type": "object" },
+    "queue_item": { "type": "object" },
+    "queue_run": { "type": "object" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "queue_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "queue_write_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

@@ -177,6 +177,9 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
         "operator_review_core": (
             root / "core/signal/familiar_operator_review.py"
         ).is_file(),
+        "operator_review_queue_dry_run_core": (
+            root / "core/signal/familiar_operator_review.py"
+        ).is_file(),
         "alembic_residual_inventory_core": (
             root / "core/alembic/residual_inventory.py"
         ).is_file(),
@@ -231,9 +234,11 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
                 "forage → EvidencePack → familiar_ingestion receipt "
                 "→ spine touchpoint → oracle/belief SHADOW bridge "
                 "→ operator-review disposition seed "
+                "→ operator-review-dry-run queue projection "
                 "(advisory; no runtime mutation / no queue write)"
             ),
             "operator_review": "FamiliarOperatorReviewPacket.v0",
+            "operator_review_queue_dry_run": "FamiliarOperatorReviewQueueDryRun.v0",
         },
         "surfaces": surfaces,
         "missing_required": missing,
@@ -246,6 +251,9 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             ),
             "operator_review": (
                 "python -m abraxas forage operator-review --pack PATH"
+            ),
+            "operator_review_dry_run": (
+                "python -m abraxas forage operator-review-dry-run --pack PATH"
             ),
             "alembic_residuals": "python -m abraxas os alembic-residuals",
             "os_status": "python -m abraxas os status",
