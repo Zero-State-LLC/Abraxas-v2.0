@@ -199,7 +199,7 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_PRODUCT",
         "migration_status": "specified",
-        "next_action": "wire skill package stage to core ideation operator packet; optional Hermes packaging handoff remains external",
+        "next_action": "skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external",
         "contract_path": "contracts/neon_genie/ideation_operator_packet.v0.schema.json",
         "builder_module": "core.neon_genie.ideation_operator_packet",
     },

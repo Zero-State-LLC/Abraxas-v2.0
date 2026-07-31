@@ -9,8 +9,9 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 
 - Subsystems observed: `18`
 - Pipelines observed: `18`
-- Contract-aligned subsystems: `10`
-- Missing contract paths: `8`
+- Contract-aligned subsystems: `10` (ALIGNED)
+- Partial contracts: `2` (CONTRACT_V0 + RECEIPT_V0)
+- Missing contract paths: `6`
 
 ## Repo-Native Ownership Routes
 
