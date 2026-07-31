@@ -1,3 +1,10 @@
+# [1.160.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.159.0...v1.160.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** familiar oracle/belief SHADOW bridge (BRIDGE_V0) ([#1063](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1063)) ([2b2e2a1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b2e2a1b14495ac1924f3268df344439cf9a8454))
+
 # [1.159.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.158.0...v1.159.0) (2026-07-31)
 
 
