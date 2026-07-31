@@ -1,3 +1,10 @@
+# [1.164.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.163.0...v1.164.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** level99_content operator packet (CONTRACT_V0) ([#1067](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1067)) ([7c36d24](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7c36d24c1c6b7ed99670d3bb0359ac5d186f68bd))
+
 # [1.163.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.162.0...v1.163.0) (2026-07-31)
 
 
