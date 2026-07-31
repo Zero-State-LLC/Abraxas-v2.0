@@ -1,3 +1,10 @@
+# [1.171.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.170.0...v1.171.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** main-scope cleanliness + fast-ci audit receipts ([#1074](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1074)) ([a598154](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a598154b084865fefb74f06dbc8b8abab0ec2b79))
+
 # [1.170.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.169.0...v1.170.0) (2026-07-31)
 
 
