@@ -1,3 +1,10 @@
+# [1.163.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.162.0...v1.163.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** memetic_futurecast operator packet (CONTRACT_V0) ([#1066](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1066)) ([c18e059](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c18e059c57ddb2335c7b41f5f0e8cf1c338a78c9))
+
 # [1.162.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.161.0...v1.162.0) (2026-07-31)
 
 
