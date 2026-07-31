@@ -110,9 +110,13 @@ def _source_row(repo_root: Path, relative_path: str) -> dict[str, Any]:
 
 
 def _health_posture(row: dict[str, Any]) -> str:
-    if row.get("contract_owner_alignment") == "DRIFT_DETECTED":
+    alignment = str(row.get("contract_owner_alignment") or "")
+    if alignment == "DRIFT_DETECTED":
         return "BLOCKED"
-    if row.get("missing_contract_paths"):
+    if alignment == "MISSING_CONTRACT" or row.get("missing_contract_paths"):
+        return "PARTIAL"
+    # Operator-packet / review tiers are partial health, not full ACTIVE.
+    if alignment in {"CONTRACT_V0", "REVIEW_V0"}:
         return "PARTIAL"
     migration_statuses = {str(item) for item in row.get("migration_statuses", [])}
     if "partial" in migration_statuses:
@@ -175,8 +179,14 @@ def _ownership_coverage_posture(
             "authority_granted": False,
         }
     missing_contract_count = int(summary.get("missing_contract_count", 0))
+    partial_subsystem_count = int(summary.get("partial_subsystem_count", 0))
+    contract_v0_subsystem_count = int(summary.get("contract_v0_subsystem_count", 0))
+    review_v0_subsystem_count = int(summary.get("review_v0_subsystem_count", 0))
     return {
         "source_status": ownership_status,
+        "partial_subsystem_count": partial_subsystem_count,
+        "contract_v0_subsystem_count": contract_v0_subsystem_count,
+        "review_v0_subsystem_count": review_v0_subsystem_count,
         "subsystem_count": int(summary.get("subsystem_count", 0)),
         "pipeline_count": int(summary.get("pipeline_count", 0)),
         "aligned_subsystem_count": int(summary.get("aligned_subsystem_count", 0)),
@@ -566,7 +576,10 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             f"- Ownership receipt: `{OWNERSHIP_RECEIPT_PATH}`",
             f"- Subsystems observed: `{ownership.get('subsystem_count', 0)}`",
             f"- Pipelines observed: `{ownership.get('pipeline_count', 0)}`",
-            f"- Contract-aligned subsystems: `{ownership.get('aligned_subsystem_count', 0)}`",
+            f"- Contract-aligned subsystems: `{ownership.get('aligned_subsystem_count', 0)}` (ALIGNED)",
+            f"- Partial contracts: `{ownership.get('partial_subsystem_count', 0)}` "
+            f"(CONTRACT_V0 ×{ownership.get('contract_v0_subsystem_count', 0)} + "
+            f"REVIEW_V0 ×{ownership.get('review_v0_subsystem_count', 0)})",
             f"- Missing contract routes: `{ownership.get('missing_contract_count', 0)}`",
             "",
             "## Artifact Lifecycle / Regeneration Posture",

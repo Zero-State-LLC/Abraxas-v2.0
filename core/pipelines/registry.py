@@ -170,8 +170,9 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "lane": "SHADOW",
         "migration_status": "specified",
         "next_action": (
-            "operator-review disposition seed landed (FamiliarOperatorReviewPacket.v0); "
-            "no queue write; residual: live dual-control only when operator attests"
+            "REVIEW_V0: receipt + spine + bridge + operator-review seed + queue dry-run "
+            "(FamiliarOperatorReviewQueueDryRun.v0) landed; no live queue write; "
+            "residual: dual-control attestation only before any out/operator_review_queue write"
         ),
         "contract_path": "contracts/ingest/familiar_ingestion_receipt.v0.schema.json",
         "builder_module": "core.ingest.familiar_ingestion_receipt",
@@ -183,6 +184,10 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
             "contracts/signal/familiar_operator_review_packet.v0.schema.json"
         ),
         "review_module": "core.signal.familiar_operator_review",
+        "dry_run_contract_path": (
+            "contracts/signal/familiar_operator_review_queue_dry_run.v0.schema.json"
+        ),
+        "dry_run_module": "core.signal.familiar_operator_review",
     },
 
 
