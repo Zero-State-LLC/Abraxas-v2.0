@@ -10,8 +10,8 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `7` (CONTRACT_V0 ×6 + BRIDGE_V0)
-- Missing contract paths: `1`
+- Partial contracts: `8` (CONTRACT_V0 ×7 + BRIDGE_V0)
+- Missing contract paths: `0`
 
 ## Repo-Native Ownership Routes
 
@@ -30,7 +30,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Oracle Signal Layer | oracle_signal | 2 | SHADOW | ALIGNED | bind Oracle packets to global pipeline envelope |
 | Outcome Binding / Brier Ledger | outcome_brier | 1 | FORECAST_GOVERNANCE | ALIGNED | add doctrine-compatible operator review and canon sync receipts |
 | PSE Forecast Engine | pse_forecast | 1 | FORECAST_GATED | ALIGNED | add positive and negative proof packets before forecast influence |
-| Phonomicon | phonomicon_artifact | 3 | ARTIFACT_GOVERNANCE | MISSING_CONTRACT | bind provenance and artifact proof chain |
+| Phonomicon | phonomicon_artifact | 3 | ARTIFACT_GOVERNANCE | CONTRACT_V0 | ArtifactOperatorPacket.v0 (`core/phonomicon/artifact_operator_packet.py`); provenance + Proof of Resonance; next: optional export candidate; mint blocked |
 | Research Intake Automation | research_intake | 1 | GOVERNANCE_SHADOW | ALIGNED | implement one-shot automator from AUTOMATE_RESEARCH_INTAKE_TO_VALIDATION_PIPELINE_001 |
 | Research Validation | research_drop_validation | 1 | GOVERNANCE_SHADOW | ALIGNED | bind validation harness to global pipeline spine |
 | Universal Ingest | universal_ingest | 1 | GOVERNANCE_SHADOW | ALIGNED | convert ingest source to global pipeline contract |
