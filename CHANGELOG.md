@@ -1,3 +1,10 @@
+# [1.158.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.157.0...v1.158.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** neon_genie_ideation operator packet contract (Track B) ([#1060](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1060)) ([16e07eb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/16e07ebdefb21e883905be67ee888adbb95ab237))
+
 # [1.157.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.156.0...v1.157.0) (2026-07-30)
 
 
