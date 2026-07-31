@@ -127,8 +127,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "FORECAST_GATED",
         "migration_status": "specified",
-        "next_action": "add forecast proof, outcome binding, and operator packet chain",
+        "next_action": (
+            "HollerSportsTicketOperatorPacket.v0 landed (forecast proof + outcome "
+            "binding seed); next: optional live ingest wire; forecast routing still gated"
+        ),
+        "contract_path": "contracts/holler/ticket_operator_packet.v0.schema.json",
+        "builder_module": "core.holler.ticket_operator_packet",
     },
+
     {
         "pipeline_id": "memetic_futurecast",
         "display_name": "Memetic Futurecast Pipeline",
