@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/signal/familiar_operator_review_packet.v0.schema.json",
+  "title": "FamiliarOperatorReviewPacket.v0",
+  "description": "SHADOW operator-review disposition seed from FamiliarOracleBeliefBridge.v0. Advisory only; does not enqueue live review, grant execution, or mutate queues.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "review_id",
+    "bridge_id",
+    "pack_id",
+    "disposition",
+    "recommended_action",
+    "review_queue_hint",
+    "summary",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FamiliarOperatorReviewPacket.v0" },
+    "pipeline_id": { "const": "familiar_ingestion" },
+    "review_id": { "type": "string" },
+    "bridge_id": { "type": "string" },
+    "pack_id": { "type": "string" },
+    "touchpoint_id": { "type": "string" },
+    "route": { "type": "string" },
+    "bridge_status": { "type": "string" },
+    "disposition": {
+      "type": "string",
+      "enum": [
+        "PENDING_OPERATOR",
+        "ABSTAIN",
+        "NOT_COMPUTABLE",
+        "READY_FOR_REVIEW"
+      ]
+    },
+    "recommended_action": {
+      "type": "string",
+      "enum": [
+        "REVIEW_ORACLE_SHADOW_INTAKE",
+        "REVIEW_BELIEF_SEEDS",
+        "ABSTAIN_NO_ACTION",
+        "HOLD_INCOMPLETE"
+      ]
+    },
+    "review_queue_hint": { "const": "operator_review_queue" },
+    "summary": { "type": "string" },
+    "belief_seed_count": { "type": "integer", "minimum": 0 },
+    "oracle_intake_present": { "type": "boolean" },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "queue_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "queue_write_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

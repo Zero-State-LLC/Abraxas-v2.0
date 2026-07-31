@@ -44,7 +44,7 @@ AI_OS_KERNEL:
   tracks:
     A: navigation (this refresh)
     B: MISSING_CONTRACT closure (neon_genie_ideation first)
-    C: alembic residuals (stubs stay stubbed)
+    C: alembic residuals (stubs stay stubbed; inventory via `python -m abraxas os alembic-residuals`)
     D: authz plan compression
   locks:
     external_production: false

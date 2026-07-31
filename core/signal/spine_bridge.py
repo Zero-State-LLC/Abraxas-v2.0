@@ -171,6 +171,15 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
         "oracle_belief_bridge_core": (
             root / "core/signal/familiar_oracle_belief_bridge.py"
         ).is_file(),
+        "operator_review_schema": (
+            root / "contracts/signal/familiar_operator_review_packet.v0.schema.json"
+        ).is_file(),
+        "operator_review_core": (
+            root / "core/signal/familiar_operator_review.py"
+        ).is_file(),
+        "alembic_residual_inventory_core": (
+            root / "core/alembic/residual_inventory.py"
+        ).is_file(),
         "forager_skill": (
             root / "skills/abx-familiar-signal-forager/SKILL.md"
         ).is_file(),
@@ -221,8 +230,10 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             "path": (
                 "forage → EvidencePack → familiar_ingestion receipt "
                 "→ spine touchpoint → oracle/belief SHADOW bridge "
-                "(advisory seeds; no runtime mutation)"
+                "→ operator-review disposition seed "
+                "(advisory; no runtime mutation / no queue write)"
             ),
+            "operator_review": "FamiliarOperatorReviewPacket.v0",
         },
         "surfaces": surfaces,
         "missing_required": missing,
@@ -233,6 +244,10 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             "oracle_belief_bridge": (
                 "python -m abraxas forage oracle-belief-bridge --pack PATH"
             ),
+            "operator_review": (
+                "python -m abraxas forage operator-review --pack PATH"
+            ),
+            "alembic_residuals": "python -m abraxas os alembic-residuals",
             "os_status": "python -m abraxas os status",
         },
         "authority": dict(DEFAULT_AUTHORITY),

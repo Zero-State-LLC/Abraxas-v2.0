@@ -21,6 +21,8 @@ from core.signal.operation_trace_adapter import (
     receipt_to_operation_trace,
     write_operation_trace,
 )
+from core.alembic.residual_inventory import build_alembic_residual_inventory
+from core.signal.familiar_operator_review import build_operator_review_from_pack_path
 from core.signal.familiar_oracle_belief_bridge import build_bridge_from_pack_path
 from core.signal.spine_bridge import (
     build_ai_os_kernel_status,
@@ -302,6 +304,56 @@ def _cmd_forage_oracle_belief_bridge(args: argparse.Namespace) -> int:
     )
     return 0 if bridge.get("status") == "BRIDGED_SHADOW" else 2
 
+
+def _cmd_forage_operator_review(args: argparse.Namespace) -> int:
+    """Emit FamiliarOperatorReviewPacket.v0 from pack (SHADOW; no queue write)."""
+    review = build_operator_review_from_pack_path(args.pack, repo_root=REPO_ROOT)
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            review,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    _print(
+        {
+            "ok": review.get("disposition") == "READY_FOR_REVIEW",
+            "disposition": review.get("disposition"),
+            "recommended_action": review.get("recommended_action"),
+            "review_id": review.get("review_id"),
+            "bridge_id": review.get("bridge_id"),
+            "pack_id": review.get("pack_id"),
+            "summary": review.get("summary"),
+            "belief_seed_count": review.get("belief_seed_count"),
+            "review_queue_hint": review.get("review_queue_hint"),
+            "authority": review.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    return 0 if review.get("disposition") == "READY_FOR_REVIEW" else 2
+
+
+def _cmd_os_alembic_residuals(_args: argparse.Namespace) -> int:
+    """Track C residual inventory for Alembic spine (stubs stay stubbed)."""
+    inv = build_alembic_residual_inventory()
+    _print(
+        {
+            "ok": inv.get("spine_status")
+            == "ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS",
+            "spine_status": inv.get("spine_status"),
+            "inventory_id": inv.get("inventory_id"),
+            "counts": inv.get("counts"),
+            "unstub_policy": inv.get("unstub_policy"),
+            "residuals": inv.get("residuals"),
+            "authority": inv.get("authority"),
+            "advisory_only": True,
+        }
+    )
+    return 0
+
+
 def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
     """Light SHADOW surface for Hermes signal volume in the evolution ledger.
     Shows task_class keyed volumes (e.g. signal_forage, hyperagent_forager).
@@ -403,6 +455,12 @@ def build_parser() -> argparse.ArgumentParser:
     ev_vol = os_sub.add_parser("evolution-volume", help="Light SHADOW view of Hermes/plural forager volume by task_class (advisory)")
     ev_vol.set_defaults(func=_cmd_os_evolution_volume)
 
+    alembic_res = os_sub.add_parser(
+        "alembic-residuals",
+        help="Track C Alembic residual inventory (stubs stay stubbed; advisory)",
+    )
+    alembic_res.set_defaults(func=_cmd_os_alembic_residuals)
+
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)
 
@@ -444,6 +502,18 @@ def build_parser() -> argparse.ArgumentParser:
     f_bridge.add_argument("--out", type=Path, default=None)
     f_bridge.add_argument("--out-root", type=Path, default=None)
     f_bridge.set_defaults(func=_cmd_forage_oracle_belief_bridge)
+
+    f_review = forage_sub.add_parser(
+        "operator-review",
+        help=(
+            "Emit FamiliarOperatorReviewPacket.v0 disposition seed from pack "
+            "(SHADOW; no queue write / attestation)"
+        ),
+    )
+    f_review.add_argument("--pack", type=Path, required=True)
+    f_review.add_argument("--out", type=Path, default=None)
+    f_review.add_argument("--out-root", type=Path, default=None)
+    f_review.set_defaults(func=_cmd_forage_operator_review)
 
     return parser
 
