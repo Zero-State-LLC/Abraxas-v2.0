@@ -31,6 +31,8 @@ from core.audit.main_cleanliness_receipt import (
     write_main_cleanliness_receipt,
 )
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
+from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
+from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
 from core.signal.familiar_operator_review import (
     build_operator_review_from_pack_path,
     build_operator_review_queue_dry_run_from_pack_path,
@@ -463,6 +465,54 @@ def _cmd_os_main_audit(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_os_memetic_brier_dry_run(args: argparse.Namespace) -> int:
+    """Project memetic futurecast packet → Brier ledger shape (no ledger write)."""
+    packet = build_futurecast_operator_packet(
+        forecast_id=str(args.forecast_id or ""),
+        topic=str(args.topic or ""),
+        selected_horizon=str(args.horizon or ""),
+        probability=args.probability,
+        register=str(args.register or "INFERRED"),
+        evidence_density=args.evidence_density,
+        outcome_value=args.outcome,
+        claim_text=str(args.claim or ""),
+    )
+    dry = build_memetic_brier_ledger_dry_run(packet)
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            dry,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    entry = dry.get("projected_ledger_entry") or {}
+    _print(
+        {
+            "ok": dry.get("ledger_write_performed") is False
+            and dry.get("dry_run") is True,
+            "schema_version": dry.get("schema_version"),
+            "dry_run": True,
+            "ledger_write_performed": dry.get("ledger_write_performed"),
+            "projection_status": dry.get("projection_status"),
+            "packet_id": dry.get("packet_id"),
+            "forecast_id": dry.get("forecast_id"),
+            "bridge_status": dry.get("bridge_status"),
+            "brier_score": entry.get("brier_score"),
+            "ledger_entry_id": entry.get("ledger_entry_id"),
+            "target_ledger_path": dry.get("target_ledger_path"),
+            "authority": dry.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    if dry.get("projection_status") == "PROJECTED":
+        return 0
+    if dry.get("projection_status") == "SEEDED_AWAITING_OUTCOME":
+        return 2
+    return 1
+
+
 def _cmd_os_branch_hygiene(_args: argparse.Namespace) -> int:
     """Advisory remote-branch classification (never deletes)."""
     inv = build_branch_hygiene_inventory(repo_root=REPO_ROOT)
@@ -610,6 +660,30 @@ def build_parser() -> argparse.ArgumentParser:
         help="Write out/audit/main_cleanliness.latest.json and fast_ci.latest.json",
     )
     main_audit.set_defaults(func=_cmd_os_main_audit)
+
+    memetic_brier = os_sub.add_parser(
+        "memetic-brier-dry-run",
+        help=(
+            "Project memetic futurecast → BrierLedgerEntry.v1 shape "
+            "(SHADOW dry-run; never writes out/brier)"
+        ),
+    )
+    memetic_brier.add_argument("--forecast-id", default="")
+    memetic_brier.add_argument("--topic", default="")
+    memetic_brier.add_argument("--horizon", default="30d")
+    memetic_brier.add_argument("--probability", type=float, default=None)
+    memetic_brier.add_argument("--outcome", type=float, default=None)
+    memetic_brier.add_argument("--register", default="INFERRED")
+    memetic_brier.add_argument("--evidence-density", type=float, default=0.5)
+    memetic_brier.add_argument("--claim", default="")
+    memetic_brier.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not the live ledger path)",
+    )
+    memetic_brier.add_argument("--out-root", type=Path, default=None)
+    memetic_brier.set_defaults(func=_cmd_os_memetic_brier_dry_run)
 
     branch_hyg = os_sub.add_parser(
         "branch-hygiene",
