@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/beatoven/integration_operator_packet.v0.schema.json",
+  "title": "BeatOvenPsyFiIntegrationOperatorPacket.v0",
+  "description": "SHADOW_ARTIFACT operator packet for beatoven_psyfi_integration: shared runic core + sonic plan seeds + PsyFi feedback bridge. SONIC_PLAN_ONLY / PROJECTION_ONLY. No external audio render, DAW/hardware control, publish, or mint. Aligned to Notion PATCH-GLOBAL-SPINE-006.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "intent_id",
+    "source_system",
+    "runic_core",
+    "sonic_plan",
+    "psyfi_bridge",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "BeatOvenPsyFiIntegrationOperatorPacket.v0" },
+    "pipeline_id": { "const": "beatoven_psyfi_integration" },
+    "packet_id": { "type": "string" },
+    "intent_id": { "type": "string" },
+    "source_system": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "noctis",
+        "psyfi",
+        "neon_genie",
+        "level99",
+        "patchhive",
+        "unknown"
+      ]
+    },
+    "intent_summary": { "type": "string" },
+    "runic_core": {
+      "type": "object",
+      "required": ["schema_version", "runes", "shared"],
+      "properties": {
+        "schema_version": { "const": "BeatOvenPsyFiRunicCore.v0" },
+        "runes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "shared": { "type": "boolean" }
+      }
+    },
+    "sonic_plan": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "tempo_bpm",
+        "pulse_density",
+        "syncopation_level",
+        "silence_ratio",
+        "spectral_brightness",
+        "texture_grain",
+        "space_depth",
+        "graph_node_types"
+      ],
+      "properties": {
+        "schema_version": { "const": "BeatOvenSonicPlanSeed.v0" },
+        "tempo_bpm": { "type": "integer" },
+        "pulse_density": { "type": "number" },
+        "syncopation_level": { "type": "number" },
+        "silence_ratio": { "type": "number" },
+        "spectral_brightness": { "type": "number" },
+        "texture_grain": { "type": "number" },
+        "space_depth": { "type": "number" },
+        "graph_node_types": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "psyfi_bridge": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "bridge_status",
+        "subjective_feedback_only"
+      ],
+      "properties": {
+        "schema_version": { "const": "PsyFiBeatOvenBridge.v0" },
+        "bridge_status": {
+          "type": "string",
+          "enum": ["BRIDGED", "SEED_ONLY", "NOT_COMPUTABLE"]
+        },
+        "subjective_feedback_only": { "const": true },
+        "felt_alignment": { "type": ["number", "null"] }
+      }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["SHADOW_OPERATOR_REVIEW", "BLOCKED", "NOT_COMPUTABLE"]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "external_audio_render_blocked": { "const": true },
+    "daw_control_blocked": { "const": true },
+    "hardware_control_blocked": { "const": true },
+    "publishing_blocked": { "const": true },
+    "minting_blocked": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "external_audio_render_allowed",
+        "daw_control_allowed",
+        "hardware_control_allowed",
+        "publishing_allowed",
+        "minting_allowed",
+        "operator_approval_required",
+        "sonic_plan_only"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "external_audio_render_allowed": { "const": false },
+        "daw_control_allowed": { "const": false },
+        "hardware_control_allowed": { "const": false },
+        "publishing_allowed": { "const": false },
+        "minting_allowed": { "const": false },
+        "operator_approval_required": { "const": true },
+        "sonic_plan_only": { "const": true }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_ARTIFACT" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
