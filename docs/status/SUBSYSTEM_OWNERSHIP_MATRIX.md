@@ -10,8 +10,8 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `4` (CONTRACT_V0 ×3 + BRIDGE_V0)
-- Missing contract paths: `4`
+- Partial contracts: `5` (CONTRACT_V0 ×4 + BRIDGE_V0)
+- Missing contract paths: `3`
 
 ## Repo-Native Ownership Routes
 
@@ -26,7 +26,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 core + package/router wire; next: optional skill fixture corpus; Hermes packaging remains external |
 | Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | DreamOperatorPacket.v0 + IR (`core/noctis/dream_operator_packet.py`); next: continuity/history link + operator review wire |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
-| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | MISSING_CONTRACT | add horizon policy, validation gates, and Brier bridge |
+| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | FuturecastOperatorPacket.v0 (`core/memetic/futurecast_operator_packet.py`); horizon + gates + Brier bridge seed; next: optional ledger dry-run |
 | Oracle Signal Layer | oracle_signal | 2 | SHADOW | ALIGNED | bind Oracle packets to global pipeline envelope |
 | Outcome Binding / Brier Ledger | outcome_brier | 1 | FORECAST_GOVERNANCE | ALIGNED | add doctrine-compatible operator review and canon sync receipts |
 | PSE Forecast Engine | pse_forecast | 1 | FORECAST_GATED | ALIGNED | add positive and negative proof packets before forecast influence |

@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/memetic/futurecast_operator_packet.v0.schema.json",
+  "title": "MemeticFuturecastOperatorPacket.v0",
+  "description": "SHADOW_FORECAST_GATED operator packet for memetic_futurecast: horizon policy + validation gates + Brier bridge seed. No live forecast routing, promotion, or ledger mutation.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "forecast_id",
+    "topic",
+    "horizon_policy",
+    "validation_gates",
+    "brier_bridge",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "MemeticFuturecastOperatorPacket.v0" },
+    "pipeline_id": { "const": "memetic_futurecast" },
+    "packet_id": { "type": "string" },
+    "forecast_id": { "type": "string" },
+    "topic": { "type": "string" },
+    "horizon_policy": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "selected_horizon",
+        "allowed_horizons",
+        "policy_status"
+      ],
+      "properties": {
+        "schema_version": { "const": "MemeticHorizonPolicy.v0" },
+        "selected_horizon": { "type": "string" },
+        "allowed_horizons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "policy_status": {
+          "type": "string",
+          "enum": ["ALLOWED", "DISALLOWED", "UNSPECIFIED", "NOT_COMPUTABLE"]
+        },
+        "horizon_days": { "type": ["integer", "null"] }
+      }
+    },
+    "validation_gates": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "register_gate",
+        "horizon_gate",
+        "evidence_gate",
+        "overall"
+      ],
+      "properties": {
+        "schema_version": { "const": "MemeticValidationGates.v0" },
+        "register_gate": { "type": "string" },
+        "horizon_gate": { "type": "string" },
+        "evidence_gate": { "type": "string" },
+        "overall": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "PARTIAL", "NOT_COMPUTABLE"]
+        },
+        "register": { "type": "string" },
+        "evidence_density": { "type": ["number", "null"] }
+      }
+    },
+    "brier_bridge": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "bridge_status",
+        "brier_ready",
+        "ledger_hint"
+      ],
+      "properties": {
+        "schema_version": { "const": "MemeticBrierBridge.v0" },
+        "bridge_status": {
+          "type": "string",
+          "enum": [
+            "BRIDGE_SEEDED",
+            "BRIDGE_INCOMPLETE",
+            "BRIDGE_BLOCKED",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "brier_ready": { "type": "boolean" },
+        "ledger_hint": { "const": "BrierLedgerEntry.v1" },
+        "probability": { "type": ["number", "null"] },
+        "outcome_value": { "type": ["number", "null"] },
+        "provisional_brier": { "type": ["number", "null"] },
+        "forecast_hash": { "type": "string" }
+      }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["SHADOW_OPERATOR_REVIEW", "BLOCKED", "NOT_COMPUTABLE"]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "forecast_routing_blocked": { "const": true },
+    "canon_mutation_blocked": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_FORECAST_GATED" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
