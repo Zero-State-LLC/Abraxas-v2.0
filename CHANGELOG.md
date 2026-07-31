@@ -1,3 +1,10 @@
+# [1.166.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.165.0...v1.166.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** phonomicon_artifact operator packet (CONTRACT_V0) ([#1069](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1069)) ([0219b5c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0219b5c8540f016ef08d010f0b7e4fdd9e79e31f))
+
 # [1.165.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.164.0...v1.165.0) (2026-07-31)
 
 
