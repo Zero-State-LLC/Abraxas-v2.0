@@ -143,8 +143,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "SHADOW_FORECAST_GATED",
         "migration_status": "specified",
-        "next_action": "add horizon policy, validation gates, and Brier bridge",
+        "next_action": (
+            "MemeticFuturecastOperatorPacket.v0 landed (horizon policy + gates + "
+            "Brier bridge seed); next: optional ledger dry-run wire; routing still gated"
+        ),
+        "contract_path": "contracts/memetic/futurecast_operator_packet.v0.schema.json",
+        "builder_module": "core.memetic.futurecast_operator_packet",
     },
+
     {
         "pipeline_id": "oracle_signal",
         "display_name": "Oracle Signal Layer Pipeline",
