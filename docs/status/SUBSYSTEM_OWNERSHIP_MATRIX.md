@@ -10,8 +10,8 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `2` (CONTRACT_V0 + BRIDGE_V0)
-- Missing contract paths: `6`
+- Partial contracts: `3` (CONTRACT_V0 ×2 + BRIDGE_V0)
+- Missing contract paths: `5`
 
 ## Repo-Native Ownership Routes
 
@@ -24,7 +24,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | MISSING_CONTRACT | add forecast proof, outcome binding, and operator packet chain |
 | Level 99 | level99_content | 3 | SHADOW_MEDIA | MISSING_CONTRACT | add virality scoring boundaries and operator review |
 | Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 core + package/router wire; next: optional skill fixture corpus; Hermes packaging remains external |
-| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | MISSING_CONTRACT | convert dream analysis to receipt plus IR plus review pipeline |
+| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | DreamOperatorPacket.v0 + IR (`core/noctis/dream_operator_packet.py`); next: continuity/history link + operator review wire |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
 | Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | MISSING_CONTRACT | add horizon policy, validation gates, and Brier bridge |
 | Oracle Signal Layer | oracle_signal | 2 | SHADOW | ALIGNED | bind Oracle packets to global pipeline envelope |
