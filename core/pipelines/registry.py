@@ -199,7 +199,9 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_PRODUCT",
         "migration_status": "specified",
-        "next_action": "add idea novelty validation and operator packet",
+        "next_action": "wire skill package stage to core ideation operator packet; optional Hermes packaging handoff remains external",
+        "contract_path": "contracts/neon_genie/ideation_operator_packet.v0.schema.json",
+        "builder_module": "core.neon_genie.ideation_operator_packet",
     },
     {
         "pipeline_id": "level99_content",

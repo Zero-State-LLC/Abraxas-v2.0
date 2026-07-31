@@ -22,7 +22,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | MISSING_CONTRACT | add forecast proof, outcome binding, and operator packet chain |
 | Level 99 | level99_content | 3 | SHADOW_MEDIA | MISSING_CONTRACT | add virality scoring boundaries and operator review |
-| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | MISSING_CONTRACT | add idea novelty validation and operator packet |
+| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 (`core/neon_genie/ideation_operator_packet.py`); next: wire skill package stage; Hermes packaging remains external |
 | Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | MISSING_CONTRACT | convert dream analysis to receipt plus IR plus review pipeline |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
 | Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | MISSING_CONTRACT | add horizon policy, validation gates, and Brier bridge |
