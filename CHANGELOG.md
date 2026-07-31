@@ -1,3 +1,10 @@
+# [1.159.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.158.0...v1.159.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** wire neon_genie package/router to IdeationOperatorPacket.v0 ([#1062](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1062)) ([68269ba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/68269ba0b362cc4de792b0a77e9018121dae2f3b))
+
 # [1.158.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.157.0...v1.158.0) (2026-07-31)
 
 
