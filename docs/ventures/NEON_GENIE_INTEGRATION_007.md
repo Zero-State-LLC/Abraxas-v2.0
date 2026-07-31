@@ -9,6 +9,8 @@ P4 integrated surface merged via PR `#777` at `3466a449cad69fb90e68937d9893bac7d
 
 Neon Genie is represented here as a venture/testbed planning layer for Abraxas-adjacent symbolic intelligence, game-loop experimentation, and service-first prototype routing. This file is not a canon promotion, product launch, runtime activation, or governance expansion.
 
+**Packaging home (pivot 017):** executable Hermes skill packaging lives in [`Neon-Genie-Hermes`](https://github.com/scrimshawlife-ctrl/Neon-Genie-Hermes) (`skills/neon-genie`). See [`NEON_GENIE_HERMES_PIVOT_017.md`](./NEON_GENIE_HERMES_PIVOT_017.md). Abraxas `abx-neon-genie` remains invention routing only.
+
 ## Executive Alignment
 Brier Score: 0.12
 

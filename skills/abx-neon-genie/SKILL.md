@@ -18,11 +18,24 @@ metadata:
 
 # ABX-NEON-GENIE (Umbrella)
 
+## Canonical packaging home (2026-07-31 pivot)
+
+**Do not implement Hermes packaging in this skill.** The shipping Neon Genie Hermes skill is:
+
+| Item | Value |
+|------|--------|
+| Repo | `https://github.com/scrimshawlife-ctrl/Neon-Genie-Hermes` |
+| Hub path | `skills/neon-genie` |
+| Install | `hermes skills install scrimshawlife-ctrl/Neon-Genie-Hermes/skills/neon-genie` |
+| Pivot note | `docs/ventures/NEON_GENIE_HERMES_PIVOT_017.md` |
+
+This umbrella **invents, routes, and shapes** inside Abraxas ownership rules. For receipts, envelopes, privacy runtime, recipes, Hub mirrors, and `do doctor` / `do dist`, work in **Neon-Genie-Hermes**.
+
 ## Purpose
 
-Coordinate invention, recombination, differentiation, venture shaping, scoring, packaging, and catalog routing while preserving strict subsystem ownership.
+Coordinate invention, recombination, differentiation, venture shaping, scoring, packaging **handoff**, and catalog routing while preserving strict subsystem ownership.
 
-Neon Genie **invents and structures**. It routes specialized work elsewhere.
+Neon Genie (Hermes package) **packages and structures**. This umbrella **routes** specialized Abraxas work and ownership decisions.
 
 ## Invocation Conditions
 
@@ -119,6 +132,8 @@ Full-suite: NOT_RUN_NOT_REQUIRED (BLOCKED_BY_PRE_EXISTING_BASELINE for unrelated
 
 ## References
 
+- `docs/ventures/NEON_GENIE_HERMES_PIVOT_017.md` (**canonical packaging home** → Neon-Genie-Hermes)
+- External skill: `scrimshawlife-ctrl/Neon-Genie-Hermes/skills/neon-genie`
 - `references/ABX_NEON_GENIE_NOTION_KNOWLEDGE_TRANSFER_001.md` (canonical Notion architecture)
 - `references/input_modes.md`
 - `references/output_classes.md`

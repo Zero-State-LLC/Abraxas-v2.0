@@ -1,6 +1,15 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-23 (Atlas sync + Soft Facades + Conflict Gap Closure G1–G4 on main)
+> **Last Updated:** 2026-07-31 (Neon Genie packaging pivot → Neon-Genie-Hermes)
+
+## Active pivot (2026-07-31)
+
+| Surface | Status | Evidence |
+|---------|--------|----------|
+| Neon Genie Hermes packaging | **CANONICAL EXTERNAL** | [`docs/ventures/NEON_GENIE_HERMES_PIVOT_017.md`](docs/ventures/NEON_GENIE_HERMES_PIVOT_017.md) · repo `scrimshawlife-ctrl/Neon-Genie-Hermes` |
+| Abraxas `abx-neon-genie` | Invention umbrella only | `skills/abx-neon-genie/SKILL.md` — hand off packaging to Hermes skill |
+
+Do **not** implement `do receipt` / Hub dist / privacy runtime inside Abraxas; use Neon-Genie-Hermes.
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
