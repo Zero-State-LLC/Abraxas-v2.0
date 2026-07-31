@@ -1,3 +1,10 @@
+# [1.172.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.171.0...v1.172.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** memetic Brier + noctis review dry-runs (no write) ([#1075](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1075)) ([6a207a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6a207a6cb5a2f9659fa3397cedf4882dfda5bfcd))
+
 # [1.171.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.170.0...v1.171.0) (2026-07-31)
 
 
