@@ -21,8 +21,8 @@ Kernel done ≠ EXTERNAL_PRODUCTION. Done = forage → EvidencePack → ingest �
 | **K1** | Single mental model + STATUS row | Backlog Slice E COMPLETE; STATUS had primitives map row after #1050 | `ABRAXAS_HERMES_OS_UNIFICATION_001.md`; realization backlog; README links; STATUS primitives map; **CLI `os status` reports `ai_os_kernel: ACTIVE_SHADOW`** (`core/signal/spine_bridge.py` · `tests/test_ai_os_slice_c.py`) | **OBSERVED** (docs + runtime status object) | Keep STATUS in sync with this audit; link plan 002 |
 | **K2** | Forage → EvidencePack.v0 | Skill path | `skills/abx-familiar-signal-forager/`; fixtures under skill; CLI `forage validate` | **OBSERVED** | None |
 | **K3** | Pack first-class contract | WP-1 | `contracts/signal/evidence_pack.v0.schema.json`; `core/signal/evidence_pack.py`; `tests/test_evidence_pack_core.py` | **OBSERVED** | Keep skill mirrors byte-compatible |
-| **K4** | Pack → ingest SHADOW | WP-2 | `contracts/ingest/familiar_ingestion_receipt.v0.schema.json`; `core/ingest/familiar_ingestion_receipt.py`; `tests/test_familiar_ingestion_receipt.py`; CLI `forage ingest` | **OBSERVED** | Optional: matrix ALIGNED when oracle bridge lands |
-| **K5** | Ingest → advisory spine | WP-3 | `core/signal/spine_bridge.py`; `contracts/signal/familiar_spine_touchpoint.v0.schema.json`; CLI `forage spine-touch`; `tests/test_ai_os_slice_c.py` | **OBSERVED** (advisory seeds / touchpoint; not full Oracle promotion) | Residual: deeper Oracle/BeliefGraph seed if product pressure |
+| **K4** | Pack → ingest SHADOW | WP-2 | `contracts/ingest/familiar_ingestion_receipt.v0.schema.json`; `core/ingest/familiar_ingestion_receipt.py`; `tests/test_familiar_ingestion_receipt.py`; CLI `forage ingest` | **OBSERVED** | Matrix: `BRIDGE_V0` after oracle/belief SHADOW bridge |
+| **K5** | Ingest → advisory spine | WP-3 | `core/signal/spine_bridge.py`; `contracts/signal/familiar_spine_touchpoint.v0.schema.json`; CLI `forage spine-touch`; `tests/test_ai_os_slice_c.py`; **+** `FamiliarOracleBeliefBridge.v0` (`core/signal/familiar_oracle_belief_bridge.py`, CLI `forage oracle-belief-bridge`) | **OBSERVED** (advisory seeds / touchpoint / SHADOW bridge; not full Oracle promotion or BeliefGraph mutation) | Residual: optional operator-review packet only |
 | **K6** | Neon commercial claims without pack | WP / #1052 | `core.signal.evidence_pack.commercial_claims_blocked`; Neon facade `skills/abx-neon-genie/evidence_pack.py`; tests assert blocked default | **OBSERVED** | Neon ideation **pipeline** contract still thin (Track B) |
 | **K7** | Hermes discovers Abraxas skills | Docs | `ABRAXAS_HERMES_OS_UNIFICATION_001.md` `skills.external_dirs`; skill tree present | **PARTIAL** | Env-dependent; operator machine config |
 | **K8** | WorkPacket / Handoff multi-agent | STATUS | `core/operator_loop.py`; contracts engineering; #1033–#1046 | **OBSERVED** | None |
@@ -42,7 +42,7 @@ Kernel done ≠ EXTERNAL_PRODUCTION. Done = forage → EvidencePack → ingest �
 **Honest residual (not kernel blockers):**
 
 1. **neon_genie_ideation** pipeline still **MISSING_CONTRACT** in ownership matrix (venture novelty/operator packet) — Track B.
-2. **familiar_ingestion** matrix: `RECEIPT_V0`; next action still “bridge to Oracle/BeliefGraph” (K5 depth).
+2. **familiar_ingestion** matrix: `BRIDGE_V0` (receipt + spine + oracle/belief SHADOW bridge); residual is optional operator-review packet only (no runtime mutation).
 3. **Alembic** residual stubs (SSM/generative/SNN) — optional L2 pluralism.
 4. **EXTERNAL_PRODUCTION** remains DENIED — correctly out of AI OS kernel definition.
 

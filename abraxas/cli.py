@@ -21,6 +21,7 @@ from core.signal.operation_trace_adapter import (
     receipt_to_operation_trace,
     write_operation_trace,
 )
+from core.signal.familiar_oracle_belief_bridge import build_bridge_from_pack_path
 from core.signal.spine_bridge import (
     build_ai_os_kernel_status,
     build_touchpoint_from_pack_path,
@@ -270,6 +271,37 @@ def _cmd_forage_spine_touch(args: argparse.Namespace) -> int:
     )
     return 0 if touchpoint.get("route") == "ORACLE_SHADOW_CANDIDATE" else 2
 
+
+def _cmd_forage_oracle_belief_bridge(args: argparse.Namespace) -> int:
+    """Emit FamiliarOracleBeliefBridge.v0 from pack (SHADOW; no Oracle/Belief mutation)."""
+    bridge = build_bridge_from_pack_path(args.pack, repo_root=REPO_ROOT)
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            bridge,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    _print(
+        {
+            "ok": bridge.get("status") == "BRIDGED_SHADOW",
+            "status": bridge.get("status"),
+            "route": bridge.get("route"),
+            "bridge_id": bridge.get("bridge_id"),
+            "pack_id": bridge.get("pack_id"),
+            "touchpoint_id": bridge.get("touchpoint_id"),
+            "reason": bridge.get("reason"),
+            "bridge_hash": bridge.get("bridge_hash"),
+            "oracle_shadow_intake": bridge.get("oracle_shadow_intake"),
+            "belief_seed_count": len(bridge.get("belief_candidate_seeds") or []),
+            "authority": bridge.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    return 0 if bridge.get("status") == "BRIDGED_SHADOW" else 2
+
 def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
     """Light SHADOW surface for Hermes signal volume in the evolution ledger.
     Shows task_class keyed volumes (e.g. signal_forage, hyperagent_forager).
@@ -400,6 +432,18 @@ def build_parser() -> argparse.ArgumentParser:
     f_spine.add_argument("--out", type=Path, default=None)
     f_spine.add_argument("--out-root", type=Path, default=None)
     f_spine.set_defaults(func=_cmd_forage_spine_touch)
+
+    f_bridge = forage_sub.add_parser(
+        "oracle-belief-bridge",
+        help=(
+            "Bridge pack → oracle shadow intake + belief candidate seeds "
+            "(SHADOW; no Oracle runtime / BeliefGraph mutation)"
+        ),
+    )
+    f_bridge.add_argument("--pack", type=Path, required=True)
+    f_bridge.add_argument("--out", type=Path, default=None)
+    f_bridge.add_argument("--out-root", type=Path, default=None)
+    f_bridge.set_defaults(func=_cmd_forage_oracle_belief_bridge)
 
     return parser
 

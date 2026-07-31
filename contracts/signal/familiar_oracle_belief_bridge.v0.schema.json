@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/signal/familiar_oracle_belief_bridge.v0.schema.json",
+  "title": "FamiliarOracleBeliefBridge.v0",
+  "description": "SHADOW bridge from FamiliarSpineTouchpoint → oracle intake seed + belief candidate seeds. Advisory only; no Oracle runtime, BeliefGraph mutation, promotion, or forecast routing.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "bridge_id",
+    "pipeline_id",
+    "touchpoint_id",
+    "pack_id",
+    "route",
+    "status",
+    "oracle_shadow_intake",
+    "belief_candidate_seeds",
+    "advisory_only",
+    "lane",
+    "authority",
+    "bridge_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FamiliarOracleBeliefBridge.v0" },
+    "bridge_id": { "type": "string" },
+    "pipeline_id": { "const": "familiar_ingestion" },
+    "touchpoint_id": { "type": "string" },
+    "receipt_id": { "type": "string" },
+    "pack_id": { "type": "string" },
+    "pack_hash": { "type": "string" },
+    "route": {
+      "type": "string",
+      "enum": [
+        "ORACLE_SHADOW_CANDIDATE",
+        "ABSTAIN_INVALID",
+        "ABSTAIN_NO_INPUT",
+        "ABSTAIN_NOT_INGESTED"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "BRIDGED_SHADOW",
+        "BRIDGE_ABSTAINED",
+        "BRIDGE_NO_INPUT"
+      ]
+    },
+    "reason": { "type": "string" },
+    "oracle_shadow_intake": { "type": "object" },
+    "belief_candidate_seeds": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "register_counts": { "type": "object" },
+    "commercial_claims_blocked": { "type": "boolean" },
+    "evidence_density": { "type": "number" },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "bridge_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
