@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/holler/ticket_operator_packet.v0.schema.json",
+  "title": "HollerSportsTicketOperatorPacket.v0",
+  "description": "FORECAST_GATED operator packet for hollersports_ticket: forecast proof seed + outcome binding chain. No live forecast routing, promotion, or execution.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "ticket_id",
+    "sport",
+    "event_ref",
+    "forecast_proof",
+    "outcome_binding",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "HollerSportsTicketOperatorPacket.v0" },
+    "pipeline_id": { "const": "hollersports_ticket" },
+    "packet_id": { "type": "string" },
+    "ticket_id": { "type": "string" },
+    "sport": { "type": "string" },
+    "event_ref": { "type": "string" },
+    "market_class": { "type": "string" },
+    "forecast_proof": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "proof_status",
+        "forecast_hash",
+        "model_ref",
+        "brier_ready"
+      ],
+      "properties": {
+        "schema_version": { "const": "HollerForecastProof.v0" },
+        "proof_status": {
+          "type": "string",
+          "enum": [
+            "PROOF_SEEDED",
+            "PROOF_INCOMPLETE",
+            "PROOF_BLOCKED",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "forecast_hash": { "type": "string" },
+        "model_ref": { "type": "string" },
+        "brier_ready": { "type": "boolean" },
+        "probability": { "type": ["number", "null"] },
+        "register": {
+          "type": "string",
+          "enum": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+        }
+      }
+    },
+    "outcome_binding": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "binding_status",
+        "expected_outcome_hash",
+        "binding_id"
+      ],
+      "properties": {
+        "schema_version": { "const": "HollerOutcomeBindingSeed.v0" },
+        "binding_status": {
+          "type": "string",
+          "enum": ["unresolved", "matched", "mismatched", "expired", "not_seeded"]
+        },
+        "binding_id": { "type": "string" },
+        "expected_outcome_hash": { "type": "string" },
+        "observed_outcome_hash": { "type": ["string", "null"] },
+        "forecast_outcome_binding_hint": {
+          "const": "ForecastOutcomeBindingPacket.v1"
+        }
+      }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": [
+        "SHADOW_OPERATOR_REVIEW",
+        "BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "forecast_routing_blocked": { "const": true },
+    "live_odds_execution_blocked": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "FORECAST_GATED" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
