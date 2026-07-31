@@ -1,3 +1,10 @@
+# [1.167.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.166.0...v1.167.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** residual tighten-up — familiar operator-review + Alembic inventory ([#1070](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1070)) ([582c6c1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/582c6c1a0f90816335a40c296d8e1ea34543c57a))
+
 # [1.166.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.165.0...v1.166.0) (2026-07-31)
 
 
