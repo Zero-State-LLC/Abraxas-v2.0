@@ -31,6 +31,8 @@ from core.audit.main_cleanliness_receipt import (
     write_main_cleanliness_receipt,
 )
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
+from core.holler.outcome_binding_dry_run import build_holler_outcome_binding_dry_run
+from core.holler.ticket_operator_packet import build_ticket_operator_packet
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
 from core.noctis.operator_review_dry_run import (
@@ -516,6 +518,53 @@ def _cmd_os_memetic_brier_dry_run(args: argparse.Namespace) -> int:
     return 1
 
 
+def _cmd_os_holler_outcome_dry_run(args: argparse.Namespace) -> int:
+    """Project holler ticket → outcome binding shape (no binding write)."""
+    packet = build_ticket_operator_packet(
+        ticket_id=str(args.ticket_id or ""),
+        sport=str(args.sport or "UNKNOWN"),
+        event_ref=str(args.event_ref or ""),
+        market_class=str(args.market_class or "UNKNOWN"),
+        probability=args.probability,
+        register=str(args.register or "INFERRED"),
+        expected_outcome=str(args.expected_outcome or ""),
+        observed_outcome=args.observed_outcome,
+    )
+    dry = build_holler_outcome_binding_dry_run(packet)
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            dry,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    projected = dry.get("projected_binding") or {}
+    _print(
+        {
+            "ok": dry.get("binding_write_performed") is False
+            and dry.get("dry_run") is True,
+            "schema_version": dry.get("schema_version"),
+            "dry_run": True,
+            "binding_write_performed": dry.get("binding_write_performed"),
+            "projection_status": dry.get("projection_status"),
+            "ticket_id": dry.get("ticket_id"),
+            "packet_id": dry.get("packet_id"),
+            "binding_id": projected.get("binding_id"),
+            "binding_status": projected.get("binding_status"),
+            "target_binding_path": dry.get("target_binding_path"),
+            "authority": dry.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    if dry.get("projection_status") == "MATCHED":
+        return 0
+    if dry.get("projection_status") == "UNRESOLVED":
+        return 2
+    return 1
+
+
 def _cmd_os_noctis_review_dry_run(args: argparse.Namespace) -> int:
     """Project noctis dream narrative → operator review queue shape (no write)."""
     dry = build_noctis_review_dry_run_from_narrative(
@@ -734,6 +783,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     memetic_brier.add_argument("--out-root", type=Path, default=None)
     memetic_brier.set_defaults(func=_cmd_os_memetic_brier_dry_run)
+
+    holler_out = os_sub.add_parser(
+        "holler-outcome-dry-run",
+        help=(
+            "Project holler ticket → ForecastOutcomeBindingPacket.v1 shape "
+            "(FORECAST_GATED dry-run; never writes bindings / no live odds)"
+        ),
+    )
+    holler_out.add_argument("--ticket-id", default="")
+    holler_out.add_argument("--sport", default="UNKNOWN")
+    holler_out.add_argument("--event-ref", default="")
+    holler_out.add_argument("--market-class", default="UNKNOWN")
+    holler_out.add_argument("--probability", type=float, default=None)
+    holler_out.add_argument("--register", default="INFERRED")
+    holler_out.add_argument("--expected-outcome", default="")
+    holler_out.add_argument("--observed-outcome", default=None)
+    holler_out.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not the live binding path)",
+    )
+    holler_out.add_argument("--out-root", type=Path, default=None)
+    holler_out.set_defaults(func=_cmd_os_holler_outcome_dry_run)
 
     noctis_review = os_sub.add_parser(
         "noctis-review-dry-run",
