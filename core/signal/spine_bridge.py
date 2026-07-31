@@ -165,6 +165,12 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             root / "contracts/signal/familiar_spine_touchpoint.v0.schema.json"
         ).is_file(),
         "spine_bridge_core": (root / "core/signal/spine_bridge.py").is_file(),
+        "oracle_belief_bridge_schema": (
+            root / "contracts/signal/familiar_oracle_belief_bridge.v0.schema.json"
+        ).is_file(),
+        "oracle_belief_bridge_core": (
+            root / "core/signal/familiar_oracle_belief_bridge.py"
+        ).is_file(),
         "forager_skill": (
             root / "skills/abx-familiar-signal-forager/SKILL.md"
         ).is_file(),
@@ -211,9 +217,11 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             "pack_schema": "EvidencePack.v0",
             "ingest_receipt": "FamiliarIngestionReceipt.v0",
             "spine_touchpoint": "FamiliarSpineTouchpoint.v0",
+            "oracle_belief_bridge": "FamiliarOracleBeliefBridge.v0",
             "path": (
                 "forage → EvidencePack → familiar_ingestion receipt "
-                "→ spine touchpoint (advisory seeds)"
+                "→ spine touchpoint → oracle/belief SHADOW bridge "
+                "(advisory seeds; no runtime mutation)"
             ),
         },
         "surfaces": surfaces,
@@ -222,6 +230,9 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             "validate_pack": "python -m abraxas forage validate --pack PATH",
             "ingest_pack": "python -m abraxas forage ingest --pack PATH",
             "spine_touch": "python -m abraxas forage spine-touch --pack PATH",
+            "oracle_belief_bridge": (
+                "python -m abraxas forage oracle-belief-bridge --pack PATH"
+            ),
             "os_status": "python -m abraxas os status",
         },
         "authority": dict(DEFAULT_AUTHORITY),

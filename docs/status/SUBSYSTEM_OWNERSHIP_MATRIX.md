@@ -10,7 +10,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `2` (CONTRACT_V0 + RECEIPT_V0)
+- Partial contracts: `2` (CONTRACT_V0 + BRIDGE_V0)
 - Missing contract paths: `6`
 
 ## Repo-Native Ownership Routes
@@ -34,7 +34,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Research Intake Automation | research_intake | 1 | GOVERNANCE_SHADOW | ALIGNED | implement one-shot automator from AUTOMATE_RESEARCH_INTAKE_TO_VALIDATION_PIPELINE_001 |
 | Research Validation | research_drop_validation | 1 | GOVERNANCE_SHADOW | ALIGNED | bind validation harness to global pipeline spine |
 | Universal Ingest | universal_ingest | 1 | GOVERNANCE_SHADOW | ALIGNED | convert ingest source to global pipeline contract |
-| abx-familiar | familiar_ingestion | 2 | SHADOW | RECEIPT_V0 | EvidencePack → FamiliarIngestionReceipt.v0 (`core/ingest/familiar_ingestion_receipt.py`); next: oracle/belief shadow bridge |
+| abx-familiar | familiar_ingestion | 2 | SHADOW | BRIDGE_V0 | Receipt + spine + FamiliarOracleBeliefBridge.v0 (`core/signal/familiar_oracle_belief_bridge.py`); next: optional operator-review packet; Hermes packaging N/A |
 
 ## Why This Matters
 
