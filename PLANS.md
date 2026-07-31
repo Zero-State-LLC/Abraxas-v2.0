@@ -1,12 +1,15 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
-> **Last refreshed:** 2026-07-26 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md)
+> **Last refreshed:** 2026-07-31 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md)
 
 ## Current objective
 
-**Post–Phase 14 Production Convergence** — operator dual-control attestations on CLEAR disposition draft; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+**Dual tracks (do not mix authority):**
 
-Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
+1. **AI OS eng (`AI_OS_KERNEL`)** — finish/unify the governed intelligence kernel under LOCAL_DEV/SHADOW. Front door: [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md). Audit: [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md). Realization: [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md).
+2. **CLEAR / production-candidate operator track** — dual-control attestations on CLEAR disposition draft; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+
+Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md), [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md).
 
 ### Closed workstreams (do not reopen without new evidence)
 
@@ -24,6 +27,32 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | Operator-loop GitHub/CI status glance | **Landed** | #1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
 
 ### Active workstreams (post–Phase 14)
+
+#### Eng — AI OS / unification
+
+```yaml
+AI_OS_KERNEL:
+  status: ACTIVE_SHADOW
+  authority: ADVISORY_ONLY
+  docs:
+    - docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md
+    - docs/architecture/AI_OS_KERNEL_AUDIT_001.md
+    - docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md
+    - docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md
+    - docs/architecture/AI_OS_PRIMITIVES_MAP_001.md
+  syscall: forage → EvidencePack → familiar_ingestion → spine touchpoint
+  tracks:
+    A: navigation (this refresh)
+    B: MISSING_CONTRACT closure (neon_genie_ideation first)
+    C: alembic residuals (stubs stay stubbed)
+    D: authz plan compression
+  locks:
+    external_production: false
+    canon_mutation: false
+    runtime_mutation: false
+```
+
+#### Operator — CLEAR / providers (separate)
 
 1. **CLEAR dual-control attestations** — operator A/B per [`docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`](docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md) on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
