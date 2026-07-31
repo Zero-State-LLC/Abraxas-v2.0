@@ -170,8 +170,8 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "lane": "SHADOW",
         "migration_status": "specified",
         "next_action": (
-            "oracle/belief SHADOW bridge landed (FamiliarOracleBeliefBridge.v0); "
-            "optional operator review wire; no runtime mutation"
+            "operator-review disposition seed landed (FamiliarOperatorReviewPacket.v0); "
+            "no queue write; residual: live dual-control only when operator attests"
         ),
         "contract_path": "contracts/ingest/familiar_ingestion_receipt.v0.schema.json",
         "builder_module": "core.ingest.familiar_ingestion_receipt",
@@ -179,7 +179,12 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
             "contracts/signal/familiar_oracle_belief_bridge.v0.schema.json"
         ),
         "bridge_module": "core.signal.familiar_oracle_belief_bridge",
+        "review_contract_path": (
+            "contracts/signal/familiar_operator_review_packet.v0.schema.json"
+        ),
+        "review_module": "core.signal.familiar_operator_review",
     },
+
 
     {
         "pipeline_id": "drift_scan",
