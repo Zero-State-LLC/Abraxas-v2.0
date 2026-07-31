@@ -1,3 +1,10 @@
+# [1.165.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.164.0...v1.165.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** beatoven_psyfi shared runic core operator packet (CONTRACT_V0) ([#1068](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1068)) ([823bd52](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/823bd52516714f49790286c8e44a08ebde7d2ad2))
+
 # [1.164.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.163.0...v1.164.0) (2026-07-31)
 
 
