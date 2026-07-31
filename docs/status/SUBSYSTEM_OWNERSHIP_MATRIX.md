@@ -10,8 +10,8 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `5` (CONTRACT_V0 ×4 + BRIDGE_V0)
-- Missing contract paths: `3`
+- Partial contracts: `6` (CONTRACT_V0 ×5 + BRIDGE_V0)
+- Missing contract paths: `2`
 
 ## Repo-Native Ownership Routes
 
@@ -22,7 +22,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Canon Governance | canon_sync | 1 | GOVERNANCE | ALIGNED | formalize canon sync receipts and repo execution boundaries |
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | TicketOperatorPacket.v0 (`core/holler/ticket_operator_packet.py`); forecast proof + outcome binding seed; next: optional live ingest wire |
-| Level 99 | level99_content | 3 | SHADOW_MEDIA | MISSING_CONTRACT | add virality scoring boundaries and operator review |
+| Level 99 | level99_content | 3 | SHADOW_MEDIA | CONTRACT_V0 | ContentOperatorPacket.v0 (`core/level99/content_operator_packet.py`); virality + route + operator review; next: optional performance ingest wire |
 | Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 core + package/router wire; next: optional skill fixture corpus; Hermes packaging remains external |
 | Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | DreamOperatorPacket.v0 + IR (`core/noctis/dream_operator_packet.py`); next: continuity/history link + operator review wire |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
