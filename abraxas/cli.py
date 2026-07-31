@@ -22,6 +22,14 @@ from core.signal.operation_trace_adapter import (
     write_operation_trace,
 )
 from core.alembic.residual_inventory import build_alembic_residual_inventory
+from core.audit.fast_ci_receipt import (
+    build_fast_ci_receipt,
+    write_fast_ci_receipt,
+)
+from core.audit.main_cleanliness_receipt import (
+    build_main_cleanliness_receipt,
+    write_main_cleanliness_receipt,
+)
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.signal.familiar_operator_review import (
     build_operator_review_from_pack_path,
@@ -398,6 +406,63 @@ def _cmd_os_alembic_residuals(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_os_main_audit(args: argparse.Namespace) -> int:
+    """Emit main cleanliness + fast-ci receipts for Notion main-scope audit."""
+    cleanliness = build_main_cleanliness_receipt(repo_root=REPO_ROOT)
+    fast = build_fast_ci_receipt(
+        repo_root=REPO_ROOT,
+        commit_sha=cleanliness.get("commit_sha"),
+        origin_main_sha=cleanliness.get("origin_main_sha"),
+        execute_smoke=bool(getattr(args, "execute_smoke", False)),
+    )
+    if getattr(args, "write", False):
+        clean_path = REPO_ROOT / "out" / "audit" / "main_cleanliness.latest.json"
+        fast_path = REPO_ROOT / "out" / "audit" / "fast_ci.latest.json"
+        write_main_cleanliness_receipt(clean_path, cleanliness)
+        write_fast_ci_receipt(fast_path, fast)
+        wrote = {"main_cleanliness": str(clean_path), "fast_ci": str(fast_path)}
+    else:
+        wrote = None
+    _print(
+        {
+            "ok": cleanliness.get("status") == "PASS"
+            and fast.get("status") in {"PASS", "NOT_COMPUTABLE"},
+            "main_cleanliness": {
+                "schema_version": cleanliness.get("schema_version"),
+                "status": cleanliness.get("status"),
+                "commit_sha": cleanliness.get("commit_sha"),
+                "origin_main_sha": cleanliness.get("origin_main_sha"),
+                "ahead": cleanliness.get("ahead"),
+                "behind": cleanliness.get("behind"),
+                "worktree_clean": cleanliness.get("worktree_clean"),
+                "blockers": cleanliness.get("blockers"),
+                "canonical_hash": cleanliness.get("canonical_hash"),
+            },
+            "fast_ci": {
+                "schema_version": fast.get("schema_version"),
+                "status": fast.get("status"),
+                "mode": fast.get("mode"),
+                "pass_count": fast.get("pass_count"),
+                "fail_count": fast.get("fail_count"),
+                "authoritative_full_ci_command": fast.get(
+                    "authoritative_full_ci_command"
+                ),
+                "canonical_hash": fast.get("canonical_hash"),
+            },
+            "wrote": wrote,
+            "authority": cleanliness.get("authority"),
+            "advisory_only": True,
+        }
+    )
+    if cleanliness.get("status") == "FAIL" or fast.get("status") == "FAIL":
+        return 1
+    if cleanliness.get("status") == "NOT_COMPUTABLE" or fast.get(
+        "status"
+    ) == "NOT_COMPUTABLE":
+        return 2
+    return 0
+
+
 def _cmd_os_branch_hygiene(_args: argparse.Namespace) -> int:
     """Advisory remote-branch classification (never deletes)."""
     inv = build_branch_hygiene_inventory(repo_root=REPO_ROOT)
@@ -526,6 +591,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="Track C Alembic residual inventory (stubs stay stubbed; advisory)",
     )
     alembic_res.set_defaults(func=_cmd_os_alembic_residuals)
+
+    main_audit = os_sub.add_parser(
+        "main-audit",
+        help=(
+            "Main-scope cleanliness + fast-ci receipts for Notion engineering-quality "
+            "audit (advisory; no Notion writeback)"
+        ),
+    )
+    main_audit.add_argument(
+        "--execute-smoke",
+        action="store_true",
+        help="Run bounded smoke checks when building fast_ci receipt",
+    )
+    main_audit.add_argument(
+        "--write",
+        action="store_true",
+        help="Write out/audit/main_cleanliness.latest.json and fast_ci.latest.json",
+    )
+    main_audit.set_defaults(func=_cmd_os_main_audit)
 
     branch_hyg = os_sub.add_parser(
         "branch-hygiene",
