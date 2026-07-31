@@ -1,10 +1,18 @@
-"""Neon Genie Package stage (thin stub)."""
+"""Neon Genie Package stage (thin stub).
+
+Assembles VenturePacket.v0.4 and attaches NeonGenieIdeationOperatorPacket.v0
+(SHADOW operator review). Does not package Hermes Hub skills or grant execution.
+"""
 
 from __future__ import annotations
 import importlib.util
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
+
+from core.neon_genie.ideation_operator_packet import (
+    build_ideation_operator_packet_from_venture,
+)
 
 _THIS = Path(__file__).resolve()
 _SKILL_DIR = _THIS.parent
@@ -26,7 +34,7 @@ _evidence = _load_evidence_mod()
 
 
 def package(shaped: List[Dict[str, Any]], overlap: Dict[str, Any], evidence_pack: Dict[str, Any], mode: str) -> Dict[str, Any]:
-    """Assemble venture packet (stub for v0.4) with EvidencePack gates."""
+    """Assemble venture packet (stub for v0.4) with EvidencePack gates + operator packet."""
     top = shaped[0] if shaped else {}
     packet: Dict[str, Any] = {
         "schema_version": "NeonGenieVenturePacket.v0.4",
@@ -55,4 +63,10 @@ def package(shaped: List[Dict[str, Any]], overlap: Dict[str, Any], evidence_pack
         },
     }
     _evidence.redact_commercial_fields(packet, evidence_pack)
+    # Contract surface: core builder (not Hermes packaging). Nested for skill consumers.
+    packet["operator_packet"] = build_ideation_operator_packet_from_venture(
+        packet,
+        evidence_pack=evidence_pack,
+        novelty_notes=str(top.get("novelty_notes") or top.get("why_now") or ""),
+    )
     return packet

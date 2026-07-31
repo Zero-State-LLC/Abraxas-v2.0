@@ -53,6 +53,15 @@ def test_run_venture_cycle_basic():
     assert "route_decision" in result
     assert result["evidence_status"] == "PROMPT_ONLY"
     assert result["authority"]["execution_authority"] is False
+    # Track B residual: package stage wires IdeationOperatorPacket.v0
+    op = result.get("operator_packet")
+    assert isinstance(op, dict)
+    assert op["schema_version"] == "NeonGenieIdeationOperatorPacket.v0"
+    assert op["pipeline_id"] == "neon_genie_ideation"
+    assert op["authority"]["execution_authority"] is False
+    assert result["venture_packet"].get("operator_packet", {}).get("canonical_hash") == op.get(
+        "canonical_hash"
+    )
 
 
 def test_run_venture_cycle_with_legacy_evidence():
@@ -152,3 +161,7 @@ def test_run_venture_cycle_with_fixture_pack_path():
     assert result["venture_packet"]["seed_evidence"]["pack_id"] == "ep_20260727_hermes_skill_os_001"
     assert result["commercial_claims_blocked"] is True
     assert result["venture_packet"]["market_model"]["status"] == "NOT_COMPUTABLE"
+    op = result["operator_packet"]
+    assert op["schema_version"] == "NeonGenieIdeationOperatorPacket.v0"
+    assert op["commercial_claims_blocked"] is True
+    assert "COMMERCIAL_EVIDENCE_REQUIRED" in op["blocked_by"]

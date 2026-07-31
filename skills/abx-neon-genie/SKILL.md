@@ -49,7 +49,7 @@ BUSINESS | SOFTWARE | SERVICE | CONTENT_ENGINE | INTERNAL_MODULE | WRAPPER | DAT
 - Invoke bounded Neon Genie stages (intake → discover → recombine → differentiate → score → shape → package).
 - Run overlap/duplicate detection against subsystem inventory, app catalog, prior concepts.
 - Classify: NOVEL | ADJACENT | WRAPPER_CANDIDATE | CHILD_SUBSYSTEM | DUPLICATE | NOT_COMPUTABLE.
-- Emit typed venture packet + route decision.
+- Emit typed venture packet + IdeationOperatorPacket.v0 + route decision.
 - Route specialized work (Noctis for symbolic seeds, Level 99 for public memetic, LeakForge for competitive pressure, AAL-Viz for projection, etc.).
 - Emit operator-review receipt and operation trace for skill evolution.
 
@@ -92,7 +92,8 @@ Implementation:
 - `evidence_pack.py` — load/normalize EvidencePack.v0, density, commercial gate
 - `neon_genie_router.py` — resolves `evidence_pack_path` | `evidence_pack`
 - `neon_genie_score.py` — uses `evidence_density`; lowers monetization when blocked
-- `neon_genie_package.py` — sets `seed_evidence` + redacts `market_model` to NOT_COMPUTABLE when gated
+- `neon_genie_package.py` — sets `seed_evidence` + redacts `market_model` to NOT_COMPUTABLE when gated; attaches `operator_packet` (`NeonGenieIdeationOperatorPacket.v0` via `core.neon_genie.ideation_operator_packet`)
+- `neon_genie_router.py` — promotes `operator_packet` to run-receipt root (SHADOW operator review only)
 
 Modes that **require** evidence: `MARKET_LED`, `TREND_LED`, `PAINPOINT_LED`, `MONETIZATION_LED`, or `require_evidence: true`.
 
@@ -113,9 +114,16 @@ Conceptual runes (to be validated/registered via the manager):
 
 ## Pipeline Contract Status
 
-`neon_genie_ideation` (core/pipelines/registry.py) is Tier 3 SHADOW_PRODUCT, MISSING_CONTRACT. Next action: "add idea novelty validation and operator packet".
+`neon_genie_ideation` (core/pipelines/registry.py) is Tier 3 SHADOW_PRODUCT, **CONTRACT_V0**:
 
-This skill + runes manager begins satisfying the missing contract surface without fabricating unobserved core logic.
+| Surface | Path |
+|---------|------|
+| Schema | `contracts/neon_genie/ideation_operator_packet.v0.schema.json` |
+| Core builder | `core/neon_genie/ideation_operator_packet.py` |
+| Package stage wire | `skills/abx-neon-genie/neon_genie_package.py` → nested `operator_packet` |
+| Router receipt | `skills/abx-neon-genie/neon_genie_router.py` → receipt `operator_packet` |
+
+**Next (not this skill's authority):** Hermes Hub packaging remains external (Neon-Genie-Hermes). No packaging runtime, promotion, or forecast influence in Abraxas core.
 
 ## Validation Routing
 

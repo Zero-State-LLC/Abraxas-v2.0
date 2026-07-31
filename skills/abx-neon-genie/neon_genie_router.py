@@ -59,6 +59,12 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
     shaped = _shape.shape(scored)
     overlap = _overlap.classify_overlap(shaped)
     venture_packet = _package.package(shaped, overlap, evidence_pack, mode)
+    # Surface IdeationOperatorPacket.v0 at receipt root (also nested on venture_packet).
+    operator_packet = (
+        venture_packet.get("operator_packet")
+        if isinstance(venture_packet, dict)
+        else None
+    )
 
     receipt = {
         "schema_version": "NeonGenieRunReceipt.v0.1",
@@ -71,6 +77,7 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
         "commercial_claims_blocked": bool(evidence_pack.get("commercial_claims_blocked", True)),
         "overlap_classification": overlap.get("classification"),
         "venture_packet": venture_packet,
+        "operator_packet": operator_packet,
         "route_decision": {
             "primary_owner": overlap.get("recommended_route", "NeonGenie"),
             "specialist_skills": overlap.get("specialist_skills", []),
@@ -79,6 +86,7 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
             "runner": "skills/abx-neon-genie/neon_genie_router.py",
             "skill": "abx-neon-genie",
             "evidence_skill": "abx-familiar-signal-forager",
+            "operator_packet_module": "core.neon_genie.ideation_operator_packet",
         },
         "authority": {
             "execution_authority": False,
