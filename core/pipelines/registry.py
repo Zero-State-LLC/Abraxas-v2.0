@@ -197,8 +197,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_SYMBOLIC",
         "migration_status": "specified",
-        "next_action": "convert dream analysis to receipt plus IR plus review pipeline",
+        "next_action": (
+            "NoctisDreamOperatorPacket.v0 + IR landed; "
+            "next: optional continuity/history link + operator review wire"
+        ),
+        "contract_path": "contracts/noctis/dream_operator_packet.v0.schema.json",
+        "builder_module": "core.noctis.dream_operator_packet",
     },
+
     {
         "pipeline_id": "neon_genie_ideation",
         "display_name": "Neon Genie App Ideation Pipeline",
