@@ -10,15 +10,15 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 - Subsystems observed: `18`
 - Pipelines observed: `18`
 - Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `6` (CONTRACT_V0 ×5 + BRIDGE_V0)
-- Missing contract paths: `2`
+- Partial contracts: `7` (CONTRACT_V0 ×6 + BRIDGE_V0)
+- Missing contract paths: `1`
 
 ## Repo-Native Ownership Routes
 
 | Subsystem | Pipelines | Tier(s) | Lane(s) | Contract alignment | Next action |
 | --- | --- | --- | --- | --- | --- |
 | AAL-Viz | aal_viz_projection | 1 | PROJECTION | ALIGNED | enforce projection-only packet contract globally |
-| BeatOven / PsyFi | beatoven_psyfi_integration | 3 | SHADOW_ARTIFACT | MISSING_CONTRACT | define shared runic core pipeline contract |
+| BeatOven / PsyFi | beatoven_psyfi_integration | 3 | SHADOW_ARTIFACT | CONTRACT_V0 | IntegrationOperatorPacket.v0 (`core/beatoven/integration_operator_packet.py`); shared runic core + sonic plan; next: optional graph materialization |
 | Canon Governance | canon_sync | 1 | GOVERNANCE | ALIGNED | formalize canon sync receipts and repo execution boundaries |
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | TicketOperatorPacket.v0 (`core/holler/ticket_operator_packet.py`); forecast proof + outcome binding seed; next: optional live ingest wire |

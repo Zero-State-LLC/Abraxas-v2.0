@@ -263,9 +263,15 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_ARTIFACT",
         "migration_status": "specified",
-        "next_action": "define shared runic core pipeline contract",
+        "next_action": (
+            "BeatOvenPsyFiIntegrationOperatorPacket.v0 landed (shared runic core + "
+            "sonic plan seed); next: optional graph materialization; plan-only"
+        ),
+        "contract_path": "contracts/beatoven/integration_operator_packet.v0.schema.json",
+        "builder_module": "core.beatoven.integration_operator_packet",
     },
 )
+
 
 LANE_NORMALIZATION = {
     "SHADOW": "SHADOW",
