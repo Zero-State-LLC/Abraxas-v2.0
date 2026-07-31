@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/audit/fast_ci_receipt.v0.schema.json",
+  "title": "FastCiReceipt.v0",
+  "description": "Normalized check outcomes for main-scope engineering-quality audit. Smoke scope is bounded; full CI remains scripts/run_fast_ci.py.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "status",
+    "mode",
+    "authoritative_full_ci_command",
+    "checks",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FastCiReceipt.v0" },
+    "status": { "enum": ["PASS", "FAIL", "NOT_COMPUTABLE"] },
+    "mode": { "type": "string" },
+    "commit_sha": { "type": ["string", "null"] },
+    "origin_main_sha": { "type": ["string", "null"] },
+    "authoritative_full_ci_command": { "type": "string" },
+    "checks": { "type": "array" },
+    "advisory_only": { "const": true },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "production_activation_allowed": { "const": false },
+        "notion_writeback_allowed": { "const": false }
+      }
+    }
+  }
+}
