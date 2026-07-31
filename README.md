@@ -51,7 +51,10 @@ It is **not** a generic chatbot wrapper. Default posture is **advisory / project
 | **Agent artifact metadata** | Multi-agent provenance schema | [`contracts/engineering/agent_artifact_metadata.v1.schema.json`](contracts/engineering/agent_artifact_metadata.v1.schema.json) |
 | **Multi-agent operator loop** | Hermes/Grok/Codex responsibilities (provenance ≠ authority) | [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) · glyphs in `design-system/aal-viz/operator_loop/` |
 | **Hermes OS unification** | Three-layer OS: Visual + Abraxas core + Hermes agent; signal forage syscall | [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · skill `abx-familiar-signal-forager` |
-| **AI OS realization backlog** | Work packages to finish kernel path (contracts → ingest → CLI → viz → traces) | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) |
+| **AI OS realization backlog** | Work packages for kernel path (contracts → ingest → CLI → viz → traces) | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) |
+| **AI OS kernel audit** | K1–K12 evidence vs main (`ACTIVE_SHADOW`, not production) | [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) · `python -m abraxas os status` |
+| **AI OS unification plan** | Whole-system tracks A–D (nav, contracts, alembic, authz) | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
+| **AI OS primitives map** | Classic OS primitives → Abraxas surfaces (projection) | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
 
 ---
 

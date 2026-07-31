@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-27 (AI OS primitives map assimilation — advisory projection; Phase 0–14 + multi-agent operator loop complete; CLEAR dual-control pending)
+> **Last Updated:** 2026-07-31 (AI OS kernel audit + unification plan 002 navigation; primitives map #1050; Phase 0–14 + multi-agent loop complete; CLEAR dual-control pending)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -19,7 +19,10 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Operator loop (seq 1–10) | **COMPLETE** · glyphs, skills, truth surfaces, gh/CI glance | #1033–#1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
-| Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
+| Product CLI | `python -m abraxas` analyze/validate/replay/status/**os**/forage | `abraxas/cli.py` · project env (`jsonschema`) |
+| AI OS kernel | **`ACTIVE_SHADOW`** (syscall path live; not EXTERNAL_PRODUCTION) | `python -m abraxas os status` · [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) |
+| AI OS unification | Tracks A–D front door | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
+
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
 | Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
 | Runtime settings | `core.settings.RuntimeSettings` + `RuntimeContext` ports | `core/settings.py`, `core/runtime_context.py` |
@@ -40,7 +43,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
 | Active objective | CLEAR dual-control attestations · live providers only when authorized | `PLANS.md` · CONTINUATION_PLAN.v16 |
-| AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing already in Notion Master System identity | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · 2026-07-27 |
+| AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
 
 ## Session closeout surfaces (2026-07-23)
 
