@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/noctis/operator_review_queue_dry_run.v0.schema.json",
+  "title": "NoctisOperatorReviewQueueDryRun.v0",
+  "description": "SHADOW dry-run projection of NoctisDreamOperatorPacket.v0 onto OperatorReviewQueueItem.v1 / Run.v1 plus continuity seed. Never writes queue or durable memory.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "dry_run",
+    "queue_write_performed",
+    "queue_write_authorized",
+    "memory_write_performed",
+    "target_queue_path",
+    "pipeline_id",
+    "queue_item",
+    "queue_run",
+    "continuity_seed",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "NoctisOperatorReviewQueueDryRun.v0" },
+    "dry_run": { "const": true },
+    "queue_write_performed": { "const": false },
+    "queue_write_authorized": { "const": false },
+    "memory_write_performed": { "const": false },
+    "target_queue_path": { "const": "out/operator_review_queue" },
+    "pipeline_id": { "const": "noctis_dream" },
+    "queue_item": { "type": "object" },
+    "queue_run": { "type": "object" },
+    "continuity_seed": { "type": "object" },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "execution_authority": { "const": false },
+        "queue_write_authorized": { "const": false },
+        "memory_direct_write_allowed": { "const": false },
+        "medical_claims_allowed": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_SYMBOLIC" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
