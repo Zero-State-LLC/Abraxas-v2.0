@@ -1,3 +1,10 @@
+# [1.169.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.168.0...v1.169.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** familiar operator-review → queue dry-run (no write) ([#1072](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1072)) ([2543355](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2543355621e592a3165c79b0c5e520ecb131003d))
+
 # [1.168.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.167.0...v1.168.0) (2026-07-31)
 
 
