@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/phonomicon/artifact_operator_packet.v0.schema.json",
+  "title": "PhonomiconArtifactOperatorPacket.v0",
+  "description": "ARTIFACT_GOVERNANCE operator packet for phonomicon_artifact: provenance chain + Proof of Resonance + rarity seed. PRODUCT_CANDIDATE / PROVENANCE_ONLY. No mint execution, marketplace listing, wallet transfer, or publication. Aligned to Notion PATCH-GLOBAL-SPINE-007.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "artifact_id",
+    "provenance",
+    "proof_of_resonance",
+    "rarity",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "PhonomiconArtifactOperatorPacket.v0" },
+    "pipeline_id": { "const": "phonomicon_artifact" },
+    "packet_id": { "type": "string" },
+    "artifact_id": { "type": "string" },
+    "title": { "type": "string" },
+    "source_system": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "chain",
+        "chain_root_hash",
+        "link_count"
+      ],
+      "properties": {
+        "schema_version": { "const": "PhonomiconProvenanceChain.v0" },
+        "chain": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "chain_root_hash": { "type": "string" },
+        "link_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "proof_of_resonance": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "proof_status",
+        "resonance_score",
+        "proof_hash"
+      ],
+      "properties": {
+        "schema_version": { "const": "PhonomiconProofOfResonance.v0" },
+        "proof_status": {
+          "type": "string",
+          "enum": ["PROOF_SEEDED", "PROOF_INCOMPLETE", "NOT_COMPUTABLE"]
+        },
+        "resonance_score": { "type": "number" },
+        "proof_hash": { "type": "string" },
+        "felt_alignment": { "type": ["number", "null"] },
+        "symbolic_alignment": { "type": ["number", "null"] },
+        "sonic_plan_ref": { "type": ["string", "null"] }
+      }
+    },
+    "rarity": {
+      "type": "object",
+      "required": ["schema_version", "rarity_score", "tier"],
+      "properties": {
+        "schema_version": { "const": "PhonomiconRaritySeed.v0" },
+        "rarity_score": { "type": "number" },
+        "tier": {
+          "type": "string",
+          "enum": ["COMMON", "UNCOMMON", "RARE", "MYTHIC", "NOT_COMPUTABLE"]
+        }
+      }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["SHADOW_OPERATOR_REVIEW", "BLOCKED", "NOT_COMPUTABLE"]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "mint_execution_blocked": { "const": true },
+    "marketplace_listing_blocked": { "const": true },
+    "wallet_transfer_blocked": { "const": true },
+    "publication_blocked": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "mint_execution_allowed",
+        "marketplace_listing_allowed",
+        "wallet_transfer_allowed",
+        "publication_allowed",
+        "operator_approval_required",
+        "provenance_only"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "mint_execution_allowed": { "const": false },
+        "marketplace_listing_allowed": { "const": false },
+        "wallet_transfer_allowed": { "const": false },
+        "publication_allowed": { "const": false },
+        "operator_approval_required": { "const": true },
+        "provenance_only": { "const": true }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "ARTIFACT_GOVERNANCE" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

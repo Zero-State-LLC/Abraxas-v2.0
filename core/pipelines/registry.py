@@ -253,8 +253,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "ARTIFACT_GOVERNANCE",
         "migration_status": "specified",
-        "next_action": "bind provenance and artifact proof chain",
+        "next_action": (
+            "PhonomiconArtifactOperatorPacket.v0 landed (provenance chain + Proof "
+            "of Resonance); next: optional export candidate wire; mint still blocked"
+        ),
+        "contract_path": "contracts/phonomicon/artifact_operator_packet.v0.schema.json",
+        "builder_module": "core.phonomicon.artifact_operator_packet",
     },
+
     {
         "pipeline_id": "beatoven_psyfi_integration",
         "display_name": "BeatOven / PsyFi Integration Pipeline",
