@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/level99/content_operator_packet.v0.schema.json",
+  "title": "Level99ContentOperatorPacket.v0",
+  "description": "SHADOW_MEDIA operator packet for level99_content: virality scoring boundaries + route + operator review. No auto-publish, promotion, forecast routing, or platform mutation. Aligned to Notion PATCH-GLOBAL-SPINE-004.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "content_id",
+    "topic",
+    "format_target",
+    "humor_gradient",
+    "virality_scores",
+    "route",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "Level99ContentOperatorPacket.v0" },
+    "pipeline_id": { "const": "level99_content" },
+    "packet_id": { "type": "string" },
+    "content_id": { "type": "string" },
+    "hook_id": { "type": ["string", "null"] },
+    "topic": { "type": "string" },
+    "format_target": {
+      "type": "string",
+      "enum": [
+        "short_clip",
+        "reaction",
+        "thread",
+        "thumbnail",
+        "longform",
+        "boss_fight",
+        "unknown"
+      ]
+    },
+    "humor_gradient": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "views": { "type": "integer", "minimum": 0 },
+        "likes": { "type": "integer", "minimum": 0 },
+        "comments": { "type": "integer", "minimum": 0 },
+        "shares": { "type": "integer", "minimum": 0 },
+        "saves": { "type": "integer", "minimum": 0 },
+        "retention_ratio": { "type": ["number", "null"] },
+        "metrics_present": { "type": "boolean" }
+      }
+    },
+    "virality_scores": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "attention_score",
+        "engagement_score",
+        "retention_score",
+        "comment_signal_strength",
+        "share_velocity_score",
+        "compression_score",
+        "joke_density_score",
+        "memetic_resonance"
+      ],
+      "properties": {
+        "schema_version": { "const": "Level99MemeticResonance.v0" },
+        "attention_score": { "type": "number" },
+        "engagement_score": { "type": "number" },
+        "retention_score": { "type": "number" },
+        "comment_signal_strength": { "type": "number" },
+        "share_velocity_score": { "type": "number" },
+        "compression_score": { "type": "number" },
+        "joke_density_score": { "type": "number" },
+        "memetic_resonance": { "type": "number" }
+      }
+    },
+    "route": {
+      "type": "string",
+      "enum": [
+        "AMPLIFY_CANDIDATE",
+        "ITERATE",
+        "ARCHIVE",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["SHADOW_OPERATOR_REVIEW", "BLOCKED", "NOT_COMPUTABLE"]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "drift_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "auto_publish_blocked": { "const": true },
+    "platform_mutation_blocked": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "auto_publish_allowed",
+        "operator_approval_required"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "auto_publish_allowed": { "const": false },
+        "operator_approval_required": { "const": true }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_MEDIA" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

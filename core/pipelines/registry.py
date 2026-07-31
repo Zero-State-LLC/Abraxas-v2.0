@@ -237,8 +237,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_MEDIA",
         "migration_status": "specified",
-        "next_action": "add virality scoring boundaries and operator review",
+        "next_action": (
+            "Level99ContentOperatorPacket.v0 landed (virality bounds + route + "
+            "operator review); next: optional performance ingest wire; no auto-publish"
+        ),
+        "contract_path": "contracts/level99/content_operator_packet.v0.schema.json",
+        "builder_module": "core.level99.content_operator_packet",
     },
+
     {
         "pipeline_id": "phonomicon_artifact",
         "display_name": "Phonomicon Artifact Pipeline",
