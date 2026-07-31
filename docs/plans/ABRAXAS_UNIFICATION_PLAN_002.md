@@ -54,7 +54,7 @@ Abraxas v2.0 is strong as a **fail-closed, receipt-first symbolic substrate**, b
 | Fragmentation class | OBSERVED signal |
 |---------------------|-----------------|
 | Multi-architecture orchestration | Alembic Spine **advisory-complete with residuals** (`core/alembic/`, `docs/alembic/ALEMBIC_SPINE.md`) |
-| Subsystem contracts | Ownership matrix: **18 subsystems**, **8 MISSING_CONTRACT** |
+| Subsystem contracts | Ownership matrix: **18 subsystems**, **10 ALIGNED + 7 CONTRACT_V0 + 1 REVIEW_V0** (true MISSING_CONTRACT = 0 at operator-packet tier; 8 still lack full `*.v1_1.json`) |
 | Planning / authorization chains | Long recursive operator-review and temporal-continuity plan families under `docs/plans/` + `out/` |
 | Skills / Hermes adapters | Multiple skills with overlapping “route / invent / govern” language |
 | Docs navigation | START_HERE / INDEX / STATUS / PLANS all active; contributors must know which is authoritative |
@@ -112,11 +112,13 @@ Phase 1 of plan 001 is **implemented as advisory**. Unification work here is **r
 
 ### 4.2 Ownership matrix (contract track)
 
-From `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` (advisory projection):
+From `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` (advisory projection; live refresh uses tiered alignment):
 
-| ALIGNED (keep; tighten receipts) | MISSING_CONTRACT (priority backlog) |
-|----------------------------------|-------------------------------------|
-| AAL-Viz, Canon Governance, Drift, Operator Governance, Oracle Signal, Outcome/Brier, PSE Forecast, Research Intake, Research Validation, Universal Ingest | BeatOven/PsyFi, HollerSports, Level 99, **Neon Genie**, Noctis, Oracle/ASE/Memetic Futurecast, Phonomicon, abx-familiar |
+| ALIGNED (full `*.v1_1.json`) | CONTRACT_V0 (operator packet) | REVIEW_V0 (kernel review chain) |
+|-----------------------------|-------------------------------|----------------------------------|
+| AAL-Viz, Canon Governance, Drift, Operator Governance, Oracle Signal, Outcome/Brier, PSE Forecast, Research Intake, Research Validation, Universal Ingest | BeatOven/PsyFi, HollerSports, Level 99, Neon Genie, Noctis, Memetic Futurecast, Phonomicon | abx-familiar (receipt + bridge + review + queue dry-run; no live queue write) |
+
+True **MISSING_CONTRACT** at operator-packet tier: **0**. Optional depth: full pipeline v1.1 contracts for the 8 partials (not required for AI OS kernel).
 
 ### 4.3 Production posture
 
@@ -199,7 +201,7 @@ No contract → no claim of production readiness.
 
 | Metric | Target | Evidence |
 |--------|--------|----------|
-| MISSING_CONTRACT count | Decreasing; publish delta in ownership refresh receipts | matrix + audit receipt |
+| MISSING_CONTRACT count | Remain 0 at operator-packet tier; publish CONTRACT_V0/REVIEW_V0/ALIGNED deltas | matrix + audit receipt |
 | Alembic advisory CLI | `validate-registry` + `execute-advisory` green on fixtures | tests on CI |
 | Orphan plans | New plans link Track A–D or marked HISTORICAL | docs review |
 | Authority incidents | Zero silent runtime/canon writes from unification work | PR checklist |
@@ -212,7 +214,7 @@ Aligned with AI OS realization backlog (prefer finishing kernel path over new pa
 1. **Review this plan** — accept, amend, or reject (docs PR / comment enough for advisory).
 2. **Reconcile STATUS** — if Slices A–E claim COMPLETE, confirm `AI_OS_KERNEL` / `ACTIVE_SHADOW` rows match repo evidence; fix drift only with links.
 3. **Track A** — link START_HERE + PLANS + this file + Hermes OS unification 001 + realization backlog (one navigation triangle).
-4. **Kernel continuity** — if any K1–K12 gap remains open on `main`, that beats new subsystem work; else **Track B** one MISSING_CONTRACT (recommended: familiar_ingestion / EvidencePack bridge residual or Neon ideation contract stub).
+4. **Kernel continuity** — AI OS kernel is `ACTIVE_SHADOW` on main; Track B packet closure is complete. Next: residual wires on CONTRACT_V0 surfaces (e.g. memetic ledger dry-run, noctis review wire) or full v1.1 depth only under product pressure — not fake MISSING_CONTRACT work.
 5. **Track C** — Alembic stays advisory; unstub only with evaluation fixtures.
 6. **Do not** mix CLEAR dual-control / EXTERNAL_PRODUCTION unhold into AI OS eng PRs.
 7. **Optional:** merge open primitives map PR #1050 if still desired as pure projection.

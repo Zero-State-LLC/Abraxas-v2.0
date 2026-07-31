@@ -41,9 +41,9 @@ Kernel done ≠ EXTERNAL_PRODUCTION. Done = forage → EvidencePack → ingest �
 
 **Honest residual (not kernel blockers):**
 
-1. **neon_genie_ideation** pipeline still **MISSING_CONTRACT** in ownership matrix (venture novelty/operator packet) — Track B.
-2. **familiar_ingestion** matrix: `BRIDGE_V0` (receipt + spine + oracle/belief SHADOW bridge); residual is optional operator-review packet only (no runtime mutation).
-3. **Alembic** residual stubs (SSM/generative/SNN) — optional L2 pluralism.
+1. **Track B operator packets closed** on main: 7× `CONTRACT_V0` + familiar `REVIEW_V0` (queue dry-run landed; no live queue write). True packet-level MISSING_CONTRACT = 0; full `contracts/pipelines/*.v1_1.json` still absent for those 8 (optional depth).
+2. **familiar_ingestion** residual: dual-control attestation only before any `out/operator_review_queue` write (dry-run projection is advisory-only).
+3. **Alembic** residual stubs (SSM/generative/SNN) — optional L2 pluralism; unstub denied without evaluation fixtures.
 4. **EXTERNAL_PRODUCTION** remains DENIED — correctly out of AI OS kernel definition.
 
 ## STATUS language recommendation

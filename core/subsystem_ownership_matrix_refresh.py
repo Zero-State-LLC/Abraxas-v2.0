@@ -70,18 +70,20 @@ def _source_row(repo_root: Path, relative_path: str) -> dict[str, Any]:
     }
 
 
-def _build_contract_index(repo_root: Path) -> dict[str, dict[str, Any]]:
-    contract_index: dict[str, dict[str, Any]] = {}
-    for spec in PIPELINE_INVENTORY:
-        pipeline_id = str(spec["pipeline_id"])
-        contract_relpath = f"contracts/pipelines/{pipeline_id}.v1_1.json"
-        payload, status = _read_json(repo_root / contract_relpath)
-        contract_index[pipeline_id] = {
-            "path": contract_relpath,
-            "status": status,
-            "payload": payload,
-        }
-    return contract_index
+# Full global-pipeline contracts (v1.1 inventory stack).
+FULL_PIPELINE_CONTRACT_TEMPLATE = "contracts/pipelines/{pipeline_id}.v1_1.json"
+# Familiar review + queue dry-run close the REVIEW_V0 tier on main.
+FAMILIAR_DRY_RUN_SCHEMA = (
+    "contracts/signal/familiar_operator_review_queue_dry_run.v0.schema.json"
+)
+
+ALIGNMENT_RANK = {
+    "ALIGNED": 0,
+    "REVIEW_V0": 1,
+    "CONTRACT_V0": 2,
+    "DRIFT_DETECTED": 3,
+    "MISSING_CONTRACT": 4,
+}
 
 
 def _owners_align(expected_owner: str, observed_owner: str | None) -> bool:
@@ -95,8 +97,103 @@ def _owners_align(expected_owner: str, observed_owner: str | None) -> bool:
     return normalized_observed in aliases
 
 
+def _path_observed(repo_root: Path, relative: str | None) -> bool:
+    if not relative:
+        return False
+    return (repo_root / relative).is_file()
+
+
+def _classify_pipeline_contract(
+    repo_root: Path,
+    spec: dict[str, Any],
+) -> dict[str, Any]:
+    """Tiered contract posture for one pipeline inventory row.
+
+    ALIGNED          — contracts/pipelines/{id}.v1_1.json observed (+ owner match)
+    REVIEW_V0        — familiar receipt/bridge/review (+ dry-run schema when present)
+    CONTRACT_V0      — inventory contract_path operator packet observed
+    MISSING_CONTRACT — neither full pipeline nor operator packet observed
+    DRIFT_DETECTED   — full pipeline contract owner mismatch
+    """
+    pipeline_id = str(spec["pipeline_id"])
+    owner = str(spec["owner_subsystem"])
+    full_rel = FULL_PIPELINE_CONTRACT_TEMPLATE.format(pipeline_id=pipeline_id)
+    full_payload, full_status = _read_json(repo_root / full_rel)
+
+    operator_paths: list[str] = []
+    for key in (
+        "contract_path",
+        "bridge_contract_path",
+        "review_contract_path",
+    ):
+        rel = spec.get(key)
+        if isinstance(rel, str) and _path_observed(repo_root, rel):
+            operator_paths.append(rel)
+    if pipeline_id == "familiar_ingestion" and _path_observed(
+        repo_root, FAMILIAR_DRY_RUN_SCHEMA
+    ):
+        operator_paths.append(FAMILIAR_DRY_RUN_SCHEMA)
+
+    if full_status == "OBSERVED":
+        contract_owner = (full_payload or {}).get("owner_subsystem")
+        owner_matches = _owners_align(
+            owner,
+            str(contract_owner) if contract_owner is not None else None,
+        )
+        if owner_matches:
+            return {
+                "alignment": "ALIGNED",
+                "contract_paths": [full_rel],
+                "operator_packet_paths": operator_paths,
+                "missing_contract_paths": [],
+                "missing_full_pipeline_contract_paths": [],
+                "owner_matches": True,
+            }
+        return {
+            "alignment": "DRIFT_DETECTED",
+            "contract_paths": [full_rel],
+            "operator_packet_paths": operator_paths,
+            "missing_contract_paths": [],
+            "missing_full_pipeline_contract_paths": [],
+            "owner_matches": False,
+        }
+
+    if operator_paths:
+        has_review = any(
+            "operator_review" in path or path.endswith("familiar_operator_review_packet.v0.schema.json")
+            for path in operator_paths
+        )
+        has_dry_run = FAMILIAR_DRY_RUN_SCHEMA in operator_paths
+        if pipeline_id == "familiar_ingestion" and (has_review or has_dry_run):
+            alignment = "REVIEW_V0"
+        else:
+            alignment = "CONTRACT_V0"
+        return {
+            "alignment": alignment,
+            "contract_paths": list(operator_paths),
+            "operator_packet_paths": list(operator_paths),
+            "missing_contract_paths": [],
+            "missing_full_pipeline_contract_paths": [full_rel],
+            "owner_matches": True,
+        }
+
+    return {
+        "alignment": "MISSING_CONTRACT",
+        "contract_paths": [],
+        "operator_packet_paths": [],
+        "missing_contract_paths": [full_rel],
+        "missing_full_pipeline_contract_paths": [full_rel],
+        "owner_matches": False,
+    }
+
+
+def _worst_alignment(alignments: list[str]) -> str:
+    if not alignments:
+        return "MISSING_CONTRACT"
+    return max(alignments, key=lambda value: ALIGNMENT_RANK.get(value, 99))
+
+
 def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
-    contract_index = _build_contract_index(repo_root)
     grouped: dict[str, dict[str, Any]] = {}
 
     for spec in PIPELINE_INVENTORY:
@@ -106,13 +203,7 @@ def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
         lane = str(spec["lane"])
         migration_status = str(spec["migration_status"])
         next_action = str(spec["next_action"])
-        contract_info = contract_index[pipeline_id]
-        contract_payload = contract_info["payload"] or {}
-        contract_owner = contract_payload.get("owner_subsystem")
-        contract_owner_matches = (
-            contract_info["status"] == "OBSERVED"
-            and _owners_align(owner, str(contract_owner) if contract_owner is not None else None)
-        )
+        classified = _classify_pipeline_contract(repo_root, spec)
 
         row = grouped.setdefault(
             owner,
@@ -124,7 +215,10 @@ def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
                 "lanes": set(),
                 "migration_statuses": set(),
                 "contract_paths": [],
+                "operator_packet_paths": [],
                 "missing_contract_paths": [],
+                "missing_full_pipeline_contract_paths": [],
+                "alignments": [],
                 "contract_owner_matches": [],
                 "next_actions": [],
                 "authority_granted": False,
@@ -136,11 +230,14 @@ def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
         row["lanes"].add(lane)
         row["migration_statuses"].add(migration_status)
         row["next_actions"].append(next_action)
-        row["contract_owner_matches"].append(contract_owner_matches)
-        if contract_info["status"] == "OBSERVED":
-            row["contract_paths"].append(contract_info["path"])
-        else:
-            row["missing_contract_paths"].append(contract_info["path"])
+        row["alignments"].append(classified["alignment"])
+        row["contract_owner_matches"].append(bool(classified["owner_matches"]))
+        row["contract_paths"].extend(classified["contract_paths"])
+        row["operator_packet_paths"].extend(classified["operator_packet_paths"])
+        row["missing_contract_paths"].extend(classified["missing_contract_paths"])
+        row["missing_full_pipeline_contract_paths"].extend(
+            classified["missing_full_pipeline_contract_paths"]
+        )
 
     materialized_rows: list[dict[str, Any]] = []
     for owner in sorted(grouped):
@@ -154,16 +251,13 @@ def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
                 "tiers": sorted(row["tiers"]),
                 "lanes": sorted(row["lanes"]),
                 "migration_statuses": sorted(row["migration_statuses"]),
-                "contract_paths": sorted(row["contract_paths"]),
-                "missing_contract_paths": sorted(row["missing_contract_paths"]),
-                "contract_owner_alignment": (
-                    "ALIGNED"
-                    if row["contract_owner_matches"]
-                    and all(row["contract_owner_matches"])
-                    else "MISSING_CONTRACT"
-                    if row["missing_contract_paths"]
-                    else "DRIFT_DETECTED"
+                "contract_paths": sorted(set(row["contract_paths"])),
+                "operator_packet_paths": sorted(set(row["operator_packet_paths"])),
+                "missing_contract_paths": sorted(set(row["missing_contract_paths"])),
+                "missing_full_pipeline_contract_paths": sorted(
+                    set(row["missing_full_pipeline_contract_paths"])
                 ),
+                "contract_owner_alignment": _worst_alignment(row["alignments"]),
                 "next_action": sorted(row["next_actions"])[0],
                 "authority_granted": False,
             }
@@ -172,15 +266,28 @@ def _build_ownership_rows(repo_root: Path) -> list[dict[str, Any]]:
 
 
 def _matrix_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    def _count(alignment: str) -> int:
+        return sum(1 for row in rows if row["contract_owner_alignment"] == alignment)
+
     missing_contract_count = sum(len(row["missing_contract_paths"]) for row in rows)
+    partial_subsystem_count = _count("CONTRACT_V0") + _count("REVIEW_V0")
     return {
         "subsystem_count": len(rows),
         "pipeline_count": sum(int(row["pipeline_count"]) for row in rows),
-        "aligned_subsystem_count": sum(
-            1 for row in rows if row["contract_owner_alignment"] == "ALIGNED"
-        ),
+        "aligned_subsystem_count": _count("ALIGNED"),
+        "contract_v0_subsystem_count": _count("CONTRACT_V0"),
+        "review_v0_subsystem_count": _count("REVIEW_V0"),
+        "partial_subsystem_count": partial_subsystem_count,
+        "drift_subsystem_count": _count("DRIFT_DETECTED"),
         "missing_contract_count": missing_contract_count,
-        "source_status": "READY" if missing_contract_count == 0 else "READY_WITH_FINDINGS",
+        "missing_full_pipeline_contract_count": sum(
+            len(row.get("missing_full_pipeline_contract_paths", [])) for row in rows
+        ),
+        "source_status": (
+            "READY"
+            if missing_contract_count == 0
+            else "READY_WITH_FINDINGS"
+        ),
         "authority_granted": False,
     }
 
@@ -204,8 +311,18 @@ def build_subsystem_ownership_matrix_markdown(
         "",
         f"- Subsystems observed: `{summary['subsystem_count']}`",
         f"- Pipelines observed: `{summary['pipeline_count']}`",
-        f"- Contract-aligned subsystems: `{summary['aligned_subsystem_count']}`",
+        f"- Contract-aligned subsystems: `{summary['aligned_subsystem_count']}` (ALIGNED)",
+        f"- Partial contracts: `{summary['partial_subsystem_count']}` "
+        f"(CONTRACT_V0 ×{summary['contract_v0_subsystem_count']} + "
+        f"REVIEW_V0 ×{summary['review_v0_subsystem_count']})",
         f"- Missing contract paths: `{summary['missing_contract_count']}`",
+        f"- Missing full pipeline v1.1 contracts (optional depth): "
+        f"`{summary['missing_full_pipeline_contract_count']}`",
+        "",
+        "Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; "
+        "`CONTRACT_V0` = operator packet + builder; "
+        "`REVIEW_V0` = familiar receipt/bridge/review/dry-run chain; "
+        "`MISSING_CONTRACT` = neither full nor operator packet observed.",
         "",
         "## Repo-Native Ownership Routes",
         "",
