@@ -1,3 +1,10 @@
+# [1.168.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.167.0...v1.168.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** Track D light, neon fixtures, branch hygiene inventory ([#1071](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1071)) ([c94bc0b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c94bc0b15e89cd4f9f35b17d0b374408470d5a0c))
+
 # [1.167.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.166.0...v1.167.0) (2026-07-31)
 
 
