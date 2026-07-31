@@ -383,3 +383,8 @@ Next action:
 - Workflow route: [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
+
+### Engineering hygiene (advisory)
+
+- Track D light: [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md)
+- Branch hygiene: [`status/BRANCH_HYGIENE_INVENTORY_001.md`](status/BRANCH_HYGIENE_INVENTORY_001.md) · `python -m abraxas os branch-hygiene`

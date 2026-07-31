@@ -23,7 +23,7 @@ This is a repo-native registry projection derived from pipeline inventory and ob
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | TicketOperatorPacket.v0 (`core/holler/ticket_operator_packet.py`); forecast proof + outcome binding seed; next: optional live ingest wire |
 | Level 99 | level99_content | 3 | SHADOW_MEDIA | CONTRACT_V0 | ContentOperatorPacket.v0 (`core/level99/content_operator_packet.py`); virality + route + operator review; next: optional performance ingest wire |
-| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 core + package/router wire; next: optional skill fixture corpus; Hermes packaging remains external |
+| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | IdeationOperatorPacket.v0 + package/router + skill fixtures under `skills/abx-neon-genie/fixtures/`; Hermes packaging remains external |
 | Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | DreamOperatorPacket.v0 + IR (`core/noctis/dream_operator_packet.py`); next: continuity/history link + operator review wire |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
 | Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | FuturecastOperatorPacket.v0 (`core/memetic/futurecast_operator_packet.py`); horizon + gates + Brier bridge seed; next: optional ledger dry-run |

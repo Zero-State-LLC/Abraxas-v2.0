@@ -22,6 +22,7 @@ from core.signal.operation_trace_adapter import (
     write_operation_trace,
 )
 from core.alembic.residual_inventory import build_alembic_residual_inventory
+from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.signal.familiar_operator_review import build_operator_review_from_pack_path
 from core.signal.familiar_oracle_belief_bridge import build_bridge_from_pack_path
 from core.signal.spine_bridge import (
@@ -354,6 +355,28 @@ def _cmd_os_alembic_residuals(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_os_branch_hygiene(_args: argparse.Namespace) -> int:
+    """Advisory remote-branch classification (never deletes)."""
+    inv = build_branch_hygiene_inventory(repo_root=REPO_ROOT)
+    _print(
+        {
+            "ok": inv.get("delete_authorized") is False,
+            "inventory_id": inv.get("inventory_id"),
+            "total_heads": inv.get("total_heads"),
+            "class_counts": inv.get("class_counts"),
+            "prefix_counts": inv.get("prefix_counts"),
+            "candidates_sample": inv.get("candidates_sample"),
+            "open_pr_heads": inv.get("open_pr_heads"),
+            "delete_authorized": False,
+            "policy_doc": inv.get("policy_doc"),
+            "authority": inv.get("authority"),
+            "advisory_only": True,
+            "note": inv.get("note"),
+        }
+    )
+    return 0
+
+
 def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
     """Light SHADOW surface for Hermes signal volume in the evolution ledger.
     Shows task_class keyed volumes (e.g. signal_forage, hyperagent_forager).
@@ -460,6 +483,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Track C Alembic residual inventory (stubs stay stubbed; advisory)",
     )
     alembic_res.set_defaults(func=_cmd_os_alembic_residuals)
+
+    branch_hyg = os_sub.add_parser(
+        "branch-hygiene",
+        help="Classify remote branches (advisory inventory; never deletes)",
+    )
+    branch_hyg.set_defaults(func=_cmd_os_branch_hygiene)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)

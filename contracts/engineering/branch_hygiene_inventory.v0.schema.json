@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/engineering/branch_hygiene_inventory.v0.schema.json",
+  "title": "BranchHygieneInventory.v0",
+  "description": "Advisory classification of remote git heads. Never deletes or force-pushes.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "inventory_id",
+    "remote",
+    "total_heads",
+    "prefix_counts",
+    "class_counts",
+    "candidates_sample",
+    "delete_authorized",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "BranchHygieneInventory.v0" },
+    "inventory_id": { "type": "string" },
+    "remote": { "type": "string" },
+    "default_branch": { "type": "string" },
+    "total_heads": { "type": "integer", "minimum": 0 },
+    "prefix_counts": { "type": "object" },
+    "class_counts": { "type": "object" },
+    "candidates_sample": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "open_pr_heads": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "delete_authorized": { "const": false },
+    "policy_doc": { "type": "string" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "remote_delete_authorized",
+        "force_push_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "remote_delete_authorized": { "const": false },
+        "force_push_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

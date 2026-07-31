@@ -45,6 +45,7 @@ AI_OS_KERNEL:
     A: navigation (this refresh)
     B: MISSING_CONTRACT closure (neon_genie_ideation first)
     C: alembic residuals (stubs stay stubbed; inventory via `python -m abraxas os alembic-residuals`)
+    D: authz compression ([AUTHZ_SURFACE_COMPRESSION_TRACK_D_001](docs/plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md)); branch hygiene inventory ([BRANCH_HYGIENE_INVENTORY_001](docs/status/BRANCH_HYGIENE_INVENTORY_001.md))
     D: authz plan compression
   locks:
     external_production: false
