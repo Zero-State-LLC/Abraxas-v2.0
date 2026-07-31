@@ -1,3 +1,10 @@
+# [1.162.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.161.0...v1.162.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** hollersports_ticket operator packet (CONTRACT_V0) ([#1065](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1065)) ([9949f52](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9949f52d185d4b497b69026cd280181e84e2ce92))
+
 # [1.161.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.160.0...v1.161.0) (2026-07-31)
 
 
