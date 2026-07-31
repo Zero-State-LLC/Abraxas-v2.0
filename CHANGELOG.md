@@ -1,3 +1,10 @@
+# [1.161.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.160.0...v1.161.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** noctis_dream operator packet + IR (CONTRACT_V0) ([#1064](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1064)) ([4f35647](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4f35647d551f024b3d5ff426cee509ddd1def193))
+
 # [1.160.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.159.0...v1.160.0) (2026-07-31)
 
 
