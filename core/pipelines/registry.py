@@ -223,11 +223,16 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "lane": "SHADOW_SYMBOLIC",
         "migration_status": "specified",
         "next_action": (
-            "NoctisDreamOperatorPacket.v0 + IR landed; "
-            "next: optional continuity/history link + operator review wire"
+            "CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + "
+            "continuity seed); no queue/memory write; residual: dual-control before "
+            "any durable history link"
         ),
         "contract_path": "contracts/noctis/dream_operator_packet.v0.schema.json",
         "builder_module": "core.noctis.dream_operator_packet",
+        "dry_run_contract_path": (
+            "contracts/noctis/operator_review_queue_dry_run.v0.schema.json"
+        ),
+        "dry_run_module": "core.noctis.operator_review_dry_run",
     },
 
     {

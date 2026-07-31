@@ -33,6 +33,9 @@ from core.audit.main_cleanliness_receipt import (
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
+from core.noctis.operator_review_dry_run import (
+    build_noctis_review_dry_run_from_narrative,
+)
 from core.signal.familiar_operator_review import (
     build_operator_review_from_pack_path,
     build_operator_review_queue_dry_run_from_pack_path,
@@ -513,6 +516,53 @@ def _cmd_os_memetic_brier_dry_run(args: argparse.Namespace) -> int:
     return 1
 
 
+def _cmd_os_noctis_review_dry_run(args: argparse.Namespace) -> int:
+    """Project noctis dream narrative → operator review queue shape (no write)."""
+    dry = build_noctis_review_dry_run_from_narrative(
+        str(args.narrative or ""),
+        mode=str(args.mode or "SYSTEM_DREAM"),
+        privacy_tier=str(args.privacy_tier or "PUBLIC_SYNTHETIC"),
+        dream_id=args.dream_id,
+        source=str(args.source or "SYSTEM"),
+        seed=str(args.seed or "0"),
+    )
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            dry,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=(args.out.parent if args.out_root is None else args.out_root),
+        )
+    item = dry.get("queue_item") or {}
+    seed = dry.get("continuity_seed") or {}
+    _print(
+        {
+            "ok": dry.get("queue_write_performed") is False
+            and dry.get("dry_run") is True,
+            "schema_version": dry.get("schema_version"),
+            "dry_run": True,
+            "queue_write_performed": dry.get("queue_write_performed"),
+            "memory_write_performed": dry.get("memory_write_performed"),
+            "readiness": dry.get("readiness"),
+            "dream_id": dry.get("dream_id"),
+            "queue_item_id": item.get("queue_item_id"),
+            "queue_item_state": item.get("state"),
+            "queue_item_priority": item.get("priority"),
+            "continuity_seed_status": seed.get("status"),
+            "target_queue_path": dry.get("target_queue_path"),
+            "authority": dry.get("authority"),
+            "advisory_only": True,
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+    if dry.get("readiness") == "SHADOW_OPERATOR_REVIEW":
+        return 0
+    if dry.get("readiness") == "NOT_COMPUTABLE":
+        return 2
+    return 1
+
+
 def _cmd_os_branch_hygiene(_args: argparse.Namespace) -> int:
     """Advisory remote-branch classification (never deletes)."""
     inv = build_branch_hygiene_inventory(repo_root=REPO_ROOT)
@@ -684,6 +734,28 @@ def build_parser() -> argparse.ArgumentParser:
     )
     memetic_brier.add_argument("--out-root", type=Path, default=None)
     memetic_brier.set_defaults(func=_cmd_os_memetic_brier_dry_run)
+
+    noctis_review = os_sub.add_parser(
+        "noctis-review-dry-run",
+        help=(
+            "Project noctis dream → OperatorReviewQueueItem.v1 shape + continuity seed "
+            "(SHADOW; never writes queue or durable memory)"
+        ),
+    )
+    noctis_review.add_argument("--narrative", required=True)
+    noctis_review.add_argument("--dream-id", default=None)
+    noctis_review.add_argument("--mode", default="SYSTEM_DREAM")
+    noctis_review.add_argument("--privacy-tier", default="PUBLIC_SYNTHETIC")
+    noctis_review.add_argument("--source", default="SYSTEM")
+    noctis_review.add_argument("--seed", default="0")
+    noctis_review.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not the live queue path)",
+    )
+    noctis_review.add_argument("--out-root", type=Path, default=None)
+    noctis_review.set_defaults(func=_cmd_os_noctis_review_dry_run)
 
     branch_hyg = os_sub.add_parser(
         "branch-hygiene",
