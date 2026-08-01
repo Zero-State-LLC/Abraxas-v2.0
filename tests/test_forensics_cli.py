@@ -51,3 +51,15 @@ def test_cli_forensics_project(capsys):
     assert payload["projection_only"] is True
     assert payload["advisory_only"] is True
     assert payload["schema_version"] == "AALVizForensicProjection.v0"
+
+
+def test_cli_forensics_route(capsys):
+    code = main(["os", "forensics", "route", "--pack", str(FIXTURE)])
+    assert code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ops_gate_status"] == "DENIED"
+    assert payload["disposition"] == "READY"
+    assert payload["route_intent"] == "LEVEL99_CONTENT_SEED"
+    assert payload["execution_authorized"] is False
+    assert payload["publish_authorized"] is False
+    assert payload["advisory_only"] is True

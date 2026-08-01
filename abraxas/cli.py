@@ -36,6 +36,9 @@ from core.holler.ticket_operator_packet import build_ticket_operator_packet
 from core.forensics.aal_viz_projection import (
     build_aal_viz_forensic_projection_from_pack_path,
 )
+from core.forensics.ops_route import (
+    build_memetic_ops_route_intent_from_pack_path,
+)
 from core.forensics.pipeline import run_forensics_from_pack_path
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
@@ -284,11 +287,70 @@ def _cmd_os_forensics_status(_args: argparse.Namespace) -> int:
             "commands": {
                 "run": "python -m abraxas os forensics run --pack PATH",
                 "project": "python -m abraxas os forensics project --pack PATH",
+                "route": "python -m abraxas os forensics route --pack PATH",
             },
             "advisory_only": True,
         }
     )
     return 0
+
+
+def _cmd_os_forensics_route(args: argparse.Namespace) -> int:
+    """Route intent for Level 99 / Neon seed (SHADOW; gate always DENIED)."""
+    try:
+        intent = build_memetic_ops_route_intent_from_pack_path(
+            args.pack,
+            repo_root=REPO_ROOT,
+            prefer_neon=bool(getattr(args, "prefer_neon", False)),
+        )
+    except Exception as exc:  # noqa: BLE001 — CLI hard-failure boundary
+        _print(
+            {
+                "ok": False,
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+                "advisory_only": True,
+                "ops_gate_status": "DENIED",
+                "execution_authorized": False,
+                "lane": "SHADOW",
+            }
+        )
+        return 1
+
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            intent,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.parent,
+        )
+
+    disposition_value = str(intent.get("disposition") or "")
+    _print(
+        {
+            "ok": disposition_value in {"READY", "HOLD", "NOT_COMPUTABLE"},
+            "schema_version": intent.get("schema_version"),
+            "pack_id": intent.get("pack_id"),
+            "disposition": disposition_value,
+            "route_intent": intent.get("route_intent"),
+            "route_status": intent.get("route_status"),
+            "target_pipeline": intent.get("target_pipeline"),
+            "ops_gate_status": "DENIED",
+            "execution_authorized": False,
+            "publish_authorized": False,
+            "advisory_only": True,
+            "lane": "SHADOW",
+            "canonical_hash": intent.get("canonical_hash"),
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+
+    if disposition_value == "READY":
+        return 0
+    if disposition_value in {"HOLD", "NOT_COMPUTABLE"}:
+        return 2
+    return 1
 
 
 def _cmd_os_forensics_project(args: argparse.Namespace) -> int:
@@ -1001,6 +1063,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional audit artifact path (not production activation)",
     )
     f_project.set_defaults(func=_cmd_os_forensics_project)
+    f_route = forensics_sub.add_parser(
+        "route",
+        help="Ops route intent (Level99/Neon seed only; gate DENIED; no execution)",
+    )
+    f_route.add_argument("--pack", type=Path, required=True)
+    f_route.add_argument(
+        "--prefer-neon",
+        action="store_true",
+        help="Prefer neon_genie_ideation seed target when READY",
+    )
+    f_route.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not production activation)",
+    )
+    f_route.set_defaults(func=_cmd_os_forensics_route)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)
