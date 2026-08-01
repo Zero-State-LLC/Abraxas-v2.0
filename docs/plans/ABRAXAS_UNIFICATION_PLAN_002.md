@@ -38,6 +38,11 @@ Intent (Hermes)
 
 **Done for AI OS ≠ EXTERNAL_PRODUCTION.** Done = kernel path real, contract-bound, replayable under LOCAL_DEV/SHADOW (see realization backlog K1–K12).
 
+**Product function (2026-07-31):** Abraxas is a forensics-gated memetic dual-function OS.
+Slice C builds the forensics engine first. See
+[`MEMETIC_FORENSICS_MISSION_001.md`](../architecture/MEMETIC_FORENSICS_MISSION_001.md)
+and design spec `docs/superpowers/specs/2026-07-31-memetic-forensics-dual-function-design.md`.
+
 ### How Tracks A–D serve AI OS
 
 | Track | AI OS layer | Serves |

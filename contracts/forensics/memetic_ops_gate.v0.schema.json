@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/forensics/memetic_ops_gate.v0.schema.json",
+  "title": "MemeticOpsGate.v0",
+  "description": "SHADOW advisory memetic ops gate. Always DENIED in slice C even when disposition is READY. Never grants publish or execution.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "gate_status",
+    "simulation",
+    "execution_authorized",
+    "publish_authorized",
+    "advisory_only",
+    "lane",
+    "source_disposition_hash",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "MemeticOpsGate.v0" },
+    "gate_status": { "const": "DENIED" },
+    "simulation": {
+      "type": "string",
+      "enum": ["WOULD_ALLOW", "WOULD_DENY"]
+    },
+    "execution_authorized": { "const": false },
+    "publish_authorized": { "const": false },
+    "disposition": {
+      "type": "string",
+      "enum": ["READY", "HOLD", "NOT_COMPUTABLE", ""]
+    },
+    "ops_gate_hint": {
+      "type": "string",
+      "enum": ["DENIED", "WOULD_ALLOW_IF_OPERATOR", ""]
+    },
+    "source_disposition_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

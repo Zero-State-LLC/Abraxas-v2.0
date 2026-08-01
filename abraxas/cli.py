@@ -33,6 +33,7 @@ from core.audit.main_cleanliness_receipt import (
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.holler.outcome_binding_dry_run import build_holler_outcome_binding_dry_run
 from core.holler.ticket_operator_packet import build_ticket_operator_packet
+from core.forensics.pipeline import run_forensics_from_pack_path
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
 from core.noctis.operator_review_dry_run import (
@@ -214,6 +215,76 @@ def _cmd_os_status(_args: argparse.Namespace) -> int:
     payload = build_ai_os_kernel_status(REPO_ROOT)
     _print({"ok": payload.get("ai_os_kernel") == "ACTIVE_SHADOW", **payload})
     return 0 if payload.get("ai_os_kernel") == "ACTIVE_SHADOW" else 1
+
+
+def _cmd_os_forensics_run(args: argparse.Namespace) -> int:
+    """Run memetic forensics spine on EvidencePack (SHADOW; ops gate always DENIED)."""
+    try:
+        run = run_forensics_from_pack_path(args.pack, repo_root=REPO_ROOT)
+    except Exception as exc:  # noqa: BLE001 — CLI hard-failure boundary
+        _print(
+            {
+                "ok": False,
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+                "advisory_only": True,
+                "ops_gate_status": "DENIED",
+                "lane": "SHADOW",
+            }
+        )
+        return 1
+
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            run,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.parent,
+        )
+
+    disposition = run.get("disposition") or {}
+    disposition_value = str(disposition.get("disposition") or "")
+    ops_gate = run.get("ops_gate") or {}
+    ops_gate_status = str(ops_gate.get("gate_status") or "DENIED")
+
+    _print(
+        {
+            "ok": run.get("ok"),
+            "pack_id": run.get("pack_id"),
+            "pack_path": run.get("pack_path"),
+            "disposition": disposition_value,
+            "ops_gate_status": ops_gate_status,
+            "bridge_status": run.get("bridge_status"),
+            "advisory_only": True,
+            "lane": run.get("lane"),
+            "authority": run.get("authority"),
+            "canonical_hash": run.get("canonical_hash"),
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+
+    if disposition_value == "READY":
+        return 0
+    if disposition_value in {"HOLD", "NOT_COMPUTABLE"}:
+        return 2
+    return 1
+
+
+def _cmd_os_forensics_status(_args: argparse.Namespace) -> int:
+    """Report forensics engine posture (SHADOW; no prior-run disk dependency)."""
+    _print(
+        {
+            "ok": True,
+            "forensics_engine": "SLICE_C",
+            "ops_gate_default": "DENIED",
+            "commands": {
+                "run": "python -m abraxas os forensics run --pack PATH",
+            },
+            "advisory_only": True,
+        }
+    )
+    return 0
 
 
 def _cmd_forage_validate(args: argparse.Namespace) -> int:
@@ -835,6 +906,29 @@ def build_parser() -> argparse.ArgumentParser:
         help="Classify remote branches (advisory inventory; never deletes)",
     )
     branch_hyg.set_defaults(func=_cmd_os_branch_hygiene)
+
+    forensics = os_sub.add_parser(
+        "forensics",
+        help="Memetic forensics spine (SHADOW; ops gate always DENIED)",
+    )
+    forensics_sub = forensics.add_subparsers(dest="forensics_command", required=True)
+    f_run = forensics_sub.add_parser(
+        "run",
+        help="Run forensics on EvidencePack path → disposition + denied ops gate",
+    )
+    f_run.add_argument("--pack", type=Path, required=True)
+    f_run.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not production activation)",
+    )
+    f_run.set_defaults(func=_cmd_os_forensics_run)
+    f_status = forensics_sub.add_parser(
+        "status",
+        help="Forensics engine posture (SLICE_C; ops_gate_default DENIED)",
+    )
+    f_status.set_defaults(func=_cmd_os_forensics_status)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)

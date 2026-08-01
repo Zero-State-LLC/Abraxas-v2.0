@@ -41,6 +41,12 @@ def test_kernel_status_active_shadow():
     assert status["missing_required"] == []
 
 
+def test_kernel_lists_forensics():
+    s = build_ai_os_kernel_status(REPO)
+    assert s["surfaces"].get("forensics_core") is True
+    assert "forensics" in s["commands"]["forensics_run"]
+
+
 def test_spine_touchpoint_from_fixture_receipt():
     receipt = build_familiar_ingestion_receipt_from_path(FIXTURE, repo_root=REPO)
     tp = build_familiar_spine_touchpoint(receipt)

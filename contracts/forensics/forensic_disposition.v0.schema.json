@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/forensics/forensic_disposition.v0.schema.json",
+  "title": "ForensicDispositionPacket.v0",
+  "description": "SHADOW advisory forensic disposition from EvidencePack + PropagationGraph. Ops never auto-open; authority all false.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "disposition_id",
+    "source_pack_hash",
+    "register_counts",
+    "disposition",
+    "blocked_by",
+    "failed_gates",
+    "inputs",
+    "authority",
+    "authority_violations",
+    "ops_gate_hint",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "ForensicDispositionPacket.v0" },
+    "disposition_id": { "type": "string" },
+    "pack_id": { "type": "string" },
+    "source_pack_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "register_counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "disposition": {
+      "type": "string",
+      "enum": ["READY", "HOLD", "NOT_COMPUTABLE"]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "failed_gates": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind"],
+        "properties": {
+          "kind": { "type": "string" },
+          "hash": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "forecast_weight_allowed",
+        "canon_mutation_allowed",
+        "publish_authorized",
+        "queue_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "forecast_weight_allowed": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "publish_authorized": { "const": false },
+        "queue_write_authorized": { "const": false }
+      }
+    },
+    "authority_violations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "ops_gate_hint": {
+      "type": "string",
+      "enum": ["DENIED", "WOULD_ALLOW_IF_OPERATOR"]
+    },
+    "bridge_status": { "type": "string" },
+    "receipt_status": { "type": "string" },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
