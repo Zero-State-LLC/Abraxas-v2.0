@@ -49,6 +49,38 @@ The emitted packet is advisory-only and sets all mutation and authority flags to
 - `core/belief_graph/evidence_object.py`
 - `core/belief_graph/engine.py`
 
-## Recommended Next Boundary
+## Repository Status (OBSERVED 2026-07-27)
 
-After this contract is validated in CI, the narrow next step is an optional Oracle-ingest adapter that converts already-normalized image/text evidence into `CompositionalMemoryEntry` records. That adapter should remain receipt-first and must not add model training or runtime authority.
+| Surface | State | Evidence |
+| --- | --- | --- |
+| Pattern assimilation | **MERGED** | PR #986 merged 2026-07-25 |
+| Compositional memory contract + tests | **ON MAIN** | `core/belief_graph/compositional_memory.py`, `tests/test_compositional_memory.py` |
+| Oracle-ingest adapter | **HELD** | PR #987 closed unmerged (draft/dirty); no new authority granted |
+| Notion alignment | **PROJECTION UPDATED** | Master System + Belief Graph + Oracle pages |
+
+```yaml
+repository_status: MERGED
+pr: 986
+continuation_pr: 987
+continuation_status: CLOSED_HELD
+merge_sha: OBSERVED_VIA_PR_986
+authority_change: false
+new_pages_created: 0
+standalone_subsystem: false
+```
+
+## Recommended Next Boundary (HELD)
+
+The narrow next step remains an **optional Oracle-ingest adapter** that converts already-normalized image/text evidence into `CompositionalMemoryEntry` records.
+
+Constraints (unchanged):
+- receipt-first
+- LOCAL_DEV / SANDBOX only until explicit operator gate
+- no model training, LoRA, checkpoints, or runtime authority
+- no truth assignment or forecast routing
+- no parallel memory store
+- no new Notion hierarchy
+
+PR #987 was closed without merge. Any future adapter work must open a **clean, non-stacked branch** from current `main`, remain advisory, and pass fast-CI before review.
+
+Until then the capability is complete at the Belief Graph / packet level and ready for operator-gated Oracle consumption experiments under existing SHADOW attachment paths.
