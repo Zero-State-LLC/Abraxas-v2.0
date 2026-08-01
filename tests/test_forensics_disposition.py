@@ -23,10 +23,9 @@ def test_fixture_with_propagation_ready_or_hold():
     prop = build_propagation_graph_from_pack(pack)
     d = build_forensic_disposition(pack=pack, propagation=prop, bridge_status="BRIDGED_SHADOW")
     assert d["schema_version"] == "ForensicDispositionPacket.v0"
-    assert d["disposition"] in {"READY", "HOLD"}
-    assert d["ops_gate_hint"] in {"DENIED", "WOULD_ALLOW_IF_OPERATOR"}
-    if d["disposition"] == "READY":
-        assert d["ops_gate_hint"] == "WOULD_ALLOW_IF_OPERATOR"
+    # C′ seal: fixture + dry-run graph must compute READY (not soft HOLD)
+    assert d["disposition"] == "READY"
+    assert d["ops_gate_hint"] == "WOULD_ALLOW_IF_OPERATOR"
     Draft7Validator(json.loads(SCHEMA.read_text(encoding="utf-8"))).validate(d)
 
 

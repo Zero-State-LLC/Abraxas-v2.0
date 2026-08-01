@@ -15,11 +15,24 @@ def test_pipeline_fixture_ops_gate_denied():
 
     run = run_forensics_from_pack_path(FIXTURE, repo_root=REPO)
     assert run["schema_version"] == "ForensicRunPacket.v0"
+    # C′ seal: hermes fixture must stay READY while ops gate stays DENIED
+    assert run["disposition"]["disposition"] == "READY"
     assert run["ops_gate"]["gate_status"] == "DENIED"
-    assert run["disposition"]["disposition"] in {"READY", "HOLD", "NOT_COMPUTABLE"}
+    assert run["ops_gate"]["simulation"] == "WOULD_ALLOW"
     assert run["propagation"]["write_performed"] is False
+    assert isinstance(run.get("pack_hash"), str) and run["pack_hash"]
     a = run_forensics_from_pack_path(FIXTURE, repo_root=REPO)
     assert a == run_forensics_from_pack_path(FIXTURE, repo_root=REPO)
+
+
+def test_pipeline_non_object_pack_raises(tmp_path: Path):
+    from core.forensics.pipeline import run_forensics_from_pack_path
+    import pytest
+
+    bad = tmp_path / "not_an_object.json"
+    bad.write_text("[]", encoding="utf-8")
+    with pytest.raises(TypeError, match="JSON object"):
+        run_forensics_from_pack_path(bad, repo_root=REPO)
 
 
 def test_pipeline_ok_and_authority_denied():
