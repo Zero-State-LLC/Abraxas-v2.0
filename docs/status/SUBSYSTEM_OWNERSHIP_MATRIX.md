@@ -24,12 +24,12 @@ Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; `CONTRACT_V0` = 
 | BeatOven / PsyFi | beatoven_psyfi_integration | 3 | SHADOW_ARTIFACT | CONTRACT_V0 | BeatOvenPsyFiIntegrationOperatorPacket.v0 landed (shared runic core + sonic plan seed); next: optional graph materialization; plan-only |
 | Canon Governance | canon_sync | 1 | GOVERNANCE | ALIGNED | formalize canon sync receipts and repo execution boundaries |
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
-| HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | HollerSportsTicketOperatorPacket.v0 landed (forecast proof + outcome binding seed); next: optional live ingest wire; forecast routing still gated |
+| HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: optional live ingest wire under dual-control |
 | Level 99 | level99_content | 3 | SHADOW_MEDIA | CONTRACT_V0 | Level99ContentOperatorPacket.v0 landed (virality bounds + route + operator review); next: optional performance ingest wire; no auto-publish |
 | Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external |
-| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | NoctisDreamOperatorPacket.v0 + IR landed; next: optional continuity/history link + operator review wire |
+| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + continuity seed); no queue/memory write; residual: dual-control before any durable history link |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
-| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | MemeticFuturecastOperatorPacket.v0 landed (horizon policy + gates + Brier bridge seed); next: optional ledger dry-run wire; routing still gated |
+| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + MemeticBrierLedgerDryRun.v0 landed (projects BrierLedgerEntry.v1 shape); no out/brier write / no forecast weight; residual: dual-control before ledger publish |
 | Oracle Signal Layer | oracle_signal | 2 | SHADOW | ALIGNED | bind Oracle packets to global pipeline envelope |
 | Outcome Binding / Brier Ledger | outcome_brier | 1 | FORECAST_GOVERNANCE | ALIGNED | add doctrine-compatible operator review and canon sync receipts |
 | PSE Forecast Engine | pse_forecast | 1 | FORECAST_GATED | ALIGNED | add positive and negative proof packets before forecast influence |

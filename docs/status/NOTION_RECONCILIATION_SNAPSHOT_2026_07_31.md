@@ -104,6 +104,35 @@ python -m abraxas os main-audit --execute-smoke --write
 Smoke scope ≠ full `scripts/run_fast_ci.py`; full CI remains GitHub `fast-ci` job.  
 Hard gates (rune primacy / binding / green) stay separate pointers unless later embedded.
 
+### Evidence snapshot (operator paste — OBSERVED on clean main)
+
+```yaml
+audit_status: PASS_SMOKE  # not full run_fast_ci; smoke + cleanliness only
+commit_sha: 4160db42f98686be3832faa895201dbf37dad51b
+origin_main_sha: 4160db42f98686be3832faa895201dbf37dad51b
+main_cleanliness:
+  path: out/audit/main_cleanliness.latest.json
+  status: PASS
+  worktree_clean: true
+  ahead: 0
+  behind: 0
+  canonical_hash: a912438bb9ecda11b04e4cd4c700128aad5acff6c576c53669f5b14930996325
+fast_ci:
+  path: out/audit/fast_ci.latest.json
+  status: PASS
+  mode: smoke_execute
+  pass_count: 3
+  canonical_hash: ab4271f03a5231434b568c3a60cb2313a0440fb38164181aebdd98990cc48fab
+ownership_matrix:
+  ALIGNED: 10
+  CONTRACT_V0: 7
+  REVIEW_V0: 1
+  MISSING_CONTRACT: 0
+open_prs_to_main: 0
+```
+
+Re-run after any new merge; do not treat this snapshot as permanent PASS across SHAs.
+
 ---
 
 ## 5. Explicit non-goals
