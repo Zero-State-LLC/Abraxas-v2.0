@@ -63,3 +63,15 @@ def test_cli_forensics_route(capsys):
     assert payload["execution_authorized"] is False
     assert payload["publish_authorized"] is False
     assert payload["advisory_only"] is True
+
+
+def test_cli_forensics_seed_level99(capsys):
+    code = main(["os", "forensics", "seed-level99", "--pack", str(FIXTURE)])
+    assert code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["seed_status"] == "SEEDED"
+    assert payload["ops_gate_status"] == "DENIED"
+    assert payload["execution_authorized"] is False
+    assert payload["publish_authorized"] is False
+    assert payload["auto_publish_blocked"] is True
+    assert payload["content_id"]

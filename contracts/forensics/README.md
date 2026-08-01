@@ -9,6 +9,7 @@ SHADOW advisory memetic forensics spine (slice C). No network crawl, no queue wr
 | `memetic_ops_gate.v0.schema.json` | MemeticOpsGate.v0 — always `gate_status: DENIED` in slice C even when disposition is READY |
 | `aal_viz_forensic_projection.v0.schema.json` | AALVizForensicProjection.v0 — projection-only view of ForensicRunPacket (C6); ops always DENIED |
 | `memetic_ops_route_intent.v0.schema.json` | MemeticOpsRouteIntent.v0 — Level99/Neon *seed* route intent (D0); gate DENIED; no execution |
+| `forensic_level99_seed.v0.schema.json` | ForensicLevel99Seed.v0 — wrap Level99ContentOperatorPacket seed from READY (D2); no publish |
 
 ## ForensicRunPacket.v0 (inline composition)
 
@@ -42,6 +43,7 @@ No separate schema file yet. Built by `core.forensics.pipeline.run_forensics_fro
 | `core.forensics.pipeline` | `run_forensics_from_pack_path` |
 | `core.forensics.aal_viz_projection` | `build_aal_viz_forensic_projection` / `…_from_pack_path` |
 | `core.forensics.ops_route` | `build_memetic_ops_route_intent` / `…_from_pack_path` |
+| `core.forensics.level99_seed` | `build_forensic_level99_seed` / `…_from_pack_path` |
 
 Package re-exports: `core.forensics` (`__all__` lists the builders above).
 
@@ -51,12 +53,14 @@ Package re-exports: `core.forensics` (`__all__` lists the builders above).
 python -m abraxas os forensics run --pack PATH_TO_EVIDENCE_PACK.json
 python -m abraxas os forensics project --pack PATH_TO_EVIDENCE_PACK.json
 python -m abraxas os forensics route --pack PATH_TO_EVIDENCE_PACK.json
+python -m abraxas os forensics seed-level99 --pack PATH_TO_EVIDENCE_PACK.json
 python -m abraxas os forensics status
 ```
 
 - `run` — EvidencePack path → ForensicRunPacket summary (SHADOW; ops gate always DENIED)
 - `project` — EvidencePack path → AALVizForensicProjection.v0 summary (projection-only; DENIED)
 - `route` — EvidencePack path → MemeticOpsRouteIntent.v0 (Level99/Neon seed intent only; DENIED; no execution)
+- `seed-level99` — READY path → ForensicLevel99Seed.v0 with nested Level99 packet (no publish)
 - `status` — engine posture (`forensics_engine: SLICE_C`, `ops_gate_default: DENIED`); no prior-run disk dependency
 
 ## Authority boundary

@@ -36,6 +36,9 @@ from core.holler.ticket_operator_packet import build_ticket_operator_packet
 from core.forensics.aal_viz_projection import (
     build_aal_viz_forensic_projection_from_pack_path,
 )
+from core.forensics.level99_seed import (
+    build_forensic_level99_seed_from_pack_path,
+)
 from core.forensics.ops_route import (
     build_memetic_ops_route_intent_from_pack_path,
 )
@@ -288,11 +291,75 @@ def _cmd_os_forensics_status(_args: argparse.Namespace) -> int:
                 "run": "python -m abraxas os forensics run --pack PATH",
                 "project": "python -m abraxas os forensics project --pack PATH",
                 "route": "python -m abraxas os forensics route --pack PATH",
+                "seed_level99": (
+                    "python -m abraxas os forensics seed-level99 --pack PATH"
+                ),
             },
             "advisory_only": True,
         }
     )
     return 0
+
+
+def _cmd_os_forensics_seed_level99(args: argparse.Namespace) -> int:
+    """Seed Level99 content packet from forensic READY (SHADOW; gate DENIED)."""
+    try:
+        seed = build_forensic_level99_seed_from_pack_path(
+            args.pack, repo_root=REPO_ROOT
+        )
+    except Exception as exc:  # noqa: BLE001 — CLI hard-failure boundary
+        _print(
+            {
+                "ok": False,
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+                "advisory_only": True,
+                "ops_gate_status": "DENIED",
+                "execution_authorized": False,
+                "lane": "SHADOW",
+            }
+        )
+        return 1
+
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            seed,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.parent,
+        )
+
+    disposition_value = str(seed.get("disposition") or "")
+    pkt = seed.get("content_packet") or {}
+    _print(
+        {
+            "ok": seed.get("seed_status") == "SEEDED",
+            "schema_version": seed.get("schema_version"),
+            "seed_status": seed.get("seed_status"),
+            "pack_id": seed.get("pack_id"),
+            "disposition": disposition_value,
+            "route_intent": seed.get("route_intent"),
+            "ops_gate_status": "DENIED",
+            "execution_authorized": False,
+            "publish_authorized": False,
+            "content_id": pkt.get("content_id") if isinstance(pkt, dict) else None,
+            "level99_route": pkt.get("route") if isinstance(pkt, dict) else None,
+            "auto_publish_blocked": (
+                pkt.get("auto_publish_blocked") if isinstance(pkt, dict) else None
+            ),
+            "advisory_only": True,
+            "lane": "SHADOW",
+            "canonical_hash": seed.get("canonical_hash"),
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+
+    if seed.get("seed_status") == "SEEDED":
+        return 0
+    if disposition_value in {"HOLD", "NOT_COMPUTABLE"}:
+        return 2
+    return 1
 
 
 def _cmd_os_forensics_route(args: argparse.Namespace) -> int:
@@ -1080,6 +1147,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional audit artifact path (not production activation)",
     )
     f_route.set_defaults(func=_cmd_os_forensics_route)
+    f_seed = forensics_sub.add_parser(
+        "seed-level99",
+        help="Seed Level99 content packet from forensic READY (SHADOW; no publish)",
+    )
+    f_seed.add_argument("--pack", type=Path, required=True)
+    f_seed.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not production activation)",
+    )
+    f_seed.set_defaults(func=_cmd_os_forensics_seed_level99)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)
