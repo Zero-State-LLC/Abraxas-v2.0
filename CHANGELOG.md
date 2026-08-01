@@ -1,3 +1,15 @@
+# [1.174.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.173.0...v1.174.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** CLI os forensics run|status ([42c1e36](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/42c1e36955c39e32634437b0363832d66224a104))
+* **shadow:** expose forensics spine on os status ([ea8dee1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ea8dee13f2aeac23e0fb7de253b1f50f7a9aacbe))
+* **shadow:** forensic pipeline pack → disposition + denied ops gate ([a3b3f42](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a3b3f4208d70eb379fcd53d2c3f544d01dd63215))
+* **shadow:** ForensicDispositionPacket.v0 from pack + propagation ([c2e4033](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c2e4033f56cb2d660629ce9922c4dab538d0ca0c))
+* **shadow:** MemeticOpsGate.v0 always DENIED in slice C ([52d2024](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/52d20246374802617915db3ed0345b128066ab9e))
+* **shadow:** PropagationGraph.v0 dry-run from EvidencePack ([4435c8c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4435c8c2543bf4eabb81e3b1212fa60fc4e672b3))
+
 # [1.173.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.172.0...v1.173.0) (2026-08-01)
 
 
