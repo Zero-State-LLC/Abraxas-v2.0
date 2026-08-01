@@ -201,6 +201,7 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             / "skills/abx-familiar-signal-forager/fixtures"
             / "evidence_pack_hermes_skill_os_2026-07-27.v0.json"
         ).is_file(),
+        "forensics_core": (root / "core/forensics/pipeline.py").is_file(),
     }
     required = [
         "evidence_pack_schema",
@@ -235,7 +236,8 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
                 "→ spine touchpoint → oracle/belief SHADOW bridge "
                 "→ operator-review disposition seed "
                 "→ operator-review-dry-run queue projection "
-                "(advisory; no runtime mutation / no queue write)"
+                "(advisory; no runtime mutation / no queue write) "
+                "→ forensics disposition (ops gate DENIED)"
             ),
             "operator_review": "FamiliarOperatorReviewPacket.v0",
             "operator_review_queue_dry_run": "FamiliarOperatorReviewQueueDryRun.v0",
@@ -257,6 +259,7 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             ),
             "alembic_residuals": "python -m abraxas os alembic-residuals",
             "os_status": "python -m abraxas os status",
+            "forensics_run": "python -m abraxas os forensics run --pack PATH",
         },
         "authority": dict(DEFAULT_AUTHORITY),
         "advisory_only": True,
