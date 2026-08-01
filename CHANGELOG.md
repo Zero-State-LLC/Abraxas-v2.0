@@ -1,3 +1,10 @@
+# [1.177.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.176.0...v1.177.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** Ops D2 forensic Level99 content seed (no publish) ([02d71d4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/02d71d48001070cd7304fe792b65b1708ff77612))
+
 # [1.176.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.175.0...v1.176.0) (2026-08-01)
 
 
