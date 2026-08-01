@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/signal/evidence_pack.v0.schema.json",
+  "title": "EvidencePack.v0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pack_id",
+    "topic",
+    "intent",
+    "must_answer",
+    "sources",
+    "claims",
+    "authority",
+    "provenance"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": "EvidencePack.v0" },
+    "pack_id": { "type": "string", "minLength": 8 },
+    "topic": { "type": "string", "minLength": 1 },
+    "intent": {
+      "type": "string",
+      "enum": ["research", "competitive", "market", "regulatory", "tech", "memetic", "local_ops", "other"]
+    },
+    "time_horizon": { "type": "string" },
+    "must_answer": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "hard_exclusions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "url_or_path", "title", "source_class", "excerpt"],
+        "properties": {
+          "source_id": { "type": "string" },
+          "url_or_path": { "type": "string" },
+          "title": { "type": "string" },
+          "publisher": { "type": "string" },
+          "source_class": {
+            "type": "string",
+            "enum": ["primary", "secondary", "social", "market", "code", "session"]
+          },
+          "excerpt": { "type": "string" },
+          "retrieved_note": { "type": "string" }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "text", "register", "source_ids"],
+        "properties": {
+          "claim_id": { "type": "string" },
+          "text": { "type": "string" },
+          "register": {
+            "type": "string",
+            "enum": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+          },
+          "supports_questions": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0 }
+          },
+          "source_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "join_logic": { "type": ["string", "null"] },
+          "confidence_note": { "type": "string" }
+        }
+      }
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question_index", "status", "summary"],
+        "properties": {
+          "question_index": { "type": "integer", "minimum": 0 },
+          "status": {
+            "type": "string",
+            "enum": ["ANSWERED_OBSERVED", "ANSWERED_INFERRED", "PARTIAL", "NOT_COMPUTABLE"]
+          },
+          "summary": { "type": "string" },
+          "claim_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "lane": { "type": "string", "default": "SHADOW" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["producer_system", "skill_id", "tool_trace_summary"],
+      "properties": {
+        "producer_system": {
+          "type": "string",
+          "enum": ["HERMES", "GROK", "CODEX", "MIXED", "OPERATOR"]
+        },
+        "skill_id": { "const": "abx-familiar-signal-forager" },
+        "tool_trace_summary": { "type": "string" },
+        "repo_root": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "observed_source_count": { "type": "integer", "minimum": 0 },
+    "register_counts": {
+      "type": "object",
+      "properties": {
+        "OBSERVED": { "type": "integer" },
+        "INFERRED": { "type": "integer" },
+        "SPECULATIVE": { "type": "integer" },
+        "NOT_COMPUTABLE": { "type": "integer" }
+      }
+    }
+  }
+}

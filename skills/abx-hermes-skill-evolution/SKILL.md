@@ -3,7 +3,7 @@ name: abx-hermes-skill-evolution
 description: "Observes Abraxas operations, aggregates skill-performance evidence, detects recurring failure or inefficiency patterns, and generates versioned candidate skill patches for replay, canary evaluation, and operator-approved promotion. Never mutates active skills directly. Produces SkillEvolutionCandidate and SkillPatchCandidate artifacts only."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

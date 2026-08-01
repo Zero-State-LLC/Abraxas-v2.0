@@ -76,8 +76,14 @@ def main() -> int:
     traces: List[Dict[str, Any]] = []
     seen = set()
 
-    # Scan recent .latest.json
-    candidates = sorted(OUT.glob("*.latest.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:30]
+    # Scan recent .latest.json (include OS signal traces for Slice D closed loop)
+    candidates = sorted(OUT.glob
+    # Explicitly include OS kernel signal traces (Slice D)
+    for p in sorted(OUT.glob("os_signal_*.latest.json")):
+        if p not in candidates:
+            candidates.append(p)
+
+    candidates = sorted(OUT.glob("*.latest.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:50]
 
     for path in candidates:
         try:

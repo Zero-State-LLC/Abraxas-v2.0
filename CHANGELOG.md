@@ -1,3 +1,184 @@
+# [1.173.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.172.0...v1.173.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** holler outcome-binding dry-run (no write) ([#1076](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1076)) ([8eef4c9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8eef4c997aeabf9b6f7f2bcf3c9274eb45a4a17c))
+
+# [1.172.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.171.0...v1.172.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** memetic Brier + noctis review dry-runs (no write) ([#1075](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1075)) ([6a207a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6a207a6cb5a2f9659fa3397cedf4882dfda5bfcd))
+
+# [1.171.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.170.0...v1.171.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** main-scope cleanliness + fast-ci audit receipts ([#1074](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1074)) ([a598154](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a598154b084865fefb74f06dbc8b8abab0ec2b79))
+
+# [1.170.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.169.0...v1.170.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** tiered ownership alignment (end false MISSING_CONTRACT) ([#1073](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1073)) ([f085e78](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f085e781962212c481a693ffb3af2f8033f7f561))
+
+# [1.169.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.168.0...v1.169.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** familiar operator-review → queue dry-run (no write) ([#1072](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1072)) ([2543355](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2543355621e592a3165c79b0c5e520ecb131003d))
+
+# [1.168.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.167.0...v1.168.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** Track D light, neon fixtures, branch hygiene inventory ([#1071](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1071)) ([c94bc0b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c94bc0b15e89cd4f9f35b17d0b374408470d5a0c))
+
+# [1.167.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.166.0...v1.167.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** residual tighten-up — familiar operator-review + Alembic inventory ([#1070](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1070)) ([582c6c1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/582c6c1a0f90816335a40c296d8e1ea34543c57a))
+
+# [1.166.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.165.0...v1.166.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** phonomicon_artifact operator packet (CONTRACT_V0) ([#1069](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1069)) ([0219b5c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0219b5c8540f016ef08d010f0b7e4fdd9e79e31f))
+
+# [1.165.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.164.0...v1.165.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** beatoven_psyfi shared runic core operator packet (CONTRACT_V0) ([#1068](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1068)) ([823bd52](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/823bd52516714f49790286c8e44a08ebde7d2ad2))
+
+# [1.164.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.163.0...v1.164.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** level99_content operator packet (CONTRACT_V0) ([#1067](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1067)) ([7c36d24](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7c36d24c1c6b7ed99670d3bb0359ac5d186f68bd))
+
+# [1.163.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.162.0...v1.163.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** memetic_futurecast operator packet (CONTRACT_V0) ([#1066](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1066)) ([c18e059](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c18e059c57ddb2335c7b41f5f0e8cf1c338a78c9))
+
+# [1.162.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.161.0...v1.162.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** hollersports_ticket operator packet (CONTRACT_V0) ([#1065](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1065)) ([9949f52](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9949f52d185d4b497b69026cd280181e84e2ce92))
+
+# [1.161.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.160.0...v1.161.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** noctis_dream operator packet + IR (CONTRACT_V0) ([#1064](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1064)) ([4f35647](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4f35647d551f024b3d5ff426cee509ddd1def193))
+
+# [1.160.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.159.0...v1.160.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** familiar oracle/belief SHADOW bridge (BRIDGE_V0) ([#1063](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1063)) ([2b2e2a1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b2e2a1b14495ac1924f3268df344439cf9a8454))
+
+# [1.159.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.158.0...v1.159.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** wire neon_genie package/router to IdeationOperatorPacket.v0 ([#1062](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1062)) ([68269ba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/68269ba0b362cc4de792b0a77e9018121dae2f3b))
+
+# [1.158.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.157.0...v1.158.0) (2026-07-31)
+
+
+### Features
+
+* **shadow:** neon_genie_ideation operator packet contract (Track B) ([#1060](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1060)) ([16e07eb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/16e07ebdefb21e883905be67ee888adbb95ab237))
+
+# [1.157.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.156.0...v1.157.0) (2026-07-30)
+
+
+### Features
+
+* E2E analyzer call + P3 plural hyperagent_forager + CLI evolution-volume + next slice def ([42d920b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/42d920bd2087019a33edcd177115f84f4134041d))
+
+# [1.156.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.155.0...v1.156.0) (2026-07-30)
+
+
+### Features
+
+* **analyzer:** detect high_hermes_signal_volume from signal_forage traces ([873c0a9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/873c0a9f3c5b2a0cdf9cf9cde37caf9c504c790d))
+
+# [1.155.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.154.0...v1.155.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **analyzer:** final verified state - noqa for stub resilience + clean ruff/pytest (signal_forage task_class keying) ([792e9fd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/792e9fdb7cb2dd3143428d6b53eed7b07670770f))
+
+
+### Features
+
+* **evolution:** extend analyzer v0.2 for Hermes signal_forage volume (task_class keying + os_signal loader) ([2cd7c6a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2cd7c6abb48d52365e791188b01cfd2a13c58f42))
+
+# [1.154.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.153.0...v1.154.0) (2026-07-30)
+
+
+### Features
+
+* minimal SHADOW ledger ingestion bridge for Hermes signal_forage volume (Task 4 TDD) ([1e21d1c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1e21d1ca89a76dd29859a36d5924ac8bd9fb82c1))
+* minimal SHADOW ledger ingestion for Hermes signal_forage volume (Task 4) ([f183892](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f183892adfc701a6cc1f809f065841b4e4b664e8))
+
+# [1.153.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.152.0...v1.153.0) (2026-07-30)
+
+
+### Features
+
+* **os:** Slice D OperationTrace closed loop + CLI trace emission ([#1056](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1056)) ([68e2597](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/68e25977e2653880c9a111cd423565f0104934c1))
+
+# [1.152.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.151.0...v1.152.0) (2026-07-28)
+
+
+### Features
+
+* **cli:** AI OS kernel status + forage spine-touch (Slice C) ([#1055](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1055)) ([1bfe06f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1bfe06f2700cc8cafa8afc73743c4cc47bc320d2))
+
+# [1.151.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.150.0...v1.151.0) (2026-07-27)
+
+
+### Features
+
+* **ingest:** FamiliarIngestionReceipt.v0 from EvidencePack (AI OS Slice B) ([#1054](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1054)) ([3b9ccae](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3b9ccaee97d621a02f5d033cf33b0ca7666ae788))
+
+# [1.150.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.149.0...v1.150.0) (2026-07-27)
+
+
+### Features
+
+* **signal:** EvidencePack.v0 contracts + core validator (AI OS Slice A) ([#1053](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1053)) ([e76d271](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e76d271be5d50acf19316b28c1c80b2597a84a5b))
+
+# [1.149.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.148.0...v1.149.0) (2026-07-27)
+
+
+### Features
+
+* **skills:** Hermes OS signal forage + Neon Genie EvidencePack path ([#1052](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1052)) ([9bad9d7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9bad9d72fea9932b088d01f1670519e30f660aa8))
+
 # [1.148.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.147.0...v1.148.0) (2026-07-26)
 
 

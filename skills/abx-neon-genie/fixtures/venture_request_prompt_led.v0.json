@@ -1,0 +1,17 @@
+{
+  "authority": {
+    "canon_mutation_allowed": false,
+    "execution_authority": false,
+    "forecast_routing_authorized": false,
+    "promotion_authorized": false
+  },
+  "mode": "PROMPT_LED",
+  "require_evidence": false,
+  "schema_version": "NeonGenieVentureRequest.v0",
+  "seed": "A symbolic forest of venture models that only grow when fed user pain.",
+  "tags": [
+    "symbolic",
+    "venture",
+    "fixture"
+  ]
+}

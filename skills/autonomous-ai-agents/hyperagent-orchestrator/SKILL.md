@@ -3,7 +3,7 @@ name: hyperagent-orchestrator
 description: Use when working with HyperAgent or hyperagent.com to authenticate, author skills, deploy roles, orchestrate fleets, or bridge HyperAgent outputs into Abraxas workflows. Encodes deterministic role configs, safe credential handling, fleet operations, and Abraxas import/export patterns.
 version: 1.0.0
 author: Hermes Agent
-license: MIT
+license: Proprietary
 metadata:
   hermes:
     tags: [hyperagent, agents, orchestration, skills, fleets, deployment, integrations, abx-bridge]

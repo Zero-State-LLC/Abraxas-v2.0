@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-27 (MemEIC pattern MERGED; AI OS primitives map open; CLEAR dual-control still highest-leverage)
+> **Last Updated:** 2026-07-31 (MemEIC MERGED + held Oracle adapter boundary; AI OS kernel ACTIVE_SHADOW; unification plan 002; CLEAR dual-control pending)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -20,9 +20,10 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Compositional Evidence Memory (MemEIC pattern) | **MERGED** · Belief Graph surface only | PR #986 · `core/belief_graph/compositional_memory.py` · `docs/integrations/MEMEIC_ASSIMILATION_001.md` |
 | Oracle compositional-memory adapter | **HELD** · PR #987 closed unmerged | no authority granted; clean branch required for any future work |
-| AI OS primitives map | **ADVISORY / OPEN PR** · projection of existing identity | PR #1050 · `docs/architecture/AI_OS_PRIMITIVES_MAP_001.md` |
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
-| Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
+| Product CLI | `python -m abraxas` analyze/validate/replay/status/**os**/forage | `abraxas/cli.py` · project env (`jsonschema`) |
+| AI OS kernel | **`ACTIVE_SHADOW`** (syscall path live; not EXTERNAL_PRODUCTION) | `python -m abraxas os status` · [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) |
+| AI OS unification | Tracks A–D front door | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
 | Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
 | Runtime settings | `core.settings.RuntimeSettings` + `RuntimeContext` ports | `core/settings.py`, `core/runtime_context.py` |
@@ -43,6 +44,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
 | Active objective | CLEAR dual-control attestations · live providers only when authorized | `PLANS.md` · CONTINUATION_PLAN.v16 |
+| AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
 
 ## Session closeout surfaces (2026-07-23)
 

@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/noctis/dream_operator_packet.v0.schema.json",
+  "title": "NoctisDreamOperatorPacket.v0",
+  "description": "SHADOW_SYMBOLIC operator packet for noctis_dream: dream IR + review readiness. No medical, forecast, memory write, or canon authority.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "dream_id",
+    "mode",
+    "privacy_tier",
+    "source",
+    "ir",
+    "readiness",
+    "blocked_by",
+    "authority",
+    "advisory_only",
+    "lane",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "NoctisDreamOperatorPacket.v0" },
+    "pipeline_id": { "const": "noctis_dream" },
+    "packet_id": { "type": "string" },
+    "dream_id": { "type": "string" },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "HUMAN_DREAM",
+        "SYSTEM_DREAM",
+        "DREAM_HISTORY_REVIEW",
+        "ARTIFACT_INTENT",
+        "PROBE_CANDIDATE",
+        "PROJECTION_ONLY",
+        "UNKNOWN"
+      ]
+    },
+    "privacy_tier": {
+      "type": "string",
+      "enum": ["PRIVATE", "RESEARCH", "PUBLIC_SYNTHETIC", "UNKNOWN"]
+    },
+    "source": {
+      "type": "string",
+      "enum": ["USER", "EXTERNAL", "SYSTEM", "UNKNOWN"]
+    },
+    "narrative_sha256": { "type": "string" },
+    "narrative_present": { "type": "boolean" },
+    "narrative_excerpt_allowed": { "type": "boolean" },
+    "ir": {
+      "type": "object",
+      "required": ["schema_version", "motif_count", "motifs"],
+      "properties": {
+        "schema_version": { "const": "NoctisDreamIR.v0" },
+        "motif_count": { "type": "integer", "minimum": 0 },
+        "motifs": { "type": "array", "items": { "type": "object" } },
+        "registers": { "type": "object" }
+      }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": [
+        "SHADOW_OPERATOR_REVIEW",
+        "BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "medical_claims_blocked": { "const": true },
+    "forecast_routing_blocked": { "const": true },
+    "memory_direct_write_blocked": { "const": true },
+    "analysis_status": { "type": "string" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "medical_claims_allowed",
+        "memory_direct_write_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "medical_claims_allowed": { "const": false },
+        "memory_direct_write_allowed": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_SYMBOLIC" },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

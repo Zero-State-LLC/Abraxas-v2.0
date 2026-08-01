@@ -38,12 +38,24 @@ This is the contributor front door for Abraxas v2.7. It is a projection/navigati
 
 ## Active Work Route
 
-Why this matters: recent Loop 805 work is receipt-first. A contributor should find active evidence without scrolling through every historical chain.
+Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not EXTERNAL_PRODUCTION). Contributors need one map: kernel path, unification tracks, and operator-only holds.
 
-Next action:
+### AI OS triangle (start here for eng)
+
+| Doc | Role |
+|-----|------|
+| [`architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) | Three-layer OS (Operator · Hermes · Abraxas · Visual) |
+| [`architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) | Kernel work packages / acceptance K1–K12 |
+| [`architecture/AI_OS_KERNEL_AUDIT_001.md`](architecture/AI_OS_KERNEL_AUDIT_001.md) | Honest K1–K12 evidence vs `main` |
+| [`architecture/AI_OS_PRIMITIVES_MAP_001.md`](architecture/AI_OS_PRIMITIVES_MAP_001.md) | Classic OS primitives → Abraxas surfaces |
+| [`plans/ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) | Whole-system unification tracks A–D |
+
+**Syscall path:** Intent → forage → EvidencePack → familiar_ingestion → spine touch → receipts → operator.
+
+Next action (general):
 - Start with [`docs/INDEX.md`](INDEX.md) for the compact master route.
 - Use [`docs/artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for generated receipts and regeneration policy.
-- Use [`PLANS.md`](../PLANS.md) for active continuation lanes.
+- Use [`PLANS.md`](../PLANS.md) for active continuation lanes (AI OS eng **and** CLEAR operator track).
 - Use the Notion Sprint 001 Hub only as a mirror/source-of-truth reference; do not write back unless the operator explicitly gates it.
 
 ## Contributor Guardrails
@@ -371,3 +383,8 @@ Next action:
 - Workflow route: [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
+
+### Engineering hygiene (advisory)
+
+- Track D light: [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md)
+- Branch hygiene: [`status/BRANCH_HYGIENE_INVENTORY_001.md`](status/BRANCH_HYGIENE_INVENTORY_001.md) · `python -m abraxas os branch-hygiene`

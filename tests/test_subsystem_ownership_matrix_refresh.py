@@ -21,11 +21,32 @@ def test_subsystem_ownership_matrix_receipt_has_repo_native_rows() -> None:
 
     assert packet["status"] == STATUS
     assert packet["brier_score"] == "0.10"
-    assert packet["source_status"] == "READY_WITH_FINDINGS"
+    # Operator packets close true MISSING_CONTRACT; partial tiers remain.
+    assert packet["source_status"] == "READY"
     assert packet["matrix_summary"]["subsystem_count"] >= 10
-    assert packet["matrix_summary"]["missing_contract_count"] >= 1
+    assert packet["matrix_summary"]["missing_contract_count"] == 0
+    assert packet["matrix_summary"]["aligned_subsystem_count"] >= 10
+    assert packet["matrix_summary"]["contract_v0_subsystem_count"] >= 1
+    assert packet["matrix_summary"]["review_v0_subsystem_count"] >= 1
+    assert packet["matrix_summary"]["partial_subsystem_count"] >= 1
     assert any(row["subsystem"] == "Oracle Signal Layer" for row in packet["ownership_rows"])
     assert any(row["subsystem"] == "AAL-Viz" for row in packet["ownership_rows"])
+
+
+def test_subsystem_ownership_matrix_tiers_for_packet_pipelines() -> None:
+    packet = build_subsystem_ownership_matrix_refresh_receipt(repo_root=REPO_ROOT)
+    by_name = {row["subsystem"]: row for row in packet["ownership_rows"]}
+
+    assert by_name["Oracle Signal Layer"]["contract_owner_alignment"] == "ALIGNED"
+    assert by_name["Neon Genie"]["contract_owner_alignment"] == "CONTRACT_V0"
+    assert by_name["abx-familiar"]["contract_owner_alignment"] == "REVIEW_V0"
+    assert by_name["abx-familiar"]["missing_contract_paths"] == []
+    assert any(
+        "familiar_operator_review_queue_dry_run" in path
+        for path in by_name["abx-familiar"]["contract_paths"]
+    )
+    assert by_name["Neon Genie"]["missing_contract_paths"] == []
+    assert by_name["Neon Genie"]["missing_full_pipeline_contract_paths"]
 
 
 def test_subsystem_ownership_matrix_authority_locks_false() -> None:
@@ -73,4 +94,6 @@ def test_subsystem_ownership_matrix_markdown_includes_key_routes() -> None:
     assert "# Subsystem Ownership Matrix" in markdown
     assert "Oracle Signal Layer" in markdown
     assert "AAL-Viz" in markdown
+    assert "CONTRACT_V0" in markdown
+    assert "REVIEW_V0" in markdown
     assert "out/audit/subsystem_ownership_matrix_refresh_001.latest.json" in markdown

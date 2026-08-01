@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/alembic/residual_inventory.v0.schema.json",
+  "title": "AlembicResidualInventory.v0",
+  "description": "Track C advisory inventory of Alembic spine residuals (stubs stay stubbed). Does not unstub adapters or grant execution.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "inventory_id",
+    "spine_status",
+    "adapters",
+    "residuals",
+    "counts",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "AlembicResidualInventory.v0" },
+    "inventory_id": { "type": "string" },
+    "spine_status": { "const": "ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS" },
+    "adapters": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "residuals": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["total", "implemented", "stub_or_unavailable", "residual_items"]
+    },
+    "unstub_policy": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "canon_mutation_allowed",
+        "unstub_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "unstub_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

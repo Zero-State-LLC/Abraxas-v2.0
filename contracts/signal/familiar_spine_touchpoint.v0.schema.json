@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/signal/familiar_spine_touchpoint.v0.schema.json",
+  "title": "FamiliarSpineTouchpoint.v0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "touchpoint_id",
+    "route",
+    "receipt_id",
+    "pack_id",
+    "advisory_only",
+    "lane",
+    "authority",
+    "touchpoint_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "FamiliarSpineTouchpoint.v0" },
+    "touchpoint_id": { "type": "string" },
+    "route": {
+      "type": "string",
+      "enum": [
+        "ORACLE_SHADOW_CANDIDATE",
+        "ABSTAIN_INVALID",
+        "ABSTAIN_NO_INPUT",
+        "ABSTAIN_NOT_INGESTED"
+      ]
+    },
+    "receipt_id": { "type": "string" },
+    "pack_id": { "type": "string" },
+    "pack_hash": { "type": "string" },
+    "reason": { "type": "string" },
+    "input_payload_seed": { "type": "object" },
+    "oracle_candidate_seed": { "type": "object" },
+    "register_counts": { "type": "object" },
+    "commercial_claims_blocked": { "type": "boolean" },
+    "evidence_density": { "type": "number" },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "touchpoint_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

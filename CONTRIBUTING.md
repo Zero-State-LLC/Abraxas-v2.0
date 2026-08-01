@@ -1,5 +1,8 @@
 # CONTRIBUTING TO ABRAXAS v2.0
 
+> **License:** This repository is **proprietary**. Contributions are accepted only under the terms of [`LICENSE`](LICENSE) (assignment / exclusive license to Applied Alchemy Labs). Do not submit third-party open-source code under conflicting terms.
+
+
 ## Before you touch anything
 
 **Required reading (in order):**

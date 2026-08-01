@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/neon_genie/ideation_operator_packet.v0.schema.json",
+  "title": "NeonGenieIdeationOperatorPacket.v0",
+  "description": "SHADOW operator packet for neon_genie_ideation — novelty/overlap + commercial gate. No execution authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pipeline_id",
+    "packet_id",
+    "input_mode",
+    "overlap_classification",
+    "commercial_claims_blocked",
+    "authority",
+    "readiness",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "NeonGenieIdeationOperatorPacket.v0" },
+    "pipeline_id": { "const": "neon_genie_ideation" },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "input_mode": {
+      "type": "string",
+      "enum": [
+        "PROMPT_LED",
+        "MARKET_LED",
+        "CAPABILITY_LED",
+        "CONSTRAINT_LED",
+        "TREND_LED",
+        "PAINPOINT_LED",
+        "SYMBOLIC_LED",
+        "MONETIZATION_LED",
+        "UNKNOWN"
+      ]
+    },
+    "venture_name": { "type": "string" },
+    "output_class": { "type": "string" },
+    "overlap_classification": {
+      "type": "string",
+      "enum": [
+        "NOVEL",
+        "ADJACENT",
+        "WRAPPER_CANDIDATE",
+        "CHILD_SUBSYSTEM",
+        "DUPLICATE",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "novelty_notes": { "type": "string" },
+    "route_binding": { "type": "string" },
+    "evidence_pack_ref": { "type": ["string", "null"] },
+    "evidence_status": { "type": "string" },
+    "commercial_claims_blocked": { "type": "boolean" },
+    "score_vector": { "type": "object" },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["SHADOW_OPERATOR_REVIEW", "NOT_COMPUTABLE", "BLOCKED"]
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "producer": { "type": "object" },
+    "deterministic_timestamp": { "type": "string" },
+    "canonical_hash": { "type": "string", "minLength": 16 }
+  },
+  "additionalProperties": true
+}

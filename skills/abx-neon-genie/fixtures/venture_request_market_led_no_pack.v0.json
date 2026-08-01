@@ -1,0 +1,17 @@
+{
+  "authority": {
+    "canon_mutation_allowed": false,
+    "execution_authority": false,
+    "forecast_routing_authorized": false,
+    "promotion_authorized": false
+  },
+  "mode": "MARKET_LED",
+  "require_evidence": true,
+  "schema_version": "NeonGenieVentureRequest.v0",
+  "seed": "B2B SaaS for governed skill packaging",
+  "tags": [
+    "market",
+    "saas",
+    "fixture"
+  ]
+}

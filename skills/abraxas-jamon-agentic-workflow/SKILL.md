@@ -3,7 +3,7 @@ name: abraxas-jamon-agentic-workflow
 description: Use when executing agentic coding, orchestration, autonomous loops, self-healing workflows, or full task lifecycles on Abraxas-v2.0. Routes every task through Jamon-style intake/plan/build/review/loop + Abraxas-specific layers (runes/YGGDRASIL binding, Brier calibration, provenance tagging, OBSERVED/INFERRED/SPECULATIVE structure, ingest-first evidence, determinism, hyperstition scanning, HollerSports governance).
 version: 1.0.0
 author: Hermes / Abraxas Governed Operator (appliedalchemylabs)
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:

@@ -127,8 +127,17 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "FORECAST_GATED",
         "migration_status": "specified",
-        "next_action": "add forecast proof, outcome binding, and operator packet chain",
+        "next_action": (
+            "CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects "
+            "ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: "
+            "optional live ingest wire under dual-control"
+        ),
+        "contract_path": "contracts/holler/ticket_operator_packet.v0.schema.json",
+        "builder_module": "core.holler.ticket_operator_packet",
+        "dry_run_contract_path": "contracts/holler/outcome_binding_dry_run.v0.schema.json",
+        "dry_run_module": "core.holler.outcome_binding_dry_run",
     },
+
     {
         "pipeline_id": "memetic_futurecast",
         "display_name": "Memetic Futurecast Pipeline",
@@ -137,8 +146,17 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "SHADOW_FORECAST_GATED",
         "migration_status": "specified",
-        "next_action": "add horizon policy, validation gates, and Brier bridge",
+        "next_action": (
+            "CONTRACT_V0 + MemeticBrierLedgerDryRun.v0 landed (projects BrierLedgerEntry.v1 "
+            "shape); no out/brier write / no forecast weight; residual: dual-control before "
+            "ledger publish"
+        ),
+        "contract_path": "contracts/memetic/futurecast_operator_packet.v0.schema.json",
+        "builder_module": "core.memetic.futurecast_operator_packet",
+        "dry_run_contract_path": "contracts/memetic/brier_ledger_dry_run.v0.schema.json",
+        "dry_run_module": "core.memetic.brier_ledger_dry_run",
     },
+
     {
         "pipeline_id": "oracle_signal",
         "display_name": "Oracle Signal Layer Pipeline",
@@ -157,8 +175,28 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 2,
         "lane": "SHADOW",
         "migration_status": "specified",
-        "next_action": "add receipt, proof, and review chain",
+        "next_action": (
+            "REVIEW_V0: receipt + spine + bridge + operator-review seed + queue dry-run "
+            "(FamiliarOperatorReviewQueueDryRun.v0) landed; no live queue write; "
+            "residual: dual-control attestation only before any out/operator_review_queue write"
+        ),
+        "contract_path": "contracts/ingest/familiar_ingestion_receipt.v0.schema.json",
+        "builder_module": "core.ingest.familiar_ingestion_receipt",
+        "bridge_contract_path": (
+            "contracts/signal/familiar_oracle_belief_bridge.v0.schema.json"
+        ),
+        "bridge_module": "core.signal.familiar_oracle_belief_bridge",
+        "review_contract_path": (
+            "contracts/signal/familiar_operator_review_packet.v0.schema.json"
+        ),
+        "review_module": "core.signal.familiar_operator_review",
+        "dry_run_contract_path": (
+            "contracts/signal/familiar_operator_review_queue_dry_run.v0.schema.json"
+        ),
+        "dry_run_module": "core.signal.familiar_operator_review",
     },
+
+
     {
         "pipeline_id": "drift_scan",
         "display_name": "Drift Scan Pipeline",
@@ -187,8 +225,19 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_SYMBOLIC",
         "migration_status": "specified",
-        "next_action": "convert dream analysis to receipt plus IR plus review pipeline",
+        "next_action": (
+            "CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + "
+            "continuity seed); no queue/memory write; residual: dual-control before "
+            "any durable history link"
+        ),
+        "contract_path": "contracts/noctis/dream_operator_packet.v0.schema.json",
+        "builder_module": "core.noctis.dream_operator_packet",
+        "dry_run_contract_path": (
+            "contracts/noctis/operator_review_queue_dry_run.v0.schema.json"
+        ),
+        "dry_run_module": "core.noctis.operator_review_dry_run",
     },
+
     {
         "pipeline_id": "neon_genie_ideation",
         "display_name": "Neon Genie App Ideation Pipeline",
@@ -197,7 +246,9 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_PRODUCT",
         "migration_status": "specified",
-        "next_action": "add idea novelty validation and operator packet",
+        "next_action": "skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external",
+        "contract_path": "contracts/neon_genie/ideation_operator_packet.v0.schema.json",
+        "builder_module": "core.neon_genie.ideation_operator_packet",
     },
     {
         "pipeline_id": "level99_content",
@@ -207,8 +258,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_MEDIA",
         "migration_status": "specified",
-        "next_action": "add virality scoring boundaries and operator review",
+        "next_action": (
+            "Level99ContentOperatorPacket.v0 landed (virality bounds + route + "
+            "operator review); next: optional performance ingest wire; no auto-publish"
+        ),
+        "contract_path": "contracts/level99/content_operator_packet.v0.schema.json",
+        "builder_module": "core.level99.content_operator_packet",
     },
+
     {
         "pipeline_id": "phonomicon_artifact",
         "display_name": "Phonomicon Artifact Pipeline",
@@ -217,8 +274,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "ARTIFACT_GOVERNANCE",
         "migration_status": "specified",
-        "next_action": "bind provenance and artifact proof chain",
+        "next_action": (
+            "PhonomiconArtifactOperatorPacket.v0 landed (provenance chain + Proof "
+            "of Resonance); next: optional export candidate wire; mint still blocked"
+        ),
+        "contract_path": "contracts/phonomicon/artifact_operator_packet.v0.schema.json",
+        "builder_module": "core.phonomicon.artifact_operator_packet",
     },
+
     {
         "pipeline_id": "beatoven_psyfi_integration",
         "display_name": "BeatOven / PsyFi Integration Pipeline",
@@ -227,9 +290,15 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_ARTIFACT",
         "migration_status": "specified",
-        "next_action": "define shared runic core pipeline contract",
+        "next_action": (
+            "BeatOvenPsyFiIntegrationOperatorPacket.v0 landed (shared runic core + "
+            "sonic plan seed); next: optional graph materialization; plan-only"
+        ),
+        "contract_path": "contracts/beatoven/integration_operator_packet.v0.schema.json",
+        "builder_module": "core.beatoven.integration_operator_packet",
     },
 )
+
 
 LANE_NORMALIZATION = {
     "SHADOW": "SHADOW",

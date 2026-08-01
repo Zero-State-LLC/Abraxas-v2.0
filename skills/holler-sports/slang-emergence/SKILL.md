@@ -3,7 +3,7 @@ name: slang-emergence
 description: Dedicated skill for SLANG-EMULATION, memetic pattern detection, hyperstition tracking, and symbolic forecasting in sports betting/culture. Integrates with holler-market-signal and holler-forecast. Strict JSON output with OBSERVED/INFERRED/SPECULATIVE + provenance + Brier. Cron-friendly, adversarial-robust, deterministic.
 version: 1.0.0
 author: Hermes (Abraxas systems engineer)
-license: MIT
+license: Proprietary
 metadata:
   hermes:
     tags: [holler-sports, slang-emergence, memetic-engineering, hyperstition, symbolic-forecasting, provenance, brier]

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/audit/main_cleanliness.v0.schema.json",
+  "title": "MainCleanlinessReceipt.v0",
+  "description": "Git hygiene receipt for main-scope engineering-quality audit. Advisory only.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "status",
+    "commit_sha",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "MainCleanlinessReceipt.v0" },
+    "status": { "enum": ["PASS", "FAIL", "NOT_COMPUTABLE"] },
+    "commit_sha": { "type": ["string", "null"] },
+    "origin_main_sha": { "type": ["string", "null"] },
+    "branch": { "type": ["string", "null"] },
+    "ahead": { "type": ["integer", "null"] },
+    "behind": { "type": ["integer", "null"] },
+    "worktree_clean": { "type": ["boolean", "null"] },
+    "advisory_only": { "const": true },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "production_activation_allowed": { "const": false },
+        "notion_writeback_allowed": { "const": false }
+      }
+    }
+  }
+}

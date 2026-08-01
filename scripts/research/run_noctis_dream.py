@@ -19,43 +19,19 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
-
-def normalize_dream(narrative_raw: str) -> str:
-    """Deterministic normalization: preserve raw, clean whitespace."""
-    if not narrative_raw or not narrative_raw.strip():
-        return ""
-    # Minimal deterministic normalization (expand as real functions appear)
-    normalized = " ".join(narrative_raw.split())
-    return normalized
+from core.noctis.dream_operator_packet import (  # noqa: E402
+    build_dream_operator_packet_from_input,
+    extract_motifs,
+    normalize_dream,
+)
 
 
 def compute_stable_id(dream_id: str | None, narrative: str, seed: str) -> str:
     base = (dream_id or "") + narrative + seed
     return hashlib.sha256(base.encode("utf-8")).hexdigest()[:16]
-
-
-def extract_motifs(narrative: str, dream_id: str) -> list[dict[str, Any]]:
-    """Evidence-bound motif extraction (stub)."""
-    motifs: list[dict[str, Any]] = []
-    if not narrative:
-        return motifs
-
-    # Very simple evidence-based extraction for scaffolding.
-    # Real implementation should come from registered RUNE.NOCTIS.MOTIF.EXTRACT.
-    words = narrative.lower().split()
-    for i, w in enumerate(words[:10]):  # bounded
-        if len(w) > 3:
-            motifs.append({
-                "motif_id": hashlib.sha256(f"{dream_id}:motif:{w}:{i}".encode()).hexdigest()[:12],
-                "label": w,
-                "motif_type": "term",
-                "evidence_text": w,
-                "frequency": 1,
-                "confidence": 0.6,
-                "source_spans": [i]
-            })
-    return motifs
 
 
 def build_delivery(
@@ -102,6 +78,12 @@ def build_delivery(
         "unvalidated_surfaces": ["real_noctis_core_functions"] if True else [],
     }
 
+    operator_packet = build_dream_operator_packet_from_input(
+        dream_input,
+        mode=mode,
+        motifs=motifs,
+    )
+
     delivery = {
         "schema_version": "NoctisDreamDelivery.v1",
         "mode": mode,
@@ -111,12 +93,14 @@ def build_delivery(
         "artifacts": artifacts,
         "registers": registers,
         "authority": authority,
+        "operator_packet": operator_packet,
         "provenance": {
             "input_sha256": hashlib.sha256(
                 json.dumps(dream_input, sort_keys=True).encode()
             ).hexdigest(),
             "runner_ref": "scripts/research/run_noctis_dream.py",
             "skill": "abx-noctis-dream-functions",
+            "operator_packet_module": "core.noctis.dream_operator_packet",
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
         "status": status,

@@ -3,7 +3,7 @@ name: abx-noctis-dream-functions
 description: "Governed orchestration skill for the Abraxas NOCTIS dream lane (SHADOW_SYMBOLIC). Routes human or system dream material through current NOCTIS functions (or thin adapters), emits typed provenance-complete symbolic artifacts, enforces privacy, memory-candidate-only, SHADOW, and no-forecast/no-medical/no-direct-canon boundaries. Reuses existing surfaces; does not create a parallel dream engine."
 version: 0.1.0
 author: Abraxas Governed Operator
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:
@@ -151,6 +151,18 @@ Full-suite: NOT_RUN_NOT_REQUIRED (BLOCKED_BY_PRE_EXISTING_BASELINE).
 - Claiming validation without executing paths
 - Weakening boundaries for green receipts
 
+## Pipeline Contract Status
+
+`noctis_dream` is Tier 3 SHADOW_SYMBOLIC, **CONTRACT_V0**:
+
+| Surface | Path |
+|---------|------|
+| Schema | `contracts/noctis/dream_operator_packet.v0.schema.json` |
+| Core builder | `core/noctis/dream_operator_packet.py` |
+| Runner wire | `scripts/research/run_noctis_dream.py` → delivery `operator_packet` |
+
+Privacy: raw PRIVATE narrative is **not** copied into the operator packet (hash + IR motifs only). PUBLIC_SYNTHETIC may include a short excerpt.
+
 ## Output Contract (Delivery)
 
 ```yaml
@@ -162,6 +174,10 @@ artifacts:
   dream_packet_ref: ...
   analysis_ref: ...
   ...
+operator_packet:  # NoctisDreamOperatorPacket.v0
+  ir: { motif_count, motifs, registers }
+  readiness: SHADOW_OPERATOR_REVIEW | BLOCKED | NOT_COMPUTABLE
+  authority: medical/forecast/memory locks false
 registers:
   observed: []
   inferred: []

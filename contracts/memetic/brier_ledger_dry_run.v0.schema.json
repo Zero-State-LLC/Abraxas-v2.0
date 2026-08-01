@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/memetic/brier_ledger_dry_run.v0.schema.json",
+  "title": "MemeticBrierLedgerDryRun.v0",
+  "description": "SHADOW dry-run projection of MemeticFuturecastOperatorPacket.v0 onto BrierLedgerEntry.v1 shape. Never writes out/brier; ledger_write_performed is always false.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "dry_run",
+    "ledger_write_performed",
+    "ledger_write_authorized",
+    "target_ledger_path",
+    "pipeline_id",
+    "projected_ledger_entry",
+    "projection_status",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "MemeticBrierLedgerDryRun.v0" },
+    "dry_run": { "const": true },
+    "ledger_write_performed": { "const": false },
+    "ledger_write_authorized": { "const": false },
+    "target_ledger_path": { "const": "out/brier" },
+    "pipeline_id": { "const": "memetic_futurecast" },
+    "projection_status": {
+      "type": "string",
+      "enum": [
+        "PROJECTED",
+        "SEEDED_AWAITING_OUTCOME",
+        "BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "projected_ledger_entry": { "type": "object" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "ledger_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "ledger_write_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW_FORECAST_GATED" },
+    "forecast_routing_blocked": { "const": true },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

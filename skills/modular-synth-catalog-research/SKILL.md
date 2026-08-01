@@ -3,7 +3,7 @@ name: modular-synth-catalog-research
 description: Use for exhaustive modular synthesizer brand and module catalog research campaigns (Eurorack priority, plus 5U/MU, Buchla, Serge, etc.). Produces provenance-tagged, Obsidian-ready Markdown + master JSON catalog with strict OBSERVED/INFERRED/SPECULATIVE/NOT_COMPUTABLE tiers, source rotation, and PATCHHIVE integration paths. Class-level umbrella for autonomous audio/research ingest.
 version: 1.0.0
 author: Hermes / Abraxas Governed Operator (appliedalchemylabs)
-license: MIT
+license: Proprietary
 platforms: [macos, linux]
 metadata:
   hermes:
