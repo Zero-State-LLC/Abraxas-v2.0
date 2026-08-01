@@ -54,11 +54,15 @@ def run_forensics_from_pack_path(
     p = Path(path)
     pack = json.loads(p.read_text(encoding="utf-8"))
     if not isinstance(pack, dict):
-        pack = {}
+        raise TypeError(
+            f"EvidencePack root must be a JSON object, got {type(pack).__name__}"
+        )
 
     bridge = build_bridge_from_pack_path(p, repo_root=root)
     if not isinstance(bridge, dict):
-        bridge = {}
+        raise TypeError(
+            f"oracle belief bridge must return a mapping, got {type(bridge).__name__}"
+        )
 
     prop = build_propagation_graph_from_pack(pack)
     disp = build_forensic_disposition(
