@@ -1,3 +1,10 @@
+# [1.176.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.175.0...v1.176.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** Ops D0 MemeticOpsRouteIntent (gate still DENIED) ([2ddb234](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2ddb234c7a4f0e1eee3542eeac0aa35457d8b345))
+
 # [1.175.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.174.0...v1.175.0) (2026-08-01)
 
 
