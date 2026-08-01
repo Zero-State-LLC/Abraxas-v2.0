@@ -202,6 +202,9 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             / "evidence_pack_hermes_skill_os_2026-07-27.v0.json"
         ).is_file(),
         "forensics_core": (root / "core/forensics/pipeline.py").is_file(),
+        "forensics_aal_viz_projection": (
+            root / "core/forensics/aal_viz_projection.py"
+        ).is_file(),
     }
     required = [
         "evidence_pack_schema",
@@ -260,6 +263,9 @@ def build_ai_os_kernel_status(repo_root: Path) -> dict[str, Any]:
             "alembic_residuals": "python -m abraxas os alembic-residuals",
             "os_status": "python -m abraxas os status",
             "forensics_run": "python -m abraxas os forensics run --pack PATH",
+            "forensics_project": (
+                "python -m abraxas os forensics project --pack PATH"
+            ),
         },
         "authority": dict(DEFAULT_AUTHORITY),
         "advisory_only": True,

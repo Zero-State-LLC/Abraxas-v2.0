@@ -33,6 +33,9 @@ from core.audit.main_cleanliness_receipt import (
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.holler.outcome_binding_dry_run import build_holler_outcome_binding_dry_run
 from core.holler.ticket_operator_packet import build_ticket_operator_packet
+from core.forensics.aal_viz_projection import (
+    build_aal_viz_forensic_projection_from_pack_path,
+)
 from core.forensics.pipeline import run_forensics_from_pack_path
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
@@ -280,11 +283,68 @@ def _cmd_os_forensics_status(_args: argparse.Namespace) -> int:
             "ops_gate_default": "DENIED",
             "commands": {
                 "run": "python -m abraxas os forensics run --pack PATH",
+                "project": "python -m abraxas os forensics project --pack PATH",
             },
             "advisory_only": True,
         }
     )
     return 0
+
+
+def _cmd_os_forensics_project(args: argparse.Namespace) -> int:
+    """Project ForensicRun → AALVizForensicProjection.v0 (SHADOW; gate DENIED)."""
+    try:
+        proj = build_aal_viz_forensic_projection_from_pack_path(
+            args.pack, repo_root=REPO_ROOT
+        )
+    except Exception as exc:  # noqa: BLE001 — CLI hard-failure boundary
+        _print(
+            {
+                "ok": False,
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+                "advisory_only": True,
+                "projection_only": True,
+                "ops_gate_status": "DENIED",
+                "lane": "SHADOW",
+            }
+        )
+        return 1
+
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            args.out,
+            proj,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.parent,
+        )
+
+    disposition_value = str(proj.get("disposition") or "")
+    graph = proj.get("graph_summary") or {}
+    _print(
+        {
+            "ok": disposition_value in {"READY", "HOLD", "NOT_COMPUTABLE"},
+            "schema_version": proj.get("schema_version"),
+            "pack_id": proj.get("pack_id"),
+            "disposition": disposition_value,
+            "ops_gate_status": "DENIED",
+            "simulation": proj.get("simulation"),
+            "projection_only": True,
+            "advisory_only": True,
+            "lane": "SHADOW",
+            "node_count": graph.get("node_count"),
+            "edge_count": graph.get("edge_count"),
+            "canonical_hash": proj.get("canonical_hash"),
+            "wrote": str(args.out) if args.out is not None else None,
+        }
+    )
+
+    if disposition_value == "READY":
+        return 0
+    if disposition_value in {"HOLD", "NOT_COMPUTABLE"}:
+        return 2
+    return 1
 
 
 def _cmd_forage_validate(args: argparse.Namespace) -> int:
@@ -929,6 +989,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Forensics engine posture (SLICE_C; ops_gate_default DENIED)",
     )
     f_status.set_defaults(func=_cmd_os_forensics_status)
+    f_project = forensics_sub.add_parser(
+        "project",
+        help="AAL-Viz forensic projection from EvidencePack (SHADOW; DENIED)",
+    )
+    f_project.add_argument("--pack", type=Path, required=True)
+    f_project.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Optional audit artifact path (not production activation)",
+    )
+    f_project.set_defaults(func=_cmd_os_forensics_project)
 
     forage = sub.add_parser("forage", help="Signal forage / EvidencePack OS syscall")
     forage_sub = forage.add_subparsers(dest="forage_command", required=True)
