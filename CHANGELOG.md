@@ -1,3 +1,10 @@
+# [1.175.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.174.0...v1.175.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** C6 AAL-Viz forensic projection (DENIED gate) ([73c66b4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/73c66b4ec4c6a732c50c5c3c9c769b8accd3c2ec))
+
 # [1.174.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.173.0...v1.174.0) (2026-08-01)
 
 
