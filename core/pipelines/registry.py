@@ -128,11 +128,14 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "lane": "FORECAST_GATED",
         "migration_status": "specified",
         "next_action": (
-            "HollerSportsTicketOperatorPacket.v0 landed (forecast proof + outcome "
-            "binding seed); next: optional live ingest wire; forecast routing still gated"
+            "CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects "
+            "ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: "
+            "optional live ingest wire under dual-control"
         ),
         "contract_path": "contracts/holler/ticket_operator_packet.v0.schema.json",
         "builder_module": "core.holler.ticket_operator_packet",
+        "dry_run_contract_path": "contracts/holler/outcome_binding_dry_run.v0.schema.json",
+        "dry_run_module": "core.holler.outcome_binding_dry_run",
     },
 
     {

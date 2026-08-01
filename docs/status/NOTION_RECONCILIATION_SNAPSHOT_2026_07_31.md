@@ -1,7 +1,7 @@
 # Notion Reconciliation Snapshot — 2026-07-31
 
 **Status:** ADVISORY · operator paste source · **no autonomous Notion writeback**  
-**Repo SHA (landed at doc authoring):** see `origin/main` after #1072 + #1073 (tiered ownership + familiar queue dry-run)  
+**Repo SHA (landed at doc authoring):** see `origin/main` after #1072–#1075 (+ holler outcome dry-run when landed)  
 **Authority:** GitHub = implementation evidence · Notion = registered architecture · live repo wins on conflict
 
 Use this page to refresh Notion without inventing a second source of truth. Operator may paste sections into:
@@ -36,9 +36,12 @@ alembic: ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS
 | AI OS kernel path | EvidencePack → ingest → spine → oracle/belief bridge → operator-review → **queue dry-run** (#1072) |
 | Track B operator packets | Neon, Noctis, Holler, Memetic, Level99, BeatOven, Phonomicon CONTRACT_V0 |
 | Projection truth | Tiered ownership matrix/health (#1073) |
+| Main-scope quality packaging | `main_cleanliness` + `fast_ci` receipts (#1074) |
+| Residual dry-runs | Memetic Brier ledger dry-run + Noctis review/continuity dry-run (#1075); Holler outcome binding dry-run (this PR) |
 | Stale Notion open-PR list | #986 **merged**; #987/#989 **closed** (not still open) |
 
-**Open PRs to main (check live):** use GitHub; do not trust old Notion open-stack lists.
+**Open PRs to main (check live):** use GitHub; do not trust old Notion open-stack lists.  
+As of this refresh: **#1051** (MemEIC docs hold), **#1049** (dependabot fastapi).
 
 ---
 
@@ -74,6 +77,9 @@ CLI:
 python -m abraxas os status
 python -m abraxas forage operator-review-dry-run --pack PATH
 python -m abraxas os main-audit --execute-smoke --write
+python -m abraxas os memetic-brier-dry-run --forecast-id fc --topic t --horizon 7d --probability 0.8 --outcome 1.0
+python -m abraxas os noctis-review-dry-run --narrative "…" --privacy-tier PUBLIC_SYNTHETIC
+python -m abraxas os holler-outcome-dry-run --ticket-id t1 --event-ref nba:g1 --probability 0.6 --expected-outcome home_win
 ```
 
 ---

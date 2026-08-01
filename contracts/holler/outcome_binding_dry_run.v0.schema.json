@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/holler/outcome_binding_dry_run.v0.schema.json",
+  "title": "HollerOutcomeBindingDryRun.v0",
+  "description": "FORECAST_GATED dry-run projection of HollerSportsTicketOperatorPacket.v0 onto ForecastOutcomeBindingPacket.v1 shape. Never writes bindings or grants live odds execution.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "dry_run",
+    "binding_write_performed",
+    "binding_write_authorized",
+    "target_binding_path",
+    "pipeline_id",
+    "projected_binding",
+    "projection_status",
+    "authority",
+    "advisory_only",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "HollerOutcomeBindingDryRun.v0" },
+    "dry_run": { "const": true },
+    "binding_write_performed": { "const": false },
+    "binding_write_authorized": { "const": false },
+    "target_binding_path": { "const": "out/forecast" },
+    "pipeline_id": { "const": "hollersports_ticket" },
+    "projection_status": {
+      "type": "string",
+      "enum": [
+        "MATCHED",
+        "MISMATCHED",
+        "UNRESOLVED",
+        "NOT_SEEDED",
+        "BLOCKED"
+      ]
+    },
+    "projected_binding": { "type": "object" },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "execution_authority": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "binding_write_authorized": { "const": false },
+        "live_odds_execution_authorized": { "const": false }
+      }
+    },
+    "advisory_only": { "const": true },
+    "lane": { "const": "FORECAST_GATED" },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
