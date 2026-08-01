@@ -1,3 +1,10 @@
+# [1.173.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.172.0...v1.173.0) (2026-08-01)
+
+
+### Features
+
+* **shadow:** holler outcome-binding dry-run (no write) ([#1076](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1076)) ([8eef4c9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8eef4c997aeabf9b6f7f2bcf3c9274eb45a4a17c))
+
 # [1.172.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.171.0...v1.172.0) (2026-07-31)
 
 
