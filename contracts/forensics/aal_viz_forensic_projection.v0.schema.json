@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/forensics/aal_viz_forensic_projection.v0.schema.json",
+  "title": "AALVizForensicProjection.v0",
+  "description": "SHADOW projection-only view of a ForensicRunPacket. Ops gate always DENIED. No execution authority.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "projection_id",
+    "source_run_hash",
+    "disposition",
+    "ops_gate_status",
+    "simulation",
+    "graph_summary",
+    "projection_only",
+    "advisory_only",
+    "render_consumer_only",
+    "non_authoritative",
+    "lane",
+    "authority",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "AALVizForensicProjection.v0" },
+    "projection_id": { "type": "string", "minLength": 1 },
+    "source_run_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "pack_id": { "type": ["string", "null"] },
+    "pack_path": { "type": "string" },
+    "disposition": {
+      "type": "string",
+      "enum": ["READY", "HOLD", "NOT_COMPUTABLE", ""]
+    },
+    "ops_gate_status": { "const": "DENIED" },
+    "simulation": {
+      "type": "string",
+      "enum": ["WOULD_ALLOW", "WOULD_DENY"]
+    },
+    "ops_gate_hint": { "type": "string" },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "register_counts": { "type": "object" },
+    "graph_summary": {
+      "type": "object",
+      "required": ["node_count", "edge_count", "write_performed", "network_calls"],
+      "properties": {
+        "node_count": { "type": "integer", "minimum": 0 },
+        "edge_count": { "type": "integer", "minimum": 0 },
+        "write_performed": { "const": false },
+        "network_calls": { "const": false },
+        "schema_version": { "type": "string" }
+      }
+    },
+    "bridge_status": { "type": ["string", "null"] },
+    "projection_only": { "const": true },
+    "advisory_only": { "const": true },
+    "render_consumer_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "forecast_weight_allowed",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "publish_authorized",
+        "queue_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "forecast_weight_allowed": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "publish_authorized": { "const": false },
+        "queue_write_authorized": { "const": false }
+      }
+    },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

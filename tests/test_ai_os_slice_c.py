@@ -44,8 +44,12 @@ def test_kernel_status_active_shadow():
 def test_kernel_lists_forensics():
     s = build_ai_os_kernel_status(REPO)
     assert s["surfaces"].get("forensics_core") is True
+    assert s["surfaces"].get("forensics_aal_viz_projection") is True
     assert s["commands"]["forensics_run"] == (
         "python -m abraxas os forensics run --pack PATH"
+    )
+    assert s["commands"]["forensics_project"] == (
+        "python -m abraxas os forensics project --pack PATH"
     )
     assert "forensics disposition (ops gate DENIED)" in s["syscall"]["path"]
     assert s["external_production_authorized"] is False

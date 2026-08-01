@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-01 (Memetic forensics spine slice C MERGED #1079 · C′ seal HARDENED · ops held · MemEIC MERGED · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
+> **Last Updated:** 2026-08-01 (Memetic forensics C + C6 AAL-Viz projection · C′ seal · ops held · MemEIC MERGED · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -43,7 +43,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR operator review | advisory · `PENDING_OPERATOR` · no deletion | `out/production_convergence/clear_operator_review.v1.json` |
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
-| Active objective | **Memetic Forensics Spine (slice C) MERGED** · OpsGate always DENIED · next optional **C6** AAL-Viz forensic projection · Memetic Ops held (needs separate design) · CLEAR dual-control operator-only | PR [#1079](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/1079) · [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · `python -m abraxas os forensics run\|status` |
+| Active objective | **Memetic Forensics Spine C + C6 AAL-Viz projection** · OpsGate always DENIED · Memetic Ops held (needs separate design) · CLEAR dual-control operator-only | [#1079](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/1079) · C′ [#1080](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/1080) · `python -m abraxas os forensics run\|project\|status` · design `docs/superpowers/specs/2026-07-31-c6-aal-viz-forensic-projection-design.md` |
 | AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
 
 ## Session closeout surfaces (2026-07-23)

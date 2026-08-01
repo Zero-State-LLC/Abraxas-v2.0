@@ -40,3 +40,14 @@ def test_cli_forensics_non_object_pack(tmp_path: Path, capsys):
     assert payload["ok"] is False
     assert payload["ops_gate_status"] == "DENIED"
     assert payload["advisory_only"] is True
+
+
+def test_cli_forensics_project(capsys):
+    code = main(["os", "forensics", "project", "--pack", str(FIXTURE)])
+    assert code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ops_gate_status"] == "DENIED"
+    assert payload["disposition"] == "READY"
+    assert payload["projection_only"] is True
+    assert payload["advisory_only"] is True
+    assert payload["schema_version"] == "AALVizForensicProjection.v0"
