@@ -42,6 +42,8 @@ out/**/*.json
 !out/audit/supply_chain_hardening_001.latest.json
 !out/audit/stabilization_release_readiness_001.latest.json
 !out/audit/subsystem_ownership_matrix_refresh_001.latest.json
+!out/audit/main_cleanliness.latest.json
+!out/audit/fast_ci.latest.json
 !out/audit/artifact_registry_classifier_001.latest.json
 !out/audit/continuity_lineage_map_refresh_001.latest.json
 !out/audit/temporal_upstream_restoration_route_refresh_001.latest.json
