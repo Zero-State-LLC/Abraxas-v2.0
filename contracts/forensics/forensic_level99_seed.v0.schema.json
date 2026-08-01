@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/forensics/forensic_level99_seed.v0.schema.json",
+  "title": "ForensicLevel99Seed.v0",
+  "description": "SHADOW seed of Level99ContentOperatorPacket from forensic READY route. Ops gate DENIED. No auto-publish.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "seed_status",
+    "route_intent",
+    "ops_gate_status",
+    "disposition",
+    "execution_authorized",
+    "publish_authorized",
+    "advisory_only",
+    "lane",
+    "authority",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "ForensicLevel99Seed.v0" },
+    "seed_status": {
+      "type": "string",
+      "enum": ["SEEDED", "BLOCKED"]
+    },
+    "route_intent": {
+      "type": "string",
+      "enum": ["NONE", "LEVEL99_CONTENT_SEED", "NEON_IDEATION_SEED"]
+    },
+    "route_status": {
+      "type": "string",
+      "enum": ["BLOCKED", "WOULD_ROUTE_IF_OPERATOR"]
+    },
+    "ops_gate_status": { "const": "DENIED" },
+    "disposition": {
+      "type": "string",
+      "enum": ["READY", "HOLD", "NOT_COMPUTABLE", ""]
+    },
+    "pack_id": { "type": ["string", "null"] },
+    "source_run_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "route_intent_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "content_packet": {
+      "type": ["object", "null"]
+    },
+    "content_packet_hash": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{64})?$"
+    },
+    "execution_authorized": { "const": false },
+    "publish_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "lane": { "const": "SHADOW" },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "forecast_weight_allowed",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed",
+        "publish_authorized",
+        "queue_write_authorized"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "forecast_weight_allowed": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "publish_authorized": { "const": false },
+        "queue_write_authorized": { "const": false }
+      }
+    },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
