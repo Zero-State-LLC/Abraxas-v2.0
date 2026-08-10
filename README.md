@@ -2,7 +2,7 @@
 
 ![Abraxas — Governed Symbolic Intelligence](assets/hero-abraxas-readme.jpg)
 
-**Governed Symbolic Intelligence** · *Deterministic · Observable · Recursive*
+**How representations become causes** · *Deterministic · Provenance-bound · Falsifiable*
 
 > Structure before narrative. Evidence before authority. Governance before autonomy.
 
@@ -12,76 +12,177 @@
 
 | Field | Value |
 |-------|--------|
+| **Mission** | Make the transition from **representation → consequence** observable, measurable, forecastable, falsifiable, and—only where evidence and authority permit—engineerable |
+| **Measurement doctrine** | [Representation-driven instantiation (RDI)](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) |
+| **Development doctrine** | [Three-Settlement](#three-settlement-doctrine) · science × engineering × commerce |
+| **Live status** | [`STATUS.md`](STATUS.md) — replace block; do not invent readiness |
 | **Product posture** | Candidate · **deploy held** · production activation **DENIED** |
-| **Governance** | [Governance V3](GOVERNANCE_V3.md) (implementation-first) |
-| **Live status** | [`STATUS.md`](STATUS.md) — replace block, do not invent readiness |
+| **Governance** | [Governance V3](GOVERNANCE_V3.md) · lane-based activation (ADR-0017) |
 | **License** | [Proprietary](LICENSE) — all rights reserved |
 
-**Do not claim production go-live.** Candidate ≠ activation. Merge ≠ go-live.
+**Do not claim production go-live.** Candidate ≠ activation. Merge ≠ go-live.  
+**Do not claim empirical proof** of hyperstition, universal simulation/instantiation equivalence, or Instantiation Depth scores. Those remain `NOT_COMPUTABLE` until validated.
 
 ---
 
 ## What this is
 
-**Abraxas v2.0** is a governed symbolic-intelligence architecture in the Applied Alchemy Labs (AAL) ecosystem: deterministic execution, receipt-first provenance, and human-in-the-loop sovereignty over root definitions.
+**Abraxas** is a governed computational intelligence system for studying, forecasting, and eventually engineering the processes by which **representations acquire causal structure in the world**.
 
-Abraxas treats representations as potentially causal structures rather than assuming a binary distinction between simulation and instantiation. It studies evidence-backed transitions from representation into behavioral, computational, institutional, economic, and material consequence while preserving provenance, uncertainty, and observer-intervention contamination. See [`REPRESENTATION_DRIVEN_INSTANTIATION_001`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+It is part of Applied Alchemy Labs (AAL): deterministic execution, receipt-first provenance, and human-in-the-loop sovereignty over root definitions. Default posture is **advisory / SHADOW / projection-only** unless a lane explicitly authorizes more.
 
-It is **not** a generic chatbot wrapper. Default posture is **advisory / projection-only** for research and operator surfaces unless a lane explicitly authorizes more (see [ADR-0017](docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md)).
+It is **not** a generic chatbot wrapper, a score-of-everything dashboard, or a parallel “hyperstition engine.” Existing systems (CFAR, Oracle/ingest, Belief Graph, SHADOW/FORECAST, settlement, Brier, YGGDRASIL, Alembic, AAL-Viz, Governance V3, operator loop) **are** the RDI stack. RDI names what they collectively measure.
 
-Abraxas is primarily developed in Python for semantic and research agility, with Rust considered selectively for stable execution boundaries such as canonicalization, replay, high-throughput ingest, and future deterministic simulation — only where measured need justifies it (see [ARCHITECTURE.md § Language / runtime boundary](ARCHITECTURE.md)). No Rust component currently exists.
+### The operative question
 
-### Design pillars
+Not “is this real or simulated?”  
+But: **which constitutive properties of a represented construct have become causally implemented, to what degree, through what mechanisms, and with what evidence?**
 
-- **Deterministic execution** — traceable paths, receipts, artifact lineage
-- **Observable processes** — audit surfaces, status matrices, operator review
-- **Recursive continuity** — self-improving loops under frozen governance rules
-- **Contract-bound operators** — schemas, runes, fail-closed authority locks
-- **Lane-based activation** — LOCAL_DEV / SANDBOX allowed; EXTERNAL_PRODUCTION operator-gated
+Simulation is neither proof nor disproof of instantiation. Missing measurement stays `NOT_COMPUTABLE`.
 
-### Key surfaces
+### Operational loop
 
-| Surface | Role | Start here |
-|---------|------|------------|
-| **Oracle / ingest** | Signal intake, shadow execution | `docs/atlas/research-canary.md` |
-| **Alembic Spine** | Advisory multi-architecture orchestration | [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
-| **YGGDRASIL** | Deterministic routing topology | ARCHITECTURE.md |
-| **Belief Graph Engine** | Structured knowledge representation (advisory) | contracts + tests |
-| **Phase Percolation** | Temporal regime surfaces (advisory) | contracts + tests |
-| **Codegen Intelligence Spine** | **hygiene-only** by default; expansion operator-gated | gap-analysis plan under `out/audit/` |
-| **CFAR** | Construct-first research gate (before retrieval) | [`docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md`](docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md) · `core/cfar.py` |
-| **RDI / Instantiation** | Representation-driven instantiation (fixture contracts + intervention declarations; **PARTIAL**) | [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · `contracts/instantiation/` · `core/instantiation/` |
-| **Fable RDI handoff** | Continuation packet for RDI roadmap (advisory only) | [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) |
-| **Memetic Forensics** | SHADOW spine: EvidencePack → propagation → disposition; **OpsGate always DENIED** | [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · `python -m abraxas os forensics status` |
-| **AAL-Viz** | Projection-layer console + visual language (+ forensic projection C6) | [`apps/aal-viz-live-console/`](apps/aal-viz-live-console/) · [`design-system/aal-viz/`](design-system/aal-viz/) |
-| **Design system** | Tokens, icons, runes, Visual OS | [`design-system/`](design-system/) |
-| **Agent artifact metadata** | Multi-agent provenance schema | [`contracts/engineering/agent_artifact_metadata.v1.schema.json`](contracts/engineering/agent_artifact_metadata.v1.schema.json) |
-| **Multi-agent operator loop** | Hermes/Grok/Codex responsibilities (provenance ≠ authority) | [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) · glyphs in `design-system/aal-viz/operator_loop/` |
-| **Hermes OS unification** | Three-layer OS: Visual + Abraxas core + Hermes agent; signal forage syscall | [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · skill `abx-familiar-signal-forager` |
-| **AI OS realization backlog** | Work packages for kernel path; Slice G (consumption + handoff) defined | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) |
-| **AI OS kernel audit** | K1–K12 evidence vs main (`ACTIVE_SHADOW`, not production) | [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) · `python -m abraxas os status` |
-| **AI OS unification plan** | Whole-system tracks A–D (nav, contracts, alembic, authz) | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
-| **AI OS primitives map** | Classic OS primitives → Abraxas surfaces (projection) | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
-| **OmegaClaw track** | Symbolic integration concepts (advisory / SHADOW) | [`docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) · [`docs/plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md`](docs/plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md) |
+```text
+DEFINE → OBSERVE → MODEL → FORECAST → INTERVENE → SETTLE → UPDATE
+```
+
+| Step | Role | Primary surfaces |
+|------|------|------------------|
+| **DEFINE** | Construct + falsifiable bounds *before* retrieval | CFAR · `core/cfar.py` |
+| **OBSERVE** | Evidence with provenance and time | Oracle / ingest · EvidencePack |
+| **MODEL** | Constructs, hypotheses, state | Belief Graph · InstantiationState |
+| **SHADOW** | Anomaly / drift / contamination only — does **not** explain | `core/instantiation/shadow.py` · forensics spine |
+| **FORECAST** | Evidence-conditioned prediction — does **not** grant authority | Forecast contracts · Eval/Brier |
+| **INTERVENE** | Bounded, authorized perturbation only | InterventionDeclaration · activation policy |
+| **SETTLE** | Predicted vs observed + contamination flags | SettlementVerdict · binding bridge |
+| **UPDATE** | Feed resolved evidence forward without rewriting history | Provenance / receipts · model refresh |
+
+Doctrine: [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md)  
+Canon (Notion, 2026-08-09): *Abraxas — Master System* · *Engineering Direction Board*
+
+---
+
+## Three-Settlement Doctrine
+
+Every important capability seeks **three independent settlements**. Do not collapse them.
+
+| Settlement | Question | Does **not** imply |
+|------------|----------|--------------------|
+| **Empirical** | Is the claim supported under an appropriate design? | Product-market fit |
+| **Technical** | Does it work deterministically, reproducibly, under governance? | Scientific validity |
+| **Economic** | Is it useful enough that someone allocates scarce resources to it? | Causal truth |
+
+**One shared core.** Research, field/commercial, and lab/synthetic work reuse the same objects: Construct, Evidence, InstantiationState/Transition, SHADOW finding, Forecast, Intervention, Settlement, provenance, contamination.
+
+**Evidence lanes** (preserve origin; no laundering):
+
+- `RESEARCH` — controlled / publication-oriented  
+- `FIELD` — commercial / operational  
+- `LAB` — synthetic, fixture, simulation, bounded-agent  
+- `INTERNAL` — engineering hygiene / internal only  
+
+**Bidirectional loop:**  
+`FIELD → candidate phenomenon → hypothesis → LAB → RESEARCH → validated method → FIELD`
+
+Field success may generate hypotheses and product evidence; it does **not** automatically become independent scientific causal proof. ABX-mediated outcomes stay contamination-flagged for independent confirmation.
+
+Details: [`ARCHITECTURE.md` § Three-Settlement Doctrine](ARCHITECTURE.md) · [`docs/GLOSSARY.md`](docs/GLOSSARY.md)
+
+---
+
+## Paired vertical slices
+
+Do **not** sequence as “research forever, product never” or “monetize first, science later.”
+
+Where practical, each major capability should produce:
+
+| Expression | Example |
+|------------|---------|
+| **RESEARCH** | Benchmark, controlled experiment, calibration / falsification artifact |
+| **FIELD** | Customer-facing analysis, decision support, audit, scenario, intervention plan |
+
+**First paired milestone (directional):** `RDI Vertical Slice 001`
+
+- Research: observer-intervention contamination benchmark (`RDI-EXP-001`)  
+- Field: **Instantiation Audit** v0.1 (strategic intelligence wrapper)  
+- Shared path: `CFAR → Evidence → InstantiationState → SHADOW → FORECAST → Intervention → Settlement`
+
+Commerce is **one settlement surface**, not a separate commercial engine. Sell **wrappers** that solve legible problems on the same RDI core—do not lead with “buy Abraxas the mystical machine.”
+
+Near-term product direction (strategy, not activation): Instantiation Audit · signal/operator surfaces · later software/API only after technical + field settlement mature.
+
+Claim discipline: no marketing scientific validation from field success alone; no Instantiation Depth scores; no unsupported predictive accuracy.
+
+---
+
+## Epistemic firewall
+
+Hard distinctions everywhere durable artifacts matter:
+
+```text
+OBSERVED ≠ INFERRED ≠ SPECULATIVE ≠ NOT_COMPUTABLE
+```
+
+- Narrative coherence is not evidence  
+- Correlation is not causation  
+- Model output is not observation  
+- Simulation is not instantiation proof  
+- Technical green is not empirical green  
+- Economic success is not scientific truth  
+
+**Hyperstition** (operational): *representation-driven recursive instantiation* — consequences attributable to a construct increase, modify, or preserve its later capacity for further instantiation. Belief, popularity, or self-fulfilling appearance alone is insufficient.
+
+**Observer-intervention contamination:** Abraxas may sit inside the system it studies. Transitions record causal exposure (`INDEPENDENT` / `ABX_MEDIATED` / `MIXED` / `UNKNOWN`). ABX-mediated outcomes cannot auto-confirm the model that helped produce them.
+
+---
+
+## Design pillars
+
+- **Deterministic execution** — canonical hashes, receipts, replay-stable tests  
+- **Provenance-first** — source lineage and authority locks on every durable path  
+- **SHADOW ≠ FORECAST** — detection separated from explanation/prediction  
+- **Contract-bound operators** — schemas, fail-closed gates, no silent promotion  
+- **Lane-based activation** — LOCAL_DEV / SANDBOX allowed; EXTERNAL_PRODUCTION operator-gated  
+- **Reuse before invent** — close schema gaps only when gap audit proves need  
+
+Language boundary: **Python owns semantics. Rust owns mechanics (conditional only).** No Rust in-repo today; mechanical candidates deferred unless measured need appears. See [`ARCHITECTURE.md` § Language / runtime boundary](ARCHITECTURE.md).
+
+---
+
+## System map (RDI-aligned)
+
+| Layer | Surfaces | Role |
+|-------|----------|------|
+| **Define** | CFAR | Construct-first gate before retrieval |
+| **Observe** | Oracle, ingest, EvidencePack, signal forager | Provenanced intake |
+| **Model** | Belief Graph, InstantiationState/Transition | Structured state & claims |
+| **Detect** | SHADOW RDI, memetic forensics | Anomaly / propagation (ops gate **DENIED**) |
+| **Predict** | FORECAST, Brier / calibration | Evidence-conditioned trajectories |
+| **Intervene** | InterventionDeclaration, activation policy | Bounded; never self-authorizing |
+| **Settle** | SettlementVerdict, binding bridge | Predicted vs observed + contamination |
+| **Route / orchestrate** | YGGDRASIL, Alembic Spine | Deterministic topology & advisory multi-arch |
+| **Project** | AAL-Viz, InstantiationProjectionView | Read/render only — **no execution authority** |
+| **Govern** | Governance V3, operator loop, WorkPacket/Handoff | Human sovereignty; provenance ≠ authority |
+| **Agent OS** | Hermes skills, AI OS kernel (`ACTIVE_SHADOW`) | Forage → pack → spine under SHADOW |
+
+Implementation status and held gates: always **[`STATUS.md`](STATUS.md)**.
 
 ### Recent landings (2026-07-31 → 2026-08-10)
 
-| Track | What landed | Authority |
-|-------|-------------|-----------|
-| **RDI / Fable** #1096 · release **1.178.0** | Doctrine + reuse audit; fixture `InstantiationState/Transition.v1`; bounded `InterventionDeclaration.v1`; Fable handoff + validation | Advisory / fixture-only; no empirical claim; no activation |
-| **Slice G + P4 surfaces** #1098 | Consumption hardening + operator handoff definition; Hermes unification P4 notes; volume/patch palette | SHADOW / docs + skill surfaces |
-| **Memetic forensics C+C′+C6** #1079–#1081 | Pipeline, disposition, propagation graph, CLI `os forensics *`, AAL-Viz forensic projection | SHADOW; **MemeticOpsGate always DENIED** |
-| **Ops D0 / D2** #1082–#1083 | `MemeticOpsRouteIntent` + Level99 content seed (no publish) | Gate still DENIED |
-| **OmegaClaw** #1095 | Concept integration + symbolic plan (advisory) | No inter-agent live authority |
-| **Collab board** #1102 | GitHub Project collaboration section in CONTRIBUTING | Process only |
-
-Live replace-block status: always read **[`STATUS.md`](STATUS.md)** before claiming readiness.
+| Track | Landed | Posture |
+|-------|--------|---------|
+| RDI doctrine + fixtures + intervention | #1096 · **1.178.0** | PARTIAL · fixture / advisory |
+| Settlement binding bridge + three-settlement docs | #1104 | Technical settlement increment |
+| RDI-4 SHADOW detector + projection-only view | #1105 | Anomaly-only · no authority |
+| Memetic forensics C+C′+C6 · Ops D0/D2 | #1079–#1083 | SHADOW · **OpsGate DENIED** |
+| Slice G / P4 · OmegaClaw · collab board | #1095–#1102 | Docs / advisory |
+| README direction rewrite | this | Aligns GitHub surface to Notion 2026-08-09 canon |
 
 ---
 
 ## Quick start
 
-**Requirements:** Python 3.12+, pip. No external services for the safe demo.
+**Requirements:** Python 3.12+. No external services for the safe demo.
 
 ```bash
 # 1. Clone and install
@@ -109,21 +210,19 @@ client = AbraxasClient()
 print(client.status()["candidate_status"])  # NOT_READY
 ```
 
-Full onboarding: **[QUICKSTART.md](QUICKSTART.md)** (~5 minutes).
+Full onboarding: **[QUICKSTART.md](QUICKSTART.md)** · contributor path: **[docs/START_HERE.md](docs/START_HERE.md)**
 
 ### Common engineering commands
 
 ```bash
-# Layout gate (scripts organization complete)
-python scripts/organize_scripts.py status
+python scripts/organize_scripts.py status   # scripts layout gate
+python scripts/run_fast_ci.py               # local CI mirror
 
-# Local CI mirror
-python scripts/run_fast_ci.py
-
-# Targeted tests (scrub Hermes/venv noise if needed)
-env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest tests/test_cfar.py -q
 env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest \
-  tests/test_instantiation_contracts.py tests/test_forensics_cli.py -q
+  tests/test_instantiation_contracts.py \
+  tests/test_instantiation_shadow_projection.py \
+  tests/test_settlement_binding_bridge.py \
+  tests/test_cfar.py -q
 ```
 
 ---
@@ -131,57 +230,52 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest \
 ## Repository map
 
 ```text
-abraxas/                 Product CLI + client (incl. `os status` / `os forensics`)
+abraxas/                 Product CLI + client (status / os / forensics)
 apps/api/                Service factory (create_app)
 apps/aal-viz-live-console/  Projection console (Vite)
-core/                    Domain logic (forensics/, instantiation/, cfar, …)
-contracts/               JSON Schema (cfar/, engineering/, forensics/, instantiation/, …)
-scripts/<domain>/        Organized runners (scripts/README.md)
-design-system/           Visual OS + aal-viz asset pack
-docs/                    Atlas, ADRs, architecture, production readiness
-out/                     Generated artifacts (mostly gitignored; some receipts tracked)
-tests/                   Pytest suite
-skills/                  Hermes-mountable skills (forager, neon-genie, evolution, …)
+core/                    Domain logic (instantiation/, forensics/, cfar, settlement/, …)
+contracts/               JSON Schema (instantiation/, forensics/, engineering/, …)
+scripts/<domain>/        Domain-organized runners
+design-system/           Visual OS + aal-viz pack
+docs/                    Doctrine, architecture, atlas, readiness
+out/                     Generated artifacts (mostly gitignored)
+tests/                   Replay-stable pytest suite
+skills/                  Hermes-mountable skills
 ```
 
-Scripts are **domain-organized** (`scripts/<domain>/run_*.py`). Root keeps `scripts/run_fast_ci.py` as the CI mirror. See [`scripts/README.md`](scripts/README.md).
+Scripts: `scripts/<domain>/run_*.py`. CI mirror: `scripts/run_fast_ci.py`. See [`scripts/README.md`](scripts/README.md).
 
 ---
 
-## Documentation index
+## Documentation
 
-| Audience | Document |
-|----------|----------|
-| First run | [QUICKSTART.md](QUICKSTART.md) · [docs/START_HERE.md](docs/START_HERE.md) |
-| Live ops status | [STATUS.md](STATUS.md) |
-| Agent / contributor rules | [AGENTS.md](AGENTS.md) · [CONTRIBUTING.md](CONTRIBUTING.md) |
-| Collaboration board | [CONTRIBUTING § Collaboration](CONTRIBUTING.md#collaboration-github-project) · [GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) |
-| Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/atlas/ABRAXAS_ATLAS.md](docs/atlas/ABRAXAS_ATLAS.md) · [docs/INDEX.md](docs/INDEX.md) |
-| RDI / Fable | [RDI doctrine](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [Fable handoff](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) |
-| Memetic forensics | [Mission map](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · `contracts/forensics/` |
-| Roadmap | [PLANS.md](PLANS.md) |
-| Production readiness | [out/production_readiness/README.md](out/production_readiness/README.md) |
-| Program roadmap | [PLANS.md](PLANS.md) · [CONTINUATION_PLAN.v16](out/production_readiness/CONTINUATION_PLAN.v16.md) |
-| HTTP API (human) | [docs/api/HTTP_API.md](docs/api/HTTP_API.md) · OpenAPI freeze: `contracts/api/openapi_supported_surface.v1.json` |
+| Need | Route |
+|------|--------|
+| Live posture | [STATUS.md](STATUS.md) |
+| Architecture + three-settlement + language boundary | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| RDI doctrine · Fable handoff | [RDI 001](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [Fable](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) |
 | Glossary | [docs/GLOSSARY.md](docs/GLOSSARY.md) |
-| Design system | [design-system/README.md](design-system/README.md) |
-| AAL-Viz assets | [design-system/aal-viz/README.md](design-system/aal-viz/README.md) · [showcase](design-system/aal-viz/showcase/index.html) |
-| Multi-agent contract | Peer collaborators (Grok/Codex) — `producer_system` provenance only; schema above |
-| Changelog | [CHANGELOG.md](CHANGELOG.md) (semantic-release; tip **1.178.0** RDI fixtures + intervention) |
-| Security / secrets | Do not commit credentials; see CI security workflows |
+| Roadmap | [PLANS.md](PLANS.md) |
+| Contributor / agent rules | [CONTRIBUTING.md](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md) |
+| Collab board | [GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) · labels `track/rdi`, `track/ai-os`, `collab` |
+| Doc index | [docs/INDEX.md](docs/INDEX.md) · [docs/START_HERE.md](docs/START_HERE.md) |
+| Production readiness | [out/production_readiness/README.md](out/production_readiness/README.md) |
+| Design system / AAL-Viz | [design-system/](design-system/) · [aal-viz](design-system/aal-viz/) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+
+**Atlas protocol:** Notion governs architecture / registered state; GitHub governs implementation and merge evidence. Notion mirrors do not grant execution or canon authority.
 
 ---
 
 ## Multi-agent engineering
 
-Grok and Codex operate as **peer collaborators** under a shared contract:
+Grok, Codex, Hermes, and human operators are **peer collaborators** under a shared contract:
 
-- Inspect existing peer work before overlapping changes
-- Prefer complementary workstreams over duplication
-- Tag artifacts with `producer_system` (`GROK` \| `CODEX` \| `MIXED` \| `HUMAN` \| `IMPORTED`)
-- Machine companion: **AgentArtifactMetadata.v1** — identity does **not** grant authority, auto-merge, or canon promotion
-- Operator retains final authority on merge and canon
-- Shared board: [Abraxas v2.0 GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) · labels `collab`, `track/rdi`, `track/ai-os` (see [CONTRIBUTING.md](CONTRIBUTING.md))
+- Inspect existing peer work before overlapping  
+- Prefer complementary workstreams  
+- Tag artifacts with `producer_system` (`GROK` \| `CODEX` \| `MIXED` \| `HUMAN` \| `IMPORTED` \| …)  
+- **AgentArtifactMetadata.v1** records provenance — never authority, auto-merge, or canon promotion  
+- Operator retains final merge and canon authority  
 
 ---
 
@@ -193,7 +287,7 @@ Grok and Codex operate as **peer collaborators** under a shared contract:
 | `INTERNAL_CANARY` | Conditional |
 | `EXTERNAL_PRODUCTION` | **Operator-gated / held** |
 
-SHADOW and FORECAST lanes stay visually and authority-separated. AAL-Viz is a **projection layer** (read/render) — not an execution authority.
+SHADOW and FORECAST stay authority-separated. AAL-Viz is projection-only.
 
 Details: [GOVERNANCE_V3.md](GOVERNANCE_V3.md) · [STATUS.md](STATUS.md) · [ADR-0017](docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md)
 
@@ -201,11 +295,12 @@ Details: [GOVERNANCE_V3.md](GOVERNANCE_V3.md) · [STATUS.md](STATUS.md) · [ADR-
 
 ## Contributing
 
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md)
-2. Prefer small PRs with focused tests
-3. Run `python scripts/run_fast_ci.py` before opening a PR
-4. Do not bulk-rewrite sealed hygiene hash chains or invent ghost runners
-5. Never add `scripts/operator/__init__.py` (stdlib `operator` shadowing)
+1. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md)  
+2. Prefer vertical slices that advance at least **two** settlement surfaces without duplicate architecture  
+3. Small PRs with focused tests; run `python scripts/run_fast_ci.py` before opening a PR  
+4. Do not invent Instantiation Depth, causal coefficients, or phantom metrics  
+5. Do not bulk-rewrite sealed hygiene hash chains or invent ghost runners  
+6. Never add `scripts/operator/__init__.py` (stdlib `operator` shadowing)  
 
 ---
 
@@ -214,10 +309,10 @@ Details: [GOVERNANCE_V3.md](GOVERNANCE_V3.md) · [STATUS.md](STATUS.md) · [ADR-
 **Proprietary** — Copyright (c) 2024–2026 Applied Alchemy Labs / Daniel Meyer / Zero State.  
 All rights reserved. No open-source license is granted.
 
-See [`LICENSE`](LICENSE) for the full proprietary notice. Contact the maintainers for commercial licensing.
+See [`LICENSE`](LICENSE). Contact maintainers for commercial licensing.
 
 ---
 
-**Applied Alchemy Labs** — schema-driven, provenance-tagged systems at the intersection of symbolic intelligence, forecasting, and governed engineering.
+**Applied Alchemy Labs** — one core; three settlements; wrappers over a provenance-bound RDI spine.
 
-*Notion mirrors architecture/registered state; GitHub governs implementation and merge evidence.*
+*Abraxas studies how representations become causes.*
