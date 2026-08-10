@@ -22,6 +22,13 @@ fixture requirements prove which missing fields must survive deterministic round
 trip. Existing schemas remain authoritative and should be referenced rather than
 copied.
 
+RDI-3 subsequently added `InterventionDeclaration.v1` for the proven fields that
+could not be expressed by reference alone: named predicted dimension changes,
+constraints, falsification criteria, and explicit non-authority locks. It composes
+the existing CFAR/state, WorkPacket, ForecastObject, activation-evaluation evidence, and
+provenance artifacts by ID/hash. This later gap closure does not change the RDI-1
+finding that those source contracts remain authoritative.
+
 ## 2. Active contracts inspected
 
 | Surface | Active contract/type | Reusable role |

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/instantiation/intervention_declaration.v1.schema.json",
+  "title": "InterventionDeclaration.v1",
+  "description": "Bounded RDI intervention declaration that composes existing work, forecast, activation, and provenance artifacts. Declaration never grants execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "intervention_id",
+    "construct_ref",
+    "baseline_state_ref",
+    "work_packet_ref",
+    "forecast_ref",
+    "activation_evidence_ref",
+    "target_dimensions",
+    "predicted_dimension_changes",
+    "constraints",
+    "falsification_criteria",
+    "provenance_refs",
+    "authority",
+    "intervention_hash"
+  ],
+  "$defs": {
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "canonical_hash"],
+      "properties": {
+        "object_id": {"type": "string", "pattern": ".*\\S.*"},
+        "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "dimension_name": {
+      "enum": [
+        "symbolic_persistence",
+        "cognitive_penetration",
+        "behavioral_consequence",
+        "network_propagation",
+        "executable_embodiment",
+        "economic_institutional_embodiment",
+        "material_consequence",
+        "recursive_reinforcement"
+      ]
+    },
+    "predicted_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "change_kind",
+        "epistemic_status",
+        "claim_refs",
+        "not_computable_reason"
+      ],
+      "properties": {
+        "dimension": {"$ref": "#/$defs/dimension_name"},
+        "change_kind": {
+          "enum": ["INCREASED", "DECREASED", "UNCHANGED", "BIFURCATED", "NOT_COMPUTABLE"]
+        },
+        "epistemic_status": {
+          "enum": ["INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {"type": "string", "pattern": ".*\\S.*"},
+          "uniqueItems": true
+        },
+        "not_computable_reason": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {"properties": {"change_kind": {"const": "NOT_COMPUTABLE"}}},
+              {"properties": {"epistemic_status": {"const": "NOT_COMPUTABLE"}}}
+            ]
+          },
+          "then": {
+            "properties": {
+              "change_kind": {"const": "NOT_COMPUTABLE"},
+              "epistemic_status": {"const": "NOT_COMPUTABLE"},
+              "claim_refs": {"maxItems": 0},
+              "not_computable_reason": {"type": "string", "minLength": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "claim_refs": {"minItems": 1},
+              "not_computable_reason": {"type": "null"}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "InterventionDeclaration.v1"},
+    "intervention_id": {"type": "string", "pattern": "^iv-[A-Za-z0-9._:-]+$"},
+    "construct_ref": {"$ref": "#/$defs/artifact_ref"},
+    "baseline_state_ref": {"$ref": "#/$defs/artifact_ref"},
+    "work_packet_ref": {"$ref": "#/$defs/artifact_ref"},
+    "forecast_ref": {"$ref": "#/$defs/artifact_ref"},
+    "activation_evidence_ref": {
+      "allOf": [{"$ref": "#/$defs/artifact_ref"}],
+      "description": "Canonical receipt or evidence artifact produced from activation-policy evaluation; never a raw ActivationRequest object."
+    },
+    "target_dimensions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/dimension_name"},
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "predicted_dimension_changes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/predicted_change"},
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"type": "string", "pattern": ".*\\S.*"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "falsification_criteria": {
+      "type": "array",
+      "items": {"type": "string", "pattern": ".*\\S.*"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "provenance_refs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact_ref"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_grants_activation",
+        "forecast_grants_activation",
+        "work_packet_grants_activation",
+        "execution_authority",
+        "canon_mutation"
+      ],
+      "properties": {
+        "declaration_grants_activation": {"const": false},
+        "forecast_grants_activation": {"const": false},
+        "work_packet_grants_activation": {"const": false},
+        "execution_authority": {"const": false},
+        "canon_mutation": {"const": false}
+      }
+    },
+    "intervention_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

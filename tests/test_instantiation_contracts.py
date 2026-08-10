@@ -9,10 +9,13 @@ from core.instantiation import (
     DIMENSIONS,
     build_instantiation_state,
     build_instantiation_transition,
+    build_intervention_declaration,
+    canonical_intervention_json,
     canonical_state_json,
     canonical_transition_json,
     validate_instantiation_state,
     validate_instantiation_transition,
+    validate_intervention_declaration,
 )
 
 HASH_A = "a" * 64
@@ -68,6 +71,45 @@ def _change(status="OBSERVED"):
         "evidence_refs": ["evidence:fixture-log"],
         "not_computable_reason": None,
     }
+
+
+def _ref(object_id: str, value: str):
+    return {"object_id": object_id, "canonical_hash": value * 64}
+
+
+def _intervention():
+    return build_intervention_declaration(
+        intervention_id="iv-sandbox-rule",
+        construct_ref=_ref("cfar-fixture", "a"),
+        baseline_state_ref=_ref("is-t0", "b"),
+        work_packet_ref=_ref("WP-RDI-3", "c"),
+        forecast_ref=_ref("forecast-rdi-3", "d"),
+        activation_evidence_ref=_ref("activation-sandbox-receipt", "e"),
+        predicted_dimension_changes=[
+            {
+                "dimension": "behavioral_consequence",
+                "change_kind": "INCREASED",
+                "epistemic_status": "SPECULATIVE",
+                "claim_refs": ["forecast-rdi-3"],
+                "not_computable_reason": None,
+            },
+            {
+                "dimension": "symbolic_persistence",
+                "change_kind": "UNCHANGED",
+                "epistemic_status": "INFERRED",
+                "claim_refs": ["forecast-rdi-3-baseline"],
+                "not_computable_reason": None,
+            },
+        ],
+        constraints=["fixture evidence only", "sandbox lane only"],
+        falsification_criteria=[
+            "no behavioral transition is observed by fixture-t1",
+        ],
+        provenance_refs=[
+            _ref("producer-metadata", "f"),
+            _ref("fixture-spec", "1"),
+        ],
+    )
 
 
 def test_state_is_deterministic_schema_valid_and_orders_dimensions():
@@ -274,3 +316,166 @@ def test_three_synthetic_requirement_fixtures_are_present_and_bounded():
         "no_intervention_transition",
         "abx_mediated_settlement",
     }
+
+
+def test_intervention_declaration_is_deterministic_bounded_and_non_authoritative():
+    first = _intervention()
+    second = _intervention()
+    validate_intervention_declaration(first)
+    assert first == second
+    assert canonical_intervention_json(first) == canonical_intervention_json(second)
+    assert first["target_dimensions"] == [
+        "symbolic_persistence",
+        "behavioral_consequence",
+    ]
+    assert all(value is False for value in first["authority"].values())
+
+
+def test_intervention_provenance_and_activation_evidence_survive_round_trip():
+    restored = json.loads(json.dumps(_intervention()))
+    validate_intervention_declaration(restored)
+    assert restored["activation_evidence_ref"]["object_id"] == (
+        "activation-sandbox-receipt"
+    )
+    assert [item["object_id"] for item in restored["provenance_refs"]] == [
+        "fixture-spec",
+        "producer-metadata",
+    ]
+    assert restored["falsification_criteria"]
+
+
+def test_intervention_prediction_cannot_claim_observed_or_execution_authority():
+    invalid_status = _intervention()
+    invalid_status["predicted_dimension_changes"][0]["epistemic_status"] = "OBSERVED"
+    with pytest.raises(ValidationError):
+        validate_intervention_declaration(invalid_status)
+
+    invalid_authority = _intervention()
+    invalid_authority["authority"]["execution_authority"] = True
+    with pytest.raises(ValidationError):
+        validate_intervention_declaration(invalid_authority)
+
+
+def test_intervention_targets_must_match_unique_predicted_changes():
+    invalid = _intervention()
+    invalid["target_dimensions"] = ["behavioral_consequence"]
+    with pytest.raises(ValidationError, match="exactly match"):
+        validate_intervention_declaration(invalid)
+
+    change = {
+        "dimension": "behavioral_consequence",
+        "change_kind": "INCREASED",
+        "epistemic_status": "SPECULATIVE",
+        "claim_refs": ["forecast-rdi-3"],
+        "not_computable_reason": None,
+    }
+    with pytest.raises(ValueError, match="unique dimensions"):
+        build_intervention_declaration(
+            intervention_id="iv-duplicate",
+            construct_ref=_ref("cfar-fixture", "a"),
+            baseline_state_ref=_ref("is-t0", "b"),
+            work_packet_ref=_ref("WP-RDI-3", "c"),
+            forecast_ref=_ref("forecast-rdi-3", "d"),
+            activation_evidence_ref=_ref("activation-sandbox-receipt", "e"),
+            predicted_dimension_changes=[change, change],
+            constraints=["sandbox only"],
+            falsification_criteria=["no transition by t1"],
+            provenance_refs=[_ref("fixture-spec", "f")],
+        )
+
+
+def test_intervention_normalizes_claims_and_deduplicates_provenance():
+    kwargs = {
+        "intervention_id": "iv-normalized",
+        "construct_ref": _ref("cfar-fixture", "a"),
+        "baseline_state_ref": _ref("is-t0", "b"),
+        "work_packet_ref": _ref("WP-RDI-3", "c"),
+        "forecast_ref": _ref("forecast-rdi-3", "d"),
+        "activation_evidence_ref": _ref("activation-receipt", "e"),
+        "constraints": [" sandbox only ", "sandbox only"],
+        "falsification_criteria": [" no transition by t1 "],
+        "provenance_refs": [_ref("fixture-spec", "f"), _ref("fixture-spec", "f")],
+    }
+    first = build_intervention_declaration(
+        **kwargs,
+        predicted_dimension_changes=[
+            {
+                "dimension": "behavioral_consequence",
+                "change_kind": "INCREASED",
+                "epistemic_status": "SPECULATIVE",
+                "claim_refs": ["claim:z", " claim:a ", "claim:z"],
+                "not_computable_reason": None,
+            }
+        ],
+    )
+    second = build_intervention_declaration(
+        **kwargs,
+        predicted_dimension_changes=[
+            {
+                "dimension": "behavioral_consequence",
+                "change_kind": "INCREASED",
+                "epistemic_status": "SPECULATIVE",
+                "claim_refs": ["claim:a", "claim:z"],
+                "not_computable_reason": None,
+            }
+        ],
+    )
+    assert first == second
+    assert first["predicted_dimension_changes"][0]["claim_refs"] == [
+        "claim:a",
+        "claim:z",
+    ]
+    assert first["provenance_refs"] == [_ref("fixture-spec", "f")]
+
+
+def test_intervention_rejects_blank_criteria_and_artifact_identity():
+    with pytest.raises(ValueError, match="falsification_criteria"):
+        build_intervention_declaration(
+            intervention_id="iv-blank",
+            construct_ref=_ref("cfar-fixture", "a"),
+            baseline_state_ref=_ref("is-t0", "b"),
+            work_packet_ref=_ref("WP-RDI-3", "c"),
+            forecast_ref=_ref("forecast-rdi-3", "d"),
+            activation_evidence_ref=_ref("activation-receipt", "e"),
+            predicted_dimension_changes=[
+                {
+                    "dimension": "behavioral_consequence",
+                    "change_kind": "INCREASED",
+                    "epistemic_status": "SPECULATIVE",
+                    "claim_refs": ["claim"],
+                    "not_computable_reason": None,
+                }
+            ],
+            constraints=["sandbox"],
+            falsification_criteria=[" "],
+            provenance_refs=[_ref("fixture-spec", "f")],
+        )
+
+    invalid = _intervention()
+    invalid["activation_evidence_ref"]["object_id"] = " "
+    with pytest.raises(ValidationError):
+        validate_intervention_declaration(invalid)
+
+
+def test_abx_transition_can_bind_intervention_without_independent_confirmation():
+    intervention = _intervention()
+    transition = build_instantiation_transition(
+        transition_id="it-bound-intervention",
+        prior_state_id="is-t0",
+        prior_state_hash=HASH_A,
+        later_state_id="is-t1",
+        later_state_hash=HASH_B,
+        dimension_changes=[_change("INFERRED")],
+        causal_exposure="ABX_MEDIATED",
+        contamination_reasons=["bound intervention influenced fixture exposure"],
+        forecast_ref=_ref("forecast-rdi-3", "d"),
+        intervention_ref={
+            "object_id": intervention["intervention_id"],
+            "canonical_hash": intervention["intervention_hash"],
+        },
+        settlement_ref=_ref("settlement-rdi-3", "2"),
+    )
+    validate_instantiation_transition(transition)
+    assert transition["intervention_ref"]["object_id"] == "iv-sandbox-rule"
+    assert transition["contamination"]["feedback_contaminated"] is True
+    assert transition["contamination"]["independent_confirmation_eligible"] is False

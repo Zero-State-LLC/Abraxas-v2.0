@@ -109,6 +109,18 @@ provenance, activation lane, and falsification or settlement criteria. Declarati
 does not authorize execution. Execution authority remains solely with Governance
 V3, `core/governance/activation_policy.py`, and the operator where required.
 
+`InterventionDeclaration.v1` is the narrow composition profile for this semantic.
+It references, rather than duplicates, the CFAR construct, baseline state,
+WorkPacket, ForecastObject, activation-evaluation evidence, and provenance artifacts. It binds
+only named predicted dimension changes, constraints, and falsification criteria.
+Predicted changes may be `INFERRED`, `SPECULATIVE`, or `NOT_COMPUTABLE`, never
+`OBSERVED`. Its authority fields are const-false and cannot substitute for an
+activation evaluation or operator approval.
+
+The declaration validates reference shape and deterministic hashes but does not
+resolve an artifact store. Cross-artifact existence, schema identity, and semantic
+coherence remain required integration checks before execution or settlement.
+
 ### Settlement
 
 The post-observation comparison between a predicted and observed transition. It
@@ -311,8 +323,8 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | Deterministic forecast and settlement envelopes | `OBSERVED_EXISTING` | ForecastObject.v1 and SettlementVerdict.v1 |
 | Field-level schema/type reuse audit | `OBSERVED_EXISTING` | RDI-1 reuse audit completed; no new schema justified yet |
 | InstantiationVector composition contracts | `PARTIAL` | eight dimensions retain claim/evidence references or explicit `NOT_COMPUTABLE`; no numeric measurement semantics |
-| Intervention predicted-delta profile | `MISSING` | activation policy authorizes lanes but is not an intervention experiment contract |
-| ABX-mediated contamination representation | `PARTIAL` | fixture-only transition contract enforces typed exposure; no transition may self-declare independent confirmation |
+| Intervention predicted-delta profile | `PARTIAL` | `InterventionDeclaration.v1` binds existing work/forecast/activation/provenance references and named non-observed predicted changes; no execution receipt or settlement profile yet |
+| ABX-mediated contamination representation | `PARTIAL` | transition contract enforces typed exposure and can bind the intervention declaration; no transition may self-declare independent confirmation |
 | SHADOW RDI anomaly hooks | `MISSING` | architectural boundary exists; RDI-specific detector contract does not |
 | AAL-Viz RDI projection | `DEFERRED` | projection authority exists; state/transition visual contract does not |
 | Fixture experiment and calibration evaluation | `PARTIAL` | state-only, no-intervention, and ABX-mediated settlement requirement fixtures exist; no execution harness or empirical result claimed |
