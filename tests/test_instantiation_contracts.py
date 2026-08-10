@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 import pytest
-from jsonschema import ValidationError
+from jsonschema import Draft202012Validator, ValidationError
 
 from core.instantiation import (
     DIMENSIONS,
@@ -17,6 +17,11 @@ from core.instantiation import (
 
 HASH_A = "a" * 64
 HASH_B = "b" * 64
+
+
+def _schema(name: str):
+    path = Path("contracts/instantiation") / name
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _dimensions(observed: set[str] | None = None):
@@ -99,6 +104,24 @@ def test_state_requires_each_dimension_exactly_once():
         )
 
 
+def test_state_schema_rejects_duplicate_or_out_of_order_dimensions():
+    validator = Draft202012Validator(_schema("instantiation_state.v1.schema.json"))
+    state = _state()
+
+    duplicate = copy.deepcopy(state)
+    duplicate["dimensions"][-1] = copy.deepcopy(duplicate["dimensions"][0])
+    with pytest.raises(ValidationError):
+        validator.validate(duplicate)
+
+    out_of_order = copy.deepcopy(state)
+    out_of_order["dimensions"][0], out_of_order["dimensions"][1] = (
+        out_of_order["dimensions"][1],
+        out_of_order["dimensions"][0],
+    )
+    with pytest.raises(ValidationError):
+        validator.validate(out_of_order)
+
+
 def test_state_validator_rejects_hash_drift():
     state = _state(observed={"symbolic_persistence"})
     invalid = copy.deepcopy(state)
@@ -171,6 +194,21 @@ def test_schema_rejects_unknown_promoted_to_independent_confirmation():
     invalid["contamination"]["independent_confirmation_eligible"] = True
     with pytest.raises(ValidationError):
         validate_instantiation_transition(invalid)
+
+
+def test_transition_schema_rejects_reasons_without_contamination():
+    validator = Draft202012Validator(_schema("instantiation_transition.v1.schema.json"))
+    transition = build_instantiation_transition(
+        transition_id="it-clean",
+        prior_state_id="is-t0",
+        prior_state_hash=HASH_A,
+        later_state_id="is-t1",
+        later_state_hash=HASH_B,
+        dimension_changes=[_change()],
+    )
+    transition["contamination"]["reasons"] = ["inconsistent contamination claim"]
+    with pytest.raises(ValidationError):
+        validator.validate(transition)
 
 
 def test_transition_validator_rejects_duplicate_dimension_and_hash_drift():

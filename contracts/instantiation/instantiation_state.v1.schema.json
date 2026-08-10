@@ -99,7 +99,61 @@
     },
     "dimensions": {
       "type": "array",
-      "items": {"$ref": "#/$defs/dimension"},
+      "prefixItems": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "symbolic_persistence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "cognitive_penetration"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "behavioral_consequence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "network_propagation"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "executable_embodiment"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {
+              "properties": {
+                "name": {"const": "economic_institutional_embodiment"}
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "material_consequence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "recursive_reinforcement"}}}
+          ]
+        }
+      ],
+      "items": false,
       "minItems": 8,
       "maxItems": 8
     },

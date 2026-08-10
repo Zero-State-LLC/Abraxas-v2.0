@@ -131,7 +131,21 @@
           "uniqueItems": true
         },
         "independent_confirmation_eligible": {"const": false}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"feedback_contaminated": {"const": false}}
+          },
+          "then": {"properties": {"reasons": {"maxItems": 0}}}
+        },
+        {
+          "if": {
+            "properties": {"feedback_contaminated": {"const": true}}
+          },
+          "then": {"properties": {"reasons": {"minItems": 1}}}
+        }
+      ]
     },
     "forecast_ref": {"$ref": "#/$defs/optional_ref"},
     "intervention_ref": {"$ref": "#/$defs/optional_ref"},
