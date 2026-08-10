@@ -328,7 +328,7 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | ABX-mediated contamination representation | `PARTIAL` | transition contract enforces typed exposure and can bind the intervention declaration; no transition may self-declare independent confirmation |
 | SHADOW RDI anomaly hooks | `PARTIAL` | `core/instantiation/shadow.py` detects anomalies/observations over state/transition contracts (`InstantiationShadowReport.v1`); anomaly-only, no explanation or authority; live SHADOW pipeline wiring not attempted |
 | AAL-Viz RDI projection | `PARTIAL` | `core/instantiation/projection.py` builds the projection-only state/transition/lineage view (`InstantiationProjectionView.v1`) with optional shadow overlay; console rendering remains deferred |
-| Fixture experiment and calibration evaluation | `PARTIAL` | state-only, no-intervention, and ABX-mediated settlement requirement fixtures exist; no execution harness or empirical result claimed |
+| Fixture experiment and calibration evaluation | `PARTIAL` | `core/instantiation/harness.py` executes the full synthetic loop (H → t0 → forecast/intervention → t1 → settlement → Brier telemetry) over three experiment fixtures with contamination-aware calibration; still LAB-only — no empirical result claimed |
 | Aggregate Instantiation Depth | `DEFERRED` | `NOT_COMPUTABLE` pending validated measurement semantics |
 
 Doctrine formalization makes the architecture more coherent. It does not establish

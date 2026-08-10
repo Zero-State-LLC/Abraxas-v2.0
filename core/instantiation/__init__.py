@@ -13,6 +13,10 @@ from .contracts import (
     validate_instantiation_transition,
     validate_intervention_declaration,
 )
+from .harness import (
+    run_fixture_experiment,
+    validate_experiment_record,
+)
 from .projection import (
     build_instantiation_projection,
     validate_instantiation_projection,
@@ -33,6 +37,8 @@ __all__ = [
     "canonical_state_json",
     "canonical_transition_json",
     "detect_instantiation_anomalies",
+    "run_fixture_experiment",
+    "validate_experiment_record",
     "validate_instantiation_projection",
     "validate_instantiation_shadow_report",
     "validate_instantiation_state",

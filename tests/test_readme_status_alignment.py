@@ -12,10 +12,14 @@ def test_readme_states_governed_symbolic_intelligence() -> None:
     assert "Governance before autonomy" in readme
 
 
-def test_readme_states_advisory_codegen_and_belief_graph() -> None:
+def test_readme_states_advisory_posture_and_core_subsystems() -> None:
+    """The RDI-era README must keep naming core subsystems and their
+    advisory / operator-gated posture (Codegen Spine detail moved to
+    ARCHITECTURE.md / PLANS.md in the #1107 rewrite)."""
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Belief Graph Engine" in readme
-    assert "Codegen Intelligence Spine" in readme
+    assert "Belief Graph" in readme
+    assert "SHADOW" in readme
+    assert "advisory" in readme
     assert "hygiene-only" in readme or "operator-gated" in readme
 
 
