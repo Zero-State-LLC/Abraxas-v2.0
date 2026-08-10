@@ -20,6 +20,11 @@ from .contracts import (
     validate_instantiation_transition,
     validate_intervention_declaration,
 )
+from .artifact_resolver import (
+    ArtifactResolutionError,
+    ResolvedArtifactRef,
+    resolve_artifact_refs,
+)
 from .harness import (
     run_fixture_experiment,
     validate_experiment_record,
@@ -29,12 +34,15 @@ from .projection import (
     validate_instantiation_projection,
 )
 from .shadow import (
+    build_rdi_live_wire_artifact,
+    derive_rdi_live_wire_window,
     detect_instantiation_anomalies,
     validate_instantiation_shadow_report,
 )
 
 __all__ = [
     "CAUSAL_EXPOSURES",
+    "ArtifactResolutionError",
     "DIMENSIONS",
     "ArtifactResolutionError",
     "ResolvedArtifactRef",
@@ -42,14 +50,18 @@ __all__ = [
     "build_instantiation_state",
     "build_instantiation_transition",
     "build_intervention_declaration",
+    "build_rdi_live_wire_artifact",
     "canonical_intervention_json",
     "canonical_state_json",
     "canonical_transition_json",
+    "derive_rdi_live_wire_window",
     "detect_instantiation_anomalies",
     "resolve_artifact_refs",
     "resolve_intervention_ref",
     "resolve_transition_intervention_ref",
     "run_fixture_experiment",
+    "ResolvedArtifactRef",
+    "resolve_artifact_refs",
     "validate_experiment_record",
     "validate_instantiation_projection",
     "validate_instantiation_shadow_report",
