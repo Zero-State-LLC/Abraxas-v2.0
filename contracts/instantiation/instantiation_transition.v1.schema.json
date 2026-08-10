@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/instantiation/instantiation_transition.v1.schema.json",
+  "title": "InstantiationTransition.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "transition_id",
+    "prior_state_ref",
+    "later_state_ref",
+    "dimension_changes",
+    "causal_exposure",
+    "contamination",
+    "forecast_ref",
+    "intervention_ref",
+    "settlement_ref",
+    "authority",
+    "transition_hash"
+  ],
+  "$defs": {
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "canonical_hash"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "optional_ref": {
+      "anyOf": [{"$ref": "#/$defs/artifact_ref"}, {"type": "null"}]
+    },
+    "dimension_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "change_kind",
+        "epistemic_status",
+        "claim_refs",
+        "evidence_refs",
+        "not_computable_reason"
+      ],
+      "properties": {
+        "dimension": {
+          "enum": [
+            "symbolic_persistence",
+            "cognitive_penetration",
+            "behavioral_consequence",
+            "network_propagation",
+            "executable_embodiment",
+            "economic_institutional_embodiment",
+            "material_consequence",
+            "recursive_reinforcement"
+          ]
+        },
+        "change_kind": {
+          "enum": ["INCREASED", "DECREASED", "UNCHANGED", "BIFURCATED", "NOT_COMPUTABLE"]
+        },
+        "epistemic_status": {
+          "enum": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "not_computable_reason": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {"properties": {"change_kind": {"const": "NOT_COMPUTABLE"}}},
+              {"properties": {"epistemic_status": {"const": "NOT_COMPUTABLE"}}}
+            ]
+          },
+          "then": {
+            "properties": {
+              "change_kind": {"const": "NOT_COMPUTABLE"},
+              "epistemic_status": {"const": "NOT_COMPUTABLE"},
+              "not_computable_reason": {"type": "string", "minLength": 1},
+              "claim_refs": {"maxItems": 0},
+              "evidence_refs": {"maxItems": 0}
+            }
+          },
+          "else": {
+            "properties": {
+              "not_computable_reason": {"type": "null"},
+              "claim_refs": {"minItems": 1},
+              "evidence_refs": {"minItems": 1}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "InstantiationTransition.v1"},
+    "transition_id": {"type": "string", "pattern": "^it-[A-Za-z0-9._:-]+$"},
+    "prior_state_ref": {"$ref": "#/$defs/artifact_ref"},
+    "later_state_ref": {"$ref": "#/$defs/artifact_ref"},
+    "dimension_changes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/dimension_change"},
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "causal_exposure": {
+      "enum": ["EXOGENOUS", "ABX_MEDIATED", "MIXED", "UNKNOWN"]
+    },
+    "contamination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feedback_contaminated",
+        "reasons",
+        "independent_confirmation_eligible"
+      ],
+      "properties": {
+        "feedback_contaminated": {"type": "boolean"},
+        "reasons": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "independent_confirmation_eligible": {"const": false}
+      }
+    },
+    "forecast_ref": {"$ref": "#/$defs/optional_ref"},
+    "intervention_ref": {"$ref": "#/$defs/optional_ref"},
+    "settlement_ref": {"$ref": "#/$defs/optional_ref"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "causal_attribution",
+        "forecast_authority",
+        "intervention_authority",
+        "execution_authority",
+        "canon_mutation"
+      ],
+      "properties": {
+        "causal_attribution": {"const": false},
+        "forecast_authority": {"const": false},
+        "intervention_authority": {"const": false},
+        "execution_authority": {"const": false},
+        "canon_mutation": {"const": false}
+      }
+    },
+    "transition_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "causal_exposure": {"enum": ["ABX_MEDIATED", "MIXED"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "intervention_ref": {"$ref": "#/$defs/artifact_ref"},
+          "contamination": {
+            "properties": {
+              "feedback_contaminated": {"const": true},
+              "reasons": {"minItems": 1},
+              "independent_confirmation_eligible": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"causal_exposure": {"const": "UNKNOWN"}}
+      },
+      "then": {
+        "properties": {
+          "contamination": {
+            "properties": {
+              "independent_confirmation_eligible": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contamination": {
+            "properties": {"feedback_contaminated": {"const": true}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "contamination": {
+            "properties": {
+              "reasons": {"minItems": 1},
+              "independent_confirmation_eligible": {"const": false}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

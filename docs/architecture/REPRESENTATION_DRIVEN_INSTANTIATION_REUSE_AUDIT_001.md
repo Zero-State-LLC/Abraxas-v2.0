@@ -6,7 +6,9 @@
 
 ## 1. Decision
 
-Do not add an RDI schema in this work package.
+RDI-1 did not add an RDI schema. RDI-2 subsequently used the fixture requirements
+below to justify a narrow state/transition composition pair without changing the
+reuse conclusions in this audit.
 
 The repository already has reusable contracts for construct definition, evidence
 claims, epistemic labels, graph hypotheses, forecasts, settlement, provenance,
@@ -128,9 +130,9 @@ deterministic composition profile capable of binding:
 - contamination flags and reasons;
 - canonical hash and fail-closed authority locks.
 
-Whether this becomes one schema or a small state/transition pair remains
-`NOT_COMPUTABLE` until the synthetic fixture harness supplies at least one state-only,
-one no-intervention forecast, and one ABX-mediated intervention settlement example.
+RDI-2 selected a small state/transition pair after adding one state-only, one
+no-intervention forecast, and one ABX-mediated intervention settlement requirement
+fixture. The fixtures are synthetic contract evidence, not empirical validation.
 
 ## 6. RDI-1 result
 

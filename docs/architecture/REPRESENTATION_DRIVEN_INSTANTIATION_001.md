@@ -225,8 +225,8 @@ not authority and not causal proof.
 | Authorize perturbation | Governance V3 and activation policy | LOCAL_DEV/SANDBOX bounded; external production operator-gated | `OBSERVED_EXISTING` |
 | Preserve human authority | operator loop | Hermes routes, producers produce, operator decides | `OBSERVED_EXISTING` |
 | Project state and lineage | AAL-Viz | read-only visualization, no execution or approval authority | `PARTIAL` |
-| Full RDI state/transition profile | existing claims/evidence/forecast/settlement references are reusable | RDI-1 found missing per-dimension bindings and typed state references; see reuse audit | `PARTIAL` |
-| ABX-mediated exposure round trip | no verified active equivalent | provenance exists, explicit exposure vocabulary and fail-closed default do not | `MISSING` |
+| Full RDI state/transition profile | `InstantiationState.v1`, `InstantiationTransition.v1` composition contracts | RDI-2 provides fixture-only per-dimension bindings and typed state references; intervention declaration remains separate | `PARTIAL` |
+| ABX-mediated exposure round trip | `InstantiationTransition.v1` causal exposure and contamination fields | RDI-2 preserves `ABX_MEDIATED`, `MIXED`, and `UNKNOWN` fail-closed behavior in synthetic fixtures | `PARTIAL` |
 | Aggregate Instantiation Depth | no validated semantics | no normalization, weighting, or aggregation may be inferred | `DEFERRED` |
 
 ## 10. Falsification and NOT_COMPUTABLE behavior
@@ -310,12 +310,12 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | Evidence registers and ingest provenance | `OBSERVED_EXISTING` | EvidencePack and ingest receipts |
 | Deterministic forecast and settlement envelopes | `OBSERVED_EXISTING` | ForecastObject.v1 and SettlementVerdict.v1 |
 | Field-level schema/type reuse audit | `OBSERVED_EXISTING` | RDI-1 reuse audit completed; no new schema justified yet |
-| InstantiationVector measurement contracts | `MISSING` | dimensions have names but no validated field semantics |
+| InstantiationVector composition contracts | `PARTIAL` | eight dimensions retain claim/evidence references or explicit `NOT_COMPUTABLE`; no numeric measurement semantics |
 | Intervention predicted-delta profile | `MISSING` | activation policy authorizes lanes but is not an intervention experiment contract |
-| ABX-mediated contamination representation | `MISSING` | provenance can link artifacts but exposure class is not verified round-trip |
+| ABX-mediated contamination representation | `PARTIAL` | fixture-only transition contract enforces typed exposure; no transition may self-declare independent confirmation |
 | SHADOW RDI anomaly hooks | `MISSING` | architectural boundary exists; RDI-specific detector contract does not |
 | AAL-Viz RDI projection | `DEFERRED` | projection authority exists; state/transition visual contract does not |
-| Fixture experiment and calibration evaluation | `DEFERRED` | design specified; no implementation or empirical result claimed |
+| Fixture experiment and calibration evaluation | `PARTIAL` | state-only, no-intervention, and ABX-mediated settlement requirement fixtures exist; no execution harness or empirical result claimed |
 | Aggregate Instantiation Depth | `DEFERRED` | `NOT_COMPUTABLE` pending validated measurement semantics |
 
 Doctrine formalization makes the architecture more coherent. It does not establish

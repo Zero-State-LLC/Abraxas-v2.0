@@ -1,0 +1,12 @@
+{
+  "scenario": "no_intervention_transition",
+  "prior_state_id": "is-fixture-t0",
+  "later_state_id": "is-fixture-t1",
+  "forecast_ref": {
+    "object_id": "forecast-fixture-no-intervention",
+    "canonical_hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "intervention_ref": null,
+  "expected_causal_exposure": "UNKNOWN",
+  "expected_independent_confirmation_eligible": false
+}

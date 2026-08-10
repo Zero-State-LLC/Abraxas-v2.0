@@ -69,7 +69,7 @@ The smallest evidence-backed continuation is:
 |----|--------------|--------|---------------|
 | RDI-0 | Doctrine, aliases, existing-system mapping | **DOCUMENTED** | canonical architecture document + README/AGENTS/glossary links |
 | RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **DOCUMENTED** | [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md); no new schema justified |
-| RDI-2 | Close only proven representation gaps | **MISSING** | deterministic fixture contract preserving epistemic labels and `NOT_COMPUTABLE` dimensions |
+| RDI-2 | Close only proven representation gaps | **FIXTURE CONTRACTS LANDED** | `InstantiationState.v1` + `InstantiationTransition.v1`, deterministic builders, three synthetic requirement fixtures, targeted tests |
 | RDI-3 | FORECAST/settlement contamination integration | **MISSING** | predicted-versus-observed transition can retain exogenous/ABX-mediated/mixed/unknown exposure |
 | RDI-4 | SHADOW and AAL-Viz projection hooks | **DEFERRED** | anomaly-only SHADOW output and projection-only state/transition/lineage view |
 | RDI-5 | Synthetic fixture harness and calibration evaluation | **DEFERRED** | define H → state t0 → forecast/intervention → evidence t1 → settlement → calibration |
@@ -85,6 +85,14 @@ claims, graph hypotheses, forecast/settlement linkage, provenance, work scope, a
 activation evaluation. RDI-2 must close only the proven gaps: per-dimension evidence
 bindings, typed state references, intervention/no-intervention conditions, and
 fail-closed ABX-mediated contamination representation.
+
+RDI-2 now provides fixture-only state and transition composition. It references
+existing artifacts by ID/hash, preserves all eight dimensions independently,
+forces aggregate depth to `NOT_COMPUTABLE`, and prevents any transition from
+self-declaring independent confirmation. A future settlement policy must establish
+independence from bound evidence rather than from the transition payload itself.
+This does not complete intervention declaration, FORECAST/settlement integration,
+SHADOW hooks, calibration, or empirical validation.
 
 ### Next three milestones
 
