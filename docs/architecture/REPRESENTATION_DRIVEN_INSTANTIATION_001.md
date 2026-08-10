@@ -6,6 +6,8 @@
 **Empirical posture:** This doctrine is not empirical validation of hyperstition,
 causal attribution, consciousness, or universal simulation/instantiation equivalence.
 
+**Reuse audit:** [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md)
+
 ## 1. Purpose
 
 This document defines how Abraxas studies whether a represented construct `H`
@@ -223,7 +225,7 @@ not authority and not causal proof.
 | Authorize perturbation | Governance V3 and activation policy | LOCAL_DEV/SANDBOX bounded; external production operator-gated | `OBSERVED_EXISTING` |
 | Preserve human authority | operator loop | Hermes routes, producers produce, operator decides | `OBSERVED_EXISTING` |
 | Project state and lineage | AAL-Viz | read-only visualization, no execution or approval authority | `PARTIAL` |
-| Full RDI state/transition profile | no verified active equivalent | field-level reuse audit required before schema extension | `MISSING` |
+| Full RDI state/transition profile | existing claims/evidence/forecast/settlement references are reusable | RDI-1 found missing per-dimension bindings and typed state references; see reuse audit | `PARTIAL` |
 | ABX-mediated exposure round trip | no verified active equivalent | provenance exists, explicit exposure vocabulary and fail-closed default do not | `MISSING` |
 | Aggregate Instantiation Depth | no validated semantics | no normalization, weighting, or aggregation may be inferred | `DEFERRED` |
 
@@ -307,6 +309,7 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | Construct-first definition | `OBSERVED_EXISTING` | CFAR implementation and schema |
 | Evidence registers and ingest provenance | `OBSERVED_EXISTING` | EvidencePack and ingest receipts |
 | Deterministic forecast and settlement envelopes | `OBSERVED_EXISTING` | ForecastObject.v1 and SettlementVerdict.v1 |
+| Field-level schema/type reuse audit | `OBSERVED_EXISTING` | RDI-1 reuse audit completed; no new schema justified yet |
 | InstantiationVector measurement contracts | `MISSING` | dimensions have names but no validated field semantics |
 | Intervention predicted-delta profile | `MISSING` | activation policy authorizes lanes but is not an intervention experiment contract |
 | ABX-mediated contamination representation | `MISSING` | provenance can link artifacts but exposure class is not verified round-trip |

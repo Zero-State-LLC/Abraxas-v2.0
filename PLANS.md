@@ -68,7 +68,7 @@ The smallest evidence-backed continuation is:
 | ID | Work package | Status | Exit evidence |
 |----|--------------|--------|---------------|
 | RDI-0 | Doctrine, aliases, existing-system mapping | **DOCUMENTED** | canonical architecture document + README/AGENTS/glossary links |
-| RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **NEXT** | field-level mapping against active contracts; no duplicate subsystem |
+| RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **DOCUMENTED** | [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md); no new schema justified |
 | RDI-2 | Close only proven representation gaps | **MISSING** | deterministic fixture contract preserving epistemic labels and `NOT_COMPUTABLE` dimensions |
 | RDI-3 | FORECAST/settlement contamination integration | **MISSING** | predicted-versus-observed transition can retain exogenous/ABX-mediated/mixed/unknown exposure |
 | RDI-4 | SHADOW and AAL-Viz projection hooks | **DEFERRED** | anomaly-only SHADOW output and projection-only state/transition/lineage view |
@@ -79,6 +79,12 @@ confidence formulas, recursive-reinforcement scores, or maturity levels. Until
 validated semantics exist, aggregate depth and unsupported dimensions are
 `NOT_COMPUTABLE`. The first harness uses synthetic fixtures and no production or
 social-world intervention.
+
+RDI-1 concluded that active contracts cover construct definition, sourced epistemic
+claims, graph hypotheses, forecast/settlement linkage, provenance, work scope, and
+activation evaluation. RDI-2 must close only the proven gaps: per-dimension evidence
+bindings, typed state references, intervention/no-intervention conditions, and
+fail-closed ABX-mediated contamination representation.
 
 ### Next three milestones
 
