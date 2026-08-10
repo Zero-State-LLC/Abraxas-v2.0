@@ -18,8 +18,17 @@ implementation remains SANDBOX-only, detection-only, dry-run-only, and writes
 artifacts under `out/`; it does not update the console feed or grant any
 execution, activation, settlement, forecast, intervention, or canon authority.
 
-The separate paired record is [`rdi_live_wiring_scope_operator_decision_record_001.json`](../../operator_input/rdi_live_wiring_scope_operator_decision_record_001.json)
-and its human-readable companion.
+The bindable addendum is
+[`rdi_live_wiring_operator_decision_record_002.json`](../../operator_input/rdi_live_wiring_operator_decision_record_002.json)
+and its paired human-readable companion. It supplements record 001 without
+changing Decision 2.
+
+The implementation binds a claim to a vector dimension only when the claim
+explicitly carries the canonical `dimension` name; claim text is never parsed or
+reinterpreted. It accepts the pack window only as a parseable ISO-8601
+`start/end` interval, resolves claim `source_ids` through the pack source table,
+and binds the resulting `EvidenceObject.v1` hashes and timestamps. Missing,
+ambiguous, or wholly out-of-window evidence fails closed.
 
 ## Decision 2 boundary
 

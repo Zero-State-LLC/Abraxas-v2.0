@@ -1,0 +1,83 @@
+{
+  "record_type": "RDI_LIVE_WIRING_OPERATOR_DECISION_RECORD",
+  "record_id": "RDI_LIVE_WIRING_OPERATOR_DECISION_RECORD_002",
+  "addendum_to_record_id": "RDI_LIVE_WIRING_OPERATOR_DECISION_RECORD_001",
+  "system": "Abraxas v2.0",
+  "upstream_request": {
+    "pull_request": 1110,
+    "decision_record_pull_request": 1113,
+    "document": "docs/governance/OPERATOR_DECISION_REQUEST_RDI_LIVE_WIRING_001.md"
+  },
+  "operator_identity": {
+    "operator_id": "daniel_meyer",
+    "operator_display_name": "Daniel Meyer",
+    "operator_role": "governed_operator",
+    "decision_source": "team Buzz channel",
+    "operator_reviewed_at_source_observed": "2026-08-10",
+    "source_observation_sha256": "sha256:007c32b93fefae48b37053f4fbbdd68c49f4224bd9c2aaeb6fb5ea4947ff478f"
+  },
+  "operator_scope": "Scoping for #1110 shadow live-wire: target EvidencePack.v0 claims with register=OBSERVED|INFERRED on the 8 InstantiationVector dims (symbolic_persistence..recursive_reinforcement). Windows: EvidencePack.time_horizon + EvidenceObject timestamps. Real construct H via CFAR ConstructPacket: construct='RDI instantiation vector H', status=EMERGENT, variable_class=HYBRID, dimensions=vector list, assumptions=per REPRESENTATION_DRIVEN_INSTANTIATION_001, route=EVIDENCE_RETRIEVAL.",
+  "decisions": {
+    "decision_1_live_shadow_ingest_scoping": {
+      "chosen_option": "B",
+      "status": "AUTHORIZED_SANDBOX_ONLY_SCOPE_BOUND",
+      "supersedes_record_001_open_preconditions": true,
+      "target": {
+        "evidence_pack_schema": "EvidencePack.v0",
+        "allowed_registers": ["OBSERVED", "INFERRED"],
+        "dimensions": [
+          "symbolic_persistence",
+          "cognitive_penetration",
+          "behavioral_consequence",
+          "network_propagation",
+          "executable_embodiment",
+          "economic_institutional_embodiment",
+          "material_consequence",
+          "recursive_reinforcement"
+        ],
+        "window_sources": [
+          "EvidencePack.time_horizon",
+          "EvidenceObject.timestamp"
+        ],
+        "cfar_construct": {
+          "construct": "RDI instantiation vector H",
+          "construct_status": "EMERGENT",
+          "variable_class": "HYBRID",
+          "dimensions": "InstantiationVector dimensions",
+          "assumptions_reference": "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md",
+          "route": "EVIDENCE_RETRIEVAL"
+        }
+      },
+      "implementation_preconditions": {
+        "evidence_registers_and_windows_specified": true,
+        "cfar_construct_definitions_specified": true,
+        "open_question": null
+      },
+      "execution_authorized_by_this_record": false
+    },
+    "decision_2_legacy_binding_status_path": {
+      "status": "UNCHANGED_OUT_OF_SCOPE",
+      "implementation_authorized_by_this_addendum": false,
+      "precondition_tracking": "issue #1112"
+    }
+  },
+  "authority_boundaries": {
+    "sandbox_only": true,
+    "dry_runs_only": true,
+    "detection_only": true,
+    "artifacts_path": "out/",
+    "runtime_execution_allowed": false,
+    "runtime_mutation_allowed": false,
+    "console_feed_mutation_allowed": false,
+    "queue_scheduler_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "settlement_execution_allowed": false,
+    "explanation_forecast_intervention_allowed": false,
+    "production_activation_allowed": false,
+    "authority_grant_allowed": false
+  },
+  "binding": {
+    "bind_by": "sha256 of jq -S -c canonical JSON with binding.payload_sha256 set to null",
+    "payload_sha256": "sha256:d8edfd3fb9a69a2a9b004fb3c5d8afbec74ca4297ef6ceed2fd59ce4569cb7ee"
+  }
+}
