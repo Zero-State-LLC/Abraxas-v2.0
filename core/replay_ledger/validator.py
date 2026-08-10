@@ -1,14 +1,10 @@
 from __future__ import annotations
 
-import hashlib
-import json
-from dataclasses import asdict
 from typing import Any, Mapping
+
+from core.contract_validation import build_validation_report
+
 from .models import ReplayLedger, ReplayTemporalDiff, ReplayLedgerValidationFinding, ReplayLedgerValidationReport
-
-
-def _canonical_json(data: object) -> str: return json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-def _sha256_text(text: str) -> str: return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 def validate_replay_ledger(ledger: ReplayLedger | Mapping[str, Any]) -> ReplayLedgerValidationReport:
     ledger_obj = ledger if isinstance(ledger, ReplayLedger) else ReplayLedger(**dict(ledger))
@@ -29,8 +25,7 @@ def validate_replay_ledger(ledger: ReplayLedger | Mapping[str, Any]) -> ReplayLe
     if ledger_obj.created_by_lane=="PROJECTION" and ledger_obj.authority_ref is not None:
         findings.append(ReplayLedgerValidationFinding("PROJECTION_AUTH_BLOCKED","error","PROJECTION cannot create authority."))
         status="BLOCKED"
-    receipt_hash=_sha256_text(_canonical_json({"status":status,"findings":[asdict(f) for f in findings],"ledger_id":ledger_obj.ledger_id}))
-    return ReplayLedgerValidationReport(status, tuple(findings), receipt_hash)
+    return build_validation_report(status, findings, subject_key="ledger_id", subject_id=ledger_obj.ledger_id)
 
 def validate_replay_temporal_diff(diff: ReplayTemporalDiff | Mapping[str, Any]) -> ReplayLedgerValidationReport:
     d = diff if isinstance(diff, ReplayTemporalDiff) else ReplayTemporalDiff(**dict(diff))
@@ -57,5 +52,4 @@ def validate_replay_temporal_diff(diff: ReplayTemporalDiff | Mapping[str, Any]) 
     if d.created_by_lane=="PROJECTION" and d.authority_ref is not None:
         findings.append(ReplayLedgerValidationFinding("PROJECTION_AUTH_BLOCKED","error","PROJECTION cannot create authority."))
         status="BLOCKED"
-    receipt_hash=_sha256_text(_canonical_json({"status":status,"findings":[asdict(f) for f in findings],"diff_id":d.diff_id}))
-    return ReplayLedgerValidationReport(status, tuple(findings), receipt_hash)
+    return build_validation_report(status, findings, subject_key="diff_id", subject_id=d.diff_id)

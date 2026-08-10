@@ -29,6 +29,8 @@ Abraxas treats representations as potentially causal structures rather than assu
 
 It is **not** a generic chatbot wrapper. Default posture is **advisory / projection-only** for research and operator surfaces unless a lane explicitly authorizes more (see [ADR-0017](docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md)).
 
+Abraxas is primarily developed in Python for semantic and research agility, with Rust considered selectively for stable execution boundaries such as canonicalization, replay, high-throughput ingest, and future deterministic simulation — only where measured need justifies it (see [ARCHITECTURE.md § Language / runtime boundary](ARCHITECTURE.md)). No Rust component currently exists.
+
 ### Design pillars
 
 - **Deterministic execution** — traceable paths, receipts, artifact lineage
@@ -69,7 +71,7 @@ It is **not** a generic chatbot wrapper. Default posture is **advisory / project
 git clone https://github.com/scrimshawlife-ctrl/Abraxas-v2.0.git
 cd Abraxas-v2.0
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -e ".[dev]"
 
 # 2. Safe read-only status (no out/ writes)
 python scripts/tools/demo_safe_status.py

@@ -1,19 +1,10 @@
 from __future__ import annotations
 
-import hashlib
-import json
-from dataclasses import asdict
 from typing import Any, Mapping
 
+from core.contract_validation import build_validation_report
+
 from .models import AuthorityRef, SettlementConflictSummary, SettlementDecision, SettlementReason, SettlementStatus, SettlementValidationFinding, SettlementValidationReport, SettlementVerdict
-
-
-def _canonical_json(data: object) -> str:
-    return json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
-def _sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _to_verdict(verdict: SettlementVerdict | Mapping[str, Any]) -> SettlementVerdict:
@@ -100,5 +91,4 @@ def validate_settlement_verdict(verdict: SettlementVerdict | Mapping[str, Any]) 
         findings.append(SettlementValidationFinding("CANON_SETTLEMENT_BLOCKED", "error", "CANON may define schema/contracts only."))
         status = "BLOCKED"
 
-    receipt_hash = _sha256_text(_canonical_json({"status": status, "findings": [asdict(f) for f in findings], "settlement_id": obj.settlement_id}))
-    return SettlementValidationReport(status=status, findings=tuple(findings), receipt_hash=receipt_hash)
+    return build_validation_report(status, findings, subject_key="settlement_id", subject_id=obj.settlement_id)

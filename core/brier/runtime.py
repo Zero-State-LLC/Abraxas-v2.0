@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from typing import Any
 
 from core.brier.calibration_history import CalibrationHistoryPacket
 from core.brier.ledger import BrierLedgerEntry
@@ -12,14 +13,26 @@ from core.brier.scores import BrierScorePacket
 from core.brier.stabilization import BrierStabilizationPacket
 
 
-def build_brier_ledger(forecast_packets: dict, outcome_packets: dict) -> dict:
+def build_brier_ledger(
+    forecast_packets: dict, outcome_packets: dict, settlement_verdict: Any | None = None
+) -> dict:
     """Pure builder: returns brier ledger packet. Does not write to disk.
 
     Publication belongs in scripts/belief/run_brier_ledger.py (sole-writer).
+
+    When *settlement_verdict* is provided, the observed outcome is derived from
+    a score-ready SettlementVerdict.v1 (fail-closed: raises when the verdict is
+    not PASS + SETTLED + TRUE/FALSE) instead of raw binding status. Legacy
+    binding-status derivation remains for callers without settlement coverage.
     """
     forecast_hash = forecast_packets["candidate"]["candidate_hash"]
     p = forecast_packets["probability"]["probability"]
-    outcome = 1 if outcome_packets.get("binding_status") == "matched" else 0
+    if settlement_verdict is not None:
+        from core.settlement.binding_bridge import observed_outcome_from_verdict
+
+        outcome = observed_outcome_from_verdict(settlement_verdict)
+    else:
+        outcome = 1 if outcome_packets.get("binding_status") == "matched" else 0
     score = BrierScorePacket.compute_score(p, outcome)
     score_packet = BrierScorePacket(
         score_id=f"score:{forecast_hash[:10]}",

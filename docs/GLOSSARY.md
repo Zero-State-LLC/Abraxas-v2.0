@@ -21,11 +21,22 @@ of the originating model.
 
 ---
 
+**Causal exposure**
+The recorded relationship between Abraxas activity and an observed transition:
+`INDEPENDENT`, `ABX_MEDIATED`, `MIXED`, or `UNKNOWN`. Exposure labels record
+plausible paths, not proven causation, and must survive serialization, replay,
+and settlement without loss.
+
+---
+
 **Hyperstition**
 Representation-driven recursive instantiation. Evidence must indicate that
 consequences attributable to the represented construct increase, modify, or
 preserve its later capacity for further instantiation. Belief, popularity,
 narrative force, correlation, or self-fulfilling appearance alone is insufficient.
+Historical planning documents that predate this definition use "hyperstition"
+informally (e.g. anchors, bleed, emergence thresholds); this definition governs
+all active work.
 
 ---
 
@@ -82,6 +93,57 @@ non-instantiation.
 The post-observation comparison of a declared forecast with later evidence,
 including the observed transition, prediction error where computable, conflicts,
 and contamination flags. Settlement is not execution authority.
+
+---
+
+**Empirical settlement**
+Whether a claim is supported by evidence: declared forecast, falsification
+criteria, resolved observation, calibration. One of the three settlements every
+important capability seeks (see `ARCHITECTURE.md` § Three-Settlement Doctrine).
+
+---
+
+**Technical settlement**
+Whether the implementation reliably meets specification: determinism, schema
+validity, tests, replayability, provenance, canonical artifacts. Technical
+settlement never implies empirical settlement.
+
+---
+
+**Economic settlement**
+Whether a capability produces consequences valuable enough that someone adopts
+or pays for it. Commercial success is not causal or scientific validity.
+
+---
+
+**Semantic layer**
+The Python surfaces that decide what things mean: CFAR, Belief Graph, SHADOW,
+FORECAST, RDI research logic, orchestration, model integration. Rapidly
+evolving; not a systems-migration target.
+
+---
+
+**Execution substrate**
+The narrow mechanical layer beneath the semantic layer: canonical
+serialization/hashing, deterministic replay, ingest transport, simulation
+kernels, operator tooling. Candidate (not committed) territory for Rust under
+the language/runtime boundary in `ARCHITECTURE.md`.
+
+---
+
+**Canonical serialization**
+The single deterministic JSON representation produced by
+`core/canonical/json.py` (`canonical_dumps`): sorted keys, minimal separators,
+unicode preserved, floats normalized to 6 decimal places. Every canonical hash
+is computed over this representation. Do not bypass it.
+
+---
+
+**Deterministic replay**
+Re-execution of a recorded event/state sequence that reproduces identical
+artifacts and hashes. Contract layers: `core/replay_execution/`,
+`core/replay_ledger/`, `core/settlement/`. Successful replay is technical
+settlement only — it is not evidence a model's interpretation is correct.
 
 ---
 
