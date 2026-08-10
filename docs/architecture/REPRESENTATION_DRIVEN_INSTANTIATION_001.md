@@ -326,8 +326,8 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | InstantiationVector composition contracts | `PARTIAL` | eight dimensions retain claim/evidence references or explicit `NOT_COMPUTABLE`; no numeric measurement semantics |
 | Intervention predicted-delta profile | `PARTIAL` | `InterventionDeclaration.v1` binds existing work/forecast/activation/provenance references and named non-observed predicted changes; no execution receipt or settlement profile yet |
 | ABX-mediated contamination representation | `PARTIAL` | transition contract enforces typed exposure and can bind the intervention declaration; no transition may self-declare independent confirmation |
-| SHADOW RDI anomaly hooks | `MISSING` | architectural boundary exists; RDI-specific detector contract does not |
-| AAL-Viz RDI projection | `DEFERRED` | projection authority exists; state/transition visual contract does not |
+| SHADOW RDI anomaly hooks | `PARTIAL` | `core/instantiation/shadow.py` detects anomalies/observations over state/transition contracts (`InstantiationShadowReport.v1`); anomaly-only, no explanation or authority; live SHADOW pipeline wiring not attempted |
+| AAL-Viz RDI projection | `PARTIAL` | `core/instantiation/projection.py` builds the projection-only state/transition/lineage view (`InstantiationProjectionView.v1`) with optional shadow overlay; console rendering remains deferred |
 | Fixture experiment and calibration evaluation | `PARTIAL` | state-only, no-intervention, and ABX-mediated settlement requirement fixtures exist; no execution harness or empirical result claimed |
 | Aggregate Instantiation Depth | `DEFERRED` | `NOT_COMPUTABLE` pending validated measurement semantics |
 
