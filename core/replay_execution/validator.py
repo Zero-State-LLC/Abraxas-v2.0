@@ -1,19 +1,10 @@
 from __future__ import annotations
 
-import hashlib
-import json
-from dataclasses import asdict
 from typing import Any, Mapping
 
+from core.contract_validation import build_validation_report
+
 from .models import ReplayInputRef, ReplayMutationPlan, ReplayRollbackPlan, ReplayExecutionReceipt, ReplayDeterminismReport, AuthorityRef, ReplayExecutionEnvelope, ReplayValidationFinding, ReplayValidationReport
-
-
-def _canonical_json(data: object) -> str:
-    return json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
-def _sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _to_env(x: ReplayExecutionEnvelope | Mapping[str, Any]) -> ReplayExecutionEnvelope:
@@ -75,5 +66,4 @@ def validate_replay_execution_envelope(envelope: ReplayExecutionEnvelope | Mappi
     if e.created_by_lane=="CANON" and e.replay_status in {"REPLAY_READY","REPLAY_PASSED","REPLAY_FAILED","BLOCKED_BY_AUTHORIZATION","BLOCKED_BY_ROLLBACK","BLOCKED_BY_NONDETERMINISM"}:
         findings.append(ReplayValidationFinding("CANON_FINALIZE_BLOCKED","error","CANON may define schema/contracts only."))
         status="BLOCKED"
-    receipt_hash=_sha256_text(_canonical_json({"status":status,"findings":[asdict(f) for f in findings],"replay_id":e.replay_id}))
-    return ReplayValidationReport(status, tuple(findings), receipt_hash)
+    return build_validation_report(status, findings, subject_key="replay_id", subject_id=e.replay_id)

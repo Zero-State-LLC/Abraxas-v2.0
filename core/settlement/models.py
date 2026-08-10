@@ -3,7 +3,23 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
+from core.contract_validation import (
+    ContractValidationFinding as SettlementValidationFinding,
+    ContractValidationReport as SettlementValidationReport,
+)
 from core.status_result import STATUS_NOT_COMPUTABLE
+
+__all__ = [
+    "AuthorityRef",
+    "SettlementConflictSummary",
+    "SettlementDecision",
+    "SettlementInputRef",
+    "SettlementReason",
+    "SettlementStatus",
+    "SettlementValidationFinding",
+    "SettlementValidationReport",
+    "SettlementVerdict",
+]
 
 
 class SettlementDecision(str, Enum):
@@ -71,17 +87,3 @@ class SettlementVerdict:
     created_by_lane: str
     authority_ref: AuthorityRef | None
     settlement_hash: str
-
-
-@dataclass(frozen=True)
-class SettlementValidationFinding:
-    code: str
-    severity: str
-    message: str
-
-
-@dataclass(frozen=True)
-class SettlementValidationReport:
-    status: str
-    findings: tuple[SettlementValidationFinding, ...]
-    receipt_hash: str

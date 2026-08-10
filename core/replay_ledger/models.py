@@ -2,6 +2,23 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from core.contract_validation import (
+    ContractValidationFinding as ReplayLedgerValidationFinding,
+    ContractValidationReport as ReplayLedgerValidationReport,
+)
+
+__all__ = [
+    "ReplayDiffInputRef",
+    "ReplayDivergenceFinding",
+    "ReplayLedger",
+    "ReplayLedgerEntry",
+    "ReplayLedgerValidationFinding",
+    "ReplayLedgerValidationReport",
+    "ReplayLineageRef",
+    "ReplayTemporalDiff",
+    "ReplayTemporalStabilityScore",
+]
+
 
 @dataclass(frozen=True)
 class ReplayLedgerEntry:
@@ -86,17 +103,3 @@ class ReplayTemporalDiff:
     mutation_allowed: bool
     routing_change_allowed: bool
     diff_hash: str
-
-
-@dataclass(frozen=True)
-class ReplayLedgerValidationFinding:
-    code: str
-    severity: str
-    message: str
-
-
-@dataclass(frozen=True)
-class ReplayLedgerValidationReport:
-    status: str
-    findings: tuple[ReplayLedgerValidationFinding, ...]
-    receipt_hash: str
