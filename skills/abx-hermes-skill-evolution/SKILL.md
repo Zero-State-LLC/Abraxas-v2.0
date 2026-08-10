@@ -724,3 +724,22 @@ Key AER surfaces activated:
 - Gap discovery + architecture map
 
 All AER work remains strictly advisory/SHADOW, governed by the formal operator decision APPROVE_EXTENDED_OBSERVATION (covering all engineering tied to operator approval).
+
+
+## v2.4 — Hermes Volume Signals + Task-Class Pluralism (SHADOW, 2026-07-30)
+
+- Extended `abx_skill_evolution_analyzer.py` (v0.2) to load `os_signal_*.latest.json` + key ledger by `skill:task_class`
+- `high_hermes_signal_volume` detection pattern for signal_forage traces (strong OBSERVED bias)
+- Pluralism support: multiple forager roles (e.g. `signal_forage` + `hyperagent_forager`) feeding same path
+- E2E example (`run_slice_f_end_to_end_example.py`) now explicitly invokes analyzer and prints volume candidates
+- Light CLI surface: `abraxas os evolution-volume` (advisory view of volumes_by_task_class)
+- All work advisory/SHADOW only; candidates remain `CANDIDATE_ONLY`; no promotion authority
+
+**Gate Status (v2.4)**
+- VOLUME_DETECTION: IMPLEMENTED (`high_hermes_signal_volume`)
+- TASK_CLASS_KEYING: IMPLEMENTED
+- PLURAL_FORAGERS: DRY-RUN + E2E exercised
+- CLI_SURFACE: IMPLEMENTED
+- CONSUMPTION: Pending (see next: Neon/Oracle feedback)
+
+Last updated: 2026-07-30

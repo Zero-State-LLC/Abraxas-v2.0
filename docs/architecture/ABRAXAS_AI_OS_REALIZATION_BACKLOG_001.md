@@ -269,10 +269,12 @@ Hermes-native forager + visual registers (current branch).
 
 ### Post-Slice F+ : Evolution Analyzer Extension (signal_forage volume)
 
+See also the reconciled AI OS primitives map (advisory projection from PR #1050): `docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`
+
 - [x] Extend abx_skill_evolution_analyzer.py (v0.2) to load os_signal_*.latest.json + key by skill:task_class
 - [x] Ledger keyed by skill:task_class (e.g. "abx-familiar-signal-forager:signal_forage")
 - [x] New test coverage + volume detection (high_hermes_signal_volume candidates from signal_forage)
-- [ ] Further P3: analyzer signals from signal volume; operator review surface
+- [x] Further P3 delivered: Neon/Oracle volume seeds (Option A TDD) + operator review surface (Option B) + CLI + E2E integration
 
 
 ### Next (P3 / Slice follow-on)
@@ -282,8 +284,8 @@ Hermes-native forager + visual registers (current branch).
 - [x] E2E example explicitly invokes analyzer and surfaces high_hermes_signal_volume candidate in summary
 - [x] P3 pluralism forager: added hyperagent_forager (distinct task_class) that emits to os_signal path
 - [x] Light CLI surface: `abraxas os evolution-volume` (SHADOW view of volumes keyed by skill:task_class)
-- [ ] Feed plural volumes into Neon Genie / Oracle seeds (advisory feedback loop)
-- [ ] Operator review surface for volume-derived candidates
+- [x] Feed plural volumes into Neon Genie / Oracle seeds (advisory) — TDD bridge + runner (Option A)
+- [x] Operator review surface (script + artifact) for volume candidates (Option B)
 
 All work remains SHADOW / advisory_only. Producer identity records provenance.
 
