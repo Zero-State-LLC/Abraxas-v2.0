@@ -99,6 +99,13 @@ Key subdirectories:
 - `core/cfar.py` — **CFAR** construct-first analytical reasoning gate (deterministic
   route before evidence retrieval; advisory research surface). See
   `docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md`.
+- `core/forensics/` — **Memetic forensics spine** (SHADOW): EvidencePack →
+  PropagationGraph → ForensicDispositionPacket → MemeticOpsGate (always DENIED
+  in slice C). CLI: `python -m abraxas os forensics …`. Mission map:
+  `docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`.
+- `core/instantiation/` — **RDI composition builders** for fixture-only
+  InstantiationState/Transition and InterventionDeclaration. Doctrine:
+  `docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`.
 - `core/hygiene/` — **optional Soft Facade advisory receipts** (OutputHygiene,
   YggdrasilScan, CommonPipeline, ProofPair + uniform checklist). Pure
   observability composites; individual runes remain the sole authority.
@@ -127,6 +134,10 @@ from `core/` or `tests/`.
 - `contracts/alembic/` — Alembic task/contribution/routing/fusion schemas, registry snapshot, router policy, rune proposals (non-live).
 - `contracts/cfar/` — ConstructPacket.v1 schema for CFAR.
 - `contracts/engineering/` — multi-agent companion schemas (e.g. AgentArtifactMetadata.v1).
+- `contracts/forensics/` — Memetic forensics v0 schemas (propagation, disposition,
+  ops gate, route intent, Level99 seed, AAL-Viz forensic projection).
+- `contracts/instantiation/` — Fixture RDI contracts
+  (`InstantiationState.v1`, `InstantiationTransition.v1`, `InterventionDeclaration.v1`).
 
 ### `design-system/`
 
@@ -175,11 +186,23 @@ Current canonical roadmap.
 
 ---
 
-## Recent Advisory Surfaces (2026-07-23)
+## Recent Advisory Surfaces
 
-These surfaces were formalized under the Shared Multi-Agent Engineering Contract
-(`producer_system=GROK`) and sealed by operator. They remain
-**advisory / shadow** unless a later operator gate elevates them.
+These surfaces remain **advisory / shadow** unless a later operator gate elevates
+them. Replace-block live status: [`STATUS.md`](STATUS.md).
+
+### 2026-07-31 → 2026-08-10
+
+| Surface | Status | Notes |
+|---------|--------|-------|
+| **RDI / Instantiation** | **PARTIAL** on main | Doctrine + reuse audit + fixture state/transition + intervention declaration; Fable handoff for continuation; no Instantiation Depth formula; #1096 · **1.178.0** |
+| **Memetic forensics C+C′+C6** | **ON MAIN (SHADOW)** | Pipeline, disposition, propagation, CLI, AAL-Viz project; **OpsGate always DENIED**; #1079–#1081 |
+| **Ops D0 / D2** | **ON MAIN (SHADOW)** | Route intent + Level99 content seed (no publish); gate DENIED; #1082–#1083 |
+| **AI OS Slice G / P4** | **DEFINED** · eng IN PROGRESS | Consumption hardening + operator handoff; #1098 |
+| **OmegaClaw** | **ADVISORY** | Concept integration + symbolic plan; #1095 |
+| Collaboration board | Process | GitHub Project + CONTRIBUTING labels; #1102 |
+
+### 2026-07-23 baseline (still current)
 
 | Surface | Status | Notes |
 |---------|--------|-------|

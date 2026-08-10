@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-09 (merged local RDI/Fable track onto origin/main · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw track · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
+> **Last Updated:** 2026-08-10 (docs navigation refresh · tip after **#1102** collab board · RDI/Fable **1.178.0** · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1046** operator-loop gh/CI gatherer | `git log -1 --oneline` |
+| HEAD / branch tip | see git; tip after **#1102** collab project board (prior: #1098 Slice G/P4, #1096 RDI/Fable, #1079–#1083 forensics) | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
@@ -43,7 +43,13 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR operator review | advisory · `PENDING_OPERATOR` · no deletion | `out/production_convergence/clear_operator_review.v1.json` |
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
-| Active objective | **Memetic Forensics C+C6 + Ops D0/D2** · OpsGate DENIED · route + Level99 content seed (no publish) · CLEAR dual-control operator-only | `os forensics run\|project\|route\|seed-level99\|status` · designs D0/D2 under `docs/superpowers/specs/` · PRs #1079–#1082 |
+| Active objective | **RDI continuation (Fable)** + **Memetic Forensics C+C6 + Ops D0/D2** (OpsGate DENIED) + AI OS Slice G harden + CLEAR dual-control operator-only | Fable handoff · `os forensics *` · BACKLOG Slice G · CLEAR checklist |
+| RDI / Instantiation | **PARTIAL** · doctrine + reuse audit + fixture state/transition + intervention declaration · Fable handoff ready | [`REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [`FABLE_HANDOFF_001`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) · `contracts/instantiation/` · #1096 · release **1.178.0** |
+| Memetic forensics | **SLICE_C+C′+C6 on main** · disposition + propagation + AAL-Viz project · **OpsGate always DENIED** | `python -m abraxas os forensics status` · [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · #1079–#1081 |
+| Memetic ops D0/D2 | **Route intent + Level99 seed** (no publish) · gate still DENIED | `os forensics route` · `os forensics seed-level99` · #1082–#1083 |
+| OmegaClaw | **ADVISORY** concept + symbolic plan | [`docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) · #1095 |
+| Slice G / P4 | **DEFINED** (consumption hardening + operator handoff surfaces) · eng IN PROGRESS SHADOW | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) · #1098 |
+| Collaboration board | GitHub Project + CONTRIBUTING labels | [projects/5](https://github.com/users/scrimshawlife-ctrl/projects/5) · #1102 |
 | AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
 
 ## Session closeout surfaces (2026-07-23)
@@ -81,6 +87,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | AAL-Viz projection pack | batches **0–4 + operator-loop 0.5 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 · #1033 |
 | Recent landings (2026-07-26) | **#1027–#1046 MERGED** | docs · visual pack · CFAR · operator-loop · Phase 12–14 · gh/CI glance |
+| Recent landings (2026-07-31 → 2026-08-10) | **#1079–#1102 MERGED** · semantic **1.178.0** | forensics C–C6 · Ops D0/D2 · OmegaClaw · RDI/Fable · Slice G/P4 docs · collab board |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** | [`out/production_readiness/DEBUG_PLAN.v3.md`](out/production_readiness/DEBUG_PLAN.v3.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 
@@ -225,7 +232,8 @@ The repo previously maintained an advisory-only continuation state with operator
 Update when major changes occur. Prefer pairing STATUS refresh with an Atlas Sync Receipt under the Notion Master Index.
 
 
-## AI OS P4 note
+## AI OS P4 / Slice G note
 
 - AI OS unification P4 (consumption + review + patch candidates) advanced 2026-07-30: Neon discover wired, review emits SkillPatchCandidate, E2E full loop, palette + mounted skills updated (SHADOW)
-- Next: Slice G defined (Consumption Hardening + Operator Handoff Surfaces) — see BACKLOG and UNIFICATION
+- **Slice G** (Consumption Hardening + Operator Handoff Surfaces) **defined and documented** on main via #1098 — status **IN PROGRESS** (SHADOW/advisory); see BACKLOG § Slice G and Hermes unification P4 notes
+- RDI Fable handoff (#1096) is a **separate continuation track** from Slice G; do not conflate instantiation doctrine with Neon consumption hardening

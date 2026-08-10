@@ -1,13 +1,15 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
-> **Last refreshed:** 2026-07-31 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md)
+> **Last refreshed:** 2026-08-10 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md) · release tip: **1.178.0** (RDI fixtures + intervention)
 
 ## Current objective
 
-**Dual tracks (do not mix authority):**
+**Parallel tracks (do not mix authority):**
 
-1. **AI OS eng (`AI_OS_KERNEL`)** — finish/unify the governed intelligence kernel under LOCAL_DEV/SHADOW. Front door: [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md). Audit: [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md). Realization: [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md).
-2. **CLEAR / production-candidate operator track** — dual-control attestations on CLEAR disposition draft; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+1. **AI OS eng (`AI_OS_KERNEL`)** — finish/unify the governed intelligence kernel under LOCAL_DEV/SHADOW. Front door: [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md). Audit: [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md). Realization: [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) (**Slice G** defined / eng IN PROGRESS SHADOW).
+2. **RDI / Fable continuation** — representation-driven instantiation fixture contracts + intervention declarations are **PARTIAL**; continue from the Fable handoff without inventing Instantiation Depth scores. See RDI table below · #1096 · **1.178.0**.
+3. **Memetic forensics (SHADOW)** — Slice C+C′+C6 + Ops D0/D2 on main; **MemeticOpsGate always DENIED**; no publish. Mission: [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md).
+4. **CLEAR / production-candidate operator track** — dual-control attestations on CLEAR disposition draft; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
 Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md), [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md).
 
@@ -25,6 +27,12 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 | Multi-agent operator loop (seq 1–10) | **COMPLETE** | #1033–#1034 · #1041–#1046 · glyphs, contracts, skills, truth surfaces, gh/CI gatherer |
 | Operator-loop GitHub/CI status glance | **Landed** | #1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
+| Memetic forensics C+C′+C6 | **Landed (SHADOW)** | #1079–#1081 · OpsGate DENIED |
+| Memetic ops D0/D2 | **Landed (SHADOW)** | #1082–#1083 · route + Level99 seed; no publish |
+| OmegaClaw concept track | **Landed (advisory)** | #1095 |
+| RDI doctrine + fixture contracts + intervention | **PARTIAL** | #1096 · **1.178.0** · Fable handoff ready |
+| Slice G / P4 surfaces (docs) | **Defined** | #1098 · eng harden still open under BACKLOG |
+| Collab GitHub Project section | **Landed** | #1102 · CONTRIBUTING |
 
 ### Active workstreams (post–Phase 14)
 

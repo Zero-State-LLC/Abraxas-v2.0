@@ -2,6 +2,10 @@
 
 **Time required: ~5 minutes. No external services needed.**
 
+For live posture and recent landings, prefer [`STATUS.md`](STATUS.md) and the
+[README recent landings table](README.md#recent-landings-2026-07-31--2026-08-10)
+over any sample numbers below. Candidate ≠ activation; EXTERNAL_PRODUCTION remains held.
+
 ---
 
 ## 1. Install dependencies (read-only — no artifacts written)
@@ -11,6 +15,19 @@ pip install -r requirements.txt
 ```
 
 Expected: silent or dependency resolution output. No files written to `out/`.
+
+### Product CLI (LOCAL_DEV)
+
+```bash
+python -m abraxas status
+python -m abraxas os status
+python -m abraxas os forensics status
+```
+
+- `os status` — AI OS kernel posture (`ACTIVE_SHADOW`, not production).
+- `os forensics status` — memetic forensics spine (SHADOW; **OpsGate DENIED**).
+
+Full maps: [`docs/START_HERE.md`](docs/START_HERE.md) · [`docs/INDEX.md`](docs/INDEX.md).
 
 ---
 
