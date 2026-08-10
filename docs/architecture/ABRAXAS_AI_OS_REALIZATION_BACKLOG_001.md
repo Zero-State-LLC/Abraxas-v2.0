@@ -344,7 +344,7 @@ WP-0.2–0.3 rest + WP-10 · docs only after A–C green
 5. **Slice D** — Visual bind + OperationTrace closed loop. **COMPLETE**
 6. **Slice E** — STATUS/PLANS declare AI OS kernel ACTIVE_SHADOW. **COMPLETE**
 7. Hermes signal volume + evolution tie-in (current branch) + optional WP-7/8 product depth (SHADOW only). **COMPLETE**
-8. **Slice G** — Consumption Hardening + Operator Handoff Surfaces. **NEXT (definition)**
+8. **Slice G** — Consumption Hardening + Operator Handoff Surfaces. **DEFINED** (#1098 docs) · eng **IN PROGRESS** (SHADOW) — see § Slice G above
 
 ---
 

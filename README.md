@@ -50,15 +50,32 @@ Abraxas is primarily developed in Python for semantic and research agility, with
 | **Phase Percolation** | Temporal regime surfaces (advisory) | contracts + tests |
 | **Codegen Intelligence Spine** | **hygiene-only** by default; expansion operator-gated | gap-analysis plan under `out/audit/` |
 | **CFAR** | Construct-first research gate (before retrieval) | [`docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md`](docs/research/CFAR_CONSTRUCT_FIRST_REASONING_001.md) · `core/cfar.py` |
-| **AAL-Viz** | Projection-layer console + visual language | [`apps/aal-viz-live-console/`](apps/aal-viz-live-console/) · [`design-system/aal-viz/`](design-system/aal-viz/) |
+| **RDI / Instantiation** | Representation-driven instantiation (fixture contracts + intervention declarations; **PARTIAL**) | [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · `contracts/instantiation/` · `core/instantiation/` |
+| **Fable RDI handoff** | Continuation packet for RDI roadmap (advisory only) | [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) |
+| **Memetic Forensics** | SHADOW spine: EvidencePack → propagation → disposition; **OpsGate always DENIED** | [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · `python -m abraxas os forensics status` |
+| **AAL-Viz** | Projection-layer console + visual language (+ forensic projection C6) | [`apps/aal-viz-live-console/`](apps/aal-viz-live-console/) · [`design-system/aal-viz/`](design-system/aal-viz/) |
 | **Design system** | Tokens, icons, runes, Visual OS | [`design-system/`](design-system/) |
 | **Agent artifact metadata** | Multi-agent provenance schema | [`contracts/engineering/agent_artifact_metadata.v1.schema.json`](contracts/engineering/agent_artifact_metadata.v1.schema.json) |
 | **Multi-agent operator loop** | Hermes/Grok/Codex responsibilities (provenance ≠ authority) | [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) · glyphs in `design-system/aal-viz/operator_loop/` |
 | **Hermes OS unification** | Three-layer OS: Visual + Abraxas core + Hermes agent; signal forage syscall | [`docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · skill `abx-familiar-signal-forager` |
-| **AI OS realization backlog** | Work packages for kernel path (contracts → ingest → CLI → viz → traces) | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) |
+| **AI OS realization backlog** | Work packages for kernel path; Slice G (consumption + handoff) defined | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) |
 | **AI OS kernel audit** | K1–K12 evidence vs main (`ACTIVE_SHADOW`, not production) | [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) · `python -m abraxas os status` |
 | **AI OS unification plan** | Whole-system tracks A–D (nav, contracts, alembic, authz) | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
 | **AI OS primitives map** | Classic OS primitives → Abraxas surfaces (projection) | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
+| **OmegaClaw track** | Symbolic integration concepts (advisory / SHADOW) | [`docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) · [`docs/plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md`](docs/plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md) |
+
+### Recent landings (2026-07-31 → 2026-08-10)
+
+| Track | What landed | Authority |
+|-------|-------------|-----------|
+| **RDI / Fable** #1096 · release **1.178.0** | Doctrine + reuse audit; fixture `InstantiationState/Transition.v1`; bounded `InterventionDeclaration.v1`; Fable handoff + validation | Advisory / fixture-only; no empirical claim; no activation |
+| **Slice G + P4 surfaces** #1098 | Consumption hardening + operator handoff definition; Hermes unification P4 notes; volume/patch palette | SHADOW / docs + skill surfaces |
+| **Memetic forensics C+C′+C6** #1079–#1081 | Pipeline, disposition, propagation graph, CLI `os forensics *`, AAL-Viz forensic projection | SHADOW; **MemeticOpsGate always DENIED** |
+| **Ops D0 / D2** #1082–#1083 | `MemeticOpsRouteIntent` + Level99 content seed (no publish) | Gate still DENIED |
+| **OmegaClaw** #1095 | Concept integration + symbolic plan (advisory) | No inter-agent live authority |
+| **Collab board** #1102 | GitHub Project collaboration section in CONTRIBUTING | Process only |
+
+Live replace-block status: always read **[`STATUS.md`](STATUS.md)** before claiming readiness.
 
 ---
 
@@ -78,6 +95,8 @@ python scripts/tools/demo_safe_status.py
 
 # 3. Product CLI (LOCAL_DEV)
 python -m abraxas status
+python -m abraxas os status
+python -m abraxas os forensics status
 python -m abraxas analyze --alembic-task fixtures/alembic/example_task.json
 python -m abraxas validate \
   --schema-ref contracts/alembic/task_envelope.v1.schema.json \
@@ -103,6 +122,8 @@ python scripts/run_fast_ci.py
 
 # Targeted tests (scrub Hermes/venv noise if needed)
 env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest tests/test_cfar.py -q
+env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest \
+  tests/test_instantiation_contracts.py tests/test_forensics_cli.py -q
 ```
 
 ---
@@ -110,16 +131,17 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python -m pytest tests/test_cfar.py -q
 ## Repository map
 
 ```text
-abraxas/                 Product CLI + client
+abraxas/                 Product CLI + client (incl. `os status` / `os forensics`)
 apps/api/                Service factory (create_app)
 apps/aal-viz-live-console/  Projection console (Vite)
-core/                    Domain logic (no uncontrolled out/ writes)
-contracts/               JSON Schema contracts (incl. cfar/, engineering/)
+core/                    Domain logic (forensics/, instantiation/, cfar, …)
+contracts/               JSON Schema (cfar/, engineering/, forensics/, instantiation/, …)
 scripts/<domain>/        Organized runners (scripts/README.md)
 design-system/           Visual OS + aal-viz asset pack
-docs/                    Atlas, ADRs, production readiness guides
+docs/                    Atlas, ADRs, architecture, production readiness
 out/                     Generated artifacts (mostly gitignored; some receipts tracked)
 tests/                   Pytest suite
+skills/                  Hermes-mountable skills (forager, neon-genie, evolution, …)
 ```
 
 Scripts are **domain-organized** (`scripts/<domain>/run_*.py`). Root keeps `scripts/run_fast_ci.py` as the CI mirror. See [`scripts/README.md`](scripts/README.md).
@@ -130,10 +152,13 @@ Scripts are **domain-organized** (`scripts/<domain>/run_*.py`). Root keeps `scri
 
 | Audience | Document |
 |----------|----------|
-| First run | [QUICKSTART.md](QUICKSTART.md) |
+| First run | [QUICKSTART.md](QUICKSTART.md) · [docs/START_HERE.md](docs/START_HERE.md) |
 | Live ops status | [STATUS.md](STATUS.md) |
 | Agent / contributor rules | [AGENTS.md](AGENTS.md) · [CONTRIBUTING.md](CONTRIBUTING.md) |
-| Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/atlas/ABRAXAS_ATLAS.md](docs/atlas/ABRAXAS_ATLAS.md) |
+| Collaboration board | [CONTRIBUTING § Collaboration](CONTRIBUTING.md#collaboration-github-project) · [GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) |
+| Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/atlas/ABRAXAS_ATLAS.md](docs/atlas/ABRAXAS_ATLAS.md) · [docs/INDEX.md](docs/INDEX.md) |
+| RDI / Fable | [RDI doctrine](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [Fable handoff](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) |
+| Memetic forensics | [Mission map](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · `contracts/forensics/` |
 | Roadmap | [PLANS.md](PLANS.md) |
 | Production readiness | [out/production_readiness/README.md](out/production_readiness/README.md) |
 | Program roadmap | [PLANS.md](PLANS.md) · [CONTINUATION_PLAN.v16](out/production_readiness/CONTINUATION_PLAN.v16.md) |
@@ -142,7 +167,7 @@ Scripts are **domain-organized** (`scripts/<domain>/run_*.py`). Root keeps `scri
 | Design system | [design-system/README.md](design-system/README.md) |
 | AAL-Viz assets | [design-system/aal-viz/README.md](design-system/aal-viz/README.md) · [showcase](design-system/aal-viz/showcase/index.html) |
 | Multi-agent contract | Peer collaborators (Grok/Codex) — `producer_system` provenance only; schema above |
-| Changelog | [CHANGELOG.md](CHANGELOG.md) (semantic-release tags + Unreleased digest) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) (semantic-release; tip **1.178.0** RDI fixtures + intervention) |
 | Security / secrets | Do not commit credentials; see CI security workflows |
 
 ---
@@ -156,6 +181,7 @@ Grok and Codex operate as **peer collaborators** under a shared contract:
 - Tag artifacts with `producer_system` (`GROK` \| `CODEX` \| `MIXED` \| `HUMAN` \| `IMPORTED`)
 - Machine companion: **AgentArtifactMetadata.v1** — identity does **not** grant authority, auto-merge, or canon promotion
 - Operator retains final authority on merge and canon
+- Shared board: [Abraxas v2.0 GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) · labels `collab`, `track/rdi`, `track/ai-os` (see [CONTRIBUTING.md](CONTRIBUTING.md))
 
 ---
 

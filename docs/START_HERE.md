@@ -38,24 +38,35 @@ This is the contributor front door for Abraxas v2.7. It is a projection/navigati
 
 ## Active Work Route
 
-Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not EXTERNAL_PRODUCTION). Contributors need one map: kernel path, unification tracks, and operator-only holds.
+Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not EXTERNAL_PRODUCTION). Contributors need one map: kernel path, RDI continuation, memetic forensics, unification tracks, and operator-only holds.
 
 ### AI OS triangle (start here for eng)
 
 | Doc | Role |
 |-----|------|
-| [`architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) | Three-layer OS (Operator · Hermes · Abraxas · Visual) |
-| [`architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) | Kernel work packages / acceptance K1–K12 |
+| [`architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) | Three-layer OS (Operator · Hermes · Abraxas · Visual); P4 notes |
+| [`architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) | Kernel work packages / acceptance K1–K12; **Slice G** defined |
 | [`architecture/AI_OS_KERNEL_AUDIT_001.md`](architecture/AI_OS_KERNEL_AUDIT_001.md) | Honest K1–K12 evidence vs `main` |
 | [`architecture/AI_OS_PRIMITIVES_MAP_001.md`](architecture/AI_OS_PRIMITIVES_MAP_001.md) | Classic OS primitives → Abraxas surfaces |
 | [`plans/ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) | Whole-system unification tracks A–D |
 
 **Syscall path:** Intent → forage → EvidencePack → familiar_ingestion → spine touch → receipts → operator.
 
+### Parallel active tracks (2026-07-31 → 2026-08-10)
+
+| Track | Status | Route |
+|-------|--------|-------|
+| **RDI / Fable** | Fixture contracts + intervention **PARTIAL**; handoff ready for continuation | [`architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [`architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) · label `track/rdi` |
+| **Memetic forensics** | Slice C+C′+C6 + Ops D0/D2 on main; **OpsGate DENIED** | [`architecture/MEMETIC_FORENSICS_MISSION_001.md`](architecture/MEMETIC_FORENSICS_MISSION_001.md) · `python -m abraxas os forensics status` |
+| **OmegaClaw** | Advisory concept + plan | [`architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) |
+| **CLEAR / production** | Dual-control operator-only; deploy **NO_GO**; activation **DENIED** | [`../STATUS.md`](../STATUS.md) · [`status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`](status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md) |
+| **Collaboration** | GitHub Project board | [`../CONTRIBUTING.md`](../CONTRIBUTING.md#collaboration-github-project) |
+
 Next action (general):
 - Start with [`docs/INDEX.md`](INDEX.md) for the compact master route.
+- Replace readiness claims from [`STATUS.md`](../STATUS.md) only (do not invent go-live).
 - Use [`docs/artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for generated receipts and regeneration policy.
-- Use [`PLANS.md`](../PLANS.md) for active continuation lanes (AI OS eng **and** CLEAR operator track).
+- Use [`PLANS.md`](../PLANS.md) for active continuation lanes (AI OS eng, RDI, forensics, **and** CLEAR operator track).
 - Use the Notion Sprint 001 Hub only as a mirror/source-of-truth reference; do not write back unless the operator explicitly gates it.
 
 ## Contributor Guardrails
