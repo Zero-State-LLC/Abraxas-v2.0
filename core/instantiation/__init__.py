@@ -45,6 +45,8 @@ __all__ = [
     "DIMENSIONS",
     "ArtifactResolutionError",
     "ResolvedArtifactRef",
+    "INCOMPATIBLE_CODE",
+    "TransitionSettlementCompatibilityFinding",
     "build_instantiation_projection",
     "build_instantiation_state",
     "build_instantiation_transition",
@@ -65,7 +67,5 @@ __all__ = [
     "validate_instantiation_state",
     "validate_instantiation_transition",
     "validate_intervention_declaration",
-    "INCOMPATIBLE_CODE",
-    "TransitionSettlementCompatibilityFinding",
     "validate_transition_settlement_compatibility",
 ]

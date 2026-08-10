@@ -3,7 +3,6 @@ from pathlib import Path
 
 from core.instantiation import validate_transition_settlement_compatibility
 
-
 ROOT_DIR = Path(__file__).resolve().parent.parent
 FIXTURE_DIR = ROOT_DIR / "input/fixtures/instantiation"
 

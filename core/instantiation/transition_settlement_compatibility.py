@@ -197,19 +197,22 @@ def validate_transition_settlement_compatibility(
             status = "NOT_COMPUTABLE"
 
     # When both are available, enforce direct compatibility.
-    if transition_forecast is not None and settlement_forecast is not None:
-        if transition_forecast != settlement_forecast:
-            findings.append(
-                TransitionSettlementCompatibilityFinding(
-                    code=INCOMPATIBLE_CODE,
-                    severity=INCOMPATIBLE_SEVERITY,
-                    message=(
-                        "transition forecast reference does not match settlement"
-                        " forecast reference."
-                    ),
-                )
+    if (
+        transition_forecast is not None
+        and settlement_forecast is not None
+        and transition_forecast != settlement_forecast
+    ):
+        findings.append(
+            TransitionSettlementCompatibilityFinding(
+                code=INCOMPATIBLE_CODE,
+                severity=INCOMPATIBLE_SEVERITY,
+                message=(
+                    "transition forecast reference does not match settlement"
+                    " forecast reference."
+                ),
             )
-            status = "NOT_COMPUTABLE"
+        )
+        status = "NOT_COMPUTABLE"
 
     # Optional cross-check: settlement forecast should match provided forecast artifact.
     if settlement_forecast is not None and forecast is not None:
