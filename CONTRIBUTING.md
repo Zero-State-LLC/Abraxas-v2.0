@@ -16,6 +16,36 @@
 
 Do not modify code until you have read all five documents above.
 
+
+## Collaboration (GitHub Project)
+
+Shared work is tracked on the **Abraxas v2.0** project board:
+
+- Board: https://github.com/users/scrimshawlife-ctrl/projects/5
+- Repo: https://github.com/scrimshawlife-ctrl/Abraxas-v2.0
+- Preferred flow: **issue → branch → PR → board Status** (`Todo` → `In Progress` → `Done`)
+- Collaborators need **Write** on the repo (accept invite) and **Writer** on the project
+
+### Labels
+
+| Label | Use |
+|-------|-----|
+| `collab` | Multi-person / coordination work |
+| `track/rdi` | Representation-driven instantiation / Fable |
+| `track/ai-os` | AI OS / Hermes SHADOW kernel |
+| `track/docs` | Documentation-only |
+| `needs-review` | Ready for peer look |
+| `good-first-collab` | Safe starter task |
+
+### Rules of engagement
+
+1. Read `AGENTS.md`, `PLANS.md`, and `STATUS.md` before coding.
+2. Open a PR against `main` (required status: `validate-commits`, `fast-ci`).
+3. Keep SHADOW / advisory boundaries — no EXTERNAL_PRODUCTION without operator grant.
+4. Link PRs to issues (`Fixes #NNNN` / `Refs #NNNN`) so they appear on the board.
+5. Proprietary license: see `LICENSE` — contributions assign to Applied Alchemy Labs.
+
+
 ---
 
 ## Choosing your work type
