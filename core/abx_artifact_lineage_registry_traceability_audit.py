@@ -64,9 +64,21 @@ def _registry_entries(root: Path) -> list[str]:
     )
 
 
+def _is_orphaned_no_generator_family(entries: list[Any]) -> bool:
+    return bool(entries) and all(
+        entry.final_status == "orphaned" and entry.canonical_generator is None for entry in entries
+    )
+
+
 def _all_runner_paths(root: Path) -> tuple[list[str], list[str]]:
-    lower = sorted(str(path.relative_to(root)).replace("\\", "/") for path in (root / "scripts").glob("run_*.py"))
-    upper = sorted(str(path.relative_to(root)).replace("\\", "/") for path in (root / "Scripts").glob("run_*.py"))
+    lower = sorted(
+        str(path.relative_to(root)).replace("\\", "/")
+        for path in (root / "scripts").rglob("run_*.py")
+    )
+    upper = sorted(
+        str(path.relative_to(root)).replace("\\", "/")
+        for path in (root / "Scripts").rglob("run_*.py")
+    )
     return lower, upper
 
 
@@ -98,8 +110,7 @@ def _sync_family_names(json_outputs: list[str], md_outputs: list[str]) -> list[s
 
 
 def _runner_candidates(family: str) -> list[str]:
-    runner_name = f"run_{family}.py"
-    return [f"scripts/{runner_name}", f"Scripts/{runner_name}"]
+    return [f"run_{family}.py"]
 
 
 def _schema_candidates(family: str) -> list[str]:
@@ -285,7 +296,20 @@ def build_abx_artifact_lineage_registry_traceability_audit(
         and completion_plan.get("recommended_next_plan") == AUDIT_ID
     )
 
-    registry_entries = _registry_entries(root)
+    registry = build_generated_artifact_registry(root)
+    registry_entries = sorted(
+        entry.artifact_path
+        for entry in registry.entries
+        if entry.artifact_path.startswith("out/")
+    )
+    registry_by_family: dict[str, list[Any]] = {}
+    for entry in registry.entries:
+        if not entry.artifact_path.startswith("out/sync/"):
+            continue
+        parts = entry.artifact_path.split("/")
+        if len(parts) < 3:
+            continue
+        registry_by_family.setdefault(parts[2], []).append(entry)
     lower_runners, upper_runners = _all_runner_paths(root)
     schema_paths = _all_schema_paths(root)
     json_outputs = _all_output_paths(root, ".json")
@@ -316,10 +340,16 @@ def build_abx_artifact_lineage_registry_traceability_audit(
 
     for family in sync_families:
         runner_candidates = _runner_candidates(family)
-        if not any(candidate in all_runner_set for candidate in runner_candidates):
-            registry_entries_with_no_runner.append(family)
+        matched_runner_candidates = [
+            candidate
+            for candidate in all_runner_set
+            if Path(candidate).name in runner_candidates
+        ]
 
-        matched_runner_candidates = [candidate for candidate in runner_candidates if candidate in all_runner_set]
+        if not matched_runner_candidates and not _is_orphaned_no_generator_family(
+            registry_by_family.get(family, [])
+        ):
+            registry_entries_with_no_runner.append(family)
         if matched_runner_candidates:
             if not any(candidate in schema_set for candidate in _schema_candidates(family)):
                 runners_with_no_schema.extend(matched_runner_candidates)
