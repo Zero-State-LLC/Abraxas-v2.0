@@ -34,6 +34,11 @@ from .shadow import (
     detect_instantiation_anomalies,
     validate_instantiation_shadow_report,
 )
+from .transition_settlement_compatibility import (
+    INCOMPATIBLE_CODE,
+    TransitionSettlementCompatibilityFinding,
+    validate_transition_settlement_compatibility,
+)
 
 __all__ = [
     "CAUSAL_EXPOSURES",
@@ -60,4 +65,7 @@ __all__ = [
     "validate_instantiation_state",
     "validate_instantiation_transition",
     "validate_intervention_declaration",
+    "INCOMPATIBLE_CODE",
+    "TransitionSettlementCompatibilityFinding",
+    "validate_transition_settlement_compatibility",
 ]
