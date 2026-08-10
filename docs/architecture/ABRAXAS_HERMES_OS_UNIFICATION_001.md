@@ -224,6 +224,10 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python \
 *Seal: advisory OS spine. Unifies mental model and skill mount; does not grant production activation.*
 
 
+## AI OS Primitives Map (reconciled from PR #1050)
+
+`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md` — advisory projection mapping OS primitives (process, memory, I/O/signal, scheduler, security, artifacts, UI, kernel) onto Abraxas surfaces.
+
 ## Slice F Progress (COMPLETE)
 - Hermes volume fed into OperationTrace + emitter
 - End-to-end example script

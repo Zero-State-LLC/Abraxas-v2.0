@@ -1,0 +1,16 @@
+{
+  "scenario": "abx_mediated_settlement",
+  "prior_state_id": "is-fixture-t0",
+  "later_state_id": "is-fixture-t1",
+  "intervention_ref": {
+    "object_id": "sandbox-intervention-receipt-001",
+    "canonical_hash": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "settlement_ref": {
+    "object_id": "settlement-fixture-001",
+    "canonical_hash": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "expected_causal_exposure": "ABX_MEDIATED",
+  "expected_feedback_contaminated": true,
+  "expected_independent_confirmation_eligible": false
+}

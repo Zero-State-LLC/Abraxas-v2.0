@@ -1,0 +1,11 @@
+{
+  "scenario": "state_only",
+  "construct_ref": {
+    "object_id": "cfar-fixture-rule",
+    "canonical_hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "observation_window": {"start": "fixture-t0", "end": "fixture-t0"},
+  "observed_dimensions": ["symbolic_persistence", "executable_embodiment"],
+  "expected_causal_exposure": "UNKNOWN",
+  "expected_aggregate_instantiation_depth": "NOT_COMPUTABLE"
+}

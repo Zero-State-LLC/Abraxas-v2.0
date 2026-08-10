@@ -59,6 +59,47 @@ AI_OS_KERNEL:
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
 
+### Representation-driven instantiation assimilation
+
+This capability is **not complete**. Canonical doctrine and reuse mapping live in
+[`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+The current continuation packet for Fable is
+[`REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md).
+The smallest evidence-backed continuation is:
+
+| ID | Work package | Status | Exit evidence |
+|----|--------------|--------|---------------|
+| RDI-0 | Doctrine, aliases, existing-system mapping | **DOCUMENTED** | canonical architecture document + README/AGENTS/glossary links |
+| RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **DOCUMENTED** | [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md); no new schema justified |
+| RDI-2 | Close only proven representation gaps | **FIXTURE CONTRACTS LANDED** | `InstantiationState.v1` + `InstantiationTransition.v1`, deterministic builders, three synthetic requirement fixtures, targeted tests |
+| RDI-3 | Intervention provenance + FORECAST/settlement contamination integration | **PARTIAL** | `InterventionDeclaration.v1` binds construct/state/work/forecast/activation/provenance references, predicted dimension changes, constraints, falsification criteria, and fail-closed authority; transition retains typed exposure and contamination; settlement profile remains missing |
+| RDI-4 | SHADOW and AAL-Viz projection hooks | **DEFERRED** | anomaly-only SHADOW output and projection-only state/transition/lineage view |
+| RDI-5 | Synthetic fixture harness and calibration evaluation | **DEFERRED** | define H → state t0 → forecast/intervention → evidence t1 → settlement → calibration |
+
+No package may invent Instantiation Depth thresholds, weights, causal coefficients,
+confidence formulas, recursive-reinforcement scores, or maturity levels. Until
+validated semantics exist, aggregate depth and unsupported dimensions are
+`NOT_COMPUTABLE`. The first harness uses synthetic fixtures and no production or
+social-world intervention.
+
+RDI-1 concluded that active contracts cover construct definition, sourced epistemic
+claims, graph hypotheses, forecast/settlement linkage, provenance, work scope, and
+activation evaluation. RDI-2 must close only the proven gaps: per-dimension evidence
+bindings, typed state references, intervention/no-intervention conditions, and
+fail-closed ABX-mediated contamination representation.
+
+RDI-2 now provides fixture-only state and transition composition. It references
+existing artifacts by ID/hash, preserves all eight dimensions independently,
+forces aggregate depth to `NOT_COMPUTABLE`, and prevents any transition from
+self-declaring independent confirmation. A future settlement policy must establish
+independence from bound evidence rather than from the transition payload itself.
+RDI-3 now provides a narrow intervention declaration profile that references the
+existing WorkPacket, ForecastObject, activation-evaluation evidence, CFAR/state, and provenance
+artifacts rather than copying them. Predicted changes cannot be `OBSERVED`, and the
+declaration, forecast, and work packet are all explicitly non-authoritative. This
+does not complete settlement integration, SHADOW hooks, calibration, or empirical
+validation.
+
 ### Next three milestones
 
 1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate** (use checklist above)

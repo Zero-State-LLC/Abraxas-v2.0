@@ -25,6 +25,8 @@
 
 **Abraxas v2.0** is a governed symbolic-intelligence architecture in the Applied Alchemy Labs (AAL) ecosystem: deterministic execution, receipt-first provenance, and human-in-the-loop sovereignty over root definitions.
 
+Abraxas treats representations as potentially causal structures rather than assuming a binary distinction between simulation and instantiation. It studies evidence-backed transitions from representation into behavioral, computational, institutional, economic, and material consequence while preserving provenance, uncertainty, and observer-intervention contamination. See [`REPRESENTATION_DRIVEN_INSTANTIATION_001`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+
 It is **not** a generic chatbot wrapper. Default posture is **advisory / projection-only** for research and operator surfaces unless a lane explicitly authorizes more (see [ADR-0017](docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md)).
 
 ### Design pillars

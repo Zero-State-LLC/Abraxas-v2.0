@@ -1,0 +1,102 @@
+{
+  "schema_version": "HandoffEnvelope.v1",
+  "handoff_id": "HO-RDI-FABLE-001",
+  "work_packet_id": "WP-RDI-ASSIMILATION-001",
+  "producer_system": "CODEX",
+  "status": "PARTIAL",
+  "changed_files": [
+    "AGENTS.md",
+    "ARCHITECTURE.md",
+    "PLANS.md",
+    "README.md",
+    "contracts/instantiation/instantiation_state.v1.schema.json",
+    "contracts/instantiation/instantiation_transition.v1.schema.json",
+    "contracts/instantiation/intervention_declaration.v1.schema.json",
+    "core/instantiation/__init__.py",
+    "core/instantiation/contracts.py",
+    "docs/GLOSSARY.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.handoff.json",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_VALIDATION_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md",
+    "input/fixtures/instantiation/abx_mediated_settlement.v1.json",
+    "input/fixtures/instantiation/no_intervention_transition.v1.json",
+    "input/fixtures/instantiation/state_only.v1.json",
+    "pyproject.toml",
+    "tests/test_instantiation_contracts.py",
+    "tests/test_packaging_contract_assets.py"
+  ],
+  "generated_assets": [
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.handoff.json",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_VALIDATION_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md"
+  ],
+  "commands_run": [
+    "env -u PYTHONPATH -u PYTHONHOME uv run python -m pytest -q tests/test_instantiation_contracts.py tests/test_packaging_contract_assets.py",
+    "env -u PYTHONPATH -u PYTHONHOME uv run python -m pytest -q tests/test_instantiation_contracts.py tests/test_packaging_contract_assets.py tests/test_forecast_object_contract.py tests/test_settlement_verdict_contract.py tests/test_activation_policy.py tests/test_operator_loop_contracts.py tests/test_agent_artifact_metadata_schema.py",
+    "uv run ruff check core/instantiation tests/test_instantiation_contracts.py tests/test_packaging_contract_assets.py",
+    "uv run pyright core/instantiation tests/test_instantiation_contracts.py tests/test_packaging_contract_assets.py",
+    "uv run python scripts/run_fast_ci.py",
+    "uv build --wheel",
+    "git diff --check"
+  ],
+  "tests": {
+    "passed": [
+      "23 focused RDI and packaging tests",
+      "86 adjacent integration tests",
+      "clean archived-snapshot fast CI for a216b67eba2a75dd493456f8cf6ea6041013067f",
+      "installed-wheel CLI and packaged-schema intervention construction",
+      "Ruff, Pyright, JSON Schema meta-validation, and diff integrity",
+      "independent exact-SHA post-commit verification"
+    ],
+    "failed": []
+  },
+  "observed_findings": [
+    "Canonical doctrine and vocabulary are documented without claiming empirical validation.",
+    "InstantiationState.v1, InstantiationTransition.v1, and InterventionDeclaration.v1 are deterministic composition contracts.",
+    "ABX-mediated and mixed transitions preserve contamination and cannot self-declare independent confirmation.",
+    "Intervention declarations cannot claim OBSERVED predictions or execution authority.",
+    "Wheel distributions include the supported runtime and contract assets required by installed validators.",
+    "RDI-3 remains PARTIAL because settlement integration and cross-artifact coherence enforcement are missing."
+  ],
+  "inferred_findings": [
+    "The smallest justified continuation is a resolver and settlement-binding profile that composes existing forecast, transition, intervention, and settlement artifacts.",
+    "SHADOW and AAL-Viz work should remain deferred until settlement binding is deterministic and fixture-tested."
+  ],
+  "conflicts_detected": [
+    {
+      "conflict_class": "SEMANTIC_CONFLICT",
+      "detail": "Generic artifact references validate shape and hash but do not prove referenced artifact existence, schema identity, or semantic coherence.",
+      "subject_ids": [
+        "InterventionDeclaration.v1",
+        "ForecastObject.v1",
+        "SettlementVerdict.v1",
+        "InstantiationTransition.v1"
+      ]
+    }
+  ],
+  "residual_risks": [
+    "Cross-artifact resolution and coherence are not enforced.",
+    "SettlementVerdict.v1 does not directly preserve typed RDI causal exposure and contamination.",
+    "Prediction error remains NOT_COMPUTABLE unless validated Brier-compatible outcome semantics exist.",
+    "SHADOW hooks, AAL-Viz projection, fixture execution, and calibration evaluation remain missing or deferred.",
+    "No production or social-world intervention has been authorized or performed.",
+    "The working tree contains unrelated pre-existing changes that must be preserved."
+  ],
+  "next_recommended_action": "Fable should implement the smallest synthetic-fixture cross-artifact resolver and settlement-binding increment while preserving existing contracts, typed causal exposure, contamination, epistemic labels, and all authority locks.",
+  "branch": "main",
+  "pull_request": null,
+  "notes": "Recipient is Fable. Producer_system records Jcode/Codex provenance only and grants no authority. Landed commits: c14be3ecc, d1e176eed, 2475b0646, f3af4ea13, 9de404e97, a216b67eb.",
+  "authority": {
+    "producer_identity_grants_authority": false,
+    "auto_merge": false,
+    "auto_canon_promotion": false,
+    "auto_deploy": false,
+    "assignment_authority": false,
+    "execution_authority": false,
+    "operator_review_on_semantic_conflict": true
+  }
+}

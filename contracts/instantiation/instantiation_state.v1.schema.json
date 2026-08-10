@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/instantiation/instantiation_state.v1.schema.json",
+  "title": "InstantiationState.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "state_id",
+    "construct_ref",
+    "observation_window",
+    "dimensions",
+    "causal_exposure",
+    "aggregate_instantiation_depth",
+    "authority",
+    "state_hash"
+  ],
+  "$defs": {
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "canonical_hash"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "epistemic_status",
+        "claim_refs",
+        "evidence_refs",
+        "not_computable_reason"
+      ],
+      "properties": {
+        "name": {
+          "enum": [
+            "symbolic_persistence",
+            "cognitive_penetration",
+            "behavioral_consequence",
+            "network_propagation",
+            "executable_embodiment",
+            "economic_institutional_embodiment",
+            "material_consequence",
+            "recursive_reinforcement"
+          ]
+        },
+        "epistemic_status": {
+          "enum": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+        },
+        "claim_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "not_computable_reason": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"epistemic_status": {"const": "NOT_COMPUTABLE"}}},
+          "then": {
+            "properties": {
+              "not_computable_reason": {"type": "string", "minLength": 1},
+              "claim_refs": {"maxItems": 0},
+              "evidence_refs": {"maxItems": 0}
+            }
+          },
+          "else": {
+            "properties": {
+              "not_computable_reason": {"type": "null"},
+              "claim_refs": {"minItems": 1},
+              "evidence_refs": {"minItems": 1}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "InstantiationState.v1"},
+    "state_id": {"type": "string", "pattern": "^is-[A-Za-z0-9._:-]+$"},
+    "construct_ref": {"$ref": "#/$defs/artifact_ref"},
+    "observation_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "string", "minLength": 1},
+        "end": {"type": "string", "minLength": 1}
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "symbolic_persistence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "cognitive_penetration"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "behavioral_consequence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "network_propagation"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "executable_embodiment"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {
+              "properties": {
+                "name": {"const": "economic_institutional_embodiment"}
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "material_consequence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/dimension"},
+            {"properties": {"name": {"const": "recursive_reinforcement"}}}
+          ]
+        }
+      ],
+      "items": false,
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "causal_exposure": {
+      "enum": ["EXOGENOUS", "ABX_MEDIATED", "MIXED", "UNKNOWN"]
+    },
+    "aggregate_instantiation_depth": {"const": "NOT_COMPUTABLE"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "truth_assignment",
+        "forecast_authority",
+        "intervention_authority",
+        "execution_authority",
+        "canon_mutation"
+      ],
+      "properties": {
+        "truth_assignment": {"const": false},
+        "forecast_authority": {"const": false},
+        "intervention_authority": {"const": false},
+        "execution_authority": {"const": false},
+        "canon_mutation": {"const": false}
+      }
+    },
+    "state_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
