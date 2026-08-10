@@ -1,0 +1,65 @@
+{
+  "scenario": "intervention_abx_mediated",
+  "experiment_id": "rdi5-exp-002",
+  "construct": {
+    "construct_id": "cfar-fixture",
+    "construct_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "baseline": {
+    "state_id": "is-exp002-t0",
+    "window": "fixture-t0",
+    "observed_dimensions": ["symbolic_persistence"],
+    "causal_exposure": "EXOGENOUS"
+  },
+  "forecast": {
+    "forecast_id": "forecast-exp002",
+    "claim": "Declared fixture intervention precedes increased network propagation by fixture-t1.",
+    "probability": 0.6
+  },
+  "intervention": {
+    "intervention_id": "iv-exp002",
+    "work_packet_ref": {
+      "object_id": "WP-RDI-5-FIXTURE",
+      "canonical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "activation_evidence_ref": {
+      "object_id": "activation-sandbox-receipt",
+      "canonical_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "predicted_changes": [
+      {"dimension": "network_propagation", "change_kind": "INCREASED"}
+    ],
+    "constraints": ["synthetic fixture only", "no production surface"],
+    "falsification_criteria": [
+      "network_propagation remains NOT_COMPUTABLE at fixture-t1"
+    ],
+    "provenance_refs": [
+      {
+        "object_id": "fixture-spec",
+        "canonical_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  },
+  "observed": {
+    "state_id": "is-exp002-t1",
+    "window": "fixture-t1",
+    "observed_dimensions": ["symbolic_persistence", "network_propagation"],
+    "causal_exposure": "ABX_MEDIATED",
+    "dimension_changes": [
+      {"dimension": "network_propagation", "change_kind": "INCREASED"}
+    ],
+    "contamination_reasons": [
+      "declared fixture intervention lies on the causal path to observation"
+    ]
+  },
+  "binding": {
+    "binding_id": "ob-exp002",
+    "binding_status": "matched",
+    "observed_outcome_hash": "fixture-observed",
+    "settlement_authority": {
+      "authority_type": "MANUAL_RECEIPT",
+      "authority_id": "receipt://fixture/rdi5-exp-002",
+      "label": "Fixture operator settlement receipt"
+    }
+  }
+}

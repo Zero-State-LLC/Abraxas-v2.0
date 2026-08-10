@@ -1,0 +1,40 @@
+{
+  "scenario": "unresolved_not_computable",
+  "experiment_id": "rdi5-exp-003",
+  "construct": {
+    "construct_id": "cfar-fixture",
+    "construct_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "baseline": {
+    "state_id": "is-exp003-t0",
+    "window": "fixture-t0",
+    "observed_dimensions": ["symbolic_persistence"],
+    "causal_exposure": "EXOGENOUS"
+  },
+  "forecast": {
+    "forecast_id": "forecast-exp003",
+    "claim": "Synthetic construct gains material consequence evidence by fixture-t1.",
+    "probability": 0.4
+  },
+  "intervention": null,
+  "observed": {
+    "state_id": "is-exp003-t1",
+    "window": "fixture-t1",
+    "observed_dimensions": ["symbolic_persistence"],
+    "causal_exposure": "UNKNOWN",
+    "dimension_changes": [
+      {
+        "dimension": "material_consequence",
+        "change_kind": "NOT_COMPUTABLE",
+        "not_computable_reason": "forecast-target dimension remains unevidenced at fixture-t1"
+      }
+    ],
+    "contamination_reasons": []
+  },
+  "binding": {
+    "binding_id": "ob-exp003",
+    "binding_status": "unresolved",
+    "observed_outcome_hash": null,
+    "settlement_authority": null
+  }
+}

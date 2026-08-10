@@ -1,0 +1,40 @@
+{
+  "scenario": "no_intervention_matched",
+  "experiment_id": "rdi5-exp-001",
+  "construct": {
+    "construct_id": "cfar-fixture",
+    "construct_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "baseline": {
+    "state_id": "is-exp001-t0",
+    "window": "fixture-t0",
+    "observed_dimensions": ["symbolic_persistence"],
+    "causal_exposure": "EXOGENOUS"
+  },
+  "forecast": {
+    "forecast_id": "forecast-exp001",
+    "claim": "Synthetic construct gains behavioral consequence evidence by fixture-t1.",
+    "probability": 0.7
+  },
+  "intervention": null,
+  "observed": {
+    "state_id": "is-exp001-t1",
+    "window": "fixture-t1",
+    "observed_dimensions": ["symbolic_persistence", "behavioral_consequence"],
+    "causal_exposure": "EXOGENOUS",
+    "dimension_changes": [
+      {"dimension": "behavioral_consequence", "change_kind": "INCREASED"}
+    ],
+    "contamination_reasons": []
+  },
+  "binding": {
+    "binding_id": "ob-exp001",
+    "binding_status": "matched",
+    "observed_outcome_hash": "fixture-observed",
+    "settlement_authority": {
+      "authority_type": "MANUAL_RECEIPT",
+      "authority_id": "receipt://fixture/rdi5-exp-001",
+      "label": "Fixture operator settlement receipt"
+    }
+  }
+}
