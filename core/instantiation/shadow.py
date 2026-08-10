@@ -7,23 +7,35 @@ intervention (`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`
 section 8). Findings are structural observations over already-validated
 payloads; every judgment beyond detection is out of scope by contract.
 
-Pure and deterministic: same states/transitions in, same report (and hash) out.
-No disk writes; runners publish.
+Detection is pure and deterministic: same states/transitions in, same report
+(and hash) out. The operator-scoped live-wire entry point publishes only a
+classified SANDBOX dry-run artifact under ``out/``.
 """
 
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json_if_changed
-from core.cfar import CFARRoute, ConstructPacket, ConstructStatus, VariableClass
+from core.belief_graph.evidence_object import EvidenceObject
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash
+from core.cfar import (
+    CFARRoute,
+    ConstructPacket,
+    ConstructStatus,
+    VariableClass,
+    cfar_route,
+)
+from core.ports.storage import ArtifactStore, FilesystemArtifactStore
 from core.signal.evidence_pack import assert_valid_evidence_pack
 
 from .contracts import (
     DIMENSIONS,
+    build_instantiation_state,
     validate_instantiation_state,
     validate_instantiation_transition,
 )
@@ -59,16 +71,38 @@ RDI_LIVE_WIRE_SCHEMA_VERSION = "RDIInstantiationShadowLiveWire.v1"
 RDI_LIVE_WIRE_KIND = "rdi_instantiation_shadow"
 RDI_SCOPE_ASSUMPTIONS = (
     (
-        "REPRESENTATION_DRIVEN_INSTANTIATION_001: dimensions may coexist, regress, "
-        "bifurcate, develop in different orders, or remain NOT_COMPUTABLE; they are "
-        "not stages and are not ordered by maturity."
+        "REPRESENTATION_DRIVEN_INSTANTIATION_001: simulation is evidence only for "
+        "the constitutive properties actually demonstrated; it is neither proof nor "
+        "disproof of instantiation."
     ),
     (
-        "REPRESENTATION_DRIVEN_INSTANTIATION_001: an absent dimension is not zero "
-        "and is not false; it is NOT_COMPUTABLE unless evidence supports another "
-        "epistemically labeled value."
+        "REPRESENTATION_DRIVEN_INSTANTIATION_001: dimensions are independently "
+        "evidenced, may coexist, regress, bifurcate, develop in different orders, "
+        "or remain NOT_COMPUTABLE; they are not maturity stages."
+    ),
+    (
+        "REPRESENTATION_DRIVEN_INSTANTIATION_001: an absent or unsupported dimension "
+        "is NOT_COMPUTABLE, not zero or false; aggregate Instantiation Depth remains "
+        "NOT_COMPUTABLE."
+    ),
+    (
+        "REPRESENTATION_DRIVEN_INSTANTIATION_001: missing or ambiguous causal exposure "
+        "remains UNKNOWN and temporal order or correlation is not causal attribution."
+    ),
+    (
+        "REPRESENTATION_DRIVEN_INSTANTIATION_001: SHADOW detects only and grants no "
+        "explanation, forecast, intervention, execution, or canon authority."
     ),
 )
+
+_EVIDENCE_OBJECT_KEYS = {
+    "schema_version",
+    "source",
+    "provenance",
+    "timestamp",
+    "evidence_type",
+    "hash",
+}
 
 
 def _iso_timestamp(value: Any) -> datetime | None:
@@ -76,124 +110,136 @@ def _iso_timestamp(value: Any) -> datetime | None:
         return None
     try:
         parsed = datetime.fromisoformat(value.strip())
-        return parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed
+        aware = parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed
+        return aware.astimezone(UTC)
     except ValueError:
         return None
 
 
-def _horizon_bounds(value: Any) -> tuple[datetime | None, datetime | None]:
-    if not isinstance(value, str):
-        return None, None
-    parts = value.replace("..", "/").replace(" to ", "/").split("/")
-    parsed = [_iso_timestamp(part.strip()) for part in parts]
-    parsed = [item for item in parsed if item is not None]
-    if len(parsed) == 1:
-        return parsed[0], parsed[0]
-    if len(parsed) >= 2:
-        return min(parsed[0], parsed[1]), max(parsed[0], parsed[1])
-    return None, None
+def _horizon_bounds(value: Any) -> tuple[datetime, datetime]:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("EvidencePack.time_horizon is required for RDI live wiring")
+    parts = value.split("/")
+    if len(parts) != 2:
+        raise ValueError(
+            "EvidencePack.time_horizon must be an ISO-8601 start/end interval"
+        )
+    start, end = (_iso_timestamp(part) for part in parts)
+    if start is None or end is None:
+        raise ValueError(
+            "EvidencePack.time_horizon must contain parseable ISO-8601 bounds"
+        )
+    if start > end:
+        raise ValueError("EvidencePack.time_horizon start must not follow end")
+    return start, end
 
 
 def _claim_dimension(claim: Mapping[str, Any]) -> str | None:
-    for key in ("dimension", "instantiation_dimension", "vector_dimension"):
-        value = claim.get(key)
-        if isinstance(value, str) and value in DIMENSIONS:
-            return value
-    return None
+    value = claim.get("dimension")
+    return value if isinstance(value, str) and value in DIMENSIONS else None
+
+
+def _normalized_timestamp(value: datetime) -> str:
+    return value.astimezone(UTC).isoformat().replace("+00:00", "Z")
+
+
+def _normalized_iso_timestamp(value: str) -> str:
+    parsed = _iso_timestamp(value)
+    if parsed is None:
+        raise ValueError(f"invalid ISO-8601 timestamp: {value!r}")
+    return _normalized_timestamp(parsed)
+
+
+def _validated_evidence_objects(
+    evidence_objects: Sequence[Mapping[str, Any] | EvidenceObject],
+) -> list[dict[str, Any]]:
+    validated: list[dict[str, Any]] = []
+    hashes: set[str] = set()
+    for index, item in enumerate(evidence_objects):
+        if isinstance(item, EvidenceObject):
+            evidence = item
+        else:
+            if set(item) != _EVIDENCE_OBJECT_KEYS:
+                raise ValueError(
+                    f"EvidenceObject at index {index} must match "
+                    "EvidenceObject.v1 exactly"
+                )
+            try:
+                evidence = EvidenceObject.model_validate(item, strict=True)
+            except Exception as exc:
+                raise ValueError(
+                    f"invalid EvidenceObject at index {index}: {exc}"
+                ) from exc
+        if _iso_timestamp(evidence.timestamp) is None:
+            raise ValueError(
+                f"EvidenceObject at index {index} has an invalid ISO-8601 timestamp"
+            )
+        if evidence.hash in hashes:
+            raise ValueError(f"duplicate EvidenceObject hash: {evidence.hash}")
+        hashes.add(evidence.hash)
+        validated.append(evidence.model_dump(mode="json"))
+    return validated
+
+
+def _source_aliases(pack: Mapping[str, Any]) -> dict[str, frozenset[str]]:
+    aliases: dict[str, frozenset[str]] = {}
+    used_aliases: dict[str, str] = {}
+    for source in pack.get("sources", []):
+        source_id = str(source["source_id"])
+        if source_id in aliases:
+            raise ValueError(f"duplicate EvidencePack source_id: {source_id}")
+        values = frozenset(
+            value for value in (source_id, str(source.get("url_or_path", ""))) if value
+        )
+        for value in values:
+            other = used_aliases.get(value)
+            if other is not None and other != source_id:
+                raise ValueError(
+                    f"ambiguous EvidencePack source identity {value!r}: {other}, {source_id}"
+                )
+            used_aliases[value] = source_id
+        aliases[source_id] = values
+    return aliases
 
 
 def derive_rdi_live_wire_window(
-    pack: Mapping[str, Any], evidence_objects: Sequence[Mapping[str, Any]]
+    pack: Mapping[str, Any],
+    evidence_objects: Sequence[Mapping[str, Any] | EvidenceObject],
 ) -> dict[str, Any]:
     """Derive the bounded window from the pack horizon and object timestamps."""
     start, end = _horizon_bounds(pack.get("time_horizon"))
     timestamps: list[str] = []
-    for item in evidence_objects:
-        timestamp = item.get("timestamp")
-        parsed = _iso_timestamp(timestamp)
-        if not isinstance(timestamp, str):
-            continue
-        if parsed is not None and start is not None and parsed < start:
-            continue
-        if parsed is not None and end is not None and parsed > end:
-            continue
-        timestamps.append(timestamp)
+    for item in _validated_evidence_objects(evidence_objects):
+        parsed = _iso_timestamp(item["timestamp"])
+        if parsed is not None and start <= parsed <= end:
+            timestamps.append(_normalized_timestamp(parsed))
     return {
         "time_horizon": pack.get("time_horizon"),
-        "start": start.isoformat() if start else None,
-        "end": end.isoformat() if end else None,
+        "start": _normalized_timestamp(start),
+        "end": _normalized_timestamp(end),
         "evidence_object_timestamps": sorted(timestamps),
     }
 
 
-def build_rdi_live_wire_artifact(
-    pack: Mapping[str, Any],
-    evidence_objects: Sequence[Mapping[str, Any]],
-    *,
-    artifact_id: str,
-    out_root: str | Path = "out",
-) -> dict[str, Any]:
-    """Build and write a SANDBOX-only, detection-only live-wire artifact."""
-    assert_valid_evidence_pack(pack)
-    window = derive_rdi_live_wire_window(pack, evidence_objects)
-    start, end = _horizon_bounds(pack.get("time_horizon"))
-    by_source: dict[str, list[Mapping[str, Any]]] = {}
-    for item in evidence_objects:
-        source = item.get("source")
-        if isinstance(source, str) and source:
-            by_source.setdefault(source, []).append(item)
-
-    selected: list[dict[str, Any]] = []
-    for claim in pack.get("claims", []):
-        if not isinstance(claim, Mapping):
-            continue
-        register = str(claim.get("register", "")).upper()
-        dimension = _claim_dimension(claim)
-        if register not in {"OBSERVED", "INFERRED"} or dimension is None:
-            continue
-        refs = sorted({str(ref) for ref in claim.get("source_ids", [])})
-        objects = [obj for ref in refs for obj in by_source.get(ref, [])]
-        objects = [
-            obj
-            for obj in objects
-            if (timestamp := _iso_timestamp(obj.get("timestamp"))) is not None
-            and (start is None or timestamp >= start)
-            and (end is None or timestamp <= end)
-        ]
-        if not objects:
-            continue
-        selected.append({
-            "claim_id": str(claim.get("claim_id", "")),
-            "dimension": dimension,
-            "register": register,
-            "source_ids": refs,
-            "evidence_object_timestamps": sorted(
-                str(obj["timestamp"])
-                for obj in objects
-                if isinstance(obj.get("timestamp"), str)
-            ),
-        })
-    selected.sort(key=lambda item: (DIMENSIONS.index(item["dimension"]), item["claim_id"]))
-
+def _build_rdi_construct_packet() -> ConstructPacket:
     query = "RDI instantiation vector H"
-    input_hash = canonical_hash({"query": query})
-    packet = ConstructPacket(
-        schema_version="cfar.v1",
-        object_id=f"cfar-{input_hash[:16]}",
-        input_hash=input_hash,
-        lane="SHADOW",
-        status="VALID",
-        provenance=("EvidencePack.v0", "REPRESENTATION_DRIVEN_INSTANTIATION_001"),
-        query=query,
+    # Start from CFAR's existing deterministic constructor so input_hash,
+    # object_id, lane, status, and authority semantics remain canonical.
+    base = cfar_route(query)
+    return replace(
+        base,
         construct=query,
         construct_status=ConstructStatus.EMERGENT,
         variable_class=VariableClass.HYBRID,
         dimensions=tuple(DIMENSIONS),
         assumptions=RDI_SCOPE_ASSUMPTIONS,
-        abstraction_level=2,
-        measurement_equivalence_required=False,
         route=CFARRoute.EVIDENCE_RETRIEVAL,
-        rationale=("Operator-scoped RDI vector H is routed to evidence retrieval.",),
+        rationale=(
+            (
+                "The operator-scoped RDI instantiation vector H is sufficiently "
+                "bounded for evidence retrieval."
+            ),
+        ),
         authority={
             "truth_assignment": False,
             "forecast_routing": False,
@@ -201,26 +247,188 @@ def build_rdi_live_wire_artifact(
             "execution_authority": False,
             "retrieval_authority": True,
         },
-    ).to_dict()
+    )
+
+
+def _live_wire_dimensions(
+    selected_claims: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    by_dimension: dict[str, list[Mapping[str, Any]]] = {}
+    for claim in selected_claims:
+        by_dimension.setdefault(str(claim["dimension"]), []).append(claim)
+
+    dimensions: list[dict[str, Any]] = []
+    for name in DIMENSIONS:
+        claims = by_dimension.get(name, [])
+        if not claims:
+            dimensions.append(
+                {
+                    "name": name,
+                    "epistemic_status": "NOT_COMPUTABLE",
+                    "claim_refs": [],
+                    "evidence_refs": [],
+                    "not_computable_reason": (
+                        "no eligible OBSERVED or INFERRED EvidencePack.v0 claim "
+                        "with in-window EvidenceObject evidence"
+                    ),
+                }
+            )
+            continue
+        registers = {str(claim["register"]) for claim in claims}
+        if len(registers) != 1:
+            raise ValueError(
+                f"ambiguous epistemic registers for dimension {name}: "
+                f"{sorted(registers)}"
+            )
+        dimensions.append(
+            {
+                "name": name,
+                "epistemic_status": registers.pop(),
+                "claim_refs": sorted(str(claim["claim_id"]) for claim in claims),
+                "evidence_refs": sorted(
+                    {str(ref) for claim in claims for ref in claim["evidence_refs"]}
+                ),
+                "not_computable_reason": None,
+            }
+        )
+    return dimensions
+
+
+def build_rdi_live_wire_artifact(
+    pack: Mapping[str, Any],
+    evidence_objects: Sequence[Mapping[str, Any] | EvidenceObject],
+    *,
+    artifact_id: str,
+    out_root: str | Path = "out",
+    artifact_store: ArtifactStore | None = None,
+) -> dict[str, Any]:
+    """Build and write a SANDBOX-only, detection-only live-wire artifact."""
+    if not artifact_id or Path(artifact_id).name != artifact_id:
+        raise ValueError("artifact_id must be a non-empty filename-safe identifier")
+    validated_pack = assert_valid_evidence_pack(pack)
+    validated_objects = _validated_evidence_objects(evidence_objects)
+    if not validated_objects:
+        raise ValueError("RDI live wiring requires at least one EvidenceObject.v1")
+
+    start, end = _horizon_bounds(pack.get("time_horizon"))
+    window = derive_rdi_live_wire_window(validated_pack, validated_objects)
+    aliases = _source_aliases(validated_pack)
+
+    by_alias: dict[str, list[dict[str, Any]]] = {}
+    for item in validated_objects:
+        by_alias.setdefault(str(item["source"]), []).append(item)
+
+    selected: list[dict[str, Any]] = []
+    excluded: list[dict[str, str]] = []
+    seen_claim_ids: set[str] = set()
+    for claim in validated_pack.get("claims", []):
+        claim_id = str(claim.get("claim_id", "")).strip()
+        if not claim_id or claim_id in seen_claim_ids:
+            raise ValueError(
+                "RDI live-wire claims require unique non-blank claim_id values"
+            )
+        seen_claim_ids.add(claim_id)
+        register = str(claim.get("register", "")).upper()
+        dimension = _claim_dimension(claim)
+        if register not in {"OBSERVED", "INFERRED"}:
+            excluded.append({"claim_id": claim_id, "reason": "REGISTER_NOT_ALLOWED"})
+            continue
+        if dimension is None:
+            excluded.append({"claim_id": claim_id, "reason": "DIMENSION_NOT_TARGETED"})
+            continue
+        refs = sorted({str(ref) for ref in claim.get("source_ids", [])})
+        objects_by_ref: dict[str, list[dict[str, Any]]] = {}
+        for ref in refs:
+            matched = {
+                str(item["hash"]): item
+                for alias in aliases.get(ref, frozenset())
+                for item in by_alias.get(alias, [])
+                if (timestamp := _iso_timestamp(item["timestamp"])) is not None
+                and start <= timestamp <= end
+            }
+            objects_by_ref[ref] = [matched[key] for key in sorted(matched)]
+        if not refs or any(not objects_by_ref[ref] for ref in refs):
+            excluded.append(
+                {"claim_id": claim_id, "reason": "MISSING_IN_WINDOW_EVIDENCE"}
+            )
+            continue
+        objects = [item for ref in refs for item in objects_by_ref[ref]]
+        selected.append(
+            {
+                "claim_id": claim_id,
+                "dimension": dimension,
+                "register": register,
+                "source_ids": refs,
+                "evidence_refs": sorted({str(item["hash"]) for item in objects}),
+                "evidence_object_timestamps": sorted(
+                    {
+                        _normalized_iso_timestamp(str(item["timestamp"]))
+                        for item in objects
+                    }
+                ),
+            }
+        )
+    selected.sort(
+        key=lambda item: (DIMENSIONS.index(item["dimension"]), item["claim_id"])
+    )
+    excluded.sort(key=lambda item: (item["claim_id"], item["reason"]))
+    if not selected:
+        raise ValueError(
+            "RDI live wiring found no eligible OBSERVED or INFERRED dimension claims "
+            "with complete in-window EvidenceObject evidence"
+        )
+
+    packet = _build_rdi_construct_packet().to_dict()
+    packet_hash = canonical_hash(packet)
+    state = build_instantiation_state(
+        state_id=f"is-rdi-{canonical_hash({'pack_id': pack['pack_id'], 'window': window})[:16]}",
+        construct_id=packet["object_id"],
+        construct_hash=packet_hash,
+        observation_start=window["start"],
+        observation_end=window["end"],
+        dimensions=_live_wire_dimensions(selected),
+        causal_exposure="UNKNOWN",
+    )
+    shadow_report = detect_instantiation_anomalies(
+        [state], report_id=f"rdi-shadow-{artifact_id}"
+    )
     artifact: dict[str, Any] = {
         "schema_version": RDI_LIVE_WIRE_SCHEMA_VERSION,
         "artifact_id": artifact_id,
         "lane": "SHADOW",
+        "activation_lane": "SANDBOX",
         "dry_run": True,
+        "detection_only": True,
+        "console_feed_changed": False,
         "source_pack_id": pack.get("pack_id"),
+        "source_pack_hash": canonical_hash(validated_pack),
         "window": window,
         "construct_packet": packet,
+        "construct_packet_hash": packet_hash,
         "selected_claims": selected,
+        "excluded_claims": excluded,
+        "instantiation_state": state,
+        "shadow_report": shadow_report,
         "authority": dict(SHADOW_AUTHORITY),
     }
-    artifact["canonical_hash"] = canonical_hash(artifact)
-    target = Path(out_root) / RDI_LIVE_WIRE_KIND / f"{artifact_id}.json"
-    write_canonical_json_if_changed(target, artifact)
-    return artifact
+    store = artifact_store or FilesystemArtifactStore(
+        Path(out_root).resolve().parent,
+        Path(out_root).resolve(),
+    )
+    return store.write_artifact(
+        f"out/{RDI_LIVE_WIRE_KIND}/{artifact_id}.json",
+        artifact,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+    )
 
 
 def _finding(code: str, severity: str, subject_id: str, message: str) -> dict[str, str]:
-    return {"code": code, "severity": severity, "subject_id": subject_id, "message": message}
+    return {
+        "code": code,
+        "severity": severity,
+        "subject_id": subject_id,
+        "message": message,
+    }
 
 
 def _dimension_status(state: Mapping[str, Any]) -> dict[str, str]:
