@@ -11,28 +11,29 @@
 
 For `a216b67eba2a75dd493456f8cf6ea6041013067f`:
 
-- background task `071006iiuc` completed with exit code `0` in `323.82s`;
+- retained background-task output `071006iiuc.output` ends with exit code `0`;
 - clean archived snapshot ran `uv run python scripts/run_fast_ci.py` successfully;
 - installed-wheel `abraxas --help` passed;
 - installed-wheel `build_intervention_declaration` loaded its packaged JSON Schema and
   produced a const-false `execution_authority` declaration;
 - output marker: `RDI3_WHEEL_ACCEPTANCE=PASS`;
-- independent verifier confirmed exact SHA, 23 focused RDI/packaging tests, package
-  inclusion, and `PARTIAL` roadmap posture.
+- a separate read-only verifier reported exact-SHA, focused-test, package-inclusion,
+  and `PARTIAL` roadmap checks; that report is session evidence rather than a line in
+  the retained task output.
 
 ### Fable packet acceptance
 
 For `fa0f54a8156e3639c78a15e087b4aa06029740ea`:
 
-- background task `833319o4ic` completed with exit code `0` in `336.57s`;
+- retained background-task output `833319o4ic.output` ends with exit code `0`;
 - `HandoffEnvelope.v1` validation passed before full CI;
 - canonical navigation from `PLANS.md` and the RDI doctrine passed;
 - clean archived snapshot ran `uv run python scripts/run_fast_ci.py` successfully;
 - `git diff --check` passed;
 - output marker: `FABLE_HANDOFF_ACCEPTANCE=PASS`;
-- independent read-only verification confirmed schema validity, 16 local links from
-  `PLANS.md`, two local links from the canonical RDI doctrine, 20 unique JSON file
-  references, the six landed RDI commits, 23 focused tests, and the adjacent suite.
+- separate read-only verification reported schema, link, declared-path, commit,
+  focused-test, and adjacent-suite checks; those details are session evidence rather
+  than individually enumerated lines in the retained task output.
 
 ## Exact acceptance paths
 
