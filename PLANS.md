@@ -73,7 +73,7 @@ The smallest evidence-backed continuation is:
 | RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **DOCUMENTED** | [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md); no new schema justified |
 | RDI-2 | Close only proven representation gaps | **FIXTURE CONTRACTS LANDED** | `InstantiationState.v1` + `InstantiationTransition.v1`, deterministic builders, three synthetic requirement fixtures, targeted tests |
 | RDI-3 | Intervention provenance + FORECAST/settlement contamination integration | **PARTIAL** | `InterventionDeclaration.v1` binds construct/state/work/forecast/activation/provenance references, predicted dimension changes, constraints, falsification criteria, and fail-closed authority; transition retains typed exposure and contamination; settlement profile remains missing |
-| RDI-4 | SHADOW and AAL-Viz projection hooks | **DEFERRED** | anomaly-only SHADOW output and projection-only state/transition/lineage view |
+| RDI-4 | SHADOW and AAL-Viz projection hooks | **CONTRACTS LANDED** | `InstantiationShadowReport.v1` (anomaly-only detector, `core/instantiation/shadow.py`) + `InstantiationProjectionView.v1` (projection-only state/transition/lineage view with shadow overlay, `core/instantiation/projection.py`); live SHADOW pipeline wiring and console rendering remain deferred |
 | RDI-5 | Synthetic fixture harness and calibration evaluation | **DEFERRED** | define H → state t0 → forecast/intervention → evidence t1 → settlement → calibration |
 
 No package may invent Instantiation Depth thresholds, weights, causal coefficients,
