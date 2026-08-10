@@ -18,6 +18,7 @@
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.handoff.json",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_VALIDATION_001.md",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md",
     "input/fixtures/instantiation/abx_mediated_settlement.v1.json",
     "input/fixtures/instantiation/no_intervention_transition.v1.json",
@@ -30,6 +31,7 @@
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.handoff.json",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md",
+    "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_VALIDATION_001.md",
     "docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md"
   ],
   "commands_run": [
