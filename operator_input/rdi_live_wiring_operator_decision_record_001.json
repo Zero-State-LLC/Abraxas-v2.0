@@ -1,0 +1,67 @@
+{
+  "record_type": "RDI_LIVE_WIRING_OPERATOR_DECISION_RECORD",
+  "record_id": "RDI_LIVE_WIRING_OPERATOR_DECISION_RECORD_001",
+  "system": "Abraxas v2.0",
+  "upstream_request": {
+    "pull_request": 1110,
+    "document": "docs/governance/OPERATOR_DECISION_REQUEST_RDI_LIVE_WIRING_001.md"
+  },
+  "operator_identity": {
+    "operator_id": "daniel_meyer",
+    "operator_display_name": "Daniel Meyer",
+    "operator_role": "governed_operator",
+    "decision_source": "team Buzz channel",
+    "operator_reviewed_at_source_observed": "2026-08-10",
+    "source_observation_sha256": "sha256:6213cc40e1d426a43e266e24925807f39121f7864c140011bd739be404583928"
+  },
+  "decisions": {
+    "decision_1_live_shadow_ingest": {
+      "chosen_option": "B",
+      "status": "AUTHORIZED_SANDBOX_ONLY",
+      "scope": {
+        "live_or_real_ingest_evidence": true,
+        "dry_runs_only": true,
+        "artifacts_path": "out/",
+        "console_feed_change": false,
+        "detection_only": true,
+        "explanation": false,
+        "forecast": false,
+        "intervention": false,
+        "settlement": false,
+        "canon_touch": false,
+        "authority_block_hard_false": true
+      },
+      "implementation_preconditions": {
+        "evidence_registers_and_windows_specified": false,
+        "cfar_construct_definitions_specified": false,
+        "open_question": "Which evidence registers/windows and which CFAR construct(s) should the SANDBOX wiring target?"
+      },
+      "execution_authorized_by_this_record": false,
+      "implementation_note": "This record authorizes the bounded lane only; it does not implement or authorize coding until evidence-source scoping and CFAR construct definitions are specified."
+    },
+    "decision_2_legacy_binding_status_path": {
+      "chosen_option": "B",
+      "status": "APPROVED_IN_PRINCIPLE_BLOCKED_ON_PRECONDITION",
+      "legacy_binding_status_path": "RETAIN",
+      "execution_authorized_by_this_record": false,
+      "precondition": "Resolver/settlement flows must produce SettlementVerdict.v1 verdicts for every scored outcome.",
+      "precondition_tracking": "issue #1112 (open)",
+      "implementation_note": "Do not remove the legacy binding_status outcome path from build_brier_ledger until full SettlementVerdict.v1 coverage is landed and demonstrated."
+    }
+  },
+  "authority_boundaries": {
+    "runtime_execution_allowed": false,
+    "runtime_mutation_allowed": false,
+    "console_feed_mutation_allowed": false,
+    "queue_scheduler_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "settlement_execution_allowed": false,
+    "explanation_forecast_intervention_allowed": false,
+    "production_activation_allowed": false,
+    "authority_grant_allowed": false
+  },
+  "binding": {
+    "bind_by": "sha256 of jq -S -c canonical JSON with binding.payload_sha256 set to null",
+    "payload_sha256": "sha256:edd82736fb99f0ae009ec2229861a9751515a71e38b14a4332a4d7d659e20faa"
+  }
+}
