@@ -13,6 +13,11 @@ from .contracts import (
     validate_instantiation_transition,
     validate_intervention_declaration,
 )
+from .artifact_resolver import (
+    ArtifactResolutionError,
+    ResolvedArtifactRef,
+    resolve_artifact_refs,
+)
 from .harness import (
     run_fixture_experiment,
     validate_experiment_record,
@@ -28,6 +33,7 @@ from .shadow import (
 
 __all__ = [
     "CAUSAL_EXPOSURES",
+    "ArtifactResolutionError",
     "DIMENSIONS",
     "build_instantiation_projection",
     "build_instantiation_state",
@@ -38,6 +44,8 @@ __all__ = [
     "canonical_transition_json",
     "detect_instantiation_anomalies",
     "run_fixture_experiment",
+    "ResolvedArtifactRef",
+    "resolve_artifact_refs",
     "validate_experiment_record",
     "validate_instantiation_projection",
     "validate_instantiation_shadow_report",
