@@ -327,7 +327,7 @@ remaining non-explanatory, and FORECAST remaining non-authoritative.
 | Intervention predicted-delta profile | `PARTIAL` | `InterventionDeclaration.v1` binds existing work/forecast/activation/provenance references and named non-observed predicted changes; no execution receipt or settlement profile yet |
 | ABX-mediated contamination representation | `PARTIAL` | transition contract enforces typed exposure and can bind the intervention declaration; no transition may self-declare independent confirmation |
 | SHADOW RDI anomaly hooks | `PARTIAL` | `core/instantiation/shadow.py` detects anomalies/observations over state/transition contracts (`InstantiationShadowReport.v1`); anomaly-only, no explanation or authority; live SHADOW pipeline wiring not attempted |
-| AAL-Viz RDI projection | `PARTIAL` | `core/instantiation/projection.py` builds the projection-only state/transition/lineage view (`InstantiationProjectionView.v1`) with optional shadow overlay; console rendering remains deferred |
+| AAL-Viz RDI projection | `PARTIAL` | `core/instantiation/projection.py` builds `InstantiationProjectionView.v1`; `scripts/viz/build_aal_viz_instantiation_projection.py` publishes the console feed and `InstantiationProjectionPanel` renders it (read-only, fail-closed on authority drift); live non-fixture sources remain deferred |
 | Fixture experiment and calibration evaluation | `PARTIAL` | `core/instantiation/harness.py` executes the full synthetic loop (H → t0 → forecast/intervention → t1 → settlement → Brier telemetry) over three experiment fixtures with contamination-aware calibration; still LAB-only — no empirical result claimed |
 | Aggregate Instantiation Depth | `DEFERRED` | `NOT_COMPUTABLE` pending validated measurement semantics |
 

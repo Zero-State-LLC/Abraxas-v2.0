@@ -10,6 +10,7 @@ import { SignalWeatherPanel } from './SignalWeatherPanel';
 import { OperatorReviewQueue } from './OperatorReviewQueue';
 import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
 import { OperatorLoopProjectionPanel } from './OperatorLoopProjectionPanel';
+import { InstantiationProjectionPanel } from './InstantiationProjectionPanel';
 import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
 import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
@@ -312,6 +313,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <MigrationRunnerPosturePanel posture={bundle.migration_runner_posture} />
           <AuthorityBoundaryPanel authority={bundle.authority} />
           <OperatorLoopProjectionPanel />
+          <InstantiationProjectionPanel />
         </aside>
           </div>
         </div>
