@@ -1,5 +1,12 @@
 """Representation-driven instantiation composition contracts."""
 
+from .artifact_resolver import (
+    ArtifactResolutionError,
+    ResolvedArtifactRef,
+    resolve_artifact_refs,
+    resolve_intervention_ref,
+    resolve_transition_intervention_ref,
+)
 from .contracts import (
     CAUSAL_EXPOSURES,
     DIMENSIONS,
@@ -12,11 +19,6 @@ from .contracts import (
     validate_instantiation_state,
     validate_instantiation_transition,
     validate_intervention_declaration,
-)
-from .artifact_resolver import (
-    ArtifactResolutionError,
-    ResolvedArtifactRef,
-    resolve_artifact_refs,
 )
 from .harness import (
     run_fixture_experiment,
@@ -33,8 +35,9 @@ from .shadow import (
 
 __all__ = [
     "CAUSAL_EXPOSURES",
-    "ArtifactResolutionError",
     "DIMENSIONS",
+    "ArtifactResolutionError",
+    "ResolvedArtifactRef",
     "build_instantiation_projection",
     "build_instantiation_state",
     "build_instantiation_transition",
@@ -43,9 +46,10 @@ __all__ = [
     "canonical_state_json",
     "canonical_transition_json",
     "detect_instantiation_anomalies",
-    "run_fixture_experiment",
-    "ResolvedArtifactRef",
     "resolve_artifact_refs",
+    "resolve_intervention_ref",
+    "resolve_transition_intervention_ref",
+    "run_fixture_experiment",
     "validate_experiment_record",
     "validate_instantiation_projection",
     "validate_instantiation_shadow_report",

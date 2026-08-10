@@ -39,6 +39,45 @@ class ArtifactResolutionError(ValueError):
         super().__init__(f"{code}: {message}")
 
 
+def resolve_intervention_ref(
+    intervention_ref: Mapping[str, Any] | None, store_root: str | Path
+) -> ResolvedArtifactRef | None:
+    """Resolve an optional transition intervention reference.
+
+    InstantiationTransition.v1 stores the compact ``object_id`` and
+    ``canonical_hash`` form.  The resolver adds the contract identity before
+    delegating to the common artifact-store resolver.  ``None`` is the
+    explicitly absent optional reference; every present reference is
+    fail-closed and advisory-only.
+    """
+    if intervention_ref is None:
+        return None
+    if not isinstance(intervention_ref, Mapping):
+        raise ArtifactResolutionError(
+            "MALFORMED_REF", "intervention_ref must be an object or null"
+        )
+    ref = {
+        "kind": "intervention",
+        "schema_version": "InterventionDeclaration.v1",
+        "object_id": intervention_ref.get("object_id"),
+        "canonical_hash": intervention_ref.get("canonical_hash"),
+    }
+    return resolve_artifact_refs([ref], store_root)[0]
+
+
+def resolve_transition_intervention_ref(
+    transition: Mapping[str, Any], store_root: str | Path
+) -> ResolvedArtifactRef | None:
+    """Resolve the intervention linked by an InstantiationTransition.v1.
+
+    This is a read-only SHADOW binding helper.  It does not resolve an
+    outcome, settle a verdict, or alter the transition payload.
+    """
+    if not isinstance(transition, Mapping):
+        raise ArtifactResolutionError("MALFORMED_REF", "transition must be an object")
+    return resolve_intervention_ref(transition.get("intervention_ref"), store_root)
+
+
 @dataclass(frozen=True)
 class _ArtifactSpec:
     schema_version: str
