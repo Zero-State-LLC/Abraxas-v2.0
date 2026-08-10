@@ -353,10 +353,10 @@ def build_abx_artifact_lineage_registry_traceability_audit(
     docs_reference_exception_refs = _receipt_path_set(
         scoped_receipt, "docs_reference_repair", "docs_reference_exception_refs"
     )
+    # Scoped execution repairs are intentionally consumed only for registry coverage gaps.
+    # Pairing and docs-reference exceptions are evidence artifacts for future scoped repair waves
+    # and are not yet considered authoritative for traceability status at this stage.
     outputs_without_registry = sorted(path for path in outputs_without_registry if path not in repaired_registry_paths)
-    md_pairs_missing = sorted(path for path in md_pairs_missing if path not in single_format_exception_paths)
-    json_pairs_missing = sorted(path for path in json_pairs_missing if path not in single_format_exception_paths)
-    docs_missing_artifacts = sorted(ref for ref in docs_missing_artifacts if ref not in docs_reference_exception_refs)
     notion_scope_resolved_outputs = set()
     if notion_scope_record:
         notion_scope_resolved_outputs = {str(item) for item in notion_scope_record.get("resolved_outputs", [])}
