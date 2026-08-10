@@ -63,6 +63,8 @@ AI_OS_KERNEL:
 
 This capability is **not complete**. Canonical doctrine and reuse mapping live in
 [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+The current continuation packet for Fable is
+[`REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md).
 The smallest evidence-backed continuation is:
 
 | ID | Work package | Status | Exit evidence |

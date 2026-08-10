@@ -7,6 +7,7 @@
 causal attribution, consciousness, or universal simulation/instantiation equivalence.
 
 **Reuse audit:** [`REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md`](REPRESENTATION_DRIVEN_INSTANTIATION_REUSE_AUDIT_001.md)
+**Continuation handoff:** [`REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md)
 
 ## 1. Purpose
 
