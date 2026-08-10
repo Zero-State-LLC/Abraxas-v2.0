@@ -1,3 +1,17 @@
+# [1.178.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.177.0...v1.178.0) (2026-08-10)
+
+
+### Bug Fixes
+
+* package supported abraxas runtime ([6c5d682](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6c5d6825ea91ab99a770f8935d01a560b1631866))
+* tighten instantiation schema invariants ([a3b9784](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a3b97849ddc5ca71ebcb5ca155747b25895eaa47))
+
+
+### Features
+
+* add bounded RDI intervention declarations ([f9a6bf1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f9a6bf17451f1aba17fe18e20a43e86416f28c55))
+* add fixture-only instantiation contracts ([c440cfb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c440cfbbf8d6a6aeadf4994ebce27aefc0ee82f7))
+
 # [1.177.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.176.0...v1.177.0) (2026-08-01)
 
 
