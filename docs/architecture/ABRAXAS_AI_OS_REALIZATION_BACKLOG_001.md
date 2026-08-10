@@ -281,6 +281,38 @@ See also the reconciled AI OS primitives map (advisory projection from PR #1050)
 
 ### Next Small Slice: Plural Forager Roles + Analyzer Volume Feedback (SHADOW, 2026-07-30 continuation)
 
+
+### Slice G — Consumption Hardening + Operator Handoff Surfaces (SHADOW)
+
+**Status:** IN PROGRESS — Neon full-cycle TDD started
+
+**Started (2026-07-30):** TDD on Neon full-cycle path (EVOLUTION_VOLUME volume_seeds wired into discover/recombine/score + candidate emission). See .hermes/plans/2026-07-30-slice-g-neon-full-cycle-tdd.md
+
+**Goal:** Harden P4 prototypes into reproducible, inspectable advisory feedback loops an operator can disposition.
+
+**Planned items (all advisory_only, execution_authority: false):**
+- Neon: Route high_hermes_signal_volume seeds through full `run_venture_cycle` (discover → opportunities → recombine → scored venture packet).
+- Operator handoff: Generate a proper `HandoffEnvelope.v1` fragment or consumable `SkillEvolutionCandidate` + `SkillPatchCandidate` from volume data.
+- E2E: Updated runner that emits an inspectable advisory patch candidate derived from live Hermes volume traces.
+- Projection: Concrete AAL-Viz example / register usage for volume candidates and patch candidates.
+- Skill surface: Mount + document at least one additional skill from the distilled Hermes set.
+- CLI + docs: Light surface (`abraxas os evolution-review` or similar) + updated unification/backlog.
+
+**Success criteria:**
+- Volume seeds produce full Neon opportunities + scored packet (advisory).
+- Review/handoff artifact is produced in a standard envelope format.
+- One E2E run yields a `SkillPatchCandidate` an operator could review.
+- AAL-Viz palette + docs show volume/patch state.
+- All work remains SHADOW.
+
+**Non-goals:**
+- Promotion, execution authority, or canon changes.
+- CLEAR coupling.
+- Full production activation path.
+
+See unification doc for detailed scope.
+
+
 - [x] E2E example explicitly invokes analyzer and surfaces high_hermes_signal_volume candidate in summary
 - [x] P3 pluralism forager: added hyperagent_forager (distinct task_class) that emits to os_signal path
 - [x] Light CLI surface: `abraxas os evolution-volume` (SHADOW view of volumes keyed by skill:task_class)
@@ -312,6 +344,7 @@ WP-0.2–0.3 rest + WP-10 · docs only after A–C green
 5. **Slice D** — Visual bind + OperationTrace closed loop. **COMPLETE**
 6. **Slice E** — STATUS/PLANS declare AI OS kernel ACTIVE_SHADOW. **COMPLETE**
 7. Hermes signal volume + evolution tie-in (current branch) + optional WP-7/8 product depth (SHADOW only). **COMPLETE**
+8. **Slice G** — Consumption Hardening + Operator Handoff Surfaces. **NEXT (definition)**
 
 ---
 

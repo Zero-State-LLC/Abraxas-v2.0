@@ -1,7 +1,7 @@
 # Abraxas ↔ Hermes OS Unification 001
 
-**Status:** ACTIVE DRAFT · advisory implementation spine  
-**Date:** 2026-07-27  
+**Status:** PHASE 1 COMPLETE (signal syscall + closed loop + volume + Neon prototypes) · P4 consumption & review surfaces active  
+**Date:** 2026-07-30  
 **Authority:** LOCAL_DEV / SHADOW only · no EXTERNAL_PRODUCTION grant  
 **Companions:** `design-system/VISUAL_OPERATING_SYSTEM.md` · `docs/plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md` · `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md` · `artifacts/hermes-surface/DISTILLED_HERMES_SKILL_SET.md`
 
@@ -182,13 +182,16 @@ Order: merge #1052 → EvidencePack contracts/core → familiar_ingestion receip
 
 ---
 
-## 8. Success criteria
 
-1. From a fresh Hermes desktop session, agent can `skill_view` Abraxas master-loop + signal-forager without manual path hunting.
-2. A forage task produces a durable EvidencePack with register tags and source URLs.
-3. Neon Genie / research tasks refuse confident market claims without a pack.
-4. Meaningful sessions emit OperationTraces; evolution cycle remains SHADOW.
-5. Operator can point at one diagram (this doc §1) and the live skill mount and say “that’s the OS.”
+## 8. Success criteria (verified 2026-07-30, SHADOW)
+
+1. ✅ From a fresh Hermes desktop session, agent can `skill_view` Abraxas master-loop + signal-forager without manual path hunting. (imports succeed via external_dirs)
+2. ✅ A forage task produces a durable EvidencePack with register tags and source URLs. (run_slice_f_end_to_end_example.py + --from-hermes-traces)
+3. ✅ Neon Genie / research tasks refuse confident market claims without a pack. (evidence_pack_path gate in neon_genie + EvidencePack.v0)
+4. ✅ Meaningful sessions emit OperationTraces; evolution cycle remains SHADOW. (E2E + analyzer + ledger bridge; high_hermes_signal_volume CANDIDATE_ONLY)
+5. ✅ Operator can point at one diagram (this doc §1) and the live skill mount and say “that’s the OS.” (primitives map + os status + unification doc)
+
+P4 work will harden 4–5 into candidate production + review handoff.
 
 ---
 
@@ -221,8 +224,71 @@ env -u PYTHONPATH -u PYTHONHOME .venv/bin/python \
 
 ---
 
-*Seal: advisory OS spine. Unifies mental model and skill mount; does not grant production activation.*
 
+
+
+## P4 — Consumption, Review Surfaces & Hardening (advanced 2026-07-30)
+
+**Completed in this continuation pass:** volume-to-Neon discover wiring (TDD), operator review + SkillPatchCandidate emission, full E2E loop with patches, palette registers for volume/patch, mounted skills listing, success criteria verified.
+
+Remaining open → now formalized as **Slice G** (see below).
+
+- [x] Wire volume-derived Neon seeds into discover (TDD + opportunities produced)
+- [x] Mature operator review surface: now emits review + advisory SkillPatchCandidate stubs
+- [x] End-to-end: high-volume Hermes traces → advisory SkillPatchCandidate (via E2E + review + patch generator)
+- [x] Expand mounted skills from DISTILLED set (repo-intel verified loadable)
+
+### Currently mounted Abraxas skills (via external_dirs)
+- abraxas-master-loop-workflow
+- abx-familiar-signal-forager (primary signal syscall)
+- abx-hermes-skill-evolution (volume → ledger → high_hermes_signal_volume detection)
+- abx-neon-genie (with volume seed discover wiring)
+- abraxas-repo-intel (stub restored + loadable)
+
+P4 expand item: repo-intel verified; broader distillation from DISTILLED set remains open for future slices.
+
+- [x] AAL-Viz note + registers for volume candidates
+- [x] Verify success criteria with live commands + E2E
+
+
+## Slice G — Consumption Hardening + Operator Handoff Surfaces (next)
+
+**Slice G execution started (2026-07-30):**
+
+**Slice G continuation (deeper handoff):** 
+- HandoffEnvelope.v1 produced from Neon volume cycle + review (using core.operator_loop helpers)
+- Includes candidate/patch findings, commands, tests, risks, next action; all authority false
+- File: evolution_volume_handoff_envelope.latest.json
+
+- TDD: `test_run_venture_cycle_full_with_evolution_volume_seeds` (RED→GREEN)
+- `neon_genie_router.run_venture_cycle` now supports EVOLUTION_VOLUME mode using volume_seeds directly (full discover/recombine/score/package)
+- Emits `skill_evolution_candidate` with advisory `SkillPatchCandidate` stub
+- E2E updated and demonstrates the path
+
+
+**Goal:** Move from P4 prototypes to hardened, reproducible advisory feedback surfaces an operator can inspect and disposition.
+
+**Key items (SHADOW / advisory_only only):**
+- Neon: Full `run_venture_cycle` path for `EVOLUTION_VOLUME` seeds (discover → opportunities → recombine → scored venture packet) with `advisory_only` preserved.
+- Operator surface: First-class `HandoffEnvelope.v1` fragment or `SkillEvolutionCandidate` + `SkillPatchCandidate` artifact generated from volume traces.
+- E2E runner: Produces an inspectable advisory patch candidate directly from high-volume Hermes traces.
+- Projection: Concrete AAL-Viz usage / example for volume candidates and patch candidates (palette + README).
+- Skill mounting: At least one additional distilled Hermes skill made explicitly loadable and documented.
+- CLI/docs: Light `abraxas os` surface for reviewing candidates; unification + backlog updated.
+
+**Success criteria for this slice:**
+- Volume seeds flow through full Neon cycle and produce opportunities + scored packet (still advisory).
+- Review surface emits a handoff-ready artifact (e.g. compatible with `HandoffEnvelope.v1`).
+- One clean E2E run yields a `SkillPatchCandidate` that can be inspected by an operator.
+- AAL-Viz palette + docs demonstrate volume/patch candidate state.
+- All work remains `execution_authority: false`.
+
+**Non-goals (this slice):**
+- Any form of promotion, execution, or canon mutation.
+- Coupling to CLEAR or production activation lanes.
+- Full live AAL-Viz console (documentation + palette example sufficient for this slice).
+
+All strictly SHADOW. Operator disposition required for any future activation.
 
 ## AI OS Primitives Map (reconciled from PR #1050)
 
