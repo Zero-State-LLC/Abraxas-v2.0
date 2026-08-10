@@ -8,7 +8,7 @@ platforms: [linux, macos]
 metadata:
   hermes:
     tags: [abraxas, signal, forage, evidence, ingest, provenance, research, shadow]
-    related_skills: [abraxas-master-loop-workflow, abx-neon-genie, abx-hermes-skill-evolution, abraxas-repo-intel, arxiv, web-scraping, polymarket]
+    related_skills: [abraxas-master-loop-workflow, abx-neon-genie, abx-hermes-skill-evolution, abraxas-repo-intel, arxiv, web-scraping, polymarket, agent-reach]
 ---
 
 # abx-familiar-signal-forager
@@ -70,11 +70,12 @@ Rotate across families until `max_sources` or diminishing returns:
 
 | Family | Hermes means | Notes |
 |--------|--------------|-------|
-| General web | `web_search` + `web_extract` | Prefer primary docs, filings, official blogs |
+| General web | `web_search` + `web_extract` or Jina Reader via `curl https://r.jina.ai/URL` (Agent-Reach) | Prefer primary docs, filings, official blogs; Agent-Reach provides stable Jina |
 | Academic | `arxiv` skill | Papers → OBSERVED abstracts/methods only |
 | Markets | `polymarket` | Prices are OBSERVED; causality is INFERRED |
-| Social | `x_search` / xurl | Treat as weak OBSERVED; high noise |
-| Repo / local | `search_files`, git, OP.SEARCH_SIGNAL | Code and receipts are first-class |
+| Social & video | `x_search` / xurl + Agent-Reach (yt-dlp, bili, twitter-cli/OpenCLI etc.) | Agent-Reach: zero-fee multi-backend for YouTube subtitles, Bilibili, Twitter/X (search/timeline with config), Reddit (login), Xiaohongshu, Facebook/Instagram (OpenCLI), V2EX, RSS |
+| Semantic search | `web_search` or mcporter + Exa (via Agent-Reach routing) | Free semantic web search |
+| Repo / local | `search_files`, git, OP.SEARCH_SIGNAL, gh CLI (Agent-Reach) | Code and receipts are first-class |
 | Prior sessions | `session_search` | Continuity only; re-verify live sources |
 
 **Anti-grip:** no more than ~30% of sources from one domain cluster unless the topic is that domain.
@@ -190,3 +191,31 @@ Do **not** resolve Brier outcomes from forage. Optional: attach `claim_id`s that
 - `docs/architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md` — OS mount + signal as syscall
 - `docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md` — realization WPs
 - `core/governance/signal_forager_brier_hook.py` — telemetry-only companion
+
+## NOT_COMPUTABLE taxonomy (Abraxas-native extension)
+
+Flat `NOT_COMPUTABLE` is replaced by structured codes with repair runes (aligns with OracleIntakeEnvelope.intake_status and contracts/runes/catalog.v1.json).
+
+```json
+{
+  "status": "NOT_COMPUTABLE",
+  "reason_code": "NC_AUTH_REQUIRED | NC_NO_OBSERVATION | NC_INSUFFICIENT_SAMPLE | NC_MISSING_TIME_SERIES | NC_NONCOMPARABLE_SOURCES | NC_METADATA_UNAVAILABLE | NC_IDENTIFIABILITY_FAILURE | NC_FUTURE_UNRESOLVED | NC_POLICY_OR_ACCESS_BOUNDARY",
+  "repair_plan": {
+    "rune": "RUNE.OBSERVATION_INGEST | RUNE.TEMPORAL_SNAPSHOT | RUNE.CROSS_PLATFORM_NORMALIZE",
+    "minimum_observations": 2,
+    "agent_reach_connectors": ["twitter", "rdt", "jina", "exa"]
+  },
+  "fallback": {"allowed": true, "output_type": "ordinal_evidence_rank", "confidence_ceiling": 0.45}
+}
+```
+
+**P0 runes for slang / signal acquisition** (proposed, to be registered in runes/catalog):
+- RUNE.OBSERVATION_INGEST (Agent-Reach + APIs → OracleIntakeEnvelope)
+- RUNE.NOT_COMPUTABLE_CLASSIFY
+- RUNE.CONTEXT_USAGE_CLASSIFY (SLANG_TARGET vs LITERAL vs META)
+- RUNE.TEMPORAL_SNAPSHOT
+- RUNE.CROSS_PLATFORM_NORMALIZE
+- RUNE.PROVENANCE_LEDGER
+- RUNE.EVIDENCE_SATURATION
+
+See user's diagnostic for full stack (regime, diffusion, Wasserstein, semantic drift, Brier, canary replay).

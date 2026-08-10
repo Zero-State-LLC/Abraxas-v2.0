@@ -15,6 +15,17 @@ metadata:
 ## Purpose
 Observe Abraxas operations, normalize to OperationTrace, aggregate into SkillPerformanceLedger, detect evolution signals, propose bounded SkillPatchCandidate artifacts. Route through Abraxas Ingest, replay harness, canary, and promotion gate. Preserve determinism, provenance, and the strict boundary: operations generate candidates; only operator/governance authorizes promotion to active skills.
 
+**Core inductive principle (integrated from Bennett arXiv:2301.12987v4 "The Optimal Choice of Hypothesis Is the Weakest, Not the Shortest")**: When selecting/generating hypotheses, models, SkillPatchCandidates or evolution candidates, *maximise weakness* (generality, |Zl| extension cardinality, breadth of coverage/applicability) *over* minimising description length, shortness or compression. Per the paper (enactive formalism, uniform tasks): MDL/compression is neither necessary nor sufficient to maximise generalisation probability; weakness maximisation *is* necessary and sufficient. Experiments on binary arithmetic showed weakness models generalised at 1.1x–5x the rate of MDL. See dedicated reference: `references/bennett-weakness-hypothesis-2024.md` (proofs, Bennett’s Razor: "Explanations should be no more specific than necessary", Apperception Engine explanation via weak assertions, LLM implications).
+
+Apply explicitly in:
+- Evolution analyzer: flag over-specific vs general patterns.
+- Candidate/patch generation: bias for higher-weakness (use ledger breadth, cross-task success as proxies).
+- Replay, canary, Brier, promotion: include generality/weakness augment to scoring.
+- ArXiv/literature corpus expansions: ingest this paper; derive replay cases for governance/decision/evolution surfaces.
+- All hypothesis selection in the pipeline.
+
+This principle is now active across self-improvement surfaces (see also hermes-skill-evolution, self-improvement, darwinian-evolver).
+
 ## Core Boundary
 operations may generate skill candidates
 operations may not directly rewrite active skills
