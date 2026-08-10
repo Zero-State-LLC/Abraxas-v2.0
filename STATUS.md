@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-01 (Memetic forensics C+C6 · Ops D0 route + D2 Level99 seed (gate DENIED) · MemEIC · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
+> **Last Updated:** 2026-08-09 (RDI/Fable track · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw · AI OS ACTIVE_SHADOW · CLEAR dual-control operator-only)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
