@@ -22,6 +22,8 @@ from .projection import (
     validate_instantiation_projection,
 )
 from .shadow import (
+    build_rdi_live_wire_artifact,
+    derive_rdi_live_wire_window,
     detect_instantiation_anomalies,
     validate_instantiation_shadow_report,
 )
@@ -33,9 +35,11 @@ __all__ = [
     "build_instantiation_state",
     "build_instantiation_transition",
     "build_intervention_declaration",
+    "build_rdi_live_wire_artifact",
     "canonical_intervention_json",
     "canonical_state_json",
     "canonical_transition_json",
+    "derive_rdi_live_wire_window",
     "detect_instantiation_anomalies",
     "run_fixture_experiment",
     "validate_experiment_record",
