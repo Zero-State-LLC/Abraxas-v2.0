@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-09 (RDI/Fable track · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw · AI OS ACTIVE_SHADOW · CLEAR dual-control operator-only)
+> **Last Updated:** 2026-08-09 (merged local RDI/Fable track onto origin/main · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw track · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -223,3 +223,9 @@ The repo previously maintained an advisory-only continuation state with operator
 ## How to Update This File
 
 Update when major changes occur. Prefer pairing STATUS refresh with an Atlas Sync Receipt under the Notion Master Index.
+
+
+## AI OS P4 note
+
+- AI OS unification P4 (consumption + review + patch candidates) advanced 2026-07-30: Neon discover wired, review emits SkillPatchCandidate, E2E full loop, palette + mounted skills updated (SHADOW)
+- Next: Slice G defined (Consumption Hardening + Operator Handoff Surfaces) — see BACKLOG and UNIFICATION

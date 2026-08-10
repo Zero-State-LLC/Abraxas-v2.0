@@ -37,3 +37,9 @@ See [`AAL_VIZ_ASSET_INVENTORY.md`](./AAL_VIZ_ASSET_INVENTORY.md) for full counts
 ## Distinct from Abraxas root brand
 
 `design-system/brand/*` is the **kernel** mark. AAL-Viz uses a viewport-plane + constellation sigil under `aal-viz/brand/`.
+
+## AI OS Kernel Volume Projection (P4)
+- Volume candidates and high_hermes_signal_volume now project via os_kernel registers.
+- Review artifacts and patch candidates surface in operator loop projections.
+- See design-system/viz/topology_palette.v1.json for new registers.
+

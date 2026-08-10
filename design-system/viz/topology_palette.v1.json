@@ -67,5 +67,16 @@
   "forecast": {
     "stroke": "#c084fc",
     "dash": "6 4"
+  },
+  "os_kernel": {
+    "volume_candidate": "#10b981",
+    "high_hermes_signal": "#f2c14e",
+    "patch_candidate": "#c4b5fd",
+    "advisory_only": "#a78bfa"
+  },
+  "registers": {
+    "volume_candidate": "os_kernel.volume_candidate",
+    "high_hermes_signal_volume": "os_kernel.high_hermes_signal",
+    "skill_patch_candidate": "os_kernel.patch_candidate"
   }
 }
