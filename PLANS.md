@@ -59,6 +59,27 @@ AI_OS_KERNEL:
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
 
+### Representation-driven instantiation assimilation
+
+This capability is **not complete**. Canonical doctrine and reuse mapping live in
+[`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+The smallest evidence-backed continuation is:
+
+| ID | Work package | Status | Exit evidence |
+|----|--------------|--------|---------------|
+| RDI-0 | Doctrine, aliases, existing-system mapping | **DOCUMENTED** | canonical architecture document + README/AGENTS/glossary links |
+| RDI-1 | Schema/type reuse audit for state, transition, intervention, contamination | **NEXT** | field-level mapping against active contracts; no duplicate subsystem |
+| RDI-2 | Close only proven representation gaps | **MISSING** | deterministic fixture contract preserving epistemic labels and `NOT_COMPUTABLE` dimensions |
+| RDI-3 | FORECAST/settlement contamination integration | **MISSING** | predicted-versus-observed transition can retain exogenous/ABX-mediated/mixed/unknown exposure |
+| RDI-4 | SHADOW and AAL-Viz projection hooks | **DEFERRED** | anomaly-only SHADOW output and projection-only state/transition/lineage view |
+| RDI-5 | Synthetic fixture harness and calibration evaluation | **DEFERRED** | define H → state t0 → forecast/intervention → evidence t1 → settlement → calibration |
+
+No package may invent Instantiation Depth thresholds, weights, causal coefficients,
+confidence formulas, recursive-reinforcement scores, or maturity levels. Until
+validated semantics exist, aggregate depth and unsupported dimensions are
+`NOT_COMPUTABLE`. The first harness uses synthetic fixtures and no production or
+social-world intervention.
+
 ### Next three milestones
 
 1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate** (use checklist above)

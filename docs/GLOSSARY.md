@@ -1,6 +1,94 @@
 # ABRAXAS v2.0 — GLOSSARY
 
-Terms used throughout this codebase. Listed alphabetically.
+Terms used throughout this codebase. Representation-driven instantiation terms
+are grouped first; legacy terms follow in their existing order.
+
+---
+
+**ABX-mediated causation**
+A causal exposure in which Abraxas observation, modeling, recommendation, or an
+authorized intervention lies on a plausible path between a represented construct
+and a later observed transition. The label records exposure, not proof that
+Abraxas caused the transition.
+
+---
+
+**Feedback contamination** (also: observer-intervention contamination)
+The loss of independence between a forecast and its later evidence because
+Abraxas output influenced the environment being measured. Contaminated outcomes
+may be settled, but must not be counted automatically as independent confirmation
+of the originating model.
+
+---
+
+**Hyperstition**
+Representation-driven recursive instantiation. Evidence must indicate that
+consequences attributable to the represented construct increase, modify, or
+preserve its later capacity for further instantiation. Belief, popularity,
+narrative force, correlation, or self-fulfilling appearance alone is insufficient.
+
+---
+
+**Instantiation**
+Evidence-backed causal implementation of one or more constitutive properties of a
+represented construct. Instantiation is property-specific and may be partial,
+regressive, bifurcated, or `NOT_COMPUTABLE`.
+
+---
+
+**InstantiationState**
+The independently evidenced state of a represented construct at a specified time,
+including provenance, epistemic classification, and unavailable dimensions.
+
+---
+
+**InstantiationTransition**
+A provenance-bound change between two InstantiationStates. A transition records
+confidence, epistemic classification, and causal exposure without converting
+temporal association or correlation into causal attribution.
+
+---
+
+**Intervention**
+A declared bounded perturbation with a target, predicted change, constraints,
+provenance, activation lane, and falsification or settlement criteria. A declared
+intervention does not grant its own execution authority.
+
+---
+
+**Recursive reinforcement**
+Evidence-backed preservation, modification, or increase of a represented
+construct's subsequent capacity for further instantiation. It is an independent
+dimension, not a maturity score.
+
+---
+
+**Representation**
+An encoded construct, description, symbol, model, rule, artifact, or executable
+form that stands for something. Its presence proves representation only, not
+instantiation.
+
+---
+
+**Representation-driven instantiation**
+An evidence model in which representation can participate in a traceable chain of
+causal access, observable consequence, state transition, settlement, and model
+update. It does not assume that simulation implies either instantiation or
+non-instantiation.
+
+---
+
+**Settlement**
+The post-observation comparison of a declared forecast with later evidence,
+including the observed transition, prediction error where computable, conflicts,
+and contamination flags. Settlement is not execution authority.
+
+---
+
+**Simulation**
+Execution or representation under a model, emulation, fixture, or bounded
+environment. Simulation alone proves neither instantiation nor non-instantiation
+outside the constitutive properties evidenced by that execution.
 
 ---
 

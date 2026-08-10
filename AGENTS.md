@@ -91,6 +91,23 @@ Helpers: `core.operator_loop.validate_handoff`, `example_handoff`, `detect_work_
 - Do not fabricate evidence, fake data, or unverifiable claims.
 - Brier scoring remains telemetry-only; do not resolve Brier outcomes or escalate authority locks.
 
+## Representation-driven instantiation
+
+When work concerns simulation, instantiation, or hyperstition, follow
+[`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md):
+
+1. Representation is not evidence of instantiation.
+2. Simulation is neither proof nor disproof of instantiation.
+3. Measure constitutive properties independently. Do not treat dimensions as a maturity ladder.
+4. Separate observation from inference and preserve `OBSERVED`, `INFERRED`, `SPECULATIVE`, or `NOT_COMPUTABLE` on every relevant claim.
+5. Preserve causal provenance and record exogenous, ABX-mediated, mixed, or unknown exposure where computable.
+6. Predictions require declared settlement and falsification criteria.
+7. Outcomes following an Abraxas intervention are not automatically independent confirmation of the model that recommended it.
+8. SHADOW detects; FORECAST predicts. Neither grants intervention authority.
+9. Unsupported dimensions and aggregate Instantiation Depth remain `NOT_COMPUTABLE`.
+10. Do not collapse multidimensional state into a score without validated measurement semantics.
+11. Map new vocabulary to existing Abraxas primitives before adding architecture or contracts.
+
 ## Failure and drift reporting
 
 - Record broken surfaces explicitly; never hide or silently bypass them.

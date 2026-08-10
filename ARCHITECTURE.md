@@ -24,6 +24,13 @@ Hard boundaries remain: no autonomous canon promotion, no silent
 SHADOW→FORECAST escalation, no fabricated evidence, no external production
 deploy without an explicit operator decision.
 
+Representation-driven instantiation is an analytical doctrine within this
+architecture, not a parallel subsystem. It reuses CFAR, ingest, Belief Graph,
+FORECAST, settlement, provenance, and activation surfaces to distinguish a
+represented construct from evidence of its causal implementation. Canonical
+semantics and current implementation gaps are defined in
+[`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+
 ---
 
 ## Mental model
