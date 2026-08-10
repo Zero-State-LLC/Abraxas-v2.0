@@ -12,7 +12,10 @@ from core.forecasting.forecast_object import build_forecast_object
 from core.instantiation.artifact_resolver import (
     ArtifactResolutionError,
     resolve_artifact_refs,
+    resolve_intervention_ref,
+    resolve_transition_intervention_ref,
 )
+from core.instantiation.contracts import build_intervention_declaration
 
 
 def _forecast(forecast_id: str) -> dict[str, object]:
@@ -51,6 +54,77 @@ def _ref(kind: str, payload: dict[str, object]) -> dict[str, object]:
         "schema_version": payload["schema_version"],
         "canonical_hash": payload[hash_key],
     }
+
+
+def _intervention(intervention_id: str) -> dict[str, object]:
+    return build_intervention_declaration(
+        intervention_id=intervention_id,
+        construct_ref={"object_id": "construct-1", "canonical_hash": "a" * 64},
+        baseline_state_ref={"object_id": "state-1", "canonical_hash": "b" * 64},
+        work_packet_ref={"object_id": "work-1", "canonical_hash": "c" * 64},
+        forecast_ref={"object_id": "forecast-1", "canonical_hash": "d" * 64},
+        activation_evidence_ref={"object_id": "evidence-1", "canonical_hash": "e" * 64},
+        predicted_dimension_changes=[
+            {
+                "dimension": "symbolic_persistence",
+                "change_kind": "INCREASED",
+                "epistemic_status": "SPECULATIVE",
+                "claim_refs": ["claim-1"],
+                "not_computable_reason": None,
+            }
+        ],
+        constraints=["fixture only"],
+        falsification_criteria=["fixture fails"],
+        provenance_refs=[{"object_id": "provenance-1", "canonical_hash": "f" * 64}],
+    )
+
+
+def _write_intervention(root: Path, payload: dict[str, object]) -> None:
+    target = root / "out" / "intervention" / f"{payload['intervention_id']}.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+
+def _intervention_ref(payload: dict[str, object]) -> dict[str, object]:
+    return {
+        "object_id": payload["intervention_id"],
+        "canonical_hash": payload["intervention_hash"],
+    }
+
+
+def test_transition_intervention_ref_is_bound_to_artifact(tmp_path: Path) -> None:
+    payload = _intervention("iv-resolve")
+    _write_intervention(tmp_path, payload)
+    transition = {"intervention_ref": _intervention_ref(payload)}
+
+    resolved = resolve_transition_intervention_ref(transition, tmp_path)
+
+    assert resolved is not None
+    assert resolved.kind == "intervention"
+    assert resolved.object_id == "iv-resolve"
+    assert resolved.payload == payload
+
+
+def test_absent_transition_intervention_ref_remains_unresolved(tmp_path: Path) -> None:
+    assert resolve_transition_intervention_ref({"intervention_ref": None}, tmp_path) is None
+
+
+@pytest.mark.parametrize(
+    ("code", "ref"),
+    [
+        ("MISSING_ARTIFACT", {"object_id": "iv-missing", "canonical_hash": "a" * 64}),
+        ("HASH_MISMATCH", {"object_id": "iv-hash", "canonical_hash": "0" * 64}),
+        ("MALFORMED_REF", {"object_id": "iv-malformed"}),
+    ],
+)
+def test_transition_intervention_ref_fails_closed(
+    tmp_path: Path, code: str, ref: dict[str, object]
+) -> None:
+    if code == "HASH_MISMATCH":
+        payload = _intervention("iv-hash")
+        _write_intervention(tmp_path, payload)
+    with pytest.raises(ArtifactResolutionError, match=code):
+        resolve_intervention_ref(ref, tmp_path)
 
 
 def test_happy_path_and_deterministic_order(tmp_path: Path) -> None:
