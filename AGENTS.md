@@ -108,6 +108,17 @@ When work concerns simulation, instantiation, or hyperstition, follow
 10. Do not collapse multidimensional state into a score without validated measurement semantics.
 11. Map new vocabulary to existing Abraxas primitives before adding architecture or contracts.
 
+## Language / runtime boundary and settlements
+
+Canonical boundary: **Python owns semantics; Rust owns mechanics** — see
+[`ARCHITECTURE.md`](ARCHITECTURE.md) § Language / runtime boundary.
+
+1. Python remains the default for all evolving semantic/research surfaces.
+2. Do not rewrite working Python in Rust without measured need; no FFI boundary merely to introduce Rust.
+3. A Rust component (if ever justified) must consume existing contracts and preserve canonical schema, provenance, and causal-exposure semantics exactly; cross-language artifacts must be deterministic and golden-tested.
+4. Technical settlement (determinism, tests, replay, memory safety) does not imply empirical settlement; commercial settlement does not imply empirical settlement (Three-Settlement Doctrine, `ARCHITECTURE.md`).
+5. Unknown performance or workload evidence = `NOT_COMPUTABLE`; do not invent benchmarks or bottlenecks to justify migration.
+
 ## Failure and drift reporting
 
 - Record broken surfaces explicitly; never hide or silently bypass them.

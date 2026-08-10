@@ -33,6 +33,73 @@ semantics and current implementation gaps are defined in
 
 ---
 
+## Language / runtime boundary
+
+The canonical implementation boundary is:
+
+> **Python owns semantics. Rust owns mechanics.**
+
+Python (3.12) is the primary substrate for all rapidly evolving semantic and
+research surfaces: CFAR, Belief Graph reasoning, SHADOW logic, FORECAST
+inference, Eval/Brier analysis, RDI research logic, model/API adapters,
+orchestration, and exploratory work. These are not migration candidates.
+
+Rust is a **conditional** candidate only for narrow, stable, high-assurance
+mechanical contracts — canonical serialization/hashing, deterministic event
+replay, high-throughput ingest, deterministic simulation kernels, portable
+operator tooling — and only when a measured engineering need justifies a
+systems boundary. The current repository contains **no Rust code**; every
+candidate below is an audit posture, not an implementation commitment.
+
+Audit posture (SYS-RUST-0, 2026-08-10):
+
+| Candidate | Existing implementation | Verdict |
+|---|---|---|
+| `abx-canonical` | `core/canonical/json.py` — single authority, ~996 importers, deterministic, no measured bottleneck | **REUSE_PYTHON** |
+| `abx-replay` | `core/replay_execution/`, `core/replay_ledger/`, `core/settlement/` — canonical contract layers exist; interface convergence is Python-side work | **REUSE_PYTHON / DEFER** |
+| `abx-ingest` | `core/ingest/` — scheduler/receipt surfaces; no throughput or concurrency evidence | **NOT_COMPUTABLE / DEFER** |
+| `abx-sim` | No simulation kernel or Noema environment exists in this repository | **DEFER** |
+| `abx-cli` | `python -m abraxas` product CLI; no portable-binary need evidenced | **REUSE_PYTHON** |
+
+Rules if a candidate is ever elevated: no Rust rewrite of working Python; no
+FFI boundary merely to introduce Rust; a Rust component must consume the same
+contracts, preserve canonical schema/provenance/causal-exposure semantics
+byte-for-byte across the language boundary, and pass cross-language golden
+tests. Rust type safety, memory safety, and deterministic replay strengthen
+**technical settlement** only — they are never evidence of semantic or
+empirical validity.
+
+---
+
+## Three-Settlement Doctrine
+
+Every important Abraxas capability seeks three independent settlements:
+
+| Settlement | Question | Verified by |
+|---|---|---|
+| **Empirical** | Is the claim supported by evidence? | Declared forecasts, falsification criteria, resolved settlement, calibration |
+| **Technical** | Does the instrument perform to specification? | Determinism, schemas, tests, replay, provenance, canonical artifacts |
+| **Economic** | Does it produce consequences someone adopts or pays for? | Real-world usefulness, adoption, operational value |
+
+These must not substitute for one another:
+
+```text
+TECHNICAL_SUCCESS  != SCIENTIFIC_VALIDITY
+COMMERCIAL_SUCCESS != CAUSAL_VALIDITY
+SCIENTIFIC_VALIDITY != PRODUCT_DEMAND
+REPLAY_SUCCESS     != MODEL_CORRECTNESS
+```
+
+Evidence environments remain separated: **LAB** (synthetic fixtures,
+controlled simulation), **RESEARCH** (methodologically qualified evidence),
+**FIELD** (commercial/operational observation). FIELD evidence generates
+hypotheses; it does not automatically become scientific validation. The
+flywheel is `FIELD → hypothesis → LAB → RESEARCH → validated method → FIELD`,
+with ABX-mediated provenance preventing the loop from counting itself as
+independent confirmation.
+
+---
+
 ## Mental model
 
 ```

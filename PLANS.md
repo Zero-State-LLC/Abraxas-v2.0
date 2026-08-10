@@ -100,6 +100,21 @@ declaration, forecast, and work packet are all explicitly non-authoritative. Thi
 does not complete settlement integration, SHADOW hooks, calibration, or empirical
 validation.
 
+### Execution substrate candidates (conditional; not scheduled)
+
+Language/runtime boundary and audit verdicts live in
+[`ARCHITECTURE.md`](ARCHITECTURE.md) § Language / runtime boundary. These items
+exist only as conditional engineering candidates — none is authorized work, and
+none may proceed without the observed-need evidence listed.
+
+| ID | Work package | Status | Gate to open |
+|----|--------------|--------|--------------|
+| SYS-RUST-0 | Language/runtime boundary audit | **DOCUMENTED** (2026-08-10) | — |
+| SYS-RUST-1 | `abx-canonical` feasibility spike | **REUSE_PYTHON** — closed | Reopen only on measured serializer bottleneck or cross-platform hash divergence |
+| SYS-RUST-2 | `abx-replay` feasibility | **DEFERRED** | Python contract-layer convergence (`core/replay_*`, `core/settlement/`) must complete first |
+| SYS-RUST-3 | `abx-ingest` performance evaluation | **NOT_COMPUTABLE** | Requires real workload evidence: throughput, source count, blocking, memory pressure |
+| SYS-RUST-4 | `abx-sim` (Noema) kernel architecture | **DEFERRED** | Requires an actual simulation/agent-ecology requirement; document boundary contracts first |
+
 ### Next three milestones
 
 1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate** (use checklist above)
