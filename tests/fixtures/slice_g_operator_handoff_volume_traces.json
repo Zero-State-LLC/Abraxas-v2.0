@@ -1,0 +1,42 @@
+[
+  {
+    "trace_id": "slice-g-volume-001",
+    "skill_id": "abx-familiar-signal-forager",
+    "task_class": "signal_forage",
+    "completion_status": "COMPLETE",
+    "evidence_status": "OBSERVED",
+    "brier_score": 0.18,
+    "outputs": [
+      {
+        "artifact": "EvidencePack.v0",
+        "evidence_density": 0.82,
+        "summary": "Hermes volume trace produced high-density observed evidence."
+      }
+    ],
+    "provenance": {
+      "source": "tests/fixtures/slice_g_operator_handoff_volume_traces.json",
+      "observed_count": 4,
+      "palette_registers": ["EVOLUTION_VOLUME", "PATCH_CANDIDATE"]
+    }
+  },
+  {
+    "trace_id": "slice-g-volume-002",
+    "skill_id": "abx-familiar-signal-forager",
+    "task_class": "signal_forage",
+    "completion_status": "COMPLETE",
+    "evidence_status": "OBSERVED",
+    "brier_score": 0.16,
+    "outputs": [
+      {
+        "artifact": "OperationTrace.v0.1",
+        "evidence_density": 0.78,
+        "summary": "Second deterministic volume trace keeps the candidate reproducible."
+      }
+    ],
+    "provenance": {
+      "source": "tests/fixtures/slice_g_operator_handoff_volume_traces.json",
+      "observed_count": 3,
+      "palette_registers": ["EVOLUTION_VOLUME", "OPERATOR_REVIEW"]
+    }
+  }
+]

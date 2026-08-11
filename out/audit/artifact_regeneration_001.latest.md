@@ -2,12 +2,12 @@
 
 - Final Status: `PASS`
 - Validation Only: `False`
-- Managed Artifacts: `674`
-- Orphaned Artifacts: `963`
+- Managed Artifacts: `646`
+- Orphaned Artifacts: `824`
 - Selected Artifacts: `1`
 
 ## Generator Sequence
-- `scripts/run_continuity_lineage_map_refresh_receipt.py`
+- `scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`
 
 ## Drift Summary
 - None
@@ -26,7 +26,6 @@
 - `tests/contracts/test_artifact_contract_p2c_d4_archive_candidate.py`
 - `tests/contracts/test_artifact_contract_p2c_d5_human_approval.py`
 - `tests/contracts/test_artifact_contract_p2c_d5_operator_decision.py`
-- `tests/contracts/test_artifact_contract_p2c_d_manual_review_triage.py`
 - `tests/contracts/test_artifact_contract_post_closure_operator_receipt.py`
 - `tests/contracts/test_codegen_contracts.py`
 - `tests/test_aal_viz_climate_motif_fusion_overlay.py`
@@ -38,7 +37,10 @@
 - `tests/test_aal_viz_operator_climate_overlay.py`
 - `tests/test_aal_viz_pressure_motif_overlay.py`
 - `tests/test_aal_viz_projection_invariants.py`
+- `tests/test_aal_viz_route_receipt_advisory_alerts.py`
+- `tests/test_aal_viz_route_receipt_advisory_alerts_v1_contract.py`
 - `tests/test_aal_viz_runtime_projection.py`
+- `tests/test_aal_viz_yggdrasil_topology_delta_intelligence.py`
 - `tests/test_abx_artifact_lineage_blocker_resolution_records.py`
 - `tests/test_abx_artifact_lineage_direct_repair_frontier_revalidation.py`
 - `tests/test_abx_artifact_lineage_notion_mapping_evidence_request.py`
@@ -152,7 +154,6 @@
 - `tests/test_forecast_object_contract.py`
 - `tests/test_four_operator_shadow_stub_parity_bundle.py`
 - `tests/test_fourth_operator_selection_bundle.py`
-- `tests/test_fusion_evidence_materialization.py`
 - `tests/test_fusion_evidence_materialization_seal.py`
 - `tests/test_fusion_governance_audit.py`
 - `tests/test_generated_artifact_registry.py`

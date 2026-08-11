@@ -8,19 +8,6 @@ from pathlib import Path
 from typing import Any
 
 from abraxas.client import AbraxasClient
-from core.canonical.artifact_classification import ArtifactClass
-from core.canonical.json import write_canonical_artifact
-from core.governance.activation_policy import ActivationLane
-from core.ingest.familiar_ingestion_receipt import (
-    build_familiar_ingestion_receipt_from_path,
-    write_familiar_ingestion_receipt,
-)
-from core.settings import load_runtime_settings
-from core.signal.evidence_pack import validate_path
-from core.signal.operation_trace_adapter import (
-    receipt_to_operation_trace,
-    write_operation_trace,
-)
 from core.alembic.residual_inventory import build_alembic_residual_inventory
 from core.audit.fast_ci_receipt import (
     build_fast_ci_receipt,
@@ -30,9 +17,9 @@ from core.audit.main_cleanliness_receipt import (
     build_main_cleanliness_receipt,
     write_main_cleanliness_receipt,
 )
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_canonical_artifact
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
-from core.holler.outcome_binding_dry_run import build_holler_outcome_binding_dry_run
-from core.holler.ticket_operator_packet import build_ticket_operator_packet
 from core.forensics.aal_viz_projection import (
     build_aal_viz_forensic_projection_from_pack_path,
 )
@@ -43,19 +30,45 @@ from core.forensics.ops_route import (
     build_memetic_ops_route_intent_from_pack_path,
 )
 from core.forensics.pipeline import run_forensics_from_pack_path
+from core.governance.activation_policy import ActivationLane
+from core.holler.outcome_binding_dry_run import build_holler_outcome_binding_dry_run
+from core.holler.ticket_operator_packet import build_ticket_operator_packet
+from core.ingest.familiar_ingestion_receipt import (
+    build_familiar_ingestion_receipt_from_path,
+    write_familiar_ingestion_receipt,
+)
 from core.memetic.brier_ledger_dry_run import build_memetic_brier_ledger_dry_run
 from core.memetic.futurecast_operator_packet import build_futurecast_operator_packet
 from core.noctis.operator_review_dry_run import (
     build_noctis_review_dry_run_from_narrative,
 )
+from core.settings import load_runtime_settings
+from core.signal.evidence_pack import validate_path
 from core.signal.familiar_operator_review import (
     build_operator_review_from_pack_path,
     build_operator_review_queue_dry_run_from_pack_path,
 )
 from core.signal.familiar_oracle_belief_bridge import build_bridge_from_pack_path
+from core.signal.operation_trace_adapter import (
+    receipt_to_operation_trace,
+    write_operation_trace,
+)
 from core.signal.spine_bridge import (
     build_ai_os_kernel_status,
     build_touchpoint_from_pack_path,
+)
+from core.slice_g_operator_handoff import (
+    DEFAULT_FIXTURE as SLICE_G_DEFAULT_FIXTURE,
+)
+from core.slice_g_operator_handoff import (
+    DEFAULT_MD_PATH as SLICE_G_DEFAULT_MD_PATH,
+)
+from core.slice_g_operator_handoff import (
+    DEFAULT_OUT_PATH as SLICE_G_DEFAULT_OUT_PATH,
+)
+from core.slice_g_operator_handoff import (
+    build_slice_g_operator_handoff_review,
+    write_slice_g_operator_handoff_review,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -913,8 +926,8 @@ def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
             prov = data.get("provenance", {})
             volumes[key]["observed"] += prov.get("observed_count", 0)
             volumes[key]["last"] = data.get("timestamp") or str(p)
-        except Exception:
-            pass
+        except (OSError, json.JSONDecodeError, TypeError):
+            continue
 
     # Also try the bridge ledger snapshot if present
     ledger_path = audit / "hermes_signal_evolution_ledger_snapshot.json"
@@ -923,8 +936,12 @@ def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
             snap = json.loads(ledger_path.read_text())
             for k, v in snap.get("ledger", {}).items():
                 if k not in volumes:
-                    volumes[k] = {"runs": v.get("runs", 0), "observed": v.get("observed", 0), "last": v.get("last_updated")}
-        except Exception:
+                    volumes[k] = {
+                        "runs": v.get("runs", 0),
+                        "observed": v.get("observed", 0),
+                        "last": v.get("last_updated"),
+                    }
+        except (OSError, json.JSONDecodeError, TypeError):
             pass
 
     payload = {
@@ -936,6 +953,25 @@ def _cmd_os_evolution_volume(_args: argparse.Namespace) -> int:
     }
     _print(payload)
     return 0
+
+
+def _cmd_os_evolution_review(args: argparse.Namespace) -> int:
+    """Slice G SHADOW operator handoff review for volume-derived patch candidates."""
+    fixture = args.fixture or Path(SLICE_G_DEFAULT_FIXTURE)
+    if args.write:
+        payload = write_slice_g_operator_handoff_review(
+            repo_root=REPO_ROOT,
+            fixture_path=fixture,
+            out_path=args.out,
+            md_path=args.md,
+        )
+    else:
+        payload = build_slice_g_operator_handoff_review(
+            repo_root=REPO_ROOT,
+            fixture_path=fixture,
+        )
+    _print(payload)
+    return 0 if payload.get("status") == "SLICE_G_OPERATOR_HANDOFF_READY_ADVISORY_ONLY" else 1
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -994,6 +1030,33 @@ def build_parser() -> argparse.ArgumentParser:
 
     ev_vol = os_sub.add_parser("evolution-volume", help="Light SHADOW view of Hermes/plural forager volume by task_class (advisory)")
     ev_vol.set_defaults(func=_cmd_os_evolution_volume)
+
+    ev_review = os_sub.add_parser(
+        "evolution-review",
+        help="Slice G SHADOW operator handoff review for volume-derived patch candidates",
+    )
+    ev_review.add_argument(
+        "--fixture",
+        type=Path,
+        default=Path(SLICE_G_DEFAULT_FIXTURE),
+        help="Volume trace fixture JSON array",
+    )
+    ev_review.add_argument(
+        "--write",
+        action="store_true",
+        help="Write the deterministic JSON and markdown review receipts under out/",
+    )
+    ev_review.add_argument(
+        "--out",
+        type=Path,
+        default=Path(SLICE_G_DEFAULT_OUT_PATH),
+    )
+    ev_review.add_argument(
+        "--md",
+        type=Path,
+        default=Path(SLICE_G_DEFAULT_MD_PATH),
+    )
+    ev_review.set_defaults(func=_cmd_os_evolution_review)
 
     alembic_res = os_sub.add_parser(
         "alembic-residuals",
