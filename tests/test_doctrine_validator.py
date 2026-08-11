@@ -51,7 +51,7 @@ def test_doctrine_validator_deterministic() -> None:
 
 
 def test_all_observed_pipeline_contracts_validated() -> None:
-    assert len(_get_validation_results()) == 12
+    assert len(_get_validation_results()) == len(list(CONTRACTS_DIR.glob("*.json")))
 
 
 def test_status_not_ambiguous_blanket_repair() -> None:
