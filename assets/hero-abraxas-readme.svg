@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e17"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.15"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="480" fill="url(#bg)"/>
+  <rect width="1200" height="480" fill="url(#glow)"/>
+  <!-- subtle network nodes left -->
+  <g stroke="#fbbf24" stroke-width="0.8" fill="none" opacity="0.55">
+    <circle cx="180" cy="160" r="28"/>
+    <circle cx="180" cy="160" r="12" fill="#fbbf24" fill-opacity="0.3"/>
+    <circle cx="280" cy="220" r="22"/>
+    <circle cx="280" cy="220" r="8" fill="#fbbf24" fill-opacity="0.4"/>
+    <circle cx="140" cy="280" r="18"/>
+    <circle cx="320" cy="140" r="16"/>
+    <circle cx="240" cy="300" r="14"/>
+    <line x1="180" y1="160" x2="280" y2="220"/>
+    <line x1="180" y1="160" x2="140" y2="280"/>
+    <line x1="280" y1="220" x2="320" y2="140"/>
+    <line x1="280" y1="220" x2="240" y2="300"/>
+    <line x1="140" y1="280" x2="240" y2="300"/>
+  </g>
+  <!-- geometric form right -->
+  <g transform="translate(780,240)" opacity="0.9">
+    <polygon points="0,-110 95,-55 95,55 0,110 -95,55 -95,-55" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="0,-70 60,-35 60,35 0,70 -60,35 -60,-35" fill="none" stroke="#7dd3fc" stroke-width="1.2" opacity="0.6"/>
+    <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="#0ea5e9" fill-opacity="0.15" stroke="#bae6fd" stroke-width="1"/>
+    <circle cx="0" cy="0" r="8" fill="#fbbf24" opacity="0.9"/>
+  </g>
+  <!-- soft gold accent line -->
+  <rect x="0" y="470" width="1200" height="2" fill="url(#gold)"/>
+  <!-- faint particles -->
+  <g fill="#fbbf24" opacity="0.4">
+    <circle cx="420" cy="120" r="1.5"/>
+    <circle cx="510" cy="90" r="1"/>
+    <circle cx="600" cy="180" r="1.2"/>
+    <circle cx="680" cy="100" r="1"/>
+    <circle cx="750" cy="340" r="1.3"/>
+    <circle cx="450" cy="360" r="1"/>
+    <circle cx="550" cy="300" r="0.8"/>
+  </g>
+</svg>
