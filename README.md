@@ -1,6 +1,6 @@
 # ABRAXAS
 
-![Abraxas — Governed Symbolic Intelligence](assets/hero-abraxas-readme.jpg)
+![Abraxas — Governed Symbolic Intelligence](assets/hero-abraxas-readme.svg)
 
 **How representations become causes**
 
