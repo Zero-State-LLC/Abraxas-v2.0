@@ -7,6 +7,7 @@ from pathlib import Path
 from jsonschema import validate
 
 from core.canonical.json import canonical_hash
+from core.track_b_contract_closure import TRACK_B_PIPELINE_IDS
 from core.yggdrasil_route_namespace_mapping import build_yggdrasil_route_namespace_mapping
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,10 +51,10 @@ def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     packet = build_yggdrasil_route_namespace_mapping(repo_root=REPO_ROOT)
 
     assert packet["route_count"] == 12
-    assert packet["pipeline_count"] == 12
+    assert packet["pipeline_count"] == len(list((REPO_ROOT / "contracts/pipelines").glob("*.json")))
     assert packet["mapped_count"] == 12
     assert packet["unmapped_routes"] == []
-    assert packet["missing_routes_for_pipelines"] == []
+    assert packet["missing_routes_for_pipelines"] == sorted(TRACK_B_PIPELINE_IDS)
 
     records = {record["pipeline_id"]: record for record in packet["namespace_records"]}
     assert records["research_intake"]["notion_namespace"] == "Research Intake"
@@ -61,8 +62,14 @@ def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     assert records["drift_scan"]["route_node_namespace"] == "drift"
     assert records["universal_ingest"]["notion_namespace"] == "Global Ingest Adapter Spine"
     assert records["operator_review_queue"]["route_node_namespace"] == "operator_review"
-    assert all(record["route_authority_locked"] for record in records.values())
+    exact_records = [record for record in records.values() if record["mapping_strength"] == "EXACT"]
+    missing_route_records = [
+        record for record in records.values() if record["pipeline_id"] in TRACK_B_PIPELINE_IDS
+    ]
+    assert all(record["route_authority_locked"] for record in exact_records)
     assert all(record["pipeline_authority_locked"] for record in records.values())
+    assert all(record["route_observed"] is False for record in missing_route_records)
+    assert all(record["pipeline_observed"] is True for record in missing_route_records)
 
 
 def test_yggdrasil_route_namespace_mapping_schema_and_hash_are_stable() -> None:
