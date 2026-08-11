@@ -1,0 +1,45 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "phonomicon_artifact",
+  "trigger": "mint phonomicon artifact",
+  "owner_subsystem": "Phonomicon",
+  "lane": "GOVERNANCE",
+  "typed_ir_schema": "PhonomiconArtifactOperatorPacket.v0",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN",
+    "RUNE.ARTIFACT.PROVENANCE_CHAIN"
+  ],
+  "yggdrasil_nodes": [
+    "phonomicon.trigger",
+    "phonomicon.provenance_chain",
+    "phonomicon.proof_of_resonance",
+    "phonomicon.operator_packet",
+    "phonomicon.mint_block",
+    "phonomicon.operator_review",
+    "phonomicon.receipt"
+  ],
+  "required_artifacts": [
+    "phonomicon.artifact_operator_packet",
+    "phonomicon.provenance_proof_chain",
+    "phonomicon.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review",
+    "not_computable"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

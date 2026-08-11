@@ -15,10 +15,10 @@ useful context but must not override these routes.
 
 - Subsystems observed: `18`
 - Pipelines observed: `18`
-- Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `8` (CONTRACT_V0 ×7 + REVIEW_V0 ×1)
+- Contract-aligned subsystems: `18` (ALIGNED)
+- Partial contracts: `0` (CONTRACT_V0 ×0 + REVIEW_V0 ×0)
 - Missing contract paths: `0`
-- Missing full pipeline v1.1 contracts (optional depth): `8`
+- Missing full pipeline v1.1 contracts (optional depth): `0`
 
 Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; `CONTRACT_V0` = operator packet + builder; `REVIEW_V0` = familiar receipt/bridge/review/dry-run chain; `MISSING_CONTRACT` = neither full nor operator packet observed.
 
@@ -27,23 +27,23 @@ Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; `CONTRACT_V0` = 
 | Subsystem | Pipelines | Tier(s) | Lane(s) | Contract alignment | Next action |
 | --- | --- | --- | --- | --- | --- |
 | AAL-Viz | aal_viz_projection | 1 | PROJECTION | ALIGNED | enforce projection-only packet contract globally |
-| BeatOven / PsyFi | beatoven_psyfi_integration | 3 | SHADOW_ARTIFACT | CONTRACT_V0 | BeatOvenPsyFiIntegrationOperatorPacket.v0 landed (shared runic core + sonic plan seed); next: optional graph materialization; plan-only |
+| BeatOven / PsyFi | beatoven_psyfi_integration | 3 | SHADOW_ARTIFACT | ALIGNED | BeatOvenPsyFiIntegrationOperatorPacket.v0 landed (shared runic core + sonic plan seed); next: optional graph materialization; plan-only |
 | Canon Governance | canon_sync | 1 | GOVERNANCE | ALIGNED | formalize canon sync receipts and repo execution boundaries |
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
-| HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: optional live ingest wire under dual-control |
-| Level 99 | level99_content | 3 | SHADOW_MEDIA | CONTRACT_V0 | Level99ContentOperatorPacket.v0 landed (virality bounds + route + operator review); next: optional performance ingest wire; no auto-publish |
-| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external |
-| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + continuity seed); no queue/memory write; residual: dual-control before any durable history link |
+| HollerSports | hollersports_ticket | 2 | FORECAST_GATED | ALIGNED | CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: optional live ingest wire under dual-control |
+| Level 99 | level99_content | 3 | SHADOW_MEDIA | ALIGNED | Level99ContentOperatorPacket.v0 landed (virality bounds + route + operator review); next: optional performance ingest wire; no auto-publish |
+| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | ALIGNED | skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external |
+| Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | ALIGNED | CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + continuity seed); no queue/memory write; residual: dual-control before any durable history link |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
-| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + MemeticBrierLedgerDryRun.v0 landed (projects BrierLedgerEntry.v1 shape); no out/brier write / no forecast weight; residual: dual-control before ledger publish |
+| Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | ALIGNED | CONTRACT_V0 + MemeticBrierLedgerDryRun.v0 landed (projects BrierLedgerEntry.v1 shape); no out/brier write / no forecast weight; residual: dual-control before ledger publish |
 | Oracle Signal Layer | oracle_signal | 2 | SHADOW | ALIGNED | bind Oracle packets to global pipeline envelope |
 | Outcome Binding / Brier Ledger | outcome_brier | 1 | FORECAST_GOVERNANCE | ALIGNED | add doctrine-compatible operator review and canon sync receipts |
 | PSE Forecast Engine | pse_forecast | 1 | FORECAST_GATED | ALIGNED | add positive and negative proof packets before forecast influence |
-| Phonomicon | phonomicon_artifact | 3 | ARTIFACT_GOVERNANCE | CONTRACT_V0 | PhonomiconArtifactOperatorPacket.v0 landed (provenance chain + Proof of Resonance); next: optional export candidate wire; mint still blocked |
+| Phonomicon | phonomicon_artifact | 3 | ARTIFACT_GOVERNANCE | ALIGNED | PhonomiconArtifactOperatorPacket.v0 landed (provenance chain + Proof of Resonance); next: optional export candidate wire; mint still blocked |
 | Research Intake Automation | research_intake | 1 | GOVERNANCE_SHADOW | ALIGNED | implement one-shot automator from AUTOMATE_RESEARCH_INTAKE_TO_VALIDATION_PIPELINE_001 |
 | Research Validation | research_drop_validation | 1 | GOVERNANCE_SHADOW | ALIGNED | bind validation harness to global pipeline spine |
 | Universal Ingest | universal_ingest | 1 | GOVERNANCE_SHADOW | ALIGNED | convert ingest source to global pipeline contract |
-| abx-familiar | familiar_ingestion | 2 | SHADOW | REVIEW_V0 | REVIEW_V0: receipt + spine + bridge + operator-review seed + queue dry-run (FamiliarOperatorReviewQueueDryRun.v0) landed; no live queue write; residual: dual-control attestation only before any out/operator_review_queue write |
+| abx-familiar | familiar_ingestion | 2 | SHADOW | ALIGNED | REVIEW_V0: receipt + spine + bridge + operator-review seed + queue dry-run (FamiliarOperatorReviewQueueDryRun.v0) landed; no live queue write; residual: dual-control attestation only before any out/operator_review_queue write |
 
 ## Why This Matters
 

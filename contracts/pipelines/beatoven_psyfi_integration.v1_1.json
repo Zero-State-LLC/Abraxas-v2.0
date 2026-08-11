@@ -1,0 +1,43 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "beatoven_psyfi_integration",
+  "trigger": "run psychosonic integration",
+  "owner_subsystem": "BeatOven / PsyFi",
+  "lane": "SHADOW",
+  "typed_ir_schema": "BeatOvenPsyFiIntegrationOperatorPacket.v0",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN"
+  ],
+  "yggdrasil_nodes": [
+    "beatoven_psyfi.trigger",
+    "beatoven_psyfi.runic_core",
+    "beatoven_psyfi.sonic_plan_seed",
+    "beatoven_psyfi.operator_packet",
+    "beatoven_psyfi.operator_review",
+    "beatoven_psyfi.receipt"
+  ],
+  "required_artifacts": [
+    "beatoven_psyfi.integration_operator_packet",
+    "beatoven_psyfi.runic_core_pipeline_receipt",
+    "beatoven_psyfi.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review",
+    "not_computable"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

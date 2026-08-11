@@ -29,6 +29,17 @@ OBSERVED_NON_TIER1_FILES = [
     "oracle_signal.v1_1.json",
 ]
 
+TRACK_B_FILES = [
+    "neon_genie_ideation.v1_1.json",
+    "familiar_ingestion.v1_1.json",
+    "noctis_dream.v1_1.json",
+    "hollersports_ticket.v1_1.json",
+    "memetic_futurecast.v1_1.json",
+    "level99_content.v1_1.json",
+    "beatoven_psyfi_integration.v1_1.json",
+    "phonomicon_artifact.v1_1.json",
+]
+
 
 @pytest.mark.parametrize("filename", TIER1_FILES)
 def test_tier1_contract_loads(filename: str):
@@ -42,6 +53,16 @@ def test_observed_non_tier1_contract_loads(filename: str):
     contract = load_pipeline_contract(CONTRACTS_DIR / filename)
     assert isinstance(contract, PipelineContractV11)
     assert contract.schema_version == "AbraxasPipelineAutomationContract.v1.1"
+
+
+@pytest.mark.parametrize("filename", TRACK_B_FILES)
+def test_track_b_contract_loads_and_is_locked(filename: str):
+    contract = load_pipeline_contract(CONTRACTS_DIR / filename)
+    assert isinstance(contract, PipelineContractV11)
+    assert contract.schema_version == "AbraxasPipelineAutomationContract.v1.1"
+    contract.authority.assert_locked()
+    assert "hold" in {item.value for item in contract.final_state_policy}
+    assert "eligible_for_operator_review" in {item.value for item in contract.final_state_policy}
 
 
 @pytest.mark.parametrize("filename", TIER1_FILES)
@@ -70,5 +91,7 @@ def test_tier1_contract_has_trigger(filename: str):
 
 def test_all_observed_pipeline_contracts_present():
     contracts = load_contracts(CONTRACTS_DIR)
-    assert len(contracts) == 12
-    assert "alembic_spine" in {c.pipeline_id for c in contracts}
+    assert len(contracts) == 20
+    pipeline_ids = {c.pipeline_id for c in contracts}
+    assert "alembic_spine" in pipeline_ids
+    assert set(filename.removesuffix(".v1_1.json") for filename in TRACK_B_FILES).issubset(pipeline_ids)

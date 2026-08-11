@@ -307,6 +307,12 @@ def build_subsystem_ownership_matrix_markdown(
         "This is a repo-native registry projection derived from pipeline inventory and observed pipeline contracts. "
         "It documents subsystem ownership without granting governance, runtime, sandbox, MCP, canon, or writeback authority.",
         "",
+        "This matrix and the `alembic_spine` block in [`../../PLANS.md`](../../PLANS.md)",
+        "are the canonical status truth for current ownership and planning posture.",
+        "They are a documentation projection, not a database; no second status DB or",
+        "competing status-tracking document is authoritative. Historical plans remain",
+        "useful context but must not override these routes.",
+        "",
         "## Current Summary",
         "",
         f"- Subsystems observed: `{summary['subsystem_count']}`",

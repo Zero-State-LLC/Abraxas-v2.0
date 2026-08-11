@@ -1,0 +1,43 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "level99_content",
+  "trigger": "build level 99 content",
+  "owner_subsystem": "Level 99",
+  "lane": "SHADOW",
+  "typed_ir_schema": "Level99ContentOperatorPacket.v0",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN"
+  ],
+  "yggdrasil_nodes": [
+    "level99.trigger",
+    "level99.virality_score_bounds",
+    "level99.operator_packet",
+    "level99.operator_review",
+    "level99.not_publish_gate",
+    "level99.receipt"
+  ],
+  "required_artifacts": [
+    "level99.content_operator_packet",
+    "level99.virality_boundary_receipt",
+    "level99.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review",
+    "not_computable"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

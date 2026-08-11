@@ -1,0 +1,44 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "memetic_futurecast",
+  "trigger": "run memetic futurecast",
+  "owner_subsystem": "Oracle / ASE / Memetic Futurecast",
+  "lane": "FORECAST_GATED",
+  "typed_ir_schema": "MemeticFuturecastOperatorPacket.v0",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN",
+    "RUNE.FORECAST.BRIER_LEDGER"
+  ],
+  "yggdrasil_nodes": [
+    "memetic_futurecast.trigger",
+    "memetic_futurecast.horizon_policy",
+    "memetic_futurecast.validation_gates",
+    "memetic_futurecast.brier_bridge_dry_run",
+    "memetic_futurecast.operator_review",
+    "memetic_futurecast.receipt"
+  ],
+  "required_artifacts": [
+    "memetic.futurecast_operator_packet",
+    "memetic.brier_ledger_dry_run",
+    "memetic.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review",
+    "not_computable"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

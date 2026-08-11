@@ -1,0 +1,44 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "neon_genie_ideation",
+  "trigger": "run neon genie",
+  "owner_subsystem": "Neon Genie",
+  "lane": "SHADOW",
+  "typed_ir_schema": "IdeationOperatorPacket.v0",
+  "required_runes": [
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+    "RUNE.PIPELINE.CONFLICT_SCAN"
+  ],
+  "yggdrasil_nodes": [
+    "neon_genie.trigger",
+    "neon_genie.route",
+    "neon_genie.novelty_validate",
+    "neon_genie.overlap_scan",
+    "neon_genie.operator_packet",
+    "neon_genie.operator_review",
+    "neon_genie.receipt"
+  ],
+  "required_artifacts": [
+    "neon_genie.ideation_operator_packet",
+    "neon_genie.novelty_validation_receipt",
+    "neon_genie.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review",
+    "not_computable"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}
