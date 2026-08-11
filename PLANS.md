@@ -1,6 +1,6 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
-> **Last refreshed:** 2026-08-10 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md) · release tip: **1.178.0** (RDI fixtures + intervention)
+> **Last refreshed:** 2026-08-11 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md) · release tip: **1.180.0** (#1133 Neon Genie contract closure + doctrine/router consolidation)
 
 ## Current objective
 
@@ -33,6 +33,8 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | RDI doctrine + fixture contracts + intervention | **PARTIAL** | #1096 · **1.178.0** · Fable handoff ready |
 | Slice G / P4 surfaces (docs) | **Defined** | #1098 · eng harden still open under BACKLOG |
 | Collab GitHub Project section | **Landed** | #1102 · CONTRIBUTING |
+| Agent doctrine + skill router | **Consolidated** | `AGENTS.md` · `SKILLS.md` · `docs/adr/ADR-0019-AGENT-DOCTRINE-SKILL-ROUTING.md` |
+| AI OS unification Tracks A–D | **CLOSED** | #1117–#1120 · Track B full contract closure · Track D authz compression |
 
 ### Active workstreams (post–Phase 14)
 
@@ -50,11 +52,10 @@ AI_OS_KERNEL:
     - docs/architecture/AI_OS_PRIMITIVES_MAP_001.md
   syscall: forage → EvidencePack → familiar_ingestion → spine touchpoint
   tracks:
-    A: navigation (this refresh)
-    B: MISSING_CONTRACT closure (neon_genie_ideation ALIGNED via contracts/pipelines/neon_genie_ideation.v1_1.json; remaining Track B slices continue)
-    C: alembic residuals (stubs stay stubbed; inventory via `python -m abraxas os alembic-residuals`)
-    D: authz compression ([AUTHZ_SURFACE_COMPRESSION_TRACK_D_001](docs/plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md)); branch hygiene inventory ([BRANCH_HYGIENE_INVENTORY_001](docs/status/BRANCH_HYGIENE_INVENTORY_001.md))
-    D: authz plan compression
+    A: CLOSED — navigation and mental model (#1117)
+    B: CLOSED — full Track B contract closure; all eight Track B pipelines ALIGNED (#1118, #1125–#1133)
+    C: CLOSED — alembic residuals and integration (#1119)
+    D: CLOSED — authz compression and branch hygiene inventory (#1120)
   locks:
     external_production: false
     canon_mutation: false
@@ -66,6 +67,7 @@ AI_OS_KERNEL:
 1. **CLEAR dual-control attestations** — operator A/B per [`docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`](docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md) on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
+4. **Maintenance P2/P3** — repo organization/drift repair #1122, then production readiness evidence maintenance #1123
 
 ### Representation-driven instantiation assimilation
 

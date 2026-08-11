@@ -52,18 +52,20 @@ Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not
 
 **Syscall path:** Intent → forage → EvidencePack → familiar_ingestion → spine touch → receipts → operator.
 
-### Unification work route (Tracks A–D)
+### Unification work route (Tracks A–D closed)
 
-Plan 002 is the front door for the current AI OS unification work. Use the
-carved track issue that matches the change; these links are navigation only and
-do not grant runtime, canon, or execution authority.
+Plan 002 remains the historical front door for AI OS unification context. Tracks
+A–D are closed; use the maintenance follow-on issues for current hygiene work.
+These links are navigation only and do not grant runtime, canon, or execution
+authority.
 
 | Track | Focus | Issue | Route |
 |-------|-------|-------|-------|
-| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) | This page, [`docs/INDEX.md`](INDEX.md), and the canonical status routes below |
-| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) | Contract → builder → runner → receipt → targeted tests |
-| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) | [`docs/alembic/ALEMBIC_SPINE.md`](alembic/ALEMBIC_SPINE.md) and `alembic_spine` |
-| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) | [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md) |
+| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) · closed | This page, [`docs/INDEX.md`](INDEX.md), and the canonical status routes below |
+| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) · closed | Contract → builder → runner → receipt → targeted tests |
+| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) · closed | [`docs/alembic/ALEMBIC_SPINE.md`](alembic/ALEMBIC_SPINE.md) and `alembic_spine` |
+| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) · closed | [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md) |
+| **Maintenance P2/P3** | Repo organization + readiness evidence | [#1122](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122) / [#1123](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Run organization, docs navigation, and readiness checks; repair observed drift only. |
 
 #### Status truth and mental model
 

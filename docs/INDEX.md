@@ -23,17 +23,18 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Collaboration board | [`../CONTRIBUTING.md`](../CONTRIBUTING.md#collaboration-github-project) · [GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) | Issue → PR → board Status; labels `collab`, `track/rdi`, `track/ai-os`. | Link PRs to issues; accept repo + project write. |
 | Governance/instructions | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Defines authority locks and operator control. | Read before changing behavior. |
 
-## Active Work Route: Unification Tracks A–D
+## Work Route: Unification Tracks A–D (closed)
 
-[`ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) is
-the current front door for this route. Select the issue by work type:
+[`ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) remains
+the historical front door for the closed AI OS unification route. Use it for
+context, not as an active work queue. Current maintenance follow-on is #1122 / #1123.
 
 | Track | Work type | Issue |
 |-------|-----------|-------|
-| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) |
-| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) |
-| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) |
-| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) |
+| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) · closed |
+| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) · closed |
+| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) · closed |
+| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) · closed |
 
 For status, use the `alembic_spine` block in [`PLANS.md`](../PLANS.md) and the
 [`SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md).
@@ -41,6 +42,10 @@ Together they are the canonical status truth; there is no second status DB.
 The artifact spine is the implementation substrate, Alembic is the
 multi-architecture selector/fusion layer, domain surfaces are pipelines, and
 SHADOW is distinct from FORECAST.
+
+| Route | Current surface | Role | Next action |
+|-------|-----------------|------|-------------|
+| Maintenance follow-on | [#1122 repo organization/drift](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122), then [#1123 readiness evidence](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Active repo hygiene queue | Run organization/docs/readiness checks and repair observed drift. |
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |

@@ -127,28 +127,41 @@ DEFAULT_FAST_CI_PYRIGHT_TARGETS: tuple[str, ...] = (
 
 
 COMMANDS: list[list[str]] = [
-    ["python", "-m", "scripts.artifact.run_artifact_regeneration", "--check-drift"],
     [
-        "python",
+        sys.executable,
+        "-m",
+        "scripts.artifact.run_artifact_regeneration",
+        "--check-drift",
+    ],
+    [
+        sys.executable,
         "-m",
         "pytest",
         "-q",
         "-m",
         "not slow and not integration and not canon and not artifact",
     ],
-    ["python", "-m", "ruff", "check", "core/belief_graph/compositional_memory.py", "tests/test_compositional_memory.py", "scripts/run_fast_ci.py"],
+    [
+        sys.executable,
+        "-m",
+        "ruff",
+        "check",
+        "core/belief_graph/compositional_memory.py",
+        "tests/test_compositional_memory.py",
+        "scripts/run_fast_ci.py",
+    ],
 ]
 
 # Report-only production-readiness gates (WS1.5). Always fail-open: non-zero
 # exit codes are logged and ignored. Run *after* validation status is decided
 # so report file writes under out/ do not trip the drift exit path.
 ADVISORY_REPORT_ONLY_COMMANDS: list[list[str]] = [
-    ["python", "scripts/readiness/run_boundary_advisory_check.py"],
-    ["python", "scripts/readiness/run_sole_writer_advisory_check.py"],
+    [sys.executable, "scripts/readiness/run_boundary_advisory_check.py"],
+    [sys.executable, "scripts/readiness/run_sole_writer_advisory_check.py"],
     # WP-G+: Neon Genie allowlist probe (fail-open; does not enable production)
-    ["python", "scripts/readiness/run_neon_genie_allowlist_check.py"],
+    [sys.executable, "scripts/readiness/run_neon_genie_allowlist_check.py"],
     # Design-system: topology palette JSON ↔ aal-viz bridge (fail-open until hardened)
-    ["python", "scripts/design/validate_viz_palette_sync.py"],
+    [sys.executable, "scripts/design/validate_viz_palette_sync.py"],
 ]
 
 
@@ -233,7 +246,9 @@ def _capture_worktree_snapshot() -> _WorktreeSnapshot:
     )
     if root_result.returncode != 0:
         detail = root_result.stderr.decode(errors="replace").strip()
-        raise RuntimeError(f"unable to resolve repository root: {detail or 'unknown git error'}")
+        raise RuntimeError(
+            f"unable to resolve repository root: {detail or 'unknown git error'}"
+        )
 
     root = Path(os.fsdecode(root_result.stdout).strip()).resolve()
     status_result = _run_git(
@@ -302,11 +317,15 @@ def _restore_clean_entry_paths(
             )
         else:
             if after_state is not None and after_state.index_entry:
-                _run_git(before.root, "restore", "--staged", "--source=HEAD", "--", rel_path)
+                _run_git(
+                    before.root, "restore", "--staged", "--source=HEAD", "--", rel_path
+                )
             if path.is_symlink() or path.is_file():
                 path.unlink()
             elif path.exists():
-                raise RuntimeError(f"refusing to remove generated directory: {rel_path!r}")
+                raise RuntimeError(
+                    f"refusing to remove generated directory: {rel_path!r}"
+                )
         restored.append(rel_path)
     return restored
 
@@ -334,7 +353,9 @@ def _preflight_check() -> int:
 
 
 def _pyright_timeout_seconds() -> int:
-    raw = os.environ.get("ABRAXAS_PYRIGHT_TIMEOUT_SECONDS", str(DEFAULT_PYRIGHT_TIMEOUT_SECONDS))
+    raw = os.environ.get(
+        "ABRAXAS_PYRIGHT_TIMEOUT_SECONDS", str(DEFAULT_PYRIGHT_TIMEOUT_SECONDS)
+    )
     try:
         value = int(raw)
     except ValueError:
@@ -370,7 +391,9 @@ def _run_validation_commands() -> int:
     print(f"[fast-ci] pyright scope: {pyright_scope}", flush=True)
     print("+", " ".join(pyright_command), flush=True)
     try:
-        completed = subprocess.run(pyright_command, check=False, timeout=pyright_timeout_seconds)
+        completed = subprocess.run(
+            pyright_command, check=False, timeout=pyright_timeout_seconds
+        )
     except subprocess.TimeoutExpired:
         print(
             f"Command timed out after {pyright_timeout_seconds}s: {' '.join(pyright_command)}",
@@ -398,7 +421,10 @@ def _run_advisory_report_only_gates() -> None:
         "true",
         "yes",
     }:
-        print("[fast-ci] advisory gates skipped (ABRAXAS_FAST_CI_SKIP_ADVISORY)", flush=True)
+        print(
+            "[fast-ci] advisory gates skipped (ABRAXAS_FAST_CI_SKIP_ADVISORY)",
+            flush=True,
+        )
         return
     if os.environ.get("PYTEST_CURRENT_TEST"):
         print("[fast-ci] advisory gates skipped under pytest", flush=True)
@@ -437,7 +463,11 @@ def main() -> int:
     try:
         before = _capture_worktree_snapshot()
     except (OSError, RuntimeError) as exc:
-        print(f"[fast-ci] unable to capture entry worktree state: {exc}", file=sys.stderr, flush=True)
+        print(
+            f"[fast-ci] unable to capture entry worktree state: {exc}",
+            file=sys.stderr,
+            flush=True,
+        )
         return FAST_CI_DRIFT_EXIT_CODE
 
     validation_status = _run_validation_commands()
@@ -445,7 +475,11 @@ def main() -> int:
         after = _capture_worktree_snapshot()
         changed = _changed_paths(before, after)
     except (OSError, RuntimeError) as exc:
-        print(f"[fast-ci] unable to capture final worktree state: {exc}", file=sys.stderr, flush=True)
+        print(
+            f"[fast-ci] unable to capture final worktree state: {exc}",
+            file=sys.stderr,
+            flush=True,
+        )
         _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
@@ -458,7 +492,11 @@ def main() -> int:
     try:
         restored = _restore_clean_entry_paths(before, after, changed)
     except (OSError, RuntimeError) as exc:
-        print(f"[fast-ci] unable to restore generated drift: {exc}", file=sys.stderr, flush=True)
+        print(
+            f"[fast-ci] unable to restore generated drift: {exc}",
+            file=sys.stderr,
+            flush=True,
+        )
         _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
@@ -469,7 +507,11 @@ def main() -> int:
         cleaned = _capture_worktree_snapshot()
         residual = _changed_paths(before, cleaned)
     except (OSError, RuntimeError) as exc:
-        print(f"[fast-ci] unable to verify drift cleanup: {exc}", file=sys.stderr, flush=True)
+        print(
+            f"[fast-ci] unable to verify drift cleanup: {exc}",
+            file=sys.stderr,
+            flush=True,
+        )
         _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 

@@ -12,14 +12,13 @@ from core.generated_artifact_registry import (
     ArtifactRegenerationPlan,
     GeneratedArtifactEntry,
     GeneratedArtifactRegistry,
-    build_generated_artifact_registry,
     build_artifact_regeneration_plan,
+    build_generated_artifact_registry,
     detect_ci_artifact_drift_paths,
     execute_artifact_regeneration,
     list_ci_drift_artifact_paths,
 )
 from scripts.artifact import run_artifact_regeneration
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 LEDGER_FRONTIER_RECEIPT = (
@@ -4984,7 +4983,7 @@ def test_continuity_lineage_map_refresh_receipt_uses_no_arg_wrapper() -> None:
 def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args() -> None:
     result = subprocess.run(
         [
-            "python",
+            sys.executable,
             "scripts/artifact/run_artifact_regeneration.py",
             "--artifact",
             "out/audit/continuity_lineage_map_refresh_001.latest.json",

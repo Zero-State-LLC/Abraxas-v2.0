@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-10 (docs navigation refresh · tip after **#1102** collab board · RDI/Fable **1.178.0** · Memetic forensics C+C6 · Ops D0/D2 · OmegaClaw · AI OS kernel ACTIVE_SHADOW · CLEAR dual-control operator-only)
+> **Last Updated:** 2026-08-11 (repo organization drift repair · tip after **#1133** Neon Genie contract closure · release **1.180.0** · agent doctrine/router consolidated · AI OS Tracks A-D closed · maintenance P2/P3 open)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1102** collab project board (prior: #1098 Slice G/P4, #1096 RDI/Fable, #1079–#1083 forensics) | `git log -1 --oneline` |
+| HEAD / branch tip | see git; tip after **#1133** Neon Genie contract closure and agent doctrine consolidation (prior: #1124 Track A, #1117–#1120 AI OS Tracks A–D, #1096 RDI/Fable) | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
@@ -16,6 +16,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | AAL-Viz visual pack | **COMPLETE** batches 0–4 + operator-loop 0.5 · projection-only | `design-system/aal-viz/` · #1028 · #1033 |
 | Agent artifact metadata | **AgentArtifactMetadata.v1** on main | `contracts/engineering/agent_artifact_metadata.v1.schema.json` · #1029 |
 | Operator loop contracts | **WorkPacket.v1 + HandoffEnvelope.v1** · projection adapter | `core/operator_loop.py` · `contracts/engineering/work_packet.v1.schema.json` · #1034 |
+| Agent doctrine / skill routing | **Consolidated** · root router + canonical skill registry | `AGENTS.md`, `SKILLS.md`, `docs/adr/ADR-0019-AGENT-DOCTRINE-SKILL-ROUTING.md` |
 | Operator loop (seq 1–10) | **COMPLETE** · glyphs, skills, truth surfaces, gh/CI glance | #1033–#1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Compositional Evidence Memory (MemEIC pattern) | **MERGED** · Belief Graph surface only | PR #986 · `core/belief_graph/compositional_memory.py` · `docs/integrations/MEMEIC_ASSIMILATION_001.md` |
@@ -23,7 +24,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
 | Product CLI | `python -m abraxas` analyze/validate/replay/status/**os**/forage | `abraxas/cli.py` · project env (`jsonschema`) |
 | AI OS kernel | **`ACTIVE_SHADOW`** (syscall path live; not EXTERNAL_PRODUCTION) | `python -m abraxas os status` · [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) |
-| AI OS unification | Tracks A–D front door | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) |
+| AI OS unification | Tracks A–D closed; umbrella #1086 remains operator-attestation gate | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) · #1117–#1120 |
 | Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
 | Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
 | Runtime settings | `core.settings.RuntimeSettings` + `RuntimeContext` ports | `core/settings.py`, `core/runtime_context.py` |
@@ -33,7 +34,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
 | Convergence audit | Phase 0–14 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
-| Issue backlog | open issues **0** · prior closed advisarily | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
+| Issue backlog | open issues **11** · 0 open PRs · active maintenance slices #1122/#1123 | `gh issue list --state open`; `gh pr list --state open` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
 | Phase 12 writers | **Landed** · residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` · #1035 |
@@ -44,7 +45,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CLEAR dual-control checklist | **Operator procedure ready** · no attestations recorded | `docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
 | Active objective | **RDI continuation (Fable)** + **Memetic Forensics C+C6 + Ops D0/D2** (OpsGate DENIED) + AI OS Slice G harden + CLEAR dual-control operator-only | Fable handoff · `os forensics *` · BACKLOG Slice G · CLEAR checklist |
-| RDI / Instantiation | **PARTIAL** · doctrine + reuse audit + fixture state/transition + intervention declaration · Fable handoff ready | [`REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [`FABLE_HANDOFF_001`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) · `contracts/instantiation/` · #1096 · release **1.178.0** |
+| RDI / Instantiation | **PARTIAL** · doctrine + reuse audit + fixture state/transition + intervention declaration · Fable handoff ready | [`REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [`FABLE_HANDOFF_001`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) · `contracts/instantiation/` · #1096 · release **1.178.0** (current repo release **1.180.0**) |
 | Memetic forensics | **SLICE_C+C′+C6 on main** · disposition + propagation + AAL-Viz project · **OpsGate always DENIED** | `python -m abraxas os forensics status` · [`docs/architecture/MEMETIC_FORENSICS_MISSION_001.md`](docs/architecture/MEMETIC_FORENSICS_MISSION_001.md) · #1079–#1081 |
 | Memetic ops D0/D2 | **Route intent + Level99 seed** (no publish) · gate still DENIED | `os forensics route` · `os forensics seed-level99` · #1082–#1083 |
 | OmegaClaw | **ADVISORY** concept + symbolic plan | [`docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](docs/architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) · #1095 |

@@ -18,8 +18,7 @@ def _git(repo: Path, *args: str) -> None:
         ["git", *args],
         cwd=repo,
         check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     assert completed.returncode == 0, completed.stderr.decode(errors="replace")
 
@@ -44,22 +43,30 @@ def _initialized_repo(tmp_path: Path) -> Path:
     return repo
 
 
-def _snapshot(*entries: tuple[str, run_fast_ci._PathState]) -> run_fast_ci._WorktreeSnapshot:
+def _snapshot(
+    *entries: tuple[str, run_fast_ci._PathState],
+) -> run_fast_ci._WorktreeSnapshot:
     return run_fast_ci._WorktreeSnapshot(root=Path("/repo"), entries=tuple(entries))
 
 
 def _patch_stable_guard(monkeypatch: pytest.MonkeyPatch) -> None:
     stable = _snapshot()
     snapshots = iter((stable, stable))
-    monkeypatch.setattr(run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots))
+    monkeypatch.setattr(
+        run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots)
+    )
 
 
-def test_pyright_timeout_returns_nonzero(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_pyright_timeout_returns_nonzero(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     monkeypatch.setattr(run_fast_ci, "_preflight_check", lambda: 0)
     _patch_stable_guard(monkeypatch)
     monkeypatch.setenv("ABRAXAS_PYRIGHT_TIMEOUT_SECONDS", "10")
 
-    def _fake_run(command: list[str], check: bool, timeout: int | None = None) -> _Result:
+    def _fake_run(
+        command: list[str], check: bool, timeout: int | None = None
+    ) -> _Result:
         if command and command[0] == "pyright":
             raise subprocess.TimeoutExpired(cmd=command, timeout=timeout or 0)
         return _Result(0)
@@ -73,14 +80,18 @@ def test_pyright_timeout_returns_nonzero(monkeypatch: pytest.MonkeyPatch, capsys
     assert "Command timed out after 10s:" in captured.err
 
 
-def test_non_pyright_commands_do_not_receive_timeout(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_non_pyright_commands_do_not_receive_timeout(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.setattr(run_fast_ci, "_preflight_check", lambda: 0)
     _patch_stable_guard(monkeypatch)
     monkeypatch.delenv("ABRAXAS_PYRIGHT_TIMEOUT_SECONDS", raising=False)
 
     seen: list[tuple[list[str], int | None]] = []
 
-    def _fake_run(command: list[str], check: bool, timeout: int | None = None) -> _Result:
+    def _fake_run(
+        command: list[str], check: bool, timeout: int | None = None
+    ) -> _Result:
         seen.append((command, timeout))
         return _Result(0)
 
@@ -111,7 +122,9 @@ def test_advisory_gates_invoke_scripts_when_not_under_pytest(
     monkeypatch.delenv("ABRAXAS_FAST_CI_SKIP_ADVISORY", raising=False)
     seen: list[list[str]] = []
 
-    def _fake_run(command: list[str], check: bool, timeout: int | None = None) -> _Result:
+    def _fake_run(
+        command: list[str], check: bool, timeout: int | None = None
+    ) -> _Result:
         seen.append(command)
         return _Result(0)
 
@@ -122,7 +135,9 @@ def test_advisory_gates_invoke_scripts_when_not_under_pytest(
     assert any("run_sole_writer_advisory_check" in c for c in joined)
 
 
-def test_default_scope_uses_bounded_pyright_targets(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_default_scope_uses_bounded_pyright_targets(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.delenv("ABRAXAS_FAST_CI_PYRIGHT_SCOPE", raising=False)
     monkeypatch.setattr(run_fast_ci.Path, "exists", lambda self: True)
     command, scope = run_fast_ci._resolve_pyright_command()
@@ -138,7 +153,9 @@ def test_full_scope_override_uses_full_pyright(monkeypatch: pytest.MonkeyPatch) 
     assert command == ["pyright"]
 
 
-def test_missing_bounded_target_is_skipped_with_note(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_missing_bounded_target_is_skipped_with_note(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     missing = run_fast_ci.DEFAULT_FAST_CI_PYRIGHT_TARGETS[0]
 
     def _exists(self: run_fast_ci.Path) -> bool:
@@ -169,7 +186,9 @@ def test_generated_drift_is_restored_and_does_not_fail_when_residual_empty(
 
     monkeypatch.setattr(run_fast_ci, "_preflight_check", lambda: 0)
     monkeypatch.setattr(run_fast_ci, "_run_validation_commands", lambda: 0)
-    monkeypatch.setattr(run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots))
+    monkeypatch.setattr(
+        run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots)
+    )
 
     def _restore(
         initial: run_fast_ci._WorktreeSnapshot,
@@ -200,7 +219,9 @@ def test_validation_failure_status_wins_when_drift_is_also_found(
 
     monkeypatch.setattr(run_fast_ci, "_preflight_check", lambda: 0)
     monkeypatch.setattr(run_fast_ci, "_run_validation_commands", lambda: 17)
-    monkeypatch.setattr(run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots))
+    monkeypatch.setattr(
+        run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots)
+    )
     monkeypatch.setattr(
         run_fast_ci,
         "_restore_clean_entry_paths",
@@ -222,7 +243,9 @@ def test_changed_dirty_entry_path_is_reported_without_restore(
 
     monkeypatch.setattr(run_fast_ci, "_preflight_check", lambda: 0)
     monkeypatch.setattr(run_fast_ci, "_run_validation_commands", lambda: 0)
-    monkeypatch.setattr(run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots))
+    monkeypatch.setattr(
+        run_fast_ci, "_capture_worktree_snapshot", lambda: next(snapshots)
+    )
     monkeypatch.setattr(
         run_fast_ci,
         "_restore_clean_entry_paths",

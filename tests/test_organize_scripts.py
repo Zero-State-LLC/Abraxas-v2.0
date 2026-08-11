@@ -5,16 +5,13 @@ Tests for organize_scripts.py
 Run with: python -m pytest tests/test_organize_scripts.py -q
 """
 
-from pathlib import Path
 import sys
+from pathlib import Path
+from subprocess import run
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.organize_scripts import (
-    resolve_target_dir,
-    PREFIX_MAP,
-    run_organization,
-)
+from scripts.organize_scripts import PREFIX_MAP, resolve_target_dir, run_organization
 
 
 def test_resolve_target_dir_known_prefixes():
@@ -37,8 +34,14 @@ def test_resolve_target_dir_unknown():
 
 
 def test_resolve_target_dir_operator_review_maps_to_operator():
-    assert resolve_target_dir("run_operator_review_required_items_bulk_disposition.py") == "operator"
-    assert resolve_target_dir("run_operator_review_terminal_hold_consolidation_receipt.py") == "operator"
+    assert (
+        resolve_target_dir("run_operator_review_required_items_bulk_disposition.py")
+        == "operator"
+    )
+    assert (
+        resolve_target_dir("run_operator_review_terminal_hold_consolidation_receipt.py")
+        == "operator"
+    )
 
 
 def test_prefix_map_coverage():
@@ -86,9 +89,14 @@ def test_no_duplicate_targets():
 
 def test_resolve_target_dir_wave2_prefixes():
     assert resolve_target_dir("run_v2_hygiene_phase1_gate.py") == "hygiene"
-    assert resolve_target_dir("run_abx_codegen_intelligence_spine_gap_analysis_plan.py") == "codegen"
+    assert (
+        resolve_target_dir("run_abx_codegen_intelligence_spine_gap_analysis_plan.py")
+        == "codegen"
+    )
     assert resolve_target_dir("run_abx_hermes_skill_evolution_cycle.py") == "codegen"
-    assert resolve_target_dir("run_chamfer_distance_computation_receipt.py") == "geometry"
+    assert (
+        resolve_target_dir("run_chamfer_distance_computation_receipt.py") == "geometry"
+    )
     assert resolve_target_dir("run_sole_writer_advisory_check.py") == "readiness"
     assert resolve_target_dir("run_runtime_inventory.py") == "runtime"
     assert resolve_target_dir("run_notion_operator_decision_backlog.py") == "notion"
@@ -100,7 +108,10 @@ def test_resolve_target_dir_wave3_prefixes():
     assert resolve_target_dir("run_human_decision_ledger.py") == "operator"
     assert resolve_target_dir("run_brier_ledger.py") == "belief"
     assert resolve_target_dir("run_fusion_governance_audit.py") == "viz"
-    assert resolve_target_dir("run_global_ingest_adapter_spine_alignment_plan.py") == "ingest"
+    assert (
+        resolve_target_dir("run_global_ingest_adapter_spine_alignment_plan.py")
+        == "ingest"
+    )
     assert resolve_target_dir("run_alembic_spine.py") == "alembic"
     assert resolve_target_dir("run_writer_debt_triage.py") == "readiness"
     assert resolve_target_dir("run_fast_ci.py") is None  # sole root keeper
@@ -121,6 +132,8 @@ def test_run_organization_dry_run(tmp_path):
     # still succeeds and reports residual root skips (fast_ci, operator_review).
     assert result["moved_count"] + result["skipped_count"] >= 1
     assert result["skipped_count"] >= 1  # run_fast_ci root keeper
+
+
 def test_run_organization_skips_existing(tmp_path):
     """Test that existing files in target directories are skipped."""
     temporal_dir = tmp_path / "temporal"
@@ -140,8 +153,14 @@ def test_json_output_structure():
     result = run_organization(dry_run=True)
 
     required_keys = {
-        "status", "dry_run", "moved_count", "skipped_count", "error_count",
-        "moved", "skipped", "errors"
+        "status",
+        "dry_run",
+        "moved_count",
+        "skipped_count",
+        "error_count",
+        "moved",
+        "skipped",
+        "errors",
     }
     assert required_keys.issubset(result.keys())
     assert isinstance(result["moved"], list)
@@ -150,8 +169,21 @@ def test_json_output_structure():
 
 def test_organization_status_complete():
     from scripts.organize_scripts import get_organization_status
+
     status = get_organization_status()
     assert status["complete"] is True
     assert status["unorganized"] == 0
     assert "run_fast_ci.py" in status["root_keepers"]
     assert status["organized"] > 0
+
+
+def test_organization_status_cli_succeeds_when_complete():
+    result = run(
+        [sys.executable, "scripts/organize_scripts.py", "status"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert '"complete": true' in result.stdout

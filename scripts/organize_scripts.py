@@ -30,9 +30,10 @@ import logging
 import shutil
 import sys
 import time
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
 ROOT = Path(__file__).parent
 
@@ -41,8 +42,8 @@ class StructuredJsonFormatter(logging.Formatter):
     """Compact structured JSON formatter."""
 
     def format(self, record: logging.LogRecord) -> str:
-        payload: Dict[str, Any] = {
-            "ts": datetime.now(timezone.utc).isoformat(),
+        payload: dict[str, Any] = {
+            "ts": datetime.now(UTC).isoformat(),
             "level": record.levelname,
             "msg": record.getMessage(),
             "logger": record.name,
@@ -55,7 +56,7 @@ class StructuredJsonFormatter(logging.Formatter):
         return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
 
 
-def get_logger(verbose: bool = False, log_file: Optional[Path] = None) -> logging.Logger:
+def get_logger(verbose: bool = False, log_file: Path | None = None) -> logging.Logger:
     logger = logging.getLogger("abraxas.organize")
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     logger.propagate = False
@@ -82,7 +83,7 @@ def _retry_operation(
     operation: Callable[[], Any],
     max_attempts: int = 3,
     delay: float = 0.5,
-    logger: Optional[logging.Logger] = None,
+    logger: logging.Logger | None = None,
     operation_name: str = "operation",
 ) -> Any:
     """Retry an operation with exponential backoff on transient errors."""
@@ -98,7 +99,7 @@ def _retry_operation(
                     extra={
                         "attempt": attempt,
                         "max_attempts": max_attempts,
-                        "error": str(exc)
+                        "error": str(exc),
                     },
                 )
             if attempt < max_attempts:
@@ -114,7 +115,7 @@ def _retry_operation(
 # stdlib `operator` module and breaks argparse/re/enum. Namespace package
 # (directory only) is intentional so `import scripts.operator.run_*` works.
 # Prefer longest-prefix match (see resolve_target_dir).
-PREFIX_MAP: Dict[str, str] = {
+PREFIX_MAP: dict[str, str] = {
     # Wave 1
     "run_temporal_": "temporal",
     "run_governance_": "governance",
@@ -237,36 +238,38 @@ PREFIX_MAP: Dict[str, str] = {
 NO_INIT_DOMAINS = frozenset({"operator"})
 
 # Intentionally remain at scripts/ root (CI / tooling entrypoints only).
-ROOT_RUNNER_PREFIXES = (
-    "run_fast_ci",
-)
+ROOT_RUNNER_PREFIXES = ("run_fast_ci",)
 
 # Non-run_ helpers that are also domain-organized.
-NON_RUN_PREFIX_MAP: Dict[str, str] = {
+NON_RUN_PREFIX_MAP: dict[str, str] = {
     "preflight_": "preflight",
     "build_aal_viz_": "viz",
 }
 
 
-def resolve_target_dir(name: str) -> Optional[str]:
+def resolve_target_dir(name: str) -> str | None:
     if name.startswith(ROOT_RUNNER_PREFIXES):
         return None
     # Longest prefix first so run_abx_codegen_ beats run_abx_, etc.
-    for prefix, directory in sorted(PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True):
+    for prefix, directory in sorted(
+        PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True
+    ):
         if name.startswith(prefix):
             return directory
     return None
 
 
-def resolve_non_run_target_dir(name: str) -> Optional[str]:
-    for prefix, directory in sorted(NON_RUN_PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True):
+def resolve_non_run_target_dir(name: str) -> str | None:
+    for prefix, directory in sorted(
+        NON_RUN_PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True
+    ):
         if name.startswith(prefix):
             return directory
     return None
 
 
-def _iter_nested_runners() -> List[Path]:
-    paths: List[Path] = []
+def _iter_nested_runners() -> list[Path]:
+    paths: list[Path] = []
     skip = {"__pycache__", "common", "completions", "design"}
     for child in sorted(ROOT.iterdir()):
         if not child.is_dir() or child.name in skip or child.name.startswith("."):
@@ -275,7 +278,7 @@ def _iter_nested_runners() -> List[Path]:
     return paths
 
 
-def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
+def get_organization_status(logger: logging.Logger | None = None) -> dict[str, Any]:
     """Return organization status of run_*.py scripts (root + domain dirs)."""
     if logger is None:
         logger = get_logger()
@@ -299,9 +302,9 @@ def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str
 
     organized = 0
     unorganized = 0
-    by_directory: Dict[str, int] = {}
-    unorganized_files: List[str] = []
-    root_keepers: List[str] = []
+    by_directory: dict[str, int] = {}
+    unorganized_files: list[str] = []
+    root_keepers: list[str] = []
 
     for path in nested_scripts:
         target = resolve_target_dir(path.name)
@@ -340,7 +343,9 @@ def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str
     }
 
 
-def cleanup_duplicates(dry_run: bool = True, logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
+def cleanup_duplicates(
+    dry_run: bool = True, logger: logging.Logger | None = None
+) -> dict[str, Any]:
     """Remove duplicate run_*.py scripts from root if they already exist in target subdirectories."""
     if logger is None:
         logger = get_logger()
@@ -360,7 +365,7 @@ def cleanup_duplicates(dry_run: bool = True, logger: Optional[logging.Logger] = 
             "error": str(exc),
             "removed_count": 0,
             "skipped_count": 0,
-            "error_count": 1
+            "error_count": 1,
         }
 
     for path in scripts:
@@ -386,10 +391,15 @@ def cleanup_duplicates(dry_run: bool = True, logger: Optional[logging.Logger] = 
         try:
             path.unlink()
             removed.append({"file": path.name, "target": str(dest_path)})
-            logger.info("cleanup.removed_duplicate", extra={"file": path.name, "target": str(dest_path)})
-        except Exception as exc:
+            logger.info(
+                "cleanup.removed_duplicate",
+                extra={"file": path.name, "target": str(dest_path)},
+            )
+        except Exception as exc:  # noqa: BLE001 - cleanup should report per-file failures and continue.
             errors.append({"file": path.name, "error": str(exc)})
-            logger.error("cleanup.remove_failed", extra={"file": path.name, "error": str(exc)})
+            logger.error(
+                "cleanup.remove_failed", extra={"file": path.name, "error": str(exc)}
+            )
 
     status = "success" if not errors else ("partial" if removed else "failed")
 
@@ -401,21 +411,21 @@ def cleanup_duplicates(dry_run: bool = True, logger: Optional[logging.Logger] = 
         "error_count": len(errors),
         "removed": removed,
         "skipped": skipped,
-        "errors": errors
+        "errors": errors,
     }
 
 
 def run_organization(
     dry_run: bool = True,
-    logger: Optional[logging.Logger] = None,
-    log_file: Optional[Path] = None,
-) -> Dict[str, Any]:
+    logger: logging.Logger | None = None,
+    log_file: Path | None = None,
+) -> dict[str, Any]:
     if logger is None:
         logger = get_logger(log_file=log_file)
 
-    moved: List[Dict[str, str]] = []
-    skipped: List[str] = []
-    errors: List[Dict[str, str]] = []
+    moved: list[dict[str, str]] = []
+    skipped: list[str] = []
+    errors: list[dict[str, str]] = []
 
     logger.info("organization.started", extra={"dry_run": dry_run})
 
@@ -440,17 +450,19 @@ def run_organization(
             continue
 
         if dest_dir.exists() and not dest_dir.is_dir():
-            errors.append({
-                "file": path.name,
-                "error": f"Target path exists but is not a directory: {dest_dir}"
-            })
+            errors.append(
+                {
+                    "file": path.name,
+                    "error": f"Target path exists but is not a directory: {dest_dir}",
+                }
+            )
             logger.error(
                 "directory.not_a_directory",
-                extra={"file": path.name, "target_dir": str(dest_dir)}
+                extra={"file": path.name, "target_dir": str(dest_dir)},
             )
             continue
 
-        def _create_dir():
+        def _create_dir(dest_dir: Path = dest_dir) -> None:
             dest_dir.mkdir(parents=True, exist_ok=True)
 
         try:
@@ -459,24 +471,26 @@ def run_organization(
                 max_attempts=3,
                 delay=0.3,
                 logger=logger,
-                operation_name="directory.create"
+                operation_name="directory.create",
             )
         except (OSError, PermissionError) as exc:
-            errors.append({
-                "file": path.name,
-                "error": f"Failed to create directory {dest_dir} after retries: {exc}"
-            })
+            errors.append(
+                {
+                    "file": path.name,
+                    "error": f"Failed to create directory {dest_dir} after retries: {exc}",
+                }
+            )
             logger.error(
                 "directory.create_failed_after_retries",
                 extra={
                     "file": path.name,
                     "target_dir": str(dest_dir),
-                    "error": str(exc)
-                }
+                    "error": str(exc),
+                },
             )
             continue
 
-        def _move_file():
+        def _move_file(path: Path = path, dest_path: Path = dest_path) -> None:
             shutil.move(str(path), str(dest_path))
 
         try:
@@ -485,13 +499,16 @@ def run_organization(
                 max_attempts=3,
                 delay=0.3,
                 logger=logger,
-                operation_name="file.move"
+                operation_name="file.move",
             )
             moved.append({"file": path.name, "target": target_dir})
             logger.debug("file.moved", extra={"file": path.name, "target": target_dir})
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - CLI should collect retry exhaustion as JSON.
             errors.append({"file": path.name, "error": str(exc)})
-            logger.error("file.move_failed_after_retries", extra={"file": path.name, "error": str(exc)})
+            logger.error(
+                "file.move_failed_after_retries",
+                extra={"file": path.name, "error": str(exc)},
+            )
 
     status = "success" if not errors else ("partial" if moved else "failed")
 
@@ -531,12 +548,17 @@ def main() -> None:
         help="Write structured JSON logs to this file (JSON Lines format, ideal for ELK/Filebeat)",
     )
 
-    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run, execute, status, or cleanup")
+    subparsers = parser.add_subparsers(
+        dest="command", required=True, help="dry-run, execute, status, or cleanup"
+    )
 
     subparsers.add_parser("dry-run", help="Preview moves without changing anything")
     subparsers.add_parser("execute", help="Actually move the files")
     subparsers.add_parser("status", help="Show current organization status")
-    subparsers.add_parser("cleanup", help="Remove duplicate scripts from root if they exist in target directories")
+    subparsers.add_parser(
+        "cleanup",
+        help="Remove duplicate scripts from root if they exist in target directories",
+    )
 
     args = parser.parse_args()
 
@@ -547,8 +569,8 @@ def main() -> None:
         try:
             status_result = get_organization_status(logger=logger)
             print(json.dumps(status_result, indent=2, ensure_ascii=False))
-            sys.exit(0 if status_result.get("status") == "success" else 1)
-        except Exception as exc:
+            sys.exit(0 if status_result.get("complete") is True else 1)
+        except Exception as exc:  # noqa: BLE001 - status command must emit JSON errors.
             print(json.dumps({"status": "error", "error": str(exc)}, indent=2))
             sys.exit(1)
 
@@ -557,13 +579,15 @@ def main() -> None:
             cleanup_result = cleanup_duplicates(dry_run=dry_run, logger=logger)
             print(json.dumps(cleanup_result, indent=2, ensure_ascii=False))
             sys.exit(0 if cleanup_result.get("status") in ("success", "partial") else 1)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - cleanup command must emit JSON errors.
             print(json.dumps({"status": "error", "error": str(exc)}, indent=2))
             sys.exit(1)
 
     try:
-        result = run_organization(dry_run=dry_run, logger=logger, log_file=args.log_file)
-    except Exception as exc:
+        result = run_organization(
+            dry_run=dry_run, logger=logger, log_file=args.log_file
+        )
+    except Exception as exc:  # noqa: BLE001 - top-level CLI converts failures to JSON.
         error_result = {
             "status": "failed",
             "dry_run": dry_run,
@@ -577,7 +601,7 @@ def main() -> None:
 
     try:
         print(json.dumps(result, indent=2, ensure_ascii=False))
-    except Exception as json_exc:
+    except Exception as json_exc:  # noqa: BLE001 - preserve JSON error envelope for callers.
         print(json.dumps({"status": "failed", "error": str(json_exc)}))
         sys.exit(1)
 
