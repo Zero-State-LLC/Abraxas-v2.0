@@ -38,7 +38,7 @@ def test_subsystem_ownership_matrix_tiers_for_packet_pipelines() -> None:
     by_name = {row["subsystem"]: row for row in packet["ownership_rows"]}
 
     assert by_name["Oracle Signal Layer"]["contract_owner_alignment"] == "ALIGNED"
-    assert by_name["Neon Genie"]["contract_owner_alignment"] == "CONTRACT_V0"
+    assert by_name["Neon Genie"]["contract_owner_alignment"] == "ALIGNED"
     assert by_name["abx-familiar"]["contract_owner_alignment"] == "REVIEW_V0"
     assert by_name["abx-familiar"]["missing_contract_paths"] == []
     assert any(
@@ -46,7 +46,8 @@ def test_subsystem_ownership_matrix_tiers_for_packet_pipelines() -> None:
         for path in by_name["abx-familiar"]["contract_paths"]
     )
     assert by_name["Neon Genie"]["missing_contract_paths"] == []
-    assert by_name["Neon Genie"]["missing_full_pipeline_contract_paths"]
+    assert by_name["Neon Genie"]["missing_full_pipeline_contract_paths"] == []
+    assert "contracts/pipelines/neon_genie_ideation.v1_1.json" in by_name["Neon Genie"]["contract_paths"]
 
 
 def test_subsystem_ownership_matrix_authority_locks_false() -> None:

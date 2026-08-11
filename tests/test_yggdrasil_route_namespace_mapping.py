@@ -49,9 +49,9 @@ def test_yggdrasil_route_namespace_mapping_is_mapping_only() -> None:
 def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     packet = build_yggdrasil_route_namespace_mapping(repo_root=REPO_ROOT)
 
-    assert packet["route_count"] == 12
-    assert packet["pipeline_count"] == 12
-    assert packet["mapped_count"] == 12
+    assert packet["route_count"] == 13
+    assert packet["pipeline_count"] == 13
+    assert packet["mapped_count"] == 13
     assert packet["unmapped_routes"] == []
     assert packet["missing_routes_for_pipelines"] == []
 
@@ -61,6 +61,7 @@ def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     assert records["drift_scan"]["route_node_namespace"] == "drift"
     assert records["universal_ingest"]["notion_namespace"] == "Global Ingest Adapter Spine"
     assert records["operator_review_queue"]["route_node_namespace"] == "operator_review"
+    assert records["neon_genie_ideation"]["route_node_namespace"] == "neon_genie"
     assert all(record["route_authority_locked"] for record in records.values())
     assert all(record["pipeline_authority_locked"] for record in records.values())
 

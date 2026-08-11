@@ -246,7 +246,7 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_PRODUCT",
         "migration_status": "specified",
-        "next_action": "skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external",
+        "next_action": "contracts/pipelines/neon_genie_ideation.v1_1.json landed closing the contract gap; skill package/router wired to IdeationOperatorPacket.v0; Hermes packaging handoff remains external (out of scope for Abraxas core)",
         "contract_path": "contracts/neon_genie/ideation_operator_packet.v0.schema.json",
         "builder_module": "core.neon_genie.ideation_operator_packet",
     },

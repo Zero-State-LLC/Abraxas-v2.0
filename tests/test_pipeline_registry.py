@@ -30,6 +30,7 @@ TIER1_PIPELINE_IDS = {
 TIER2_OBSERVED_PIPELINE_IDS = {
     "drift_scan",
     "operator_review_queue",
+    "neon_genie_ideation",
 }
 
 
@@ -75,6 +76,17 @@ def test_drift_scan_pipeline_is_observed() -> None:
     assert entry["migration_status"] == "partial"
     assert entry["validation_status"] == "legacy_contract_posture"
     assert entry["lane"] == "GOVERNANCE_SHADOW"
+
+
+def test_neon_genie_ideation_pipeline_is_observed() -> None:
+    contracts = load_contracts(CONTRACTS_DIR)
+    reg = build_registry(contracts)
+    entry = next(item for item in reg["pipelines"] if item["pipeline_id"] == "neon_genie_ideation")
+    assert entry["contract_status"] == "observed"
+    assert entry["migration_status"] == "implemented"
+    assert entry["lane"] == "SHADOW"
+    assert entry["owner_subsystem"] == "Neon Genie"
+    assert all(value is False for value in entry["authority"].values())
 
 
 def test_oracle_signal_additive_shadow_contract_coverage_is_observed() -> None:

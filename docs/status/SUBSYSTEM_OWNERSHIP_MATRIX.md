@@ -15,10 +15,10 @@ useful context but must not override these routes.
 
 - Subsystems observed: `18`
 - Pipelines observed: `18`
-- Contract-aligned subsystems: `10` (ALIGNED)
-- Partial contracts: `8` (CONTRACT_V0 ×7 + REVIEW_V0 ×1)
+- Contract-aligned subsystems: `11` (ALIGNED)
+- Partial contracts: `7` (CONTRACT_V0 ×6 + REVIEW_V0 ×1)
 - Missing contract paths: `0`
-- Missing full pipeline v1.1 contracts (optional depth): `8`
+- Missing full pipeline v1.1 contracts (optional depth): `7`
 
 Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; `CONTRACT_V0` = operator packet + builder; `REVIEW_V0` = familiar receipt/bridge/review/dry-run chain; `MISSING_CONTRACT` = neither full nor operator packet observed.
 
@@ -32,7 +32,7 @@ Alignment tiers: `ALIGNED` = `contracts/pipelines/*.v1_1.json`; `CONTRACT_V0` = 
 | Governance / Drift Detection | drift_scan | 2 | SHADOW_GOVERNANCE | ALIGNED | standardize drift scan outputs as pipeline receipts |
 | HollerSports | hollersports_ticket | 2 | FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + HollerOutcomeBindingDryRun.v0 landed (projects ForecastOutcomeBindingPacket.v1); no binding write / no live odds; residual: optional live ingest wire under dual-control |
 | Level 99 | level99_content | 3 | SHADOW_MEDIA | CONTRACT_V0 | Level99ContentOperatorPacket.v0 landed (virality bounds + route + operator review); next: optional performance ingest wire; no auto-publish |
-| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | CONTRACT_V0 | skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external |
+| Neon Genie | neon_genie_ideation | 3 | SHADOW_PRODUCT | ALIGNED | contracts/pipelines/neon_genie_ideation.v1_1.json landed closing the contract gap; skill package/router wired to IdeationOperatorPacket.v0; Hermes packaging handoff remains external (out of scope for Abraxas core) |
 | Noctis | noctis_dream | 3 | SHADOW_SYMBOLIC | CONTRACT_V0 | CONTRACT_V0 + NoctisOperatorReviewQueueDryRun.v0 landed (queue shape + continuity seed); no queue/memory write; residual: dual-control before any durable history link |
 | Operator Governance | operator_review_queue | 2 | GOVERNANCE | ALIGNED | bind operator review queue to doctrine validation and canon sync receipt surfaces |
 | Oracle / ASE / Memetic Futurecast | memetic_futurecast | 2 | SHADOW_FORECAST_GATED | CONTRACT_V0 | CONTRACT_V0 + MemeticBrierLedgerDryRun.v0 landed (projects BrierLedgerEntry.v1 shape); no out/brier write / no forecast weight; residual: dual-control before ledger publish |

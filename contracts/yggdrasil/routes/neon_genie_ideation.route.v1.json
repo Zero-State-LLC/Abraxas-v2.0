@@ -1,0 +1,35 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "neon_genie_ideation",
+  "nodes": [
+    {"node_id": "neon_genie.trigger", "node_type": "pipeline", "lane": "SHADOW"},
+    {"node_id": "neon_genie.intake", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.discover", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.recombine", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.differentiate", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.score", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.shape", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "neon_genie.overlap", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "neon_genie.operator_packet", "node_type": "review_gate", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW"},
+    {"node_id": "neon_genie.receipt", "node_type": "artifact", "lane": "SHADOW"}
+  ],
+  "edges": [
+    {"source": "neon_genie.trigger", "target": "neon_genie.intake", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.intake", "target": "neon_genie.discover", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.discover", "target": "neon_genie.recombine", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.recombine", "target": "neon_genie.differentiate", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.differentiate", "target": "neon_genie.score", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.score", "target": "neon_genie.shape", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.shape", "target": "neon_genie.overlap", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.overlap", "target": "neon_genie.operator_packet", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "neon_genie.operator_packet", "target": "neon_genie.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

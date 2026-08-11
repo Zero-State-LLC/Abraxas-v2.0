@@ -33,6 +33,7 @@ OBSERVED_NON_TIER1_ROUTE_FILES = [
     "alembic_spine.route.v1.json",
     "drift_scan.route.v1.json",
     "operator_review_queue.route.v1.json",
+    "neon_genie_ideation.route.v1.json",
 ]
 
 
@@ -52,7 +53,7 @@ def test_observed_non_tier1_route_graph_loads(filename: str):
 
 def test_all_observed_route_graphs_present():
     graphs = load_route_graphs(ROUTES_DIR)
-    assert len(graphs) == 12
+    assert len(graphs) == 13
     assert "alembic_spine" in graphs
 
 
