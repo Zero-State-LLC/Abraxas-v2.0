@@ -52,6 +52,29 @@ Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not
 
 **Syscall path:** Intent → forage → EvidencePack → familiar_ingestion → spine touch → receipts → operator.
 
+### Unification work route (Tracks A–D)
+
+Plan 002 is the front door for the current AI OS unification work. Use the
+carved track issue that matches the change; these links are navigation only and
+do not grant runtime, canon, or execution authority.
+
+| Track | Focus | Issue | Route |
+|-------|-------|-------|-------|
+| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) | This page, [`docs/INDEX.md`](INDEX.md), and the canonical status routes below |
+| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) | Contract → builder → runner → receipt → targeted tests |
+| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) | [`docs/alembic/ALEMBIC_SPINE.md`](alembic/ALEMBIC_SPINE.md) and `alembic_spine` |
+| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) | [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md) |
+
+#### Status truth and mental model
+
+For current status, read the `alembic_spine` block in [`PLANS.md`](../PLANS.md)
+and [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md).
+They are the canonical status projection; no second status database or
+competing status-tracking document is authoritative. The artifact spine is
+contracts → core → scripts → receipts; Alembic is the multi-architecture
+selector/fusion spine; domain work is a contract-bound pipeline; SHADOW and
+FORECAST remain separate lanes.
+
 ### Parallel active tracks (2026-07-31 → 2026-08-10)
 
 | Track | Status | Route |
