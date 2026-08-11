@@ -20,6 +20,9 @@ DEFAULT_AUTHORITY = {
     "promotion_authorized": False,
     "canon_mutation_allowed": False,
     "unstub_authorized": False,
+    "live_rune_registration_authorized": False,
+    "pipeline_inventory_seal_authorized": False,
+    "production_authority": False,
 }
 
 PRODUCER = {
@@ -115,6 +118,37 @@ def build_alembic_residual_inventory() -> dict[str, Any]:
             "Stubs remain stubbed until evaluation fixtures exist and operator "
             "explicitly authorizes unstub; this inventory never unstubs."
         ),
+        "integration_rule": (
+            "Domain pipelines may emit architecture-tagged contributions into Alembic; "
+            "Alembic must not replace their contracts."
+        ),
+        "live_rune_policy": {
+            "status": "DEFERRED",
+            "live_catalog_mutation": False,
+            "proposed_manifest": "contracts/alembic/rune_proposals.v1.json",
+            "live_catalog": "contracts/runes/catalog.v1.json",
+            "policy": (
+                "Reuse bound pipeline runes; RUNE.ARCHITECTURE_* live catalog entries "
+                "require an explicit operator gate before catalog mutation."
+            ),
+        },
+        "backend_unstub_policy": {
+            "status": "DEFERRED",
+            "required_fixture": "EvidencePack",
+            "operator_seal_required": True,
+            "covered_families": [
+                "state_space_sequence",
+                "generative",
+                "spiking_neuromorphic",
+            ],
+        },
+        "pipeline_inventory_policy": {
+            "status": "ADVISORY_ROUTE_PRESENT_SEAL_DEFERRED",
+            "pipeline_id": "alembic_spine",
+            "pipeline_contract": "contracts/pipelines/alembic_spine.v1_1.json",
+            "route_contract": "contracts/yggdrasil/routes/alembic_spine.route.v1.json",
+            "production_inventory_seal_authorized": False,
+        },
         "authority": dict(DEFAULT_AUTHORITY),
         "advisory_only": True,
         "producer": dict(PRODUCER),

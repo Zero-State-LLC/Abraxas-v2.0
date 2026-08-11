@@ -150,3 +150,19 @@ Abstention is a first-class outcome with typed reasons (`no_eligible_candidates`
 | External neuromorphic/SSM/generative backends | deferred experimental |
 
 See also: [`docs/plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md`](../plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md).
+
+## 21. Track C residual closeout (#1119)
+
+Track C is closed as `ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`. The closeout
+surface is `abraxas os alembic-residuals` and the operator-facing status note is
+[`docs/status/ALEMBIC_TRACK_C_RESIDUAL_CLOSEOUT.md`](../status/ALEMBIC_TRACK_C_RESIDUAL_CLOSEOUT.md).
+
+- Live `RUNE.ARCHITECTURE_*` entries remain proposals only in
+  `contracts/alembic/rune_proposals.v1.json`; the live rune catalog is not
+  mutated by this track.
+- SSM, generative, and SNN adapters remain stubbed/unavailable until evaluation
+  fixtures exist and an explicit operator seal authorizes unstubbing.
+- Domain pipelines may emit architecture-tagged contributions into Alembic, but
+  Alembic must not replace their contracts.
+- The advisory `alembic_spine` pipeline/route exists with locked authority; any
+  production inventory seal remains deferred.
