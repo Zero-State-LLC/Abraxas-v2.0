@@ -244,6 +244,8 @@ post_2_5_0_edge:
 alembic_spine:
   status: ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS
   authority: ADVISORY_ONLY
+  status_truth: CANONICAL
+  status_truth_policy: "This block and the subsystem ownership matrix are the sole canonical status projection; no second status DB or competing tracker is authoritative."
   canonical_docs:
     - docs/alembic/ALEMBIC_SPINE.md
     - docs/alembic/AUDIT_AND_RECONCILIATION_001.md
@@ -273,6 +275,16 @@ alembic_spine:
 ```
 
 Phase 1 advisory spine is implemented and tested. It does not grant production authority, mutate canon/runtime, auto-apply router proposals, or promote shadow results.
+
+### Canonical status truth
+
+The `alembic_spine` block above and
+[`docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
+are the canonical status truth for current planning and ownership. They are a
+documentation projection, not a database and not an authority mechanism. Do
+not treat another status ledger, roadmap, or plan as a competing source of
+current status; older planning families are classified in
+[`docs/plans/README.md`](docs/plans/README.md).
 
 ## ABX Codegen Intelligence Spine (advisory-computable)
 

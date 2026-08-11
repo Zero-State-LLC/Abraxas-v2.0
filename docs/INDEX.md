@@ -16,12 +16,31 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Production readiness | [`../out/production_readiness/README.md`](../out/production_readiness/README.md), [`production_readiness/INDEX.md`](production_readiness/INDEX.md) | Candidate track: freeze gates, release decision, deploy NO_GO, activation DENIED (evidence-gated). | Read readiness README before claiming production readiness. |
 | Production readiness guidebook | [`production_readiness/ENGINEERING_GUIDEBOOK.md`](production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering/governance/ops guide for the readiness package. | Use for WP semantics and authority fail-closed rules. |
 | Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md) | Shows subsystem shape and boundaries. | Locate the subsystem. |
-| AI OS (kernel + unification) | [`START_HERE.md`](START_HERE.md#active-work-route) · [`architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · [`architecture/AI_OS_KERNEL_AUDIT_001.md`](architecture/AI_OS_KERNEL_AUDIT_001.md) · [`plans/ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) | Deterministic symbolic AI OS under SHADOW; not EXTERNAL_PRODUCTION. | Run `python -m abraxas os status`; then Track B contracts. |
+| AI OS (kernel + unification) | [`START_HERE.md`](START_HERE.md#active-work-route) · [`architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md`](architecture/ABRAXAS_HERMES_OS_UNIFICATION_001.md) · [`architecture/AI_OS_KERNEL_AUDIT_001.md`](architecture/AI_OS_KERNEL_AUDIT_001.md) · [`plans/ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) | Deterministic symbolic AI OS under SHADOW; not EXTERNAL_PRODUCTION. | Follow Tracks A–D below; use canonical status truth. |
 | RDI / Instantiation (Fable) | [`architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md) · [`architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md`](architecture/REPRESENTATION_DRIVEN_INSTANTIATION_FABLE_HANDOFF_001.md) · [`../PLANS.md`](../PLANS.md) | Doctrine + fixture contracts + intervention declarations; **PARTIAL**, not empirical proof. | Continue from Fable handoff residuals; no Instantiation Depth formula. |
 | Memetic forensics | [`architecture/MEMETIC_FORENSICS_MISSION_001.md`](architecture/MEMETIC_FORENSICS_MISSION_001.md) · [`../contracts/forensics/`](../contracts/forensics/) · `python -m abraxas os forensics status` | Slice C+C′+C6 engine + Ops D0/D2 route/seed; **OpsGate always DENIED**. | Build forensics only; do not open ops publish. |
 | OmegaClaw (advisory) | [`architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md`](architecture/OMEGACLAW_CONCEPT_INTEGRATION_001.md) · [`plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md`](plans/OMEGACLAW_SYMBOLIC_INTEGRATION_PLAN_001.md) · [`status/OMEGACLAW_TRACK_STATUS_001.md`](status/OMEGACLAW_TRACK_STATUS_001.md) | Symbolic concept track under SHADOW. | Keep advisory; no live inter-agent authority. |
 | Collaboration board | [`../CONTRIBUTING.md`](../CONTRIBUTING.md#collaboration-github-project) · [GitHub Project](https://github.com/users/scrimshawlife-ctrl/projects/5) | Issue → PR → board Status; labels `collab`, `track/rdi`, `track/ai-os`. | Link PRs to issues; accept repo + project write. |
 | Governance/instructions | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Defines authority locks and operator control. | Read before changing behavior. |
+
+## Active Work Route: Unification Tracks A–D
+
+[`ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) is
+the current front door for this route. Select the issue by work type:
+
+| Track | Work type | Issue |
+|-------|-----------|-------|
+| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) |
+| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) |
+| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) |
+| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) |
+
+For status, use the `alembic_spine` block in [`PLANS.md`](../PLANS.md) and the
+[`SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md).
+Together they are the canonical status truth; there is no second status DB.
+The artifact spine is the implementation substrate, Alembic is the
+multi-architecture selector/fusion layer, domain surfaces are pipelines, and
+SHADOW is distinct from FORECAST.
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |
