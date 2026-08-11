@@ -1,15 +1,15 @@
 # Track D — Authorization Surface Compression (Light)
 
-**Status:** ADVISORY · `ADVISORY_ONLY` · docs + inventory only  
-**Date:** 2026-07-31  
-**Parent:** [`ABRAXAS_UNIFICATION_PLAN_002.md`](ABRAXAS_UNIFICATION_PLAN_002.md) §5 Track D  
-**Authority:** `canon_mutation=false` · `runtime_mutation=false` · `execution_authority=false` · no plan-tree auto-unhold  
+**Status:** CLOSED_AS_POLICY · `ADVISORY_ONLY` · docs + inventory only
+**Date:** 2026-07-31
+**Parent:** [`ABRAXAS_UNIFICATION_PLAN_002.md`](ABRAXAS_UNIFICATION_PLAN_002.md) §5 Track D
+**Authority:** `canon_mutation=false` · `runtime_mutation=false` · `execution_authority=false` · no plan-tree auto-unhold
 
 ## 0. Purpose
 
 Stop **recursive plan → gate → plan** growth from blocking kernel and Track B work. Prefer **one terminal disposition** (review seed / hold receipt) over nested authorization trees.
 
-This document is the **front-door residual map** for Track D (light). It does not delete plans, rewrite history, or grant CLEAR/production authority.
+This document is the **front-door residual map** for Track D (light). It does not delete plans, rewrite history, or grant CLEAR/production authority. Closeout is surfaced by `abraxas os authz-compression` and [`docs/status/AUTHZ_SURFACE_COMPRESSION_TRACK_D_CLOSEOUT.md`](../status/AUTHZ_SURFACE_COMPRESSION_TRACK_D_CLOSEOUT.md).
 
 ## 1. Observed plan surface (repo)
 
@@ -72,6 +72,7 @@ When editing a plan file, add a one-line status if missing:
 | Ownership / contracts | `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` |
 | Familiar review seed | `python -m abraxas forage operator-review --pack PATH` |
 | Alembic residuals | `python -m abraxas os alembic-residuals` |
+| Authorization compression receipt | `python -m abraxas os authz-compression` |
 
 ## 5. Compression backlog (operator-gated, not auto)
 
@@ -89,4 +90,8 @@ When editing a plan file, add a one-line status if missing:
 
 ## 7. Seal
 
-Proposal / navigation surface only. Does **not** authorize deletion of plans, mass archive moves, CLEAR dual-control, or production unhold.
+Policy / navigation surface only. Does **not** authorize deletion of plans, mass archive moves, CLEAR dual-control, recursive authorization-tree generation, or production unhold.
+
+## 8. Issue #1120 closeout
+
+Track D is closed as policy, not as production authority. New plan work must cite Track A/B/C/D or be terminally classified (`HISTORICAL`, `SEALED_HOLD`, or `SUPERSEDED`). If operator disposition is needed, emit one decision record plus one hold receipt and stop repo automation. Bulk-hold families remain held unless an explicit operator attestation exists.

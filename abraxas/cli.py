@@ -19,6 +19,9 @@ from core.audit.main_cleanliness_receipt import (
 )
 from core.canonical.artifact_classification import ArtifactClass
 from core.canonical.json import write_canonical_artifact
+from core.engineering.authz_surface_compression import (
+    build_authz_surface_compression_receipt,
+)
 from core.engineering.branch_hygiene_inventory import build_branch_hygiene_inventory
 from core.forensics.aal_viz_projection import (
     build_aal_viz_forensic_projection_from_pack_path,
@@ -690,6 +693,27 @@ def _cmd_os_alembic_residuals(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_os_authz_compression(_args: argparse.Namespace) -> int:
+    """Track D authorization surface compression receipt."""
+    receipt = build_authz_surface_compression_receipt(repo_root=REPO_ROOT)
+    _print(
+        {
+            "ok": receipt.get("status")
+            == "TRACK_D_AUTHZ_SURFACE_COMPRESSED_ADVISORY_ONLY",
+            "status": receipt.get("status"),
+            "issue": receipt.get("issue"),
+            "track_id": receipt.get("track_id"),
+            "plan_inventory": receipt.get("plan_inventory"),
+            "new_work_policy": receipt.get("new_work_policy"),
+            "decision_record_policy": receipt.get("decision_record_policy"),
+            "bulk_hold_policy": receipt.get("bulk_hold_policy"),
+            "authority": receipt.get("authority"),
+            "advisory_only": True,
+        }
+    )
+    return 0
+
+
 def _cmd_os_main_audit(args: argparse.Namespace) -> int:
     """Emit main cleanliness + fast-ci receipts for Notion main-scope audit."""
     cleanliness = build_main_cleanliness_receipt(repo_root=REPO_ROOT)
@@ -1067,6 +1091,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Track C Alembic residual inventory (stubs stay stubbed; advisory)",
     )
     alembic_res.set_defaults(func=_cmd_os_alembic_residuals)
+
+    authz_compression = os_sub.add_parser(
+        "authz-compression",
+        help="Track D authorization surface compression receipt (advisory)",
+    )
+    authz_compression.set_defaults(func=_cmd_os_authz_compression)
 
     main_audit = os_sub.add_parser(
         "main-audit",
