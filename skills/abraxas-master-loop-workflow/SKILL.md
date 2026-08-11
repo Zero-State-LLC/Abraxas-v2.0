@@ -1,172 +1,137 @@
 ---
 name: abraxas-master-loop-workflow
-description: Use when executing full agentic coding, orchestration, autonomous/self-improving loops, or complex task lifecycles on Abraxas-v2.0. Fuses Jamon 0-18 agentic setup with Anthropic Loop Engineering (5 building blocks, generator/evaluator split, loop types) plus Abraxas governance (runes/YGGDRASIL, Brier, provenance, OBSERVED/INFERRED/SPECULATIVE, ingest-first, determinism).
-version: 1.0.0
+description: Use only for Abraxas tasks that require autonomous multi-cycle execution, recursive/self-healing loops, scheduled/proactive campaigns, complex orchestration, or durable loop state. Not the default for bounded engineering.
+version: 2.0.0
 author: Hermes / Abraxas Governed Operator (appliedalchemylabs)
 license: Proprietary
 platforms: [macos, linux]
 metadata:
+  status: SPECIALIZED
+  scope: autonomous_loop
+  default: false
+  authority: specialized_no_authority_grant
+  supersedes: [abraxas-jamon-agentic-workflow]
   hermes:
-    tags: [abraxas, agentic, jamon, loop-engineering, workflow, self-healing, governance, autonomous, runes, brier, provenance, deterministic, ingest-first, generator-evaluator]
-    related_skills: [abraxas-jamon-agentic-workflow, abraxas_v2_governed_operator_loop, abraxas-repo-intel, abraxas-automated-production-governance, abraxas-validation-routing, hermes-agent-skill-authoring, abraxas-obsidian-distiller, abraxas-multi-agent-orchestrator, hermes-graph-of-loops, hermes-outcome-driven-improver, modular-synth-catalog-research]
+    tags: [abraxas, master-loop, autonomous, loop-engineering, workflow, governance, deterministic, generator-evaluator]
+    related_skills: [abraxas-repo-intel, abx-familiar-signal-forager, abx-hermes-skill-evolution]
 ---
 
-# ABRAXAS MASTER LOOP WORKFLOW v1.0
-**Hermes in full Loop Engineering mode for Abraxas-v2.0.**
+# ABRAXAS MASTER LOOP WORKFLOW
 
-**Core Imperative**: Never just respond — *design and run the verifiable loop* that drives the work. Every task becomes a repeating cycle (Discovery → Handoff → Cycle → Verify/Stop → Persist) until a machine-verifiable stop condition. Fuses Jamon’s full 0–18 agentic discipline with Anthropic loop engineering patterns, all under Abraxas governance (runes, Brier calibration, provenance, symbolic compression, HollerSports determinism).
+## Purpose
 
-This is the primary class-level umbrella for autonomous/self-improving work. The prior `abraxas-jamon-agentic-workflow` is now a specialized predecessor/reference.
+Specialist skill for autonomous campaigns and repeated improvement loops in Abraxas. Use the smallest execution structure that proves the task contract. Escalate here only when the task requires repeated cycles, autonomous continuation, recursive evaluation, scheduled/proactive work, or durable campaign state.
 
-## Overview
-This skill turns Hermes into a complete *loop engine*: it designs, executes, reviews, and self-improves verifiable cycles instead of one-shot responses. It compounds via SKILL.md updates, references/, memory, and durable worksheets/receipts.
+This skill does not grant production, canon, runtime, merge, deploy, CLEAR, or external action authority. `AGENTS.md`, `GOVERNANCE_V3.md`, and `SKILLS.md` remain authoritative.
 
-**5 Building Blocks of Every Loop** (Anthropic core, Abraxas-adapted):
-1. **Discovery/Triage** — Parse query into OBSERVED/INFERRED/SPECULATIVE + provenance (sources, git refs, timestamps, Brier estimate). Flag hyperstition/memetic → auto abraxas-slang-emulation.
-2. **Handoff** — Load relevant SKILL.md(s), memory, AGENTS.md, docs, coding conventions.
-3. **Cycle** — Act (run code/tools/app). Use generator (cracked persona) then separate evaluator.
-4. **Verify/Stop** — Machine checks: tests pass, benchmarks, runes aligned, Brier ≥ threshold, stop condition met. Never self-grade.
-5. **Persist/Schedule** — Write worksheet + state. Update memory/references. Schedule next if time-based/proactive.
+## Use when
 
-**Loop Types** (choose or auto-detect):
-- Turn-based: Short/one-off; stop on judgment or user cue.
-- Goal-based: Explicit verifiable goal (e.g., "all targeted tests + Brier calibrated + git clean").
-- Time-based: Cron/scheduled (night-shift sweeps, ingest).
-- Proactive: Self-trigger on recurring signals.
+- The user asks for a long-running autonomous campaign.
+- The work requires repeated observe -> act -> verify cycles.
+- The loop must persist state across sessions or scheduled wakeups.
+- A self-healing or recursive improvement process is explicitly in scope.
+- Multiple producers or delegated packets require loop-level coordination.
+- Independent generator/evaluator passes materially reduce ambiguity or risk.
 
-## When to Use
-- Tag `@/abraxas-master-loop-workflow` (or load via `/skill abraxas-master-loop-workflow`) at session start for any non-trivial Abraxas work.
-- Full lifecycles: features, autonomous campaigns, skill evolution, forecasting, night-shift, complex orchestration.
-- When the task benefits from repeatable, verifiable cycles rather than one-shot execution.
-- Cross-persona reviews, sweeps, meta-audits.
+## Do not use when
 
-**Do not use for**:
-- Trivial lookups (use direct tools or narrower skills).
-- Pure SHADOW analysis without execution intent (use repo-intel + governed loop).
-- When user explicitly says "override workflow" or "one-shot only".
+- The task is a trivial lookup or direct tool call.
+- The task is ordinary bounded engineering that can be proved by code plus tests.
+- The task only needs repository mapping; use `abraxas-repo-intel` if helpful.
+- The task only needs external evidence acquisition; use `abx-familiar-signal-forager`.
+- The task is a deterministic code/doc/schema change with clear acceptance tests.
 
-## 1. Router & Foundations (Jamon Point 0 + Loop Discovery)
-**Mandatory first action on every task.**
+## MSW loop kernel
 
-1. Load `@/AGENTS.md` (master router). Read mandatory pre-change docs (README.md, PLANS.md, GOVERNANCE_V3.md).
-2. Map MODE (Discover → Plan → Build → Review → Loop → Forecast/Ingest), architecture, personas (hermes-cracked-python-engineer for generation, senior-python-architect for evaluation/orchestration).
-3. Emit initial OBSERVED/INFERRED/SPECULATIVE + provenance + Brier estimate.
-4. Choose/detect loop type and building-block sequence.
-5. Load this skill + related (jamon predecessor, governed loop, etc.).
+Every loop cycle uses the AGENTS.md MSW discipline:
 
-**Completion criterion**: Router state + evidence packet logged. No edits until explicit.
+```text
+CONTRACT: requested outcome + smallest proof criteria
+STATE: current observed state and blockers
+SURVIVING CLAIMS: only claims whose deletion leaves the contract unmet or unproven
+ACTION: bounded step for one or more surviving claims
+VERIFICATION: concrete check proving or refuting the claim
+STOP CONDITION: halt when contract is proved, blocked, or not computable
+NEXT STATE: only if another cycle is required
+```
 
-## 2. Full Agentic Execution (Jamon 1–18 + Loop Enhancements)
-Execute per cycle:
+Delete unnecessary claims before acting. Complexity must reduce ambiguity; if it adds ceremony without proof value, remove it.
 
-1. **Intake + Discovery** — OBSERVED/INFERRED/SPECULATIVE with full provenance.
-2. **Research/Plan** — Use repo-intel, obsidian-distiller, etc. Surface ≥2 paths (conventional vs cracked). Trade-offs table (maintainability, performance, observability, symbolic coherence, Brier risk, rune alignment).
-3. **Implementation (Cycle block)** — Always run app/code yourself (terminal, python, pytest, rtk). Write targeted tests during build. Use `abraxas-validation-routing` (narrowest first). Scrubbed env for Python: `env -i PATH="$PATH" ... uv run python -m pytest ...`.
-4. **Self-Healing Docs** — Update every touched file; keep first 7 lines rich. Prefer patch on umbrellas + references/ for detail.
-5. **Tests, Linting, Benchmarks** — Targeted + `python scripts/run_fast_ci.py` before PR actions. Pre-commit with --fix. Visual regression/performance when surfaces change.
-6. **Cross-Review (Generator → Evaluator)** — Cracked (visionary) generation then senior/Doubt-First Auditor evaluation. Checklists: security, AI smells, runes/governance, maintainability, false-confidence, hyperstition risk. Never self-grade.
-7. **Trace & Commit** — Worksheet in out/ (git-tagged). Conventional commits.
-8. **Autonomous Loop** — On "continue", "keep going", etc.: continue without further input until stop condition or hard escalation. Force comprehensive phased TODO on continuation cues. Night-shift prep during day.
-9. **Sweeps & Audits** — Periodic commit scans, false-confidence audits, skill drift checks.
-10. **Feedback & Persist** — Append to FEEDBACK.md or equivalent. Update memory/references. Schedule next cycle if applicable.
-11. **End-of-Shift / Stop** — Full validations, Brier calibration, rune alignment. Emit structured JSON receipt.
+## Evidence and forecasts
 
-**Loop Controls**:
-- Iteration caps + no-progress detection.
-- Generator/Evaluator split.
-- Token management: choose model/effort; reduce via strong verification.
-- Failure modes: infinite loop → caps; hallucination → separate eval + tests; cost overrun → partial outputs + escalate.
+Preserve `OBSERVED`, `INFERRED`, `SPECULATIVE`, and `NOT_COMPUTABLE` labels for repository state, research conclusions, forecasts, causal claims, readiness, operator decisions, and unsupported assumptions.
 
-## 3. Abraxas-Specific Layers (Non-Negotiable)
-- **Structured Output** (end of every cycle or major step):
-  ```json
-  {
-    "OBSERVED": [...],
-    "INFERRED": [...],
-    "SPECULATIVE": [...],
-    "PROVENANCE": { "sources": [], "brier": 0.XX, "git_ref": "" },
-    "LOOP_STATE": { "cycles": N, "stop_condition_met": true/false, "loop_type": "goal-based" },
-    "NEXT_ACTION": "persist | schedule | escalate"
-  }
-  ```
-- **Verification Block** (mandatory before "DONE"):
-  - [ ] Targeted tests + linter + fast CI (scrubbed) pass for touched surfaces.
-  - [ ] Evaluator (different persona) approved.
-  - [ ] Docs/skills/memory/references updated with provenance.
-  - [ ] Worksheet/receipt emitted + git tag.
-  - [ ] Brier calibration recorded.
-  - [ ] Rune/governance/YGGDRASIL alignment confirmed.
-  - [ ] OBSERVED/INFERRED/SPECULATIVE + full provenance present.
-  - [ ] No fabricated evidence; ingest-first followed.
-  - [ ] Multi-agent work: WorkPacket.v1 emitted before producer work; HandoffEnvelope.v1 consumed on completion; no active file-scope overlap without operator disposition.
-- **Symbolic/Rune Layer**: Bind via abx-runes-yggdrasil-manager / unbound-rune-analyzer. Flag hyperstition.
-- **Determinism & Observability**: Preserve canonical_hash, deterministic serialization. Cite tools/docs. No hallucinations.
-- **Ingest-First Evidence**: Apply before baseline claims when context incomplete.
-- **Safety/Escalation**: Least-privilege. Confirm mutations. Fail-closed on canon/git/canary/runtime authority. Never touch secrets.
-- **Edge Cases**:
-  - Underspecified → Probe + prototype IR/schema (document as SPECULATIVE).
-  - High-uncertainty → Dual paths + Brier audit.
-  - Loop drift → Evaluator forces reset + skill patch.
+Brier scoring is required only for genuine probabilistic forecasts with declared settlement criteria. Do not attach Brier values to deterministic code correctness, docs edits, migrations, refactors, schema work, CI repair, or routine architecture work.
 
-## 3b. Multi-Agent Operator Loop — WorkPacket.v1 emit / HandoffEnvelope.v1 consume
+## Generator / evaluator use
 
-**When multi-agent or peer-producer work is in scope** (Hermes routes Grok, Codex/Cursor, or mixed packets), Hermes **must** use the shared operator-loop contracts. Full field tables, authority locks, and validation examples: `references/operator-loop-work-packets.md`.
+Generator/evaluator separation is optional by default and required only when independent evaluation adds real control value:
 
-**Schemas / helpers (do not invent a task database):**
-- `contracts/engineering/work_packet.v1.schema.json` — WorkPacket.v1
-- `contracts/engineering/handoff_envelope.v1.schema.json` — HandoffEnvelope.v1
-- `core/operator_loop.py` — `validate_work_packet`, `validate_handoff`, `detect_work_packet_file_overlaps`, `default_authority`, `example_work_packet`, `example_handoff`
+- autonomous loops;
+- ambiguous architecture choices;
+- high-risk reasoning;
+- research interpretation;
+- generated design alternatives;
+- multi-agent delegated work.
 
-**Hard rules:**
-1. **Emit WorkPacket.v1 before producer work** — bounded `scope.files` / `scope.concepts`, validation commands, acceptance criteria, locked `authority` from `default_authority()`.
-2. **Consume HandoffEnvelope.v1 on completion** — require a validated envelope (`COMPLETE` / `PARTIAL` / `BLOCKED` / `NOT_COMPUTABLE`) with manifests, tests, conflicts, residual risks. Same `work_packet_id`.
-3. **No overlapping scope with active peer packets** — before routing, run `detect_work_packet_file_overlaps` across active packets (`ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW`). Overlaps are detect/classify only; operator disposition required. Never auto-resolve.
-4. **HERMES routes only** — orchestration and continuity; no independent merge, canon, or production authority.
-5. **Producer identity ≠ authority** — `producer_system` is provenance only. Never grant merge/canon/deploy/assignment because the producer was HERMES, GROK, CODEX, MIXED, or HUMAN.
+Prefer objective validation over persona ceremony. Never claim success from self-description alone.
 
-**Forbidden from this path:** production activation/deploy unhold; CLEAR mass deletion; `scripts/operator/__init__.py`; parallel packet schemas or new orchestration DBs.
+## Multi-agent packet workflow
 
-## 4. Activation & Autonomy Rules
-- **Session start**: "Activate abraxas-master-loop-workflow. Task: [input]."
-- **Autonomous**: Continue cycles on "continue"/"keep going" until verifiable stop or escalation (worksheet handoff).
-- **Periodic Meta-Loop**: Every 7 days or major batch → full agentic audit/sweep.
-- **Learning Close**: If cycle ≥5 steps or novel technique: "Save/update skill" with verification block. Patch umbrellas + references/.
+Use `WorkPacket.v1` and `HandoffEnvelope.v1` only when there is actual producer delegation or peer-agent coordination.
 
-**Verification Receipt Template** (append to every cycle close):
-- Tests run & passed?
-- Evaluator approved?
-- Docs/memory updated?
-- Worksheet committed + tag?
-- Brier/rune alignment?
-- New skill/ref saved?
+Required contracts:
 
-## Common Pitfalls
-- Skipping AGENTS.md router or mandatory pre-change reads.
-- Claiming "verified" without scrubbed checks + explicit blocker explanation for collection noise.
-- Self-grading (no generator/evaluator split).
-- Treating historical out/ as live authority.
-- Broad full-suite runs instead of narrowest validation.
-- Duplicating logic instead of patching class-level umbrellas.
-- Ignoring cross-platform casing (prefer lowercase `scripts.*`).
-- Infinite loops without caps or no-progress detection.
-- Fabricating data, wall-clock, UUIDs in deterministic surfaces.
+- `contracts/engineering/work_packet.v1.schema.json`
+- `contracts/engineering/handoff_envelope.v1.schema.json`
+- `core/operator_loop.py`
 
-## References & Related
-- Predecessor: `abraxas-jamon-agentic-workflow` (Jamon 0-18 core; now specialized)
-- Core: `abraxas_v2_governed_operator_loop` (7-phase)
-- Supporting: `abraxas-repo-intel`, `abraxas-automated-production-governance`, `abraxas-validation-routing`, `abraxas_unbound_rune_analyzer`, `abx-runes-yggdrasil-manager`
-- Authoring: `hermes-agent-skill-authoring`
-- AGENTS.md, GOVERNANCE_V3.md, README.md, PLANS.md
-- Multi-agent packets: `references/operator-loop-work-packets.md` (WorkPacket.v1 / HandoffEnvelope.v1 emit-consume)
-- Architecture: `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`
-- Contracts: `contracts/engineering/work_packet.v1.schema.json`, `contracts/engineering/handoff_envelope.v1.schema.json`
-- Helpers: `core/operator_loop.py`
-- `references/loop-building-blocks.md` (detailed 5 blocks + Anthropic patterns)
-- `references/loop-types-and-controls.md`
-- `references/generator-evaluator-split.md`
+Rules:
 
-**Status**: Active primary class-level umbrella. Prefer this for new autonomous work. Curator target for consolidation with governed loop.
+1. WorkPacket scope must be explicit before delegated producer work.
+2. File overlap is detect/classify/operator-disposition only.
+3. HandoffEnvelope records evidence, changed files, tests, conflicts, and residual risks.
+4. Producer identity is provenance only.
+5. Handoff does not grant merge, canon, deploy, assignment, or execution authority.
 
-**Next evolution signals**: New non-trivial loop pattern, user correction, successful long-running campaign closure → immediate patch + verification.
+## Authority boundaries
 
-See `references/jamon-to-master-evolution.md` for migration notes from the predecessor skill.
+- Routine engineering starts at Governance V3 Layer 0.
+- Local development and sandbox work are allowed when bounded.
+- External production remains operator-gated.
+- SHADOW detects anomalies/drift and grants no intervention authority.
+- FORECAST predicts with settlement criteria and grants no intervention authority.
+- Skill evolution produces candidate patches only; active mutation requires operator disposition.
+
+## Minimal loop receipt
+
+When this skill is used, report:
+
+```yaml
+contract: "..."
+state: "OBSERVED current state"
+surviving_claims:
+  - claim: "..."
+    why_required: "..."
+actions:
+  - "..."
+verification:
+  - command: "..."
+    result: "PASS|FAIL|BLOCKED|NOT_COMPUTABLE"
+stop_condition: "..."
+next_state: "only if another cycle is objectively required"
+authority:
+  production_activation: false
+  canon_mutation: false
+  runtime_mutation: false
+```
+
+## References
+
+- [`../../AGENTS.md`](../../AGENTS.md)
+- [`../../SKILLS.md`](../../SKILLS.md)
+- [`../../GOVERNANCE_V3.md`](../../GOVERNANCE_V3.md)
+- [`../../docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](../../docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md)
+- [`references/operator-loop-work-packets.md`](references/operator-loop-work-packets.md)
+- [`references/loop-types-and-controls.md`](references/loop-types-and-controls.md)
+- [`references/generator-evaluator-split.md`](references/generator-evaluator-split.md)

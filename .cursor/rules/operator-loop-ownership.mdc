@@ -7,18 +7,21 @@ alwaysApply: true
 
 Central rule: **Producer identity records provenance. It does not grant authority.**
 
-Before editing:
+Routine bounded engineering follows `AGENTS.md` + `SKILLS.md` and does not require
+a WorkPacket merely because it is non-trivial.
+
+When an active `WorkPacket.v1` is supplied:
 
 1. Read the active `WorkPacket.v1` packet fields `scope.files`, `scope.concepts`, `exclusions` (`exclusions` is top-level, not under `scope`).
 2. Check peer packets in `ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW` for file overlap.
 3. On overlap or semantic conflict: stop, classify (`FILE_OVERLAP`, etc.), await operator disposition. Never auto-resolve.
 
-While producing:
+While producing delegated packet work:
 
 - Stay inside packet scope; do not silently expand ownership.
 - Tag durable outputs with `producer_system: CODEX` or `MIXED`.
 - Run targeted tests for touched surfaces, then fast CI before completion claims.
-- Return a `HandoffEnvelope.v1`-shaped completion note (changed files, commands, tests, conflicts, residual risks, next action).
+- Return a `HandoffEnvelope.v1`-shaped completion note for delegated packet work (changed files, commands, tests, conflicts, residual risks, next action).
 
 Authority locks (always):
 

@@ -1,245 +1,156 @@
-# AGENTS OPERATING DOCTRINE
+# ABRAXAS AGENT DOCTRINE
 
-This repository uses **Governance V3** — implementation-first development with deterministic execution and preserved quality controls. See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md).
+## 1. Purpose
 
-## Development workflow
+This is the constitutional router for agents working in Abraxas-v2.0. It defines authority, startup reads, execution modes, skill routing, evidence standards, and completion semantics. Detailed procedures live in linked domain documents.
 
-Routine engineering work:
+## 2. Authority hierarchy
 
 ```text
-Feature Request → Code → Test → Commit → PR → Merge → Notion Update
+USER TASK
+  ↓
+AGENTS.md
+  ↓
+GOVERNANCE_V3.md
+  ↓
+SKILLS.md
+  ↓
+selected skills/*/SKILL.md
+  ↓
+domain architecture / contracts / tests
+  ↓
+implementation
 ```
 
-Do **not** generate authorization, approval, review, eligibility, or seal packets for ordinary development work.
+A skill may specialize execution. A skill may not silently override this file, grant itself authority, bypass Governance V3, or reinterpret historical artifacts as current authority. Producer identity is provenance, not authority.
 
-## Mandatory pre-change reads
+## 3. Mandatory startup
 
-Before proposing or making changes, coding agents should read:
+Always read, in order:
 
 1. [`README.md`](README.md)
-2. [`STATUS.md`](STATUS.md) — live readiness (do not invent DENIED/NO_GO flips)
+2. [`STATUS.md`](STATUS.md)
 3. [`PLANS.md`](PLANS.md)
 4. [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
+5. [`AGENTS.md`](AGENTS.md)
+6. [`SKILLS.md`](SKILLS.md)
 
-Consult `out/` artifacts when working on surfaces that depend on historical provenance or lineage.
+Then read only the domain documents required by the task. Historical P70-P130 continuity material, archived operator-review chains, and specialized architecture packets are not routine startup requirements.
 
-## Scripts layout (do not reverse)
+## 4. MSW execution kernel
 
-- Domain runners: `scripts/<domain>/run_*.py` — organization **complete**
-- Root keeper: `scripts/run_fast_ci.py` only for CI mirror
-- Never add `scripts/operator/__init__.py` (stdlib `operator` shadowing)
-- Do not invent stub runners for ghost plan paths; inventory first
-- Guide: [`scripts/README.md`](scripts/README.md)
+Use the smallest work structure that proves the task contract:
 
-## Projection / multi-agent
-
-- AAL-Viz assets: [`design-system/aal-viz/`](design-system/aal-viz/) — visual identity only
-- Operator loop: [`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`](docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md) — Hermes routes; Grok/Codex produce; operator decides
-- Work packets / handoffs: `contracts/engineering/work_packet.v1.schema.json`, `contracts/engineering/handoff_envelope.v1.schema.json` · `core/operator_loop.py`
-- Agent provenance schema: `contracts/engineering/agent_artifact_metadata.v1.schema.json` — identity ≠ authority
-- CFAR: `core/cfar.py` — research construct gate; not activation
-- Operator-loop projection (read-only dry-run):
-  `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`
-- Operator-loop GitHub/CI glance (optional): `python3 scripts/viz/gather_operator_loop_github_ci_evidence.py` then projection builder; evidence under `out/operator_loop/evidence/`; never grants merge/assign authority
-
-### Grok / Grok Build requirements
-
-Central rule: **producer identity records provenance; it does not grant authority.**
-
-When Grok (or Grok Build) produces durable work under an operator-loop packet:
-
-1. **Honor active scope** — stay inside the issued `WorkPacket.v1` (`scope.files`, `scope.concepts`, `exclusions`, `activation_lane`). Do not expand scope silently.
-2. **No overlap with active Codex packets** — before editing shared surfaces, inspect peer packets in `ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW`. On `FILE_OVERLAP`, stop contested paths and wait for operator disposition (`DETECT_CLASSIFY_OPERATOR_DISPOSITION`). Prefer non-overlapping packets with Codex/Cursor.
-3. **Return a file manifest** — list every changed path and every generated asset (visuals, design outputs, exploratory code). Tag durable artifacts `producer_system: GROK` (or `MIXED` when co-authoring).
-4. **Return a HandoffEnvelope.v1** on completion (or partial/blocked), matching `contracts/engineering/handoff_envelope.v1.schema.json`. Minimum fields:
-   - `schema_version`, `handoff_id`, `work_packet_id`
-   - `producer_system` (`GROK` | `MIXED`) — provenance only
-   - `status` (`COMPLETE` | `PARTIAL` | `BLOCKED` | `NOT_COMPUTABLE`)
-   - `changed_files`, `generated_assets` (the manifest)
-   - `commands_run`, `tests.passed` / `tests.failed`
-   - `observed_findings`, `inferred_findings`, `conflicts_detected`, `residual_risks`
-   - `next_recommended_action` (advisory; not auto-approved)
-   - `authority` with all grants false and `operator_review_on_semantic_conflict: true`
-5. **Hard stops** — no production activation / deploy unhold; no CLEAR mass deletion; no `scripts/operator/__init__.py` unless the packet explicitly owns it and operator disposition is recorded.
-
-Helpers: `core.operator_loop.validate_handoff`, `example_handoff`, `detect_work_packet_file_overlaps`, `default_authority`. Wiring companions: Hermes skill `skills/abraxas-master-loop-workflow/` (§3b + references); Codex `docs/CODEX_CUSTOM_INSTRUCTIONS.md` + `.cursor/rules/operator-loop-ownership.mdc`.
-
-## Preserved controls
-
-- **Determinism:** preserve `canonical_hash` provenance and deterministic serialization.
-- **Schema validation:** contract-bound surfaces must pass schema checks.
-- **Artifact lineage:** maintain traceability between generators, outputs, and registry entries.
-- **Testing:** run targeted tests for touched surfaces; run fast CI before PRs.
-- **Changelog:** semantic-release updates `CHANGELOG.md` on merge to `main`.
-
-## Test execution order
-
-- Run targeted tests first for touched surfaces.
-- Run broader/full tests only after targeted checks pass or when explicitly requested.
-- If environment constraints block tests, record exact command failures without claiming success.
-
-## Determinism and serialization rules
-
-- Preserve deterministic serialization and hash behavior across packet/artifact writers.
-- Never introduce wall-clock, UUID, filesystem-order, randomness, or network dependency into deterministic surfaces.
-- Keep canonical ordering and stable field shapes intact.
-
-## Governance and authority boundaries
-
-- Keep SHADOW and FORECAST surfaces separated.
-- Historical advisory/projection artifacts under `out/` retain their original locks — do not reinterpret them as live execution authorization.
-- Do not fabricate evidence, fake data, or unverifiable claims.
-- Brier scoring remains telemetry-only; do not resolve Brier outcomes or escalate authority locks.
-
-## Representation-driven instantiation
-
-When work concerns simulation, instantiation, or hyperstition, follow
-[`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md):
-
-1. Representation is not evidence of instantiation.
-2. Simulation is neither proof nor disproof of instantiation.
-3. Measure constitutive properties independently. Do not treat dimensions as a maturity ladder.
-4. Separate observation from inference and preserve `OBSERVED`, `INFERRED`, `SPECULATIVE`, or `NOT_COMPUTABLE` on every relevant claim.
-5. Preserve causal provenance and record exogenous, ABX-mediated, mixed, or unknown exposure where computable.
-6. Predictions require declared settlement and falsification criteria.
-7. Outcomes following an Abraxas intervention are not automatically independent confirmation of the model that recommended it.
-8. SHADOW detects; FORECAST predicts. Neither grants intervention authority.
-9. Unsupported dimensions and aggregate Instantiation Depth remain `NOT_COMPUTABLE`.
-10. Do not collapse multidimensional state into a score without validated measurement semantics.
-11. Map new vocabulary to existing Abraxas primitives before adding architecture or contracts.
-
-## Language / runtime boundary and settlements
-
-Canonical boundary: **Python owns semantics; Rust owns mechanics** — see
-[`ARCHITECTURE.md`](ARCHITECTURE.md) § Language / runtime boundary.
-
-1. Python remains the default for all evolving semantic/research surfaces.
-2. Do not rewrite working Python in Rust without measured need; no FFI boundary merely to introduce Rust.
-3. A Rust component (if ever justified) must consume existing contracts and preserve canonical schema, provenance, and causal-exposure semantics exactly; cross-language artifacts must be deterministic and golden-tested.
-4. Technical settlement (determinism, tests, replay, memory safety) does not imply empirical settlement; commercial settlement does not imply empirical settlement (Three-Settlement Doctrine, `ARCHITECTURE.md`).
-5. Unknown performance or workload evidence = `NOT_COMPUTABLE`; do not invent benchmarks or bottlenecks to justify migration.
-
-## Failure and drift reporting
-
-- Record broken surfaces explicitly; never hide or silently bypass them.
-- Prefer fail-closed reporting with concrete blocker reasons.
-- Do not fabricate artifact/test outcomes.
-
-## CLI Operator Layer
-
-Before asking an AI agent to inspect or modify the repo, prefer targeted CLI operators.
-
-- `OP.SEARCH_SIGNAL`
-- `OP.FIND_PATH`
-- `OP.JSON_EXTRACT`
-- `OP.YAML_EXTRACT`
-- `OP.PR_CONTROL`
-- `OP.DIFF_COMPRESS`
-- `OP.REPO_PACK`
-- `OP.STRUCTURAL_SEARCH`
-- `OP.STATIC_SCAN`
-- `OP.LOC_METRIC`
-
-Rule: "Send AI the smallest complete evidence packet, not a full repo dump."
-
-For full agentic coding, orchestration, autonomous loops, or loop engineering, load `@/abraxas-master-loop-workflow` (Jamon 0-18 + Anthropic 5-block loop engineering fused with Abraxas governance, Brier, provenance, runes, ingest-first, and structured workflow). It mandates this AGENTS.md router + all mandatory pre-change reads.
-
-
-Reference: [`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
-
-## Research canary spine-refresh isolation guardrail
-
-**Rule:** Do NOT regenerate `out/research_canary_*` artifacts during a spine-refresh run unless the full canary chain (P128 source → P129 → P130) is intentionally replayed from a validated, current P128 source.
-
-**Mechanism of failure:** Spine-refresh scripts can downgrade canary artifacts (`COMPLETE_AND_STABLE` → `NOT_COMPUTABLE`), triggering cascading CI failure.
-
-**Correct procedure:**
-- Run spine-refresh scripts in isolation, scoped only to the temporal-continuity chain.
-- Before any spine-refresh, confirm that `out/research_canary_activation_readiness_evidence_record/latest.json` (P129) and `out/research_canary_final_activation_authorization_review/latest.json` (P130) will NOT be touched.
-- If canary artifacts are accidentally degraded, restore from the last known good commit.
-
-## Historical governance archive
-
-P70–P130 continuity artifacts and `out/operator_review/*` surfaces are **archived project history**. They are preserved for provenance and audit but are **not required** for routine development.
-
-For migration context, see [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md).
-
-Historical notes (do not delete artifacts):
-- Registry coverage repair chain (#681–#688) is sealed on `main`.
-- Orphan output registry policy and Track A4b inclusion are sealed separately.
-- Artifact-lineage direct repair chain is sealed.
-- P130 research canary hold artifacts remain under `out/research_canary_*`.
-
-If a user asks for audit/docs-only work, do not perform feature implementation.
-
-## Temporal continuity P102 handoff (historical archive)
-
-When working on sealed temporal-continuity repair lanes, consult these runners and outputs:
-
-- P102A: `python scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
-- P102 compression audit: `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` → `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`
-- P102B router: `python scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py`
-- P102C selected plan: `python scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py`
-
-When `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane; route to the recommended P103 lane instead.
-
----
-
-## Scripts layout
-
-Runners are **domain-organized** under `scripts/<domain>/run_*.py`. See [`scripts/README.md`](scripts/README.md).
-
-- Prefer: `python -m scripts.<domain>.run_<name>` or `python scripts/<domain>/run_<name>.py`
-- Root `run_*` keeper: **only** `scripts/run_fast_ci.py`
-- Never put bare `scripts/` first on `PYTHONPATH` (stdlib `operator` shadow risk with `scripts/operator/`)
-- Do not add new root `scripts/run_*.py` — use a domain package; check `python scripts/organize_scripts.py status` stays `complete: true`
-- Do not bulk-rewrite sealed `out/operator_review/v2_hygiene_*` or operator handoff templates for path cosmetics
-
-## PR validation discipline
-
-Before opening or updating a PR, run:
-
-```bash
-python scripts/run_fast_ci.py
+```text
+contract ← requested outcome + smallest proof criteria
+while ∃ claim c:
+    deleting c leaves contract unmet or unproven
+    do c
+    prove c
+halt
+report
 ```
 
-This enforces deterministic fast checks (artifact validation-only + drift, fast pytest subset, Ruff, Pyright) without full artifact regeneration.
-Do not treat schedule/manual workflow runs as fast-ci substitutes; those are canon-validation lanes.
+Interpretation: state the contract, define minimal proof, discard unnecessary claims, execute only surviving claims, verify each one, stop when proved, and report evidence plus unresolved uncertainty. MSW reduces ceremony; it is not another process layer.
 
-## Local pytest environment hygiene
+## 5. Evidence states
 
-Hermes shells can inherit `PYTHONPATH` / `PYTHONHOME` from the agent runtime and accidentally import the Hermes venv instead of the repo venv. If pytest starts failing in collection with imports resolving under `~/.hermes/hermes-agent/venv`, run repo tests with those variables cleared:
+Use these labels when making claims about repository state, research conclusions, forecasts, causal claims, readiness, external conditions, operator decisions, or unsupported assumptions:
 
-```bash
-env -u PYTHONPATH -u PYTHONHOME uv run pytest tests/test_*.py
+- `OBSERVED`: directly supported by bound evidence in stated scope.
+- `INFERRED`: derived from observations plus declared assumptions.
+- `SPECULATIVE`: bounded hypothesis without sufficient observation.
+- `NOT_COMPUTABLE`: required evidence, semantics, provenance, or comparability is absent.
+
+Do not fabricate data, sources, test results, benchmarks, or operator decisions. Ordinary code-edit prose does not need a tag unless it makes one of the claim types above.
+
+## 6. Execution routing
+
+Choose proportional execution:
+
+| Mode | Use for | Proof shape |
+| --- | --- | --- |
+| `DIRECT` | trivial factual lookup or direct tool use | answer/tool result |
+| `BOUNDED` | normal single-agent implementation | code → targeted tests → broader validation as needed |
+| `OPERATOR_LOOP` | real delegated/peer multi-agent work | `WorkPacket.v1` → producer work → `HandoffEnvelope.v1` |
+| `FORECAST` | prediction or probabilistic inference | forecast → settlement criteria → later outcome/scoring |
+| `MASTER_LOOP` | long-running autonomous campaigns, recursive improvement, scheduled loops | contract/state/claims/action/verification/stop-condition cycles |
+
+Normal bounded engineering does not require WorkPackets, seal packets, approval packets, or master-loop orchestration.
+
+## 7. Governance and activation boundaries
+
+Governance V3 is authoritative and implementation-first. Every engineering task starts at Layer 0 unless objective evidence shows a higher boundary.
+
+- Layer 0: internal engineering, docs, tests, validators, refactors, tooling.
+- Layer 1: advisory architecture, research, SHADOW, prototypes.
+- Layer 2: canon-sensitive contracts, accepted truth surfaces, governance definitions.
+- Layer 3: externally consequential runtime, deployment, promotion, production activation.
+
+`LOCAL_DEV` and bounded `SANDBOX` work are allowed. `INTERNAL_CANARY` is conditional. `EXTERNAL_PRODUCTION`, public deployment, irreversible external mutation, billing, broad network authority, or user/customer data exposure remain operator-gated.
+
+## 8. Deterministic engineering invariants
+
+Mandatory invariants:
+
+- canonical serialization and stable `canonical_hash` behavior;
+- schema validation for contract-bound surfaces;
+- artifact lineage and reproducible generator/output relationships;
+- deterministic ordering;
+- no hidden wall-clock, filesystem-order, random UUID, randomness, or network dependency in deterministic surfaces unless explicitly modeled;
+- targeted tests for touched surfaces;
+- `python scripts/run_fast_ci.py` or repository-documented equivalent before completion claims;
+- exact failure reporting without false success claims.
+
+Language boundary: Python owns evolving semantics; Rust is only for justified stable mechanics. Do not rewrite working Python into Rust without measured need. See [`ARCHITECTURE.md`](ARCHITECTURE.md).
+
+## 9. SHADOW / FORECAST boundary
+
+```text
+SHADOW:  detect, classify, and surface anomalies/drift. No causal story invention. No intervention authority.
+FORECAST: infer or predict from evidence, declare prediction and settlement criteria, score only after valid settlement. No intervention authority.
 ```
 
-Use the same environment scrub when debugging collection failures so the result reflects the repo workspace, not the assistant runtime.
+Do not let SHADOW become implicit forecasting. Do not let FORECAST become activation authority. Brier scoring is for genuine probabilistic forecasts, not routine deterministic code validation.
 
-## Cross-platform script imports
+## 10. Representation-driven instantiation rules
 
-The canonical package path for new code is lowercase `scripts.*`. Legacy mixed-case `Scripts.*` imports are still accepted for compatibility because this repo is regularly used across devices and filesystems with different case-sensitivity behavior. Prefer `scripts.*` in new edits, but keep the compatibility shim until all consumers are safely migrated.
+When work concerns simulation, instantiation, hyperstition, or representation effects, follow [`docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md`](docs/architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md). Agent-level invariants:
 
-## Repository Tooling and Codex Execution Preferences
+- representation is not instantiation;
+- simulation is neither proof nor disproof of instantiation;
+- constitutive properties remain multidimensional;
+- causal provenance matters;
+- intervention-contaminated outcomes must be marked;
+- unsupported dimensions remain `NOT_COMPUTABLE`;
+- no unvalidated aggregate score;
+- predictions require settlement criteria.
 
-- Verify the active repository root with `git rev-parse --show-toplevel`.
-- Check `git status --short` before and after modifications; do not silently modify unrelated files, and do not delete or overwrite untracked files without explicit authorization.
-- Prefer `rg` for recursive text/code search, `fd` for file discovery, `jq` for JSON inspection/transformation, and `yq` for YAML inspection/transformation.
-- Use `codebase-memory-mcp` for structural repository queries, symbol relationships, call paths, and architecture discovery before broad file reads when the MCP server is available; fall back to `rg`, `fd`, direct file inspection, and repository-native scripts when Codebase Memory is unavailable or stale.
-- Use the canonical Codebase Memory project name `abraxas-v2-full` when multiple projects point at this checkout.
-- Refresh Codebase Memory with a full index only: `codebase-memory-mcp cli index_repository --repo-path "$(git rev-parse --show-toplevel)" --mode full --name abraxas-v2-full --persistence true`.
-- Do not rely on default Codebase Memory indexing mode. Treat `nodes=0`, `edges=0`, or `expected_nodes=0` as failed/unusable even when status says `indexed`.
-- Confirm Codebase Memory freshness against the current Git HEAD before using graph conclusions; never overwrite a healthy tracked artifact with a zero-node index.
-- Prefer `uv` for Python dependency management, environments, and command execution; run tests with `uv run python -m pytest`.
-- Run targeted tests before broader suites. Use scrubbed-environment validation for authoritative test receipts when appropriate: `env -i PATH="$PATH" HOME="$HOME" USER="$USER" UV_CACHE_DIR="$HOME/.cache/uv" uv run python -m pytest ...`.
-- Prefer `ruff` for linting and formatting, and prefer `basedpyright` or the repository's configured type checker for static analysis.
-- Prefer `ast-grep` for syntax-aware searches and mechanical refactors.
-- Do not use interactive TUIs such as `lazygit`, `fzf`, `btop`, or `tmux` inside unattended Codex tasks.
-- Use `gh` only when GitHub authentication is available and the task requires GitHub operations.
-- Use `hyperfine` only for explicit performance comparisons.
-- Use `watchexec` or `entr` only for active local watch workflows, not for one-shot unattended tasks.
-- Prefer repository-native scripts, schemas, tests, and documented workflows over ad hoc replacements.
-- Treat Abraxas engineering work as permitted under the existing engineering authorization boundary, while preserving advisory-only governance and avoiding production activation, canon mutation, or promotion unless explicitly authorized.
-- Separate observed repository state from inferred conclusions in completion reports; mark unavailable or unsupported conclusions as `NOT_COMPUTABLE`.
-- Before reporting completion, inspect `git diff --check` and the relevant diff.
-- Report exact commands run, files changed, tests executed, failures encountered, and unresolved risks.
+## 11. Multi-agent routing
+
+Use `WorkPacket.v1`, `HandoffEnvelope.v1`, and [`core/operator_loop.py`](core/operator_loop.py) only when there is actual producer delegation or peer-agent coordination. Contract paths:
+
+- [`contracts/engineering/work_packet.v1.schema.json`](contracts/engineering/work_packet.v1.schema.json)
+- [`contracts/engineering/handoff_envelope.v1.schema.json`](contracts/engineering/handoff_envelope.v1.schema.json)
+
+Enforce explicit scope, file-overlap detection, no implicit authority escalation, producer identity != authority, and operator disposition on semantic conflicts. Agent handoff alone never grants external production activation, merge, canon promotion, deploy, assignment, or CLEAR authority.
+
+## 12. Skill routing
+
+[`SKILLS.md`](SKILLS.md) is the canonical skill registry/router. Load a skill only when it adds task-specific capability. Do not load a skill merely because it exists. The master-loop skill is specialist-only for autonomous multi-cycle work, not the default for ordinary engineering.
+
+## 13. Validation and completion
+
+Before reporting completion:
+
+1. inspect `git status --short` and relevant diffs;
+2. run targeted validation for touched surfaces;
+3. run broader validation or fast CI when required by scope;
+4. run `git diff --check`;
+5. report files changed, commands run, validation results, unresolved risks, and `NOT_COMPUTABLE` items.
+
+If a test or environmental blocker prevents proof, report `PARTIAL` or `BLOCKED` with exact command evidence.
+
+## 14. Historical material
+
+Historical governance, continuity, and operator-review artifacts are preserved for provenance but do not pollute the default execution path. Use them only when the task touches their surface. See [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md), [`scripts/README.md`](scripts/README.md), and [`docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md`](docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md).

@@ -1,29 +1,38 @@
 ---
 name: abraxas-jamon-agentic-workflow
-description: Use when executing agentic coding, orchestration, autonomous loops, self-healing workflows, or full task lifecycles on Abraxas-v2.0. Routes every task through Jamon-style intake/plan/build/review/loop + Abraxas-specific layers (runes/YGGDRASIL binding, Brier calibration, provenance tagging, OBSERVED/INFERRED/SPECULATIVE structure, ingest-first evidence, determinism, hyperstition scanning, HollerSports governance).
+description: Historical Jamon workflow reference for Abraxas. Do not use as the default router. Current routing is AGENTS.md + SKILLS.md; use abraxas-master-loop-workflow only for autonomous multi-cycle loop work.
 version: 1.0.0
 author: Hermes / Abraxas Governed Operator (appliedalchemylabs)
 license: Proprietary
 platforms: [macos, linux]
 metadata:
+  status: SUPERSEDED
+  default: false
+  superseded_by: [abraxas-master-loop-workflow, AGENTS.md, SKILLS.md]
   hermes:
     tags: [abraxas, agentic, jamon, workflow, self-healing, governance, autonomous, runes, brier, provenance, deterministic, ingest-first]
     related_skills: [abraxas-jamon-agentic-workflow, abraxas_v2_governed_operator_loop, abraxas-repo-intel, abraxas-automated-production-governance, abraxas-validation-routing, hermes-agent-skill-authoring, abraxas-obsidian-distiller, abraxas-multi-agent-orchestrator, hermes-graph-of-loops, hermes-outcome-driven-improver, modular-synth-catalog-research]
 ---
 
 # ABRAXAS JAMON AGENTIC WORKFLOW v1.0
+
+**Status:** `SUPERSEDED` historical reference. Current default execution doctrine is
+[`../../AGENTS.md`](../../AGENTS.md) and [`../../SKILLS.md`](../../SKILLS.md).
+Do not route ordinary or non-trivial work through this skill merely because it
+exists. Use `abraxas-master-loop-workflow` only for genuine autonomous multi-cycle
+work.
 **Hermes Operator Mode** – Activated for ALL Abraxas sessions unless explicitly overridden.
 
 Fuses Jamon Holmgren’s 0–18 agentic points with Abraxas-v2.0 conventions: structured outputs, provenance tagging, Brier calibration, rune/governance bindings, symbolic compression, HollerSports determinism, hyperstition scanning, Governance V3, CLI Operator Layer (smallest complete evidence packet), and ingest-first evidence acquisition.
 
 ## Overview
-This class-level umbrella skill turns Hermes into a fully autonomous, self-healing governed operator for the Abraxas-v2.0 repository. It enforces the standard workflow on every task while embedding Abraxas guardrails.
+This historical class-level umbrella captured an earlier autonomous workflow pattern. It no longer enforces the standard workflow for current tasks; use it only as provenance/reference when maintaining old Jamon-style loop material.
 
-**Core principle:** Always start with router + mandatory pre-change reads. Produce OBSERVED/INFERRED/SPECULATIVE tiers with provenance. Run code/tests yourself. Update docs/skills/memory. Cross-review. Prefer class-level durable artifacts over ephemeral scripts.
+**Current interpretation:** Apply `AGENTS.md` and `SKILLS.md` first. Reuse details below only when they still help a specialist autonomous loop, and discard ceremony that is not required to prove the task contract.
 
 ## When to Use
-- Tag `@/abraxas-jamon-agentic-workflow` (or load via `/skill abraxas-jamon-agentic-workflow`, `hermes -s abraxas-jamon-agentic-workflow`) at the start of any Abraxas session.
-- Full task lifecycles: feature, bugfix, research, rune binding, skill evolution, forecasting calibration, autonomous loops, night-shift / unattended work.
+- Do not load this skill at the start of an Abraxas session by default.
+- Use only as historical reference for old Jamon workflow details, or use `abraxas-master-loop-workflow` for current autonomous loop work.
 - Cross-persona reviews, sweeps, audits, end-of-shift validation.
 
 **Do not use for:**
@@ -32,7 +41,7 @@ This class-level umbrella skill turns Hermes into a fully autonomous, self-heali
 - Pure SHADOW-only analysis without execution intent (use repo-intel + governed loop directly).
 
 ## 1. ROUTER (AGENTS.md – Jamon Point 0)
-**Mandatory first action on every task.**
+**Historical pattern, not a current mandatory first action.**
 
 1. Load `@/AGENTS.md` (master router).
 2. Read (or confirm prior read of) mandatory pre-change docs:
@@ -50,7 +59,7 @@ This class-level umbrella skill turns Hermes into a fully autonomous, self-heali
 **Completion criterion:** Router state + evidence packet logged. No edits until this is explicit.
 
 ## 2. STANDARD WORKFLOW (Jamon Points 1 + Abraxas)
-For **every** task execute the loop in order:
+Historical loop pattern; do not apply to every task. Current tasks should use the smallest `AGENTS.md` execution mode that proves the contract.
 
 1. **Intake**
    Parse query. Output explicit:

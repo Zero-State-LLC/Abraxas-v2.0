@@ -15,9 +15,15 @@ deploy, assignment, or execution authority. Schema authority locks stay false:
 `producer_identity_grants_authority`, `auto_merge`, `auto_canon_promotion`,
 `auto_deploy`, `assignment_authority`, `execution_authority`.
 
-## Before any edit
+## Before ordinary bounded edits
 
-1. Read `AGENTS.md` and the active packet scope for this task.
+Follow `AGENTS.md` and `SKILLS.md`: routine single-agent engineering starts as
+bounded implementation plus verification. Do not create or require WorkPackets,
+seal packets, or approval packets merely because a task is non-trivial.
+
+## When an active WorkPacket is supplied
+
+1. Read `AGENTS.md`, `SKILLS.md`, and the active packet scope for this task.
 2. Load the active `WorkPacket.v1` (or packet fields supplied by the operator /
    Hermes). Honor `scope.files`, `scope.concepts`, `exclusions`, and
    `activation_lane`.
@@ -61,7 +67,7 @@ deploy, assignment, or execution authority. Schema authority locks stay false:
 
 ## Completion: HandoffEnvelope.v1 shape
 
-Every completed (or blocked/partial) packet returns a handoff matching
+Every completed (or blocked/partial) delegated packet returns a handoff matching
 `contracts/engineering/handoff_envelope.v1.schema.json`. Minimum fields:
 
 ```yaml

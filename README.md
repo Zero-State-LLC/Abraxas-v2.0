@@ -65,7 +65,7 @@ This is a candidate system. Production activation is held. The work remains in c
 
 Core subsystems include the Belief Graph, Oracle signal layer, governed ingest, pipeline contracts, YGGDRASIL routing, AAL-Viz projection, and operator review surfaces. These run in SHADOW / advisory posture by default: evidence can be prepared for human review, but runtime execution, canon mutation, writeback, and external action stay operator-gated.
 
-Deeper technical material, architecture notes, status, and research documentation live elsewhere in the repository for those who need them.
+Deeper technical material, architecture notes, status, and research documentation live elsewhere in the repository for those who need them. Agents should start with [`AGENTS.md`](AGENTS.md) and use [`SKILLS.md`](SKILLS.md) only when task-specific skill routing is needed.
 
 ---
 

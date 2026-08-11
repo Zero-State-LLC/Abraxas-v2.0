@@ -105,12 +105,15 @@ skills:
 - Nested SKILL.md (holler-*, hyperagent) are discoverable.
 - Local `~/.hermes/skills/` still wins on name collision.
 
-### Core load order for Abraxas sessions
+### Skill routing for Abraxas sessions
 
-1. `abraxas-master-loop-workflow` — loop engine  
-2. `abx-familiar-signal-forager` — evidence first  
-3. Task skills (`abx-neon-genie`, `abx-esoteric-intelligence`, `holler-*`, …)  
-4. `abx-hermes-skill-evolution` — after meaningful work, emit traces  
+Default bounded engineering uses `AGENTS.md` + `SKILLS.md` + relevant domain docs. Load skills only when task-specific capability is needed:
+
+1. `abraxas-repo-intel` — repository mapping when broad context is needed
+2. `abx-familiar-signal-forager` — evidence/signal acquisition
+3. Task skills (`abx-neon-genie`, `abx-esoteric-intelligence`, `holler-*`, …)
+4. `abraxas-master-loop-workflow` — only for autonomous multi-cycle campaigns or recursive loop engineering
+5. `abx-hermes-skill-evolution` — after meaningful work, emit review-only traces/candidates
 
 Distilled set: `artifacts/hermes-surface/DISTILLED_HERMES_SKILL_SET.md`.
 
