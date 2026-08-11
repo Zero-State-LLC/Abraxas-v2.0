@@ -27,6 +27,7 @@ OBSERVED_NON_TIER1_FILES = [
     "operator_review_queue.v1_1.json",
     "v2_hygiene.v1_1.json",
     "oracle_signal.v1_1.json",
+    "neon_genie_ideation.v1_1.json",
 ]
 
 TRACK_B_FILES = [
@@ -62,7 +63,9 @@ def test_track_b_contract_loads_and_is_locked(filename: str):
     assert contract.schema_version == "AbraxasPipelineAutomationContract.v1.1"
     contract.authority.assert_locked()
     assert "hold" in {item.value for item in contract.final_state_policy}
-    assert "eligible_for_operator_review" in {item.value for item in contract.final_state_policy}
+    assert "eligible_for_operator_review" in {
+        item.value for item in contract.final_state_policy
+    }
 
 
 @pytest.mark.parametrize("filename", TIER1_FILES)
@@ -91,7 +94,9 @@ def test_tier1_contract_has_trigger(filename: str):
 
 def test_all_observed_pipeline_contracts_present():
     contracts = load_contracts(CONTRACTS_DIR)
-    assert len(contracts) == 20
+    assert len(contracts) == len(list(CONTRACTS_DIR.glob("*.json")))
     pipeline_ids = {c.pipeline_id for c in contracts}
     assert "alembic_spine" in pipeline_ids
-    assert set(filename.removesuffix(".v1_1.json") for filename in TRACK_B_FILES).issubset(pipeline_ids)
+    assert {filename.removesuffix(".v1_1.json") for filename in TRACK_B_FILES}.issubset(
+        pipeline_ids
+    )

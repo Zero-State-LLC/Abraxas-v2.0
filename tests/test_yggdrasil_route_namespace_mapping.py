@@ -7,8 +7,12 @@ from pathlib import Path
 from jsonschema import validate
 
 from core.canonical.json import canonical_hash
+from core.pipelines.registry import load_contracts
 from core.track_b_contract_closure import TRACK_B_PIPELINE_IDS
-from core.yggdrasil_route_namespace_mapping import build_yggdrasil_route_namespace_mapping
+from core.yggdrasil.validator import load_route_graphs
+from core.yggdrasil_route_namespace_mapping import (
+    build_yggdrasil_route_namespace_mapping,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/yggdrasil_route_namespace_mapping.v1.schema.json"
@@ -49,22 +53,35 @@ def test_yggdrasil_route_namespace_mapping_is_mapping_only() -> None:
 
 def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     packet = build_yggdrasil_route_namespace_mapping(repo_root=REPO_ROOT)
+    route_ids = set(load_route_graphs(REPO_ROOT / "contracts/yggdrasil/routes"))
+    pipeline_ids = {
+        contract.pipeline_id
+        for contract in load_contracts(REPO_ROOT / "contracts/pipelines")
+    }
 
-    assert packet["route_count"] == 12
-    assert packet["pipeline_count"] == len(list((REPO_ROOT / "contracts/pipelines").glob("*.json")))
-    assert packet["mapped_count"] == 12
-    assert packet["unmapped_routes"] == []
-    assert packet["missing_routes_for_pipelines"] == sorted(TRACK_B_PIPELINE_IDS)
+    assert packet["route_count"] == len(route_ids)
+    assert packet["pipeline_count"] == len(pipeline_ids)
+    assert packet["mapped_count"] == len(route_ids & pipeline_ids)
+    assert packet["unmapped_routes"] == sorted(route_ids - pipeline_ids)
+    assert packet["missing_routes_for_pipelines"] == sorted(pipeline_ids - route_ids)
 
     records = {record["pipeline_id"]: record for record in packet["namespace_records"]}
     assert records["research_intake"]["notion_namespace"] == "Research Intake"
     assert records["research_intake"]["route_node_namespace"] == "research.intake"
     assert records["drift_scan"]["route_node_namespace"] == "drift"
-    assert records["universal_ingest"]["notion_namespace"] == "Global Ingest Adapter Spine"
+    assert (
+        records["universal_ingest"]["notion_namespace"] == "Global Ingest Adapter Spine"
+    )
     assert records["operator_review_queue"]["route_node_namespace"] == "operator_review"
-    exact_records = [record for record in records.values() if record["mapping_strength"] == "EXACT"]
+    assert records["neon_genie_ideation"]["route_node_namespace"] == "neon_genie"
+
+    exact_records = [
+        record for record in records.values() if record["mapping_strength"] == "EXACT"
+    ]
     missing_route_records = [
-        record for record in records.values() if record["pipeline_id"] in TRACK_B_PIPELINE_IDS
+        record
+        for record in records.values()
+        if record["pipeline_id"] in set(TRACK_B_PIPELINE_IDS) - {"neon_genie_ideation"}
     ]
     assert all(record["route_authority_locked"] for record in exact_records)
     assert all(record["pipeline_authority_locked"] for record in records.values())
@@ -82,8 +99,12 @@ def test_yggdrasil_route_namespace_mapping_schema_and_hash_are_stable() -> None:
     validate(packet, schema)
 
 
-def test_yggdrasil_route_namespace_mapping_runner_writes_stable_outputs(tmp_path: Path) -> None:
-    out_json = tmp_path / "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.json"
+def test_yggdrasil_route_namespace_mapping_runner_writes_stable_outputs(
+    tmp_path: Path,
+) -> None:
+    out_json = (
+        tmp_path / "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.json"
+    )
     out_md = tmp_path / "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.md"
     run_yggdrasil_route_namespace_mapping = _load_runner()
 

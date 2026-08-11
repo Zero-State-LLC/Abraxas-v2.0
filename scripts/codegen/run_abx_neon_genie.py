@@ -28,13 +28,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run Neon Genie venture cycle")
     parser.add_argument("--input", type=Path, help="JSON request file")
     parser.add_argument("--mode", default="PROMPT_LED")
-    parser.add_argument("--output", type=Path, default=Path("/tmp/neon_genie_receipt.json"))
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("out/neon_genie/neon_genie_ideation_receipt_001.latest.json"),
+    )
     args = parser.parse_args()
 
     skill_dir = Path(__file__).resolve().parents[2] / "skills" / "abx-neon-genie"
 
     # Load modules directly
-    router_mod = _load_module_from_path("neon_genie_router", skill_dir / "neon_genie_router.py")
+    router_mod = _load_module_from_path(
+        "neon_genie_router", skill_dir / "neon_genie_router.py"
+    )
     run_venture_cycle = router_mod.run_venture_cycle
 
     if args.input and args.input.exists():

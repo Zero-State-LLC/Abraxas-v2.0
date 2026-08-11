@@ -137,7 +137,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "dry_run_contract_path": "contracts/holler/outcome_binding_dry_run.v0.schema.json",
         "dry_run_module": "core.holler.outcome_binding_dry_run",
     },
-
     {
         "pipeline_id": "memetic_futurecast",
         "display_name": "Memetic Futurecast Pipeline",
@@ -156,7 +155,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "dry_run_contract_path": "contracts/memetic/brier_ledger_dry_run.v0.schema.json",
         "dry_run_module": "core.memetic.brier_ledger_dry_run",
     },
-
     {
         "pipeline_id": "oracle_signal",
         "display_name": "Oracle Signal Layer Pipeline",
@@ -195,8 +193,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         ),
         "dry_run_module": "core.signal.familiar_operator_review",
     },
-
-
     {
         "pipeline_id": "drift_scan",
         "display_name": "Drift Scan Pipeline",
@@ -237,7 +233,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         ),
         "dry_run_module": "core.noctis.operator_review_dry_run",
     },
-
     {
         "pipeline_id": "neon_genie_ideation",
         "display_name": "Neon Genie App Ideation Pipeline",
@@ -246,7 +241,7 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "tier": 3,
         "lane": "SHADOW_PRODUCT",
         "migration_status": "specified",
-        "next_action": "skill package/router wired to IdeationOperatorPacket.v0; optional fixture corpus; Hermes packaging handoff remains external",
+        "next_action": "contracts/pipelines/neon_genie_ideation.v1_1.json landed closing the contract gap; skill package/router wired to IdeationOperatorPacket.v0; Hermes packaging handoff remains external (out of scope for Abraxas core)",
         "contract_path": "contracts/neon_genie/ideation_operator_packet.v0.schema.json",
         "builder_module": "core.neon_genie.ideation_operator_packet",
     },
@@ -265,7 +260,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "contract_path": "contracts/level99/content_operator_packet.v0.schema.json",
         "builder_module": "core.level99.content_operator_packet",
     },
-
     {
         "pipeline_id": "phonomicon_artifact",
         "display_name": "Phonomicon Artifact Pipeline",
@@ -281,7 +275,6 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "contract_path": "contracts/phonomicon/artifact_operator_packet.v0.schema.json",
         "builder_module": "core.phonomicon.artifact_operator_packet",
     },
-
     {
         "pipeline_id": "beatoven_psyfi_integration",
         "display_name": "BeatOven / PsyFi Integration Pipeline",
@@ -364,10 +357,15 @@ def _status_from_result(result: dict[str, Any] | None) -> str:
     return str(result.get("status", "not_computable"))
 
 
-def _oracle_signal_additive_shadow_contracts_observed(root: Path, pipeline_id: str) -> bool:
+def _oracle_signal_additive_shadow_contracts_observed(
+    root: Path, pipeline_id: str
+) -> bool:
     if pipeline_id != "oracle_signal":
         return False
-    return all((root / path).exists() for path in ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS)
+    return all(
+        (root / path).exists()
+        for path in ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS
+    )
 
 
 def _entry_from_spec(
@@ -376,9 +374,11 @@ def _entry_from_spec(
     validation_result: dict[str, Any] | None,
     root: Path,
 ) -> dict[str, Any]:
-    additive_shadow_contracts_observed = _oracle_signal_additive_shadow_contracts_observed(
-        root,
-        str(spec["pipeline_id"]),
+    additive_shadow_contracts_observed = (
+        _oracle_signal_additive_shadow_contracts_observed(
+            root,
+            str(spec["pipeline_id"]),
+        )
     )
     observed_required_artifacts = (
         contract.required_artifacts
@@ -403,14 +403,19 @@ def _entry_from_spec(
     if contract and spec["pipeline_id"] == "aal_viz_projection":
         aal_viz_projection_status = "passed"
     elif contract:
-        aal_viz_projection_status = _gate_status(validation_result, "aal_viz_projection_gate")
+        aal_viz_projection_status = _gate_status(
+            validation_result, "aal_viz_projection_gate"
+        )
     else:
         aal_viz_projection_status = "missing"
     operator_review_status = "missing"
     canon_sync_status = "missing"
     stabilization_status = "not_started" if contract else "not_computable"
 
-    if validation_result and validation_result.get("status") == "legacy_contract_posture":
+    if (
+        validation_result
+        and validation_result.get("status") == "legacy_contract_posture"
+    ):
         migration_status = "partial"
     elif contract:
         migration_status = "implemented"
@@ -508,7 +513,9 @@ def build_registry(
         "generated_at_policy": "deterministic_or_receipt_bound",
         "recommended_next_state": "eligible_for_shadow_stabilization",
     }
-    registry["registry_id"] = canonical_hash({k: v for k, v in registry.items() if k != "registry_id"})
+    registry["registry_id"] = canonical_hash(
+        {k: v for k, v in registry.items() if k != "registry_id"}
+    )
     return registry
 
 
@@ -528,7 +535,7 @@ def validate_registry(registry: dict[str, Any]) -> dict[str, Any]:
     if registry.get("schema_version") != SCHEMA_VERSION_REGISTRY:
         raise ValueError("Invalid registry schema_version")
     if not isinstance(registry.get("pipelines"), list):
-        raise ValueError("Registry missing pipelines list")
+        raise TypeError("Registry missing pipelines list")
     if registry.get("pipeline_count") != len(registry["pipelines"]):
         raise ValueError("Registry pipeline_count mismatch")
     expected_tier_counts = {

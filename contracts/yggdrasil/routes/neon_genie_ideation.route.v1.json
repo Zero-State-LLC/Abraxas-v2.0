@@ -1,0 +1,29 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "neon_genie_ideation",
+  "nodes": [
+    {"node_id": "neon_genie.trigger", "node_type": "pipeline", "lane": "SHADOW"},
+    {"node_id": "neon_genie.route", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.ROUTE"},
+    {"node_id": "neon_genie.novelty_validate", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "neon_genie.overlap_scan", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN"},
+    {"node_id": "neon_genie.operator_packet", "node_type": "artifact", "lane": "SHADOW"},
+    {"node_id": "neon_genie.operator_review", "node_type": "review_gate", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW"},
+    {"node_id": "neon_genie.receipt", "node_type": "artifact", "lane": "SHADOW", "rune_id": "RUNE.YGGDRASIL.ROUTE_RECEIPT"}
+  ],
+  "edges": [
+    {"source": "neon_genie.trigger", "target": "neon_genie.route", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.route", "target": "neon_genie.novelty_validate", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.novelty_validate", "target": "neon_genie.overlap_scan", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.overlap_scan", "target": "neon_genie.operator_packet", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "neon_genie.operator_packet", "target": "neon_genie.operator_review", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "neon_genie.operator_review", "target": "neon_genie.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}
