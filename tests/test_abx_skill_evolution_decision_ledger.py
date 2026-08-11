@@ -125,7 +125,6 @@ def test_refs_stable():
     ]
     assert {str(p) for p in refs} == {
         "core/abx_artifact_lineage_registry_repair_execution_plan.py",
-        "core/abx_artifact_lineage_registry_traceability_audit.py",
         "core/abx_artifact_lineage_runner_casing_policy_decision_record.py",
     }
 
