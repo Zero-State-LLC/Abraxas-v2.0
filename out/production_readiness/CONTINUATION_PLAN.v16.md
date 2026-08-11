@@ -7,7 +7,7 @@ supersedes: CONTINUATION_PLAN.v15
 status: DRAFT
 drafted_at: 2026-07-19
 branch: main
-tip_context: post-scripts-org-and-hygiene
+tip_context: production-readiness-evidence-refresh
 merged_scripts_prs:
   - https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/972   # mass-org wave 1–2
   - https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/973   # mass-org wave 3
@@ -15,19 +15,19 @@ merged_scripts_prs:
   - https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/975   # post-org hygiene + DX
 scripts_organization: COMPLETE
 scripts_maintenance: COMPLETE
-unauthorized_sole_writer_findings: 0
+unauthorized_sole_writer_findings: 3_report_only
 evidence_state: Partial
-current_readiness_state: CANDIDATE_HELD_FOR_OPERATOR_DEPLOY
-primary_goal: close scripts track; pivot to operator visibility and whole-repo health
+current_readiness_state: NOT_READY
+primary_goal: keep readiness evidence aligned with repo-observed state while activation remains denied
 authority_mode: operator-controlled
 production_activation_authorized: false
-release_decision: CANDIDATE_APPROVED
-deploy_held: true
+release_decision: RELEASE_HELD
+deploy_held: false  # no candidate deploy to hold while release is held
 deploy_readiness: NO_GO
 activation_gate: DENIED
 ```
 
-**Scripts track is closed (org + hygiene/DX).** This draft pivots continuation to **operator visibility**, **whole-repo health**, and **held deploy/activation**. Production activation remains **DENIED**. Deploy remains **NO_GO**.
+**Scripts track is closed (org + hygiene/DX).** The current readiness evidence refresh keeps the production-candidate package aligned with repo-observed state: release is **RELEASE_HELD**, deploy is **NO_GO**, and production activation remains **DENIED**.
 
 ---
 
@@ -38,7 +38,7 @@ activation_gate: DENIED
 | Mass-org waves 1–3 | PRs #972, #973 | Done on main |
 | Finish org (preflight, operators, builders) | PR #974 | Done; `status.complete: true` |
 | Post-org inventory + DX | PR #975 | Done; CONTINUATION_PLAN.v15 |
-| Unauthorized sole-writer | Advisory report | **0** findings |
+| Unauthorized sole-writer | Advisory report | **3** report-only findings; fail-closed off |
 | Soft CI disposition | Prior readiness package | `CLOSED_BY_ACCEPTANCE` (do not flip without mandate) |
 
 ### Scripts layout (frozen)
@@ -56,11 +56,11 @@ activation_gate: DENIED
 
 | Gate | Status |
 |------|--------|
-| Freeze | Prior package 8/8 PASS (do not re-litigate without new evidence) |
-| Release | `CANDIDATE_APPROVED` · **deploy_held** |
+| Freeze | Current package 7 PASS / 1 PARTIAL (`RELEASE_HELD` recommended) |
+| Release | `RELEASE_HELD` · readiness `NOT_READY` |
 | Activation | **DENIED** |
 | Deploy | **NO_GO** (human plan, env attestation, unhold still required) |
-| Sole-writer | **0** unauthorized (advisory / fail-open in fast-ci) |
+| Sole-writer | **3** report-only findings (advisory / fail-open in fast-ci) |
 
 ---
 
@@ -71,7 +71,7 @@ activation_gate: DENIED
 | ID | Action | Owner | Exit criteria |
 |----|--------|-------|---------------|
 | **P0.1** | Notion hub note: scripts org complete (#972–#975); layout domain-based; still **NOT_READY** for deploy/activation | Operator | Hub row/status reflects merge + held posture |
-| **P0.2** | Confirm sole-writer pin / readiness hub links point at current main tip when convenient | Eng / Operator | Pin SHA matches main after next readiness re-pin |
+| **P0.2** | Confirm sole-writer pin / readiness hub links point at current main tip when convenient | Eng / Operator | Pin SHA matches main after readiness evidence refresh |
 | **P0.3** | Watch main CI after merges; fix only if red | Eng | Main green |
 
 ### P1 — Whole-repo health (next eng track)

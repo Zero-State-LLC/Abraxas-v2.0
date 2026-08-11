@@ -2,20 +2,20 @@
 
 ```text
   evidence-gated · operator-controlled · fail-closed on authority
-  CANDIDATE_APPROVED · deploy held · production activation DENIED
+  RELEASE_HELD · deploy NO_GO · production activation DENIED
 ```
 
 [![Version](https://img.shields.io/badge/version-2.5.0-0A66C2)](../../VERSION)
-[![Readiness](https://img.shields.io/badge/readiness-CANDIDATE__HELD-yellow)](ws8/release_decision.v1.json)
+[![Readiness](https://img.shields.io/badge/readiness-NOT__READY-orange)](ws8/release_decision.v1.json)
 [![Activation](https://img.shields.io/badge/activation-DENIED-red)](ws8/production_activation_authority_gate.v1.json)
 [![Deploy](https://img.shields.io/badge/deploy-NO__GO-orange)](ws8/candidate_deploy_readiness.v1.json)
-[![Freeze gates](https://img.shields.io/badge/freeze_scorecard-8%2F8_PASS-brightgreen)](ws8/freeze_gate_scorecard.v1.json)
+[![Freeze gates](https://img.shields.io/badge/freeze_scorecard-7_PASS_1_PARTIAL-yellow)](ws8/freeze_gate_scorecard.v1.json)
 [![Evidence](https://img.shields.io/badge/baseline_evidence-Partial-lightgrey)](baseline/baseline_receipt.v1.json)
 [![PR](https://img.shields.io/badge/PR-971-blue)](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971)
 
 > **Canon rule:** This tree is the **repo-native source of truth** for the production-candidate track.
-> It does **not** authorize production go-live. `CANDIDATE_APPROVED` means the freeze scorecard
-> passed under operator-controlled constraints — **deploy remains held** and **activation is DENIED**.
+> It does **not** authorize production go-live. `RELEASE_HELD` means current repo-observed
+> freeze evidence is not candidate-eligible; deploy remains **NO_GO** and **activation is DENIED**.
 
 ---
 
@@ -49,9 +49,9 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | **Fail-closed on authority** | Activation and deploy unhold require explicit human authority |
 | **Candidate held** | Freeze eligible; **not** production ready; **not** deploy authorized |
 
-**Primary plan:** [`CONTINUATION_PLAN.v12.md`](CONTINUATION_PLAN.v12.md) (post-merge on main; supersedes v11)  
-**Debug plan (whole repo):** [`DEBUG_PLAN.v2.md`](DEBUG_PLAN.v2.md) (supersedes v1)  
-**Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)  
+**Primary plan:** [`CONTINUATION_PLAN.v16.md`](CONTINUATION_PLAN.v16.md) (production-readiness evidence refresh; supersedes v15)
+**Debug plan (whole repo):** [`DEBUG_PLAN.v3.md`](DEBUG_PLAN.v3.md) (supersedes v2)
+**Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)
 **Landed:** [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) merged — still **not** production activation.
 
 ---
@@ -60,24 +60,24 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 
 | Signal | Value | Evidence |
 |--------|--------|----------|
-| Binding release decision | `CANDIDATE_APPROVED` | [`ws8/release_decision.v1.json`](ws8/release_decision.v1.json) |
-| Readiness state | `CANDIDATE_HELD_FOR_OPERATOR_DEPLOY` | same |
-| `deploy_held` | `true` | same |
+| Binding release decision | `RELEASE_HELD` | [`ws8/release_decision.v1.json`](ws8/release_decision.v1.json) |
+| Readiness state | `NOT_READY` | same |
+| Release `deploy_held` flag | `false` (no candidate deploy to hold) | same |
 | Production activation | **`DENIED` / false** | [`ws8/production_activation_authority_gate.v1.json`](ws8/production_activation_authority_gate.v1.json) |
 | Deploy readiness | **`NO_GO`** | [`ws8/candidate_deploy_readiness.v1.json`](ws8/candidate_deploy_readiness.v1.json) |
-| Freeze scorecard | **8/8 PASS** | [`ws8/freeze_gate_scorecard.v1.json`](ws8/freeze_gate_scorecard.v1.json) |
+| Freeze scorecard | **7 PASS / 1 PARTIAL** | [`ws8/freeze_gate_scorecard.v1.json`](ws8/freeze_gate_scorecard.v1.json) |
 | Baseline package | COMPLETE / **Partial** | [`baseline/baseline_receipt.v1.json`](baseline/baseline_receipt.v1.json) |
-| Live fast CI (attached) | exit **0** | baseline validation receipt |
+| Live fast CI (attached to baseline) | **not attached** in this refresh | baseline validation receipt |
 | SUPPORTED interfaces | **4** | [`ws1/interface_registry_snapshot.v1.json`](ws1/interface_registry_snapshot.v1.json) |
 | SUPPORTED services | **2** | [`ws3/service_registry.v1.json`](ws3/service_registry.v1.json) |
-| Sole-writer unauthorized | **0** (package policy for skills/afe); fail-closed **off** | [`ws1/sole_writer_advisory_report.v1.json`](ws1/sole_writer_advisory_report.v1.json) |
+| Sole-writer advisory findings | **3** report-only findings (fail-closed **off**) | [`ws1/sole_writer_advisory_report.v1.json`](ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows Verified; overall NOT_READY) | [`ws8/notion_operator_verified_dod_receipt.v1.json`](ws8/notion_operator_verified_dod_receipt.v1.json) |
 
 ### What we do **not** claim
 
-- Overall **Verified** production readiness  
-- Production go-live or marketing “ready”  
-- Fail-closed sole-writer / boundary in shared CI  
+- Overall **Verified** production readiness
+- Production go-live or marketing “ready”
+- Fail-closed sole-writer / boundary in shared CI
 - Complete WS0–WS10 simulation story as live repo fact (this tree documents **landed** workstreams only)
 
 ---
@@ -106,25 +106,25 @@ export PATH="$(pwd)/.venv/bin:$PATH"
 python scripts/run_fast_ci.py
 
 # Freeze scorecard + release decision (read/re-emit)
-python scripts/run_freeze_gate_scorecard.py
-python scripts/run_release_decision.py --help
+python scripts/readiness/run_freeze_gate_scorecard.py
+python scripts/readiness/run_release_decision.py --help
 
 # Deploy readiness (default NO_GO) + activation gate (DENIED)
-python scripts/run_candidate_deploy_readiness.py
-python scripts/run_production_activation_authority_gate.py
+python scripts/readiness/run_candidate_deploy_readiness.py
+python scripts/readiness/run_production_activation_authority_gate.py
 
 # SUPPORTED services
-python scripts/run_validation_service.py --help
+python scripts/runtime/run_validation_service.py --help
 python scripts/artifact/run_artifact_provenance_service.py --help
 
 # Notion mapping (repo-side; writeback is operator-gated)
-python scripts/run_notion_readiness_mapping.py
+python scripts/notion/run_notion_readiness_mapping.py
 
 # Operator runbook (json + md)
-python scripts/run_supported_surface_operator_runbook.py
+python scripts/readiness/run_supported_surface_operator_runbook.py
 
 # Docs crosslink check for this package
-python scripts/run_production_readiness_docs_crosslink_check.py
+python scripts/readiness/run_production_readiness_docs_crosslink_check.py
 ```
 
 ### Focused tests
@@ -173,8 +173,8 @@ flowchart TB
   W3 --> SC
   W5 --> SC
   W8 --> SC
-  SC -->|all_pass| RD
-  RD -->|CANDIDATE_APPROVED deploy_held| DEP
+  SC -->|all_pass or partial evidence| RD
+  RD -->|decision code + deploy posture| DEP
   DEP -->|NO_GO until human plan| STOP1[No deploy]
   AUTH -->|DENIED fail-closed| STOP2[No production activation]
   RD -.->|does not grant| AUTH
@@ -199,7 +199,7 @@ flowchart TB
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Sole-writer rule:** publication of `out/**` JSON should go through `scripts/run_*` (or SUPPORTED artifact service) using `core.canonical.json` — not ad-hoc core writers.
+**Sole-writer rule:** publication of `out/**` JSON should go through domain `scripts/<area>/run_*` runners (or SUPPORTED artifact service) using `core.canonical.json` — not ad-hoc core writers.
 
 ---
 
@@ -216,7 +216,7 @@ Landed package directories (evidence in-repo). Names map to continuation plans, 
 | **ws5/** | Neon Genie capability allowlist | allowlist + check |
 | **ws6/** | Soft CI gate audit + disposition | keep soft / no fail-closed promo |
 | **ws8/** | Threat model, Notion, freeze, release, deploy, activation, runbook | decision + gate JSONs |
-| **CONTINUATION_PLAN.v1–v11.md** | Ordered program plans | active: **v11** |
+| **CONTINUATION_PLAN.v1–v16.md** | Ordered program plans | active: **v16** |
 
 <details>
 <summary><strong>Continuation plan history (click)</strong></summary>
@@ -226,10 +226,11 @@ Landed package directories (evidence in-repo). Names map to continuation plans, 
 | v1–v3 | Baseline → services → Wave 1 |
 | v4–v5 | Notion mapping, SUPPORTED promotions, recovery |
 | v6 | Freeze scorecard + residual accept + RELEASE_HELD |
-| v7 | I+ `CANDIDATE_APPROVED` deploy-held |
+| v7 | I+ historical candidate approval, deploy-held |
 | v8 | Deploy NO_GO, activation DENIED, runbook, D4 inventory |
 | v9–v10 | D4 pure builders + tech debt closeout (unauthorized=0) |
-| v11 | Post-debt hygiene: Notion scoped Verified + oracle ingest org + re-pin |
+| v11–v15 | Post-debt hygiene, scripts organization, and DX closeout |
+| v16 | Production-readiness evidence refresh to `RELEASE_HELD` / `NOT_READY` |
 
 </details>
 
@@ -241,10 +242,10 @@ Landed package directories (evidence in-repo). Names map to continuation plans, 
 |--------------------|-----------|-----------------|
 | `canonical_json` | SUPPORTED | Library: `core.canonical.json` |
 | `run_fast_ci` | SUPPORTED | `python scripts/run_fast_ci.py` |
-| `validation_service.v1` | SUPPORTED | `python scripts/run_validation_service.py` |
+| `validation_service.v1` | SUPPORTED | `python scripts/runtime/run_validation_service.py` |
 | `artifact_and_provenance_service.v0` | SUPPORTED | `python scripts/artifact/run_artifact_provenance_service.py` |
 
-Full inventory: [`ws8/supported_surface_freeze_inventory.v1.json`](ws8/supported_surface_freeze_inventory.v1.json)  
+Full inventory: [`ws8/supported_surface_freeze_inventory.v1.json`](ws8/supported_surface_freeze_inventory.v1.json)
 Procedures: [`ws8/supported_surface_operator_runbook.v1.md`](ws8/supported_surface_operator_runbook.v1.md)
 
 ---
@@ -291,18 +292,18 @@ See [`ws8/supported_surface_operator_runbook.v1.md`](ws8/supported_surface_opera
 
 ### Safety rules (binding)
 
-1. Do **not** set `production_activation_authorized=true` without WP-AUTH process  
-2. Do **not** enable `ABRAXAS_BOUNDARY_FAIL_CLOSED` without operator approval  
-3. Prefer `scripts/run_*` + SUPPORTED services for `out/` writes  
-4. Advance Notion Evidence State to **Verified** only with durable DoD links  
+1. Do **not** set `production_activation_authorized=true` without WP-AUTH process
+2. Do **not** enable `ABRAXAS_BOUNDARY_FAIL_CLOSED` without operator approval
+3. Prefer domain `scripts/<area>/run_*` runners + SUPPORTED services for `out/` writes
+4. Advance Notion Evidence State to **Verified** only with durable DoD links
 
 ### Deploy still missing (NO_GO)
 
 From deploy readiness checklist:
 
-- Human deploy + rollback plan  
-- Environment / secrets attestation  
-- Explicit deploy **unhold** decision (separate from `CANDIDATE_APPROVED`)
+- Human deploy + rollback plan
+- Environment / secrets attestation
+- Explicit deploy **unhold** decision (separate from release-decision evidence)
 
 ---
 
@@ -335,20 +336,20 @@ Summarized from baseline blockers (see full JSON for mitigations):
 
 ### PR hygiene (this track)
 
-- Small reversible PRs on readiness branch  
-- Re-pin artifacts after generators with preserved live CI validation when possible  
-- Never fabricate CI outcomes (`--with-fast-ci` or prior validation JSON only)  
-- Force-add readiness JSON under `out/` when `.gitignore` ignores `out/**/*.json`  
+- Small reversible PRs on readiness branch
+- Re-pin artifacts after generators with preserved live CI validation when possible
+- Never fabricate CI outcomes (`--with-fast-ci` or prior validation JSON only)
+- Force-add readiness JSON under `out/` when `.gitignore` ignores `out/**/*.json`
 
 ### Extension guide
 
-1. Add generator under `core/production_readiness/`  
-2. Add `scripts/run_*.py` sole-writer  
-3. Add schema under `contracts/production_readiness/` when needed  
-4. Add tests under `tests/test_*.py`  
-5. Emit under `out/production_readiness/`  
-6. Update this README + CONTINUATION plan  
-7. Extend recovery drill critical paths if artifact is freeze-critical  
+1. Add generator under `core/production_readiness/`
+2. Add domain `scripts/<area>/run_*` sole-writer
+3. Add schema under `contracts/production_readiness/` when needed
+4. Add tests under `tests/test_*.py`
+5. Emit under `out/production_readiness/`
+6. Update this README + CONTINUATION plan
+7. Extend recovery drill critical paths if artifact is freeze-critical
 
 ---
 
@@ -372,7 +373,7 @@ Summarized from baseline blockers (see full JSON for mitigations):
 | Optional | Merge PR #971 when checks green | Engineering merge ≠ activation |
 | Optional | Human deploy plan | Required before deploy unhold |
 | Done (scoped) | Notion Verified DoD | 6 checkpoints; hub remains NOT_READY |
-| Done | Unauthorized sole-writer = 0 | Package policy for skills/afe |
+| Current | Production readiness evidence refreshed to `RELEASE_HELD` / `NOT_READY`; activation DENIED | #1123 maintenance |
 | Hard no (default) | Fail-closed sole-writer in CI | Only after operator approval |
 | Hard no (default) | Production activation | Separate dual-control process |
 
@@ -394,9 +395,9 @@ Summarized from baseline blockers (see full JSON for mitigations):
 
 ## Contributing / license
 
-- Follow root [`README.md`](../../README.md) and [`AGENTS.md`](../../AGENTS.md)  
-- Governance: operator-controlled; no autonomous production activation  
-- License: see repository root license file  
+- Follow root [`README.md`](../../README.md) and [`AGENTS.md`](../../AGENTS.md)
+- Governance: operator-controlled; no autonomous production activation
+- License: see repository root license file
 
 ---
 

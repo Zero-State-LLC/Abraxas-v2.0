@@ -27,7 +27,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 
 [`ABRAXAS_UNIFICATION_PLAN_002.md`](plans/ABRAXAS_UNIFICATION_PLAN_002.md) remains
 the historical front door for the closed AI OS unification route. Use it for
-context, not as an active work queue. Current maintenance follow-on is #1122 / #1123.
+context, not as an active work queue. Maintenance follow-ons #1122 and #1123 have refreshed repo organization and readiness evidence.
 
 | Track | Work type | Issue |
 |-------|-----------|-------|
@@ -45,7 +45,7 @@ SHADOW is distinct from FORECAST.
 
 | Route | Current surface | Role | Next action |
 |-------|-----------------|------|-------------|
-| Maintenance follow-on | [#1122 repo organization/drift](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122), then [#1123 readiness evidence](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Active repo hygiene queue | Run organization/docs/readiness checks and repair observed drift. |
+| Maintenance follow-on | [#1122 repo organization/drift](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122) · [#1123 readiness evidence](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Recent repo hygiene queue | Evidence refreshes closed stale organization/readiness drift; continue from `STATUS.md` and `out/production_readiness/README.md`. |
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |

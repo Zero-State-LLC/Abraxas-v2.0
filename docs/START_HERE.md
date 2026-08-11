@@ -55,7 +55,7 @@ Why this matters: Abraxas is evolving as a **deterministic symbolic AI OS** (not
 ### Unification work route (Tracks A–D closed)
 
 Plan 002 remains the historical front door for AI OS unification context. Tracks
-A–D are closed; use the maintenance follow-on issues for current hygiene work.
+A–D are closed; the maintenance follow-on refreshes (#1122/#1123) have repaired repo organization and production-readiness evidence drift.
 These links are navigation only and do not grant runtime, canon, or execution
 authority.
 
@@ -65,7 +65,7 @@ authority.
 | **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) · closed | Contract → builder → runner → receipt → targeted tests |
 | **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) · closed | [`docs/alembic/ALEMBIC_SPINE.md`](alembic/ALEMBIC_SPINE.md) and `alembic_spine` |
 | **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) · closed | [`plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md`](plans/AUTHZ_SURFACE_COMPRESSION_TRACK_D_001.md) |
-| **Maintenance P2/P3** | Repo organization + readiness evidence | [#1122](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122) / [#1123](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Run organization, docs navigation, and readiness checks; repair observed drift only. |
+| **Maintenance P2/P3** | Repo organization + readiness evidence | [#1122](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122) / [#1123](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Recent refreshes; continue from [`STATUS.md`](../STATUS.md), [`PLANS.md`](../PLANS.md), and [`out/production_readiness/README.md`](../out/production_readiness/README.md). |
 
 #### Status truth and mental model
 

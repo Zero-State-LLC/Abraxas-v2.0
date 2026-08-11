@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-11 (repo organization drift repair · tip after **#1133** Neon Genie contract closure · release **1.180.0** · agent doctrine/router consolidated · AI OS Tracks A-D closed · maintenance P2/P3 open)
+> **Last Updated:** 2026-08-11 (production readiness evidence refresh · release decision **RELEASE_HELD** · activation DENIED · repo organization drift repair closed · release **1.180.0** · agent doctrine/router consolidated · AI OS Tracks A-D closed)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -34,7 +34,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
 | Convergence audit | Phase 0–14 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
-| Issue backlog | open issues **11** · 0 open PRs · active maintenance slices #1122/#1123 | `gh issue list --state open`; `gh pr list --state open` |
+| Issue backlog | tracked live by GitHub CLI · 0 open PRs at #1123 refresh · P2/P3 maintenance evidence refreshed | `gh issue list --state open`; `gh pr list --state open` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
 | Phase 12 writers | **Landed** · residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` · #1035 |
@@ -76,14 +76,14 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 |-------|--------|----------|
 | Track docs | [`out/production_readiness/README.md`](out/production_readiness/README.md) | Package overview |
 | Guidebook | [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering guide |
-| Release decision | `CANDIDATE_APPROVED` · deploy held | [`out/production_readiness/ws8/release_decision.v1.json`](out/production_readiness/ws8/release_decision.v1.json) |
-| Readiness state | `CANDIDATE_HELD_FOR_OPERATOR_DEPLOY` | same |
+| Release decision | `RELEASE_HELD` · production readiness `NOT_READY` | [`out/production_readiness/ws8/release_decision.v1.json`](out/production_readiness/ws8/release_decision.v1.json) |
+| Readiness state | `NOT_READY` | same |
 | Production activation | **DENIED** | [`out/production_readiness/ws8/production_activation_authority_gate.v1.json`](out/production_readiness/ws8/production_activation_authority_gate.v1.json) |
 | Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
-| Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
+| Freeze scorecard | 7 PASS / 1 PARTIAL · recommended release `RELEASE_HELD` | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
 | Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
 | Active plan | CONTINUATION_PLAN.v16 (draft) | [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) |
-| Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
+| Sole-writer advisory findings | **3** report-only findings · fail-closed **off** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | AAL-Viz projection pack | batches **0–4 + operator-loop 0.5 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 · #1033 |

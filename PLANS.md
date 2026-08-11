@@ -67,7 +67,7 @@ AI_OS_KERNEL:
 1. **CLEAR dual-control attestations** — operator A/B per [`docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`](docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md) on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
-4. **Maintenance P2/P3** — repo organization/drift repair #1122, then production readiness evidence maintenance #1123
+4. **Maintenance P2/P3** — #1122 repo organization/drift closed; #1123 refreshed production-readiness evidence to current repo-observed `RELEASE_HELD` / `NOT_READY` posture
 
 ### Representation-driven instantiation assimilation
 
@@ -133,7 +133,7 @@ none may proceed without the observed-need evidence listed.
 
 ### Issue backlog
 
-GitHub open issues: **0** (advisory closeout of #546, #547, #881, #892 — see [`docs/status/ISSUE_BACKLOG_CLOSURE_001.md`](docs/status/ISSUE_BACKLOG_CLOSURE_001.md)). `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains **unissued**.
+GitHub issue/PR backlog is live in GitHub, not frozen in this plan; use `gh issue list --state open` and `gh pr list --state open` for counts. Recent maintenance follow-ons: #1122 repo organization/drift repair and #1123 production-readiness evidence refresh. `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains **unissued**.
 
 ### Blocked / held
 
