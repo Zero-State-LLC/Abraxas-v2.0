@@ -50,7 +50,9 @@ def test_confirmed_builder_record_binds_full_review():
     builder = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(builder)
     review = {'formal_review_id':'fixture', 'deterministic_hash':'old'}
-    working = {'normalized_fields':dict.fromkeys(builder.HUMAN_FIELD_ORDER, True), 'operator_confirmed':True}
+    expected = hashlib.sha256(json.dumps(review, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    working = {'normalized_fields':dict.fromkeys(builder.HUMAN_FIELD_ORDER, True), 'operator_confirmed':True,
+               'review_sha256': expected, 'confirmed_review_sha256': expected}
     result = builder.build_final_record(builder.resolve_machine_fields(review), working, review)
     expected = hashlib.sha256(json.dumps(review, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     assert result['confirmed_review_sha256'] == expected
@@ -60,6 +62,7 @@ def test_confirmed_builder_record_binds_full_review():
 def test_builder_rejects_same_id_changed_review_before_prompt(tmp_path, monkeypatch):
     spec = importlib.util.spec_from_file_location('builder', SKILL / 'abx_skill_formal_operator_decision_builder.py')
     builder = importlib.util.module_from_spec(spec); spec.loader.exec_module(builder)
+    monkeypatch.setattr(builder, 'WORKING_PATH', tmp_path / 'working.json')
     review = {'formal_review_id':'same-id', 'deterministic_hash':'new'}
     monkeypatch.setattr(builder, 'load_review_packet', lambda: review)
     monkeypatch.setattr(builder, 'load_working', lambda: {'formal_review_id':'same-id', 'review_sha256':'old', 'normalized_fields':{}})

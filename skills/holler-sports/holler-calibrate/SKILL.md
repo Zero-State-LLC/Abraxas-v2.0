@@ -1,6 +1,6 @@
 ---
 name: holler-calibrate
-description: Brier score calibration, model evaluation against real outcomes, regime detection (Bayesian online change point or rolling KL-divergence), adversarial dataset generation for robustness testing. Strict JSON output with OBSERVED/INFERRED/SPECULATIVE + provenance + Brier. Integrates with holler-ingest and holler-forecast. Cron-friendly.
+description: DESIGN_ONLY calibration specification; no executable calibration helper. Return NOT_COMPUTABLE without measured outcomes; no computed Brier or regime claims.
 version: 1.0.0
 author: Hermes (Abraxas systems engineer)
 license: Proprietary

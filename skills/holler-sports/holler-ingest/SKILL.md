@@ -1,6 +1,6 @@
 ---
 name: holler-ingest
-description: Real-time / batch ingestion from sports APIs (odds, box scores, injuries, advanced metrics). Support CSV/JSON provenance, schema validation (HollerSportsBatch.v0.2+), caching, rate-limit respect, and strict JSON output with OBSERVED/INFERRED/SPECULATIVE + provenance + Brier. Cron-friendly and workspace-aware.
+description: Bounded HTTP JSON ingestion client validating HollerNormalizedEnvelope.v1 with provenance and caching; no domain adapters or HollerSportsBatch validation.
 version: 1.0.0
 author: Hermes (Abraxas systems engineer)
 license: Proprietary

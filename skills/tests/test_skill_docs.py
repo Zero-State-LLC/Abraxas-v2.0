@@ -39,3 +39,19 @@ def test_calibration_is_explicit_design_not_fabricated_algorithm():
     assert 'DESIGN_ONLY' in text
     assert 'calibrated_brier' not in text
     assert '0.95' not in text
+
+
+@pytest.mark.parametrize('skill,required,forbidden', [
+    ('holler-calibrate', ['DESIGN_ONLY', 'NOT_COMPUTABLE'], ['regime detection', 'adversarial dataset generation']),
+    ('slang-emergence', ['DESIGN_ONLY', 'NOT_COMPUTABLE'], ['adversarial-robust', 'symbolic forecasting']),
+    ('holler-ingest', ['HollerNormalizedEnvelope.v1', 'no domain adapters'], ['HollerSportsBatch.v0.2']),
+])
+def test_discovery_description_matches_bounded_capabilities(skill, required, forbidden):
+    text = (ROOT / 'skills/holler-sports' / skill / 'SKILL.md').read_text()
+    match = re.search(r'^description: (.*)$', text, re.MULTILINE)
+    assert match is not None
+    description = match.group(1)
+    for token in required:
+        assert token in description
+    for token in forbidden:
+        assert token not in description

@@ -223,9 +223,29 @@ def is_complete(w: Dict) -> bool:
     return all(f in w.get("normalized_fields", {}) for f in HUMAN_FIELD_ORDER) and \
            w.get("operator_confirmed") is True
 
+def review_digest(review_pkt: Dict) -> str:
+    return hashlib.sha256(json.dumps(review_pkt, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+
+
+def block_packet_drift(working: Dict) -> Dict:
+    # Discard every answer and binding; the next invocation collects from scratch.
+    working.update(normalized_fields={}, original_responses=[], invalid_fields=[],
+                   operator_confirmed=False, packet_complete=False, packet_persisted=False,
+                   formal_review_id=None, review_sha256=None, confirmed_review_sha256=None,
+                   last_completed_field="", next_required_field=HUMAN_FIELD_ORDER[0],
+                   builder_status="BLOCKED_BY_PACKET_DRIFT")
+    save_working(working)
+    print("BLOCKED_BY_PACKET_DRIFT: human must start a fresh review; no acknowledgments reused")
+    return working
+
+
 def build_final_record(machine: Dict, working: Dict, review_pkt: Dict) -> Dict:
     if not is_complete(working):
         raise ValueError("CONFIRMATION_REQUIRED")
+    digest = review_digest(review_pkt)
+    if (working.get("review_sha256") != digest or
+            working.get("confirmed_review_sha256") != digest):
+        raise ValueError("IMMUTABLE_REVIEW_BINDING_MISMATCH")
     norm = working["normalized_fields"]
     record = machine.copy()
     record.update({
@@ -249,7 +269,7 @@ def build_final_record(machine: Dict, working: Dict, review_pkt: Dict) -> Dict:
             "original_responses": working.get("original_responses", []),
         },
         "operator_confirmed": True,
-        "confirmed_review_sha256": hashlib.sha256(json.dumps(review_pkt, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest(),
+        "confirmed_review_sha256": working["confirmed_review_sha256"],
         "builder_status": "OPERATOR_DECISION_RECORD_BUILT",
         "timestamp": datetime.now(timezone.utc).isoformat(),
     })
@@ -273,17 +293,21 @@ def interactive_collect():
     working = load_working()
 
     # Bind all collected acknowledgments to an immutable snapshot, not only ID.
-    review_sha256 = hashlib.sha256(json.dumps(review, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
-    if working.get("formal_review_id") and (
-        working["formal_review_id"] != machine["formal_review_id"] or
+    review_sha256 = review_digest(review)
+    if (working.get("formal_review_id") or working.get("normalized_fields")) and (
+        working.get("formal_review_id") != machine["formal_review_id"] or
         working.get("review_sha256") != review_sha256
     ):
-        print("BLOCKED_BY_PACKET_DRIFT: human must start a fresh review; no acknowledgments reused")
-        return {"builder_status": "BLOCKED_BY_PACKET_DRIFT"}
+        return block_packet_drift(working)
 
     working["review_sha256"] = review_sha256
     working["formal_review_id"] = machine["formal_review_id"]
     working["builder_status"] = "COLLECTING_OPERATOR_INPUT"
+    working["operator_confirmed"] = False
+    working["confirmed_review_sha256"] = None
+    save_working(working)
+    print("Review SHA256:", review_sha256)
+    print(json.dumps(review, indent=2, sort_keys=True, allow_nan=False))
 
     field_prompts = {
         "operator.operator_id": "Enter your operator ID (e.g. appliedalchemylabs or your identifier): ",
@@ -368,6 +392,7 @@ def interactive_collect():
     # Show normalized summary
     print("\n=== NORMALIZED DECISION SUMMARY (review before final confirmation) ===")
     summary = {
+        "review_sha256": review_sha256,
         "formal_review_id": machine["formal_review_id"],
         "operator_id": working["normalized_fields"].get("operator.operator_id"),
         "operator_display_name": working["normalized_fields"].get("operator.operator_display_name"),
@@ -387,13 +412,23 @@ def interactive_collect():
 
     while True:
         try:
+            current_review = load_review_packet()
+            if current_review is None or review_digest(current_review) != review_sha256:
+                return block_packet_drift(working)
             conf = input("\nConfirm that this record accurately represents your decision and should be persisted.\nAccepted: CONFIRM or CANCEL\n> ").strip().upper()
         except (EOFError, KeyboardInterrupt):
             conf = "CANCEL"
 
         if conf == "CONFIRM":
+            current_review = load_review_packet()
+            if current_review is None or review_digest(current_review) != review_sha256:
+                return block_packet_drift(working)
             working["operator_confirmed"] = True
+            working["confirmed_review_sha256"] = review_sha256
             final = build_final_record(machine, working, review)
+            current_review = load_review_packet()
+            if current_review is None or review_digest(current_review) != review_sha256:
+                return block_packet_drift(working)
             save_json(COMPLETED_PATH, final)
             working["builder_status"] = "OPERATOR_DECISION_RECORD_BUILT"
             working["packet_persisted"] = True

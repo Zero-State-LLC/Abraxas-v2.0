@@ -39,34 +39,75 @@ REQUIRED_ACKS = [
     "operator_attestation"
 ]
 
-def load_json_safe(p: Path):
-    if not p.exists():
-        return None
+def reject_constant(value):
+    raise ValueError(f"Nonfinite JSON constant: {value}")
+
+
+def load_input(path, name, errors, bindings):
+    import hashlib
+    bindings[name] = None
     try:
-        return json.loads(p.read_text())
-    except Exception:
+        raw = path.read_bytes()
+    except OSError:
+        errors.append(f"UNREADABLE_INPUT:{name}")
         return None
+    bindings[name] = hashlib.sha256(raw).hexdigest()
+    try:
+        value = json.loads(raw, parse_constant=reject_constant)
+        # Also reject overflowed JSON exponents (e.g. 1e999) anywhere nested.
+        json.dumps(value, allow_nan=False)
+        return value
+    except (ValueError, TypeError, UnicodeError, RecursionError):
+        errors.append(f"INVALID_JSON:{name}")
+        return None
+
+
+def load_json_safe(p: Path):
+    return load_input(p, "input", [], {})
+
+
+def validate_shapes(decision, review, errors):
+    for name, obj in [("decision", decision), ("review", review)]:
+        if not isinstance(obj, dict):
+            errors.append(f"INVALID_OBJECT:{name}")
+            continue
+        keys = ("formal_review_id", "deterministic_hash") if name == "review" else (
+            "formal_review_id", "review_packet_hash", "decision_value", "timestamp", "confirmed_review_sha256")
+        for key in keys:
+            if not isinstance(obj.get(key), str) or not obj[key]:
+                errors.append(f"INVALID_STRING:{name}.{key}")
+    if not isinstance(decision, dict):
+        return
+    for key in ("provenance", "acknowledgements", "authority_boundary", "operator"):
+        nested = decision.get(key)
+        if not isinstance(nested, dict):
+            errors.append(f"INVALID_OBJECT:decision.{key}")
+        elif key in ("operator", "provenance"):
+            fields = ("operator_id", "operator_display_name") if key == "operator" else ("source", "input_method")
+            for field in fields:
+                if not isinstance(nested.get(field), str) or not nested[field]:
+                    errors.append(f"INVALID_STRING:decision.{key}.{field}")
+
 
 def main():
-    decision = load_json_safe(COMPLETED_PATH)
-    review = load_json_safe(REVIEW_PACKET_PATH)
-
-    if not decision or not review:
-        status = "NOT_COMPUTABLE"
-        print(f"Decision validator: {status} (missing decision record or review packet)")
-        result = {
-            "validation_class": "ABX_HERMES_FORMAL_OPERATOR_DECISION_VALIDATOR",
-            "status": status,
-            "formal_review_id": decision.get("formal_review_id") if decision else None,
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }
-        write_canonical_json(
-            OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json",
-            result,
-        )
-        return result
-
     errors = []
+    bindings = {}
+    decision = load_input(COMPLETED_PATH, "decision", errors, bindings)
+    review = load_input(REVIEW_PACKET_PATH, "review", errors, bindings)
+    validate_shapes(decision, review, errors)
+    if errors:
+        result = {
+            "validation_class": "ABX_HERMES_FORMAL_OPERATOR_DECISION_VALIDATOR_V2_8",
+            "status": "BLOCKED_BY_VALIDATION_ERRORS",
+            "errors": errors,
+            "binding_verified": False,
+            "input_sha256": bindings,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+        write_canonical_json(OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json", result)
+        print("Decision validator: BLOCKED_BY_VALIDATION_ERRORS", errors)
+        return result
+    assert isinstance(decision, dict) and isinstance(review, dict)
     provenance = decision.get("provenance", {})
     if (provenance.get("source") != "OPERATOR_SUPPLIED" or
             provenance.get("input_method") != "INTERACTIVE_ONE_AT_A_TIME"):
@@ -117,6 +158,7 @@ def main():
     result = {
         "validation_class": "ABX_HERMES_FORMAL_OPERATOR_DECISION_VALIDATOR_V2_8",
         "status": status,
+        "input_sha256": bindings,
         "formal_review_id": review_id,
         "decision_value": decision.get("decision_value"),
         "operator_id": op.get("operator_id"),
@@ -137,4 +179,4 @@ def main():
     return result
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(0 if main()["status"] == "VALIDATED" else 1)
