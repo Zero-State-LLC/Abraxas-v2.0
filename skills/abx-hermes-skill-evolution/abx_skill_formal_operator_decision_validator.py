@@ -67,6 +67,23 @@ def main():
         return result
 
     errors = []
+    provenance = decision.get("provenance", {})
+    if (provenance.get("source") != "OPERATOR_SUPPLIED" or
+            provenance.get("input_method") != "INTERACTIVE_ONE_AT_A_TIME"):
+        errors.append("HUMAN_INPUT_REQUIRED")
+    try:
+        collected = datetime.fromisoformat(decision.get("timestamp", ""))
+        age = (datetime.now(timezone.utc) - collected).total_seconds()
+        if not 0 <= age <= 86400:
+            errors.append("STALE_OR_FUTURE_DECISION")
+    except (ValueError, TypeError):
+        errors.append("INVALID_CONFIRMATION_TIMESTAMP")
+    import hashlib
+    review_sha256 = hashlib.sha256(json.dumps(review, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+    if decision.get("confirmed_review_sha256") != review_sha256:
+        errors.append("IMMUTABLE_REVIEW_BINDING_MISMATCH")
+    if decision.get("operator_confirmed") is not True:
+        errors.append("EXPLICIT_CONFIRMATION_REQUIRED")
     review_id = decision.get("formal_review_id")
     if review_id != review.get("formal_review_id"):
         errors.append("REVIEW_ID_MISMATCH")

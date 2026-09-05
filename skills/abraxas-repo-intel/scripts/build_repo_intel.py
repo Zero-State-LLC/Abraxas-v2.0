@@ -13,7 +13,7 @@ Strictly follows invariants:
 - SHADOW/FORECAST separation (classification only)
 - No production mutation, no canon change
 - Provenance on edges
-- Compliant with Governance V3 + recent broad operator approval for engineering work tied to operator approval
+- Advisory only; historical operator grants do not confer current authority
 
 Usage (scrubbed):
   env -i PATH="$PATH" HOME="$HOME" USER="$USER" UV_CACHE_DIR="$HOME/.cache/uv" uv run python skills/abraxas-repo-intel/scripts/build_repo_intel.py --full
@@ -172,9 +172,9 @@ def build_governance_graph(files: List[Dict]) -> Dict[str, Any]:
     edges = []
     for f in gov_files:
         if "governance" in f["path"].lower() or "GOVERNANCE" in f["path"]:
-            edges.append({"source": f["path"], "target": "GOVERNANCE_V3.md", "type": "governs", "observed": True})
+            edges.append({"source": f["path"], "target": "GOVERNANCE_V3.md", "type": "governs", "observed": False, "evidence_status": "INFERRED"})
         if "validator" in f["path"].lower():
-            edges.append({"source": f["path"], "target": "formal_operator_decision", "type": "validates", "observed": True})
+            edges.append({"source": f["path"], "target": "formal_operator_decision", "type": "validates", "observed": False, "evidence_status": "INFERRED"})
     return {
         "nodes": sorted(nodes),
         "edges": sorted(edges, key=lambda e: (e["source"], e["target"]))
@@ -184,8 +184,8 @@ def build_artifact_lineage(files: List[Dict]) -> Dict[str, Any]:
     artifacts = [f for f in files if "out/" in f["path"] or f["category"] == "receipt"]
     return {
         "nodes": [f["path"] for f in artifacts],
-        "edges": [{"source": "generator", "target": a["path"], "type": "generates", "observed": True} for a in artifacts[:50]],
-        "note": "Lineage is observed from file presence and naming conventions. Full provenance requires running generators."
+        "edges": [{"source": "generator", "target": a["path"], "type": "generates", "observed": False, "evidence_status": "INFERRED"} for a in artifacts[:50]],
+        "note": "Lineage is a naming-based hypothesis only, not observed generator execution."
     }
 
 def build_architecture_map(files: List[Dict]) -> Dict[str, Any]:
@@ -316,7 +316,7 @@ def main() -> None:
         ],
         "observed_files": len(files),
         "determinism": "sorted, hash-based, no wall-clock in canon fields",
-        "governance": "advisory/SHADOW only - compliant with operator grant for engineering work tied to operator approval",
+        "governance": "advisory/SHADOW only; no execution or promotion authority",
         "next_recommended": "Build Engineering Knowledge Graph nodes/edges; run gap discovery enrichment; feed into Engineering Planner"
     }
     RECEIPT_FILE.write_text(json.dumps(receipt, indent=2, sort_keys=True))

@@ -392,6 +392,15 @@ def test_operator_decision_types_are_validation_only(
                 "operator_display_name": "Test Operator",
             },
         }
+        # Synthetic test-only confirmation metadata; never operator authorization.
+        import hashlib
+        from datetime import datetime, timezone
+        decision_payload.update({
+            "provenance": {"source": "OPERATOR_SUPPLIED", "input_method": "INTERACTIVE_ONE_AT_A_TIME"},
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "operator_confirmed": True,
+            "confirmed_review_sha256": hashlib.sha256(json.dumps(json.loads(review_path.read_text()), sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+        })
         jsonschema.validate(decision_payload, decision_schema)
         decision_path.write_text(
             json.dumps(decision_payload),

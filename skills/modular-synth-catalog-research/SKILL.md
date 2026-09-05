@@ -11,6 +11,10 @@ metadata:
     related_skills: [abraxas-jamon-agentic-workflow, abraxas-master-loop-workflow, abraxas-repo-intel, firecrawl-*, hermes-outcome-driven-improver, abraxas-obsidian-distiller]
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # MODULAR SYNTH CATALOG RESEARCH v1.0
 
 **Autonomous research umbrella** for building and maintaining comprehensive, provenance-first catalogs of modular synthesizers and their modules.
@@ -26,7 +30,7 @@ This skill turns Hermes into a governed research operator for audio hardware cat
 - Autonomous continuation until campaign-complete ("continue until all tasks complete").
 - Export formats ready for Obsidian, PATCHHIVE, and downstream canonical DBs.
 
-**Campaign results (as of integration):** 767 brands indexed, 29 major brands with detailed modules, mid-tier + long-tail coverage, non-Eurorack formats, master JSON + canonical artifacts.
+**Archived campaign claim, not current coverage:** the earlier campaign reported 767 brands and 29 detailed brands. Reconcile against current files and sources before repeating these counts. Long-tail phase 4 and non-Eurorack phase 5 remain UNCOMPLETED; no corresponding phase artifacts are shipped.
 
 **Intent:** Provide durable, auditable catalog data rather than one-off lookups. All work produces class-level references/ that survive session boundaries.
 
@@ -53,7 +57,7 @@ This skill turns Hermes into a governed research operator for audio hardware cat
 
 **Completion criterion:** Explicit evidence packet + rotation state logged before any scraping or catalog mutation.
 
-## 2. Research Execution (Jamon + Autonomous Loop)
+## 2. Research Execution (bounded current campaign)
 
 Follow phased plans in `references/full-continuation-plan.md` and `references/master-catalog.md`:
 
@@ -89,7 +93,7 @@ Use `abraxas-repo-intel` and firecrawl tools for smallest complete packets befor
 ## 5. Activation & Usage
 
 - **Session start:** Explicitly load or tag `@/modular-synth-catalog-research`.
-- **Campaign continuation:** "continue" / "keep going until done" = authorization for the full phased plan.
+- **Campaign continuation:** "continue" stays within the current explicitly approved scope, sources and budget; it is not a fresh blanket grant.
 - **Closeout:** Update this SKILL.md + add session-specific notes to references/ + emit receipt.
 - **Maintenance:** On new brands or module discoveries, patch the relevant phase file and re-export master catalog.
 
@@ -108,12 +112,12 @@ Use `abraxas-repo-intel` and firecrawl tools for smallest complete packets befor
 **Internal artifacts (all in `references/`):**
 - `master-catalog.md` + generated JSON — authoritative summary and counts.
 - `full-continuation-plan.md` — campaign plan + status.
-- `phase1-brand-index.md`, `phase2-major-brands.md`, `phase3-mid-tier.md`, `phase4-long-tail-index.md`, `phase5-non-eurorack.md`.
+- `phase1-brand-index.md`, `phase2-major-brands.md`, `phase3-mid-tier.md`.
 - `alternative-sources.md` — 20-source rotation list.
 - `PATCHHIVE_INTEGRATION.md` — mapping and import recommendations.
 
 **Related skills:**
-- `abraxas-jamon-agentic-workflow`, `abraxas-master-loop-workflow` (autonomous execution discipline).
+- `abraxas-master-loop-workflow` (only for scoped autonomous multi-cycle work; Jamon is retired).
 - `abraxas-repo-intel`, firecrawl skills (ingest tooling).
 - `abraxas-obsidian-distiller` (Obsidian formatting).
 - `hermes-outcome-driven-improver` (for ongoing catalog maintenance).
@@ -122,3 +126,14 @@ Use `abraxas-repo-intel` and firecrawl tools for smallest complete packets befor
 - AGENTS.md, GOVERNANCE_V3.md, abraxas-automated-production-governance.
 
 **Status:** Active class-level research umbrella. Prefer extending `references/` and this SKILL.md over new narrow siblings. Next evolution on new format coverage, PATCHHIVE import completion, or major brand refresh campaigns.
+
+
+## Fresh coverage accounting
+Before saying exhaustive, freeze a dated source universe and denominator: unique
+brand/module IDs by format and phase. Save IDs, retrieval dates and URLs in the
+chosen output directory; dedupe and count with code, not estimates. Report
+covered / expected, exclusions, failed fetches and unresolved items per phase.
+The source universe may be incomplete: exhaustive means only within that explicit
+universe/date. Reconcile Markdown/JSON counts; absent artifacts or unknown
+denominators mean NOT_COMPUTABLE, not complete. Do not publish archived campaign
+claims as live inventory. Phase 4 and phase 5 have no current coverage proof.

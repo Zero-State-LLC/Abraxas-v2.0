@@ -9,6 +9,11 @@ metadata:
     tags: [hyperagent, agents, orchestration, skills, fleets, deployment, integrations, abx-bridge]
     related_skills: [abraxas-multi-agent-orchestrator, abraxas-reviewable-capability-layer, hermes-agent, hermes-agent-skill-authoring, skill-maintenance]
 ---
+
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # hyperagent-orchestrator
 
 ## Overview
@@ -97,11 +102,11 @@ If one agent needs to hand work to another, make the handoff explicit in a machi
 1. Define the role in a JSON template.
 2. Attach triggers, tools, budgets, and evals.
 3. Dry-run locally with the helper script or a fixture file.
-4. Deploy or update the role.
+4. Stop at a local plan. Deployment is unavailable in the shipped helper.
 5. Observe the first runs for drift, cost spikes, or tool failures.
 6. Patch the skill once when the procedure stabilizes.
 
-Completion criterion: the role definition is reproducible from the template and the deployment payload is diffable.
+Planning completion only: the definition is reproducible and diffable. Deployment completion requires authenticated read-back of the exact role; a generated payload or POST response is not deployment verification.
 
 ## Compliance and Safety
 - Do not encode real-money wagering behavior into HollerSports or any other agent unless the task is explicitly compliance-reviewed and legally allowed.
@@ -161,7 +166,7 @@ Bridge rule:
 - [ ] The skill is folded into the Abraxas umbrella through `related_skills` and bridge references.
 
 ## Example Usage
-- Deploy a HyperAgent role for daily LA/CA signal foraging:
+- Plan (do not deploy) a HyperAgent role for daily LA/CA signal foraging:
   - `python skills/autonomous-ai-agents/hyperagent-orchestrator/scripts/hyperagent_deploy_role.py --template skills/autonomous-ai-agents/hyperagent-orchestrator/templates/hyperagent-agent-config.json --name la-signal-forager --mission "Monitor LA/CA developments with compliance filters and daily summaries" --dry-run`
 - Migrate Abraxas Codex Slice79 into a HyperAgent fleet role:
   - `python skills/autonomous-ai-agents/hyperagent-orchestrator/scripts/hyperagent_export_import_bridge.py --mode export --input slice79.json --output hyperagent-role.json`
@@ -178,3 +183,22 @@ Prefer a small local validation pass before treating the skill as done:
 
 ## Notes for Curators
 This skill overlaps with `abraxas-multi-agent-orchestrator` and `abraxas-reviewable-capability-layer`. Keep HyperAgent-specific mechanics here; keep cross-platform orchestration theory in the broader Abraxas umbrellas.
+
+
+## Deployment availability and consent
+The helper defaults to dry-run with either --input or --template (mutually
+exclusive). --deploy is recognized but fails closed with DEPLOYMENT_DISABLED;
+post_payload also raises before reading credentials or using network. There is
+no verified platform adapter. Do not infer one from generic template keys.
+
+Before implementing any production adapter, independently verify current official
+endpoint and wire schema, require HTTPS and an exact approved platform host,
+reject redirects/userinfo/arbitrary token destinations, and obtain fresh human
+consent bound to the payload hash, account, role, permissions, cost and target.
+Read back the exact created/updated role and compare approved fields before
+claiming success. Until then use local JSON plans only; no endpoint/token is
+required for dry-run and none is transmitted. Do not invent platform endpoints.
+
+```bash
+python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_hyperagent_safety.py -q
+```

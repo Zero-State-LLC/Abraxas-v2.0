@@ -16,6 +16,10 @@ metadata:
     related_skills: [abraxas-repo-intel, abx-familiar-signal-forager, abx-hermes-skill-evolution]
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # ABRAXAS MASTER LOOP WORKFLOW
 
 ## Purpose

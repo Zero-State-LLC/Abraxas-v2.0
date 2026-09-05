@@ -11,6 +11,10 @@ metadata:
     related_skills: [abraxas-master-loop-workflow, abx-neon-genie, abx-hermes-skill-evolution, abraxas-repo-intel, arxiv, web-scraping, polymarket, agent-reach]
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # abx-familiar-signal-forager
 
 **Role:** Hermes-side **signal acquisition syscall** for the Abraxas OS.  

@@ -25,6 +25,15 @@ def test_main_valid(tmp_path, monkeypatch):
         "operator": {"operator_id": "op1", "operator_display_name": "Test"}
     }
     review = {"formal_review_id": "r1", "deterministic_hash": "h1"}
+    # Synthetic test-only confirmation metadata; never operator authorization.
+    import hashlib
+    from datetime import datetime, timezone
+    decision.update({
+        "provenance": {"source": "OPERATOR_SUPPLIED", "input_method": "INTERACTIVE_ONE_AT_A_TIME"},
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "operator_confirmed": True,
+        "confirmed_review_sha256": hashlib.sha256(json.dumps(review, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+    })
     (op / "abx_hermes_formal_operator_decision_v2_7.input.json").write_text(json.dumps(decision))
     (out / "abx_hermes_formal_operator_review_packet_v2_6.latest.json").write_text(json.dumps(review))
     monkeypatch.setattr(v, "OUT", out)

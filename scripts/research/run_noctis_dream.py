@@ -73,7 +73,7 @@ def build_delivery(
 
     status = {
         "analysis_status": "STUB_EXECUTED" if dream_input.get("narrative_raw") else "NOT_COMPUTABLE",
-        "validation_status": "BOUNDARIES_PASSED",
+        "validation_status": "NOT_RUN",
         "unresolved_conflicts": [],
         "unvalidated_surfaces": ["real_noctis_core_functions"] if True else [],
     }
@@ -110,12 +110,14 @@ def build_delivery(
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=Path, help="DreamInput JSON file")
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--input", type=Path, help="DreamInput JSON file")
+    source.add_argument("--synthetic-fixture", action="store_true")
     parser.add_argument("--mode", default="HUMAN_DREAM")
     parser.add_argument("--output", type=Path, default=Path("/tmp/noctis_dream_delivery.json"))
     args = parser.parse_args()
 
-    if args.input and args.input.exists():
+    if args.input:
         dream_input = json.loads(args.input.read_text())
     else:
         # Minimal synthetic fixture for validation
@@ -123,6 +125,7 @@ def main() -> int:
             "schema_version": "DreamInput.v1",
             "dream_id": "synth_001",
             "source": "SYSTEM",
+            "synthetic": True,
             "captured_at": datetime.now(timezone.utc).isoformat(),
             "privacy_tier": "PUBLIC_SYNTHETIC",
             "narrative_raw": "I was walking through a forest of glowing symbols that kept repeating the same phrase about continuity.",
@@ -131,6 +134,8 @@ def main() -> int:
             "authority": {"lane": "SHADOW_SYMBOLIC"},
         }
 
+    if args.synthetic_fixture:
+        args.mode = "SYSTEM_DREAM"
     narrative = dream_input.get("narrative_raw", "")
     if not narrative or not narrative.strip():
         delivery = {"status": "NOT_COMPUTABLE", "reason": "empty narrative"}
@@ -147,8 +152,7 @@ def main() -> int:
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(delivery, indent=2, sort_keys=True))
-    print(f"NOCTIS delivery written to {args.output}")
-    print(json.dumps(delivery, indent=2)[:800] + "...")
+    print(json.dumps(delivery, indent=2, sort_keys=True))
     return 0
 
 

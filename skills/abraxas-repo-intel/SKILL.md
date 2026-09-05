@@ -11,9 +11,13 @@ metadata:
     related_skills: [abraxas-master-loop-workflow, abx-familiar-signal-forager, codebase-inspection]
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # abraxas-repo-intel
 
-Structural intelligence for the Abraxas repository. **Restore stub** — full graph builders may live under `scripts/`; this skill is the Hermes-facing procedure.
+Structural intelligence for the Abraxas repository. Repository-local procedure with a shipped heuristic builder; not a standalone graph service.
 
 ## When to Use
 
@@ -37,8 +41,17 @@ Structural intelligence for the Abraxas repository. **Restore stub** — full gr
 
 ## Scripts
 
-Inspect `skills/abraxas-repo-intel/scripts/` for any local helpers; run scrubbed:
+The real helper takes no required arguments and writes checkout-local out/repo_intel. Run only in a disposable full checkout when regeneration is explicitly requested:
 
 ```bash
-env -u PYTHONPATH -u PYTHONHOME python ...
+env -u PYTHONPATH -u PYTHONHOME python skills/abraxas-repo-intel/scripts/build_repo_intel.py
 ```
+
+
+The helper is heuristic: graph relations from naming/import matching are not
+proven execution traces. Its COMPLETE status only describes emitted inventory,
+not repository correctness or satisfied governance. Verify nonempty manifest
+files, each source path/hash, and exact expected outputs; never infer a live
+process or authority from prior receipts. Prefer Graft map/ask before source
+reads when an existing graph is available. For offline synthetic helper checks:
+`python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_repo_intel_safety.py -q`.

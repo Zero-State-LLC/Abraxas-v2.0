@@ -224,6 +224,8 @@ def is_complete(w: Dict) -> bool:
            w.get("operator_confirmed") is True
 
 def build_final_record(machine: Dict, working: Dict, review_pkt: Dict) -> Dict:
+    if not is_complete(working):
+        raise ValueError("CONFIRMATION_REQUIRED")
     norm = working["normalized_fields"]
     record = machine.copy()
     record.update({
@@ -246,6 +248,8 @@ def build_final_record(machine: Dict, working: Dict, review_pkt: Dict) -> Dict:
             "input_method": "INTERACTIVE_ONE_AT_A_TIME",
             "original_responses": working.get("original_responses", []),
         },
+        "operator_confirmed": True,
+        "confirmed_review_sha256": hashlib.sha256(json.dumps(review_pkt, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest(),
         "builder_status": "OPERATOR_DECISION_RECORD_BUILT",
         "timestamp": datetime.now(timezone.utc).isoformat(),
     })
@@ -268,14 +272,16 @@ def interactive_collect():
     machine = resolve_machine_fields(review)
     working = load_working()
 
-    # Drift check
-    if working.get("formal_review_id") and working["formal_review_id"] != machine["formal_review_id"]:
-        print("BLOCKED_BY_PACKET_DRIFT: Review ID changed. Resetting working state.")
-        working = {"builder_status": "COLLECTING_OPERATOR_INPUT", "formal_review_id": machine["formal_review_id"],
-                   "original_responses": [], "normalized_fields": {}, "missing_fields": HUMAN_FIELD_ORDER[:],
-                   "invalid_fields": [], "last_completed_field": "", "next_required_field": HUMAN_FIELD_ORDER[0],
-                   "packet_complete": False, "operator_confirmed": False}
+    # Bind all collected acknowledgments to an immutable snapshot, not only ID.
+    review_sha256 = hashlib.sha256(json.dumps(review, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+    if working.get("formal_review_id") and (
+        working["formal_review_id"] != machine["formal_review_id"] or
+        working.get("review_sha256") != review_sha256
+    ):
+        print("BLOCKED_BY_PACKET_DRIFT: human must start a fresh review; no acknowledgments reused")
+        return {"builder_status": "BLOCKED_BY_PACKET_DRIFT"}
 
+    working["review_sha256"] = review_sha256
     working["formal_review_id"] = machine["formal_review_id"]
     working["builder_status"] = "COLLECTING_OPERATOR_INPUT"
 
