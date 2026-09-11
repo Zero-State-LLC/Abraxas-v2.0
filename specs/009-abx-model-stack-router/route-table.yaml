@@ -1,0 +1,34 @@
+# SHADOW bind table. Not runtime.
+version: 0
+lane: SHADOW
+canon_mutation: false
+runtime_mutation: false
+execution_authority: false
+
+rules:
+  - id: R001
+    packet: slang_atom
+    specialists: [hyperlex.hyperlexical]
+  - id: R002
+    packet: tradition_atom
+    specialists: [athanor.structure]
+  - id: R004
+    packet: forecast_request
+    specialists: []
+    result: NOT_COMPUTABLE
+  - id: R004B
+    packet: settled_forecast
+    specialists: [abx.brier]
+  - id: R006
+    packet: sign_atom
+    specialists: [semion.triad]
+  - id: R009
+    packet: route_atom
+    specialists: [yggdrasil.topology]
+    home: RUNTIME_GATE
+    packet_schema: yggdrasil.route.v0
+  - id: R010
+    packet: unknown_namespace
+    specialists: [yggdrasil.topology]
+    result: NOT_COMPUTABLE
+    failure: UNKNOWN_NODE_GATE
