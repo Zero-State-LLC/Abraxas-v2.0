@@ -19,6 +19,10 @@ rules:
   - id: R004B
     packet: settled_forecast
     specialists: [abx.brier]
+    display: Trutina
+    function: trutina.score
+    home: yggdrasil.replay
+    packet_schema: brier.score.v0
   - id: R006
     packet: sign_atom
     specialists: [semion.triad]
