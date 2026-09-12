@@ -1,0 +1,35 @@
+# SHADOW specialist table for Spec 013. Not runtime.
+version: 0
+lane: SHADOW
+specialist: sigil.forge.construct
+packet: sigil.forge.v0
+tier1: null
+yggdrasil_home: yggdrasil.viz
+name_gate: false
+forecast_eligible: false
+can_promote: false
+efficacy: null
+
+rules:
+  - id: R011
+    packet: construct_atom
+    specialists: [sigil.forge.construct]
+    allow: [construct, verify, wallpaper, forge_packet]
+    deny: [efficacy, forecast, authority_seal_mint, learned_residual, invented_geometry]
+  - id: R011B
+    packet: mixed_tradition_construct
+    specialists: [athanor.structure, sigil.forge.construct]
+    order: [athanor.structure, sigil.forge.construct]
+  - id: R011C
+    packet: mixed_sign_construct
+    specialists: [semion.triad, sigil.forge.construct]
+    order: [semion.triad, sigil.forge.construct]
+  - id: R011D
+    packet: noctis_sig
+    specialists: [noctis.interpret, sigil.forge.construct]
+    order: [noctis.interpret, sigil.forge.construct]
+  - id: R004
+    packet: forecast_request
+    specialists: []
+    result: NOT_COMPUTABLE
+    note: unchanged from Spec 009

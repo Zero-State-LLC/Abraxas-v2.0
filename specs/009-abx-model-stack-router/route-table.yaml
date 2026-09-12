@@ -36,3 +36,20 @@ rules:
     specialists: [yggdrasil.topology]
     result: NOT_COMPUTABLE
     failure: UNKNOWN_NODE_GATE
+  - id: R011
+    packet: construct_atom
+    specialists: [sigil.forge.construct]
+    home: yggdrasil.viz
+    packet_schema: sigil.forge.v0
+  - id: R011B
+    packet: mixed_tradition_construct
+    specialists: [athanor.structure, sigil.forge.construct]
+    order: [athanor.structure, sigil.forge.construct]
+  - id: R011C
+    packet: mixed_sign_construct
+    specialists: [semion.triad, sigil.forge.construct]
+    order: [semion.triad, sigil.forge.construct]
+  - id: R011D
+    packet: noctis_sig
+    specialists: [noctis.interpret, sigil.forge.construct]
+    order: [noctis.interpret, sigil.forge.construct]
