@@ -18,6 +18,10 @@ metadata:
     memory_write_authority: false
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # ABX-ESOTERIC-INTELLIGENCE (Umbrella)
 
 ## Purpose (OBSERVED)
@@ -120,11 +124,11 @@ No claim omits classification.
 
 Default structured packets (see schemas):
 - EsotericAnalysisPacket.v1 (core envelope with observed/computed/traditional/inferred/symbolic_interpretation/alternatives/evidence/derivation/provenance/authority/status)
-- CrossTraditionArchetypePacket.v1
-- RitualGrammarPacket.v1
-- TemporalSymbolicPacket.v1
+- CrossTraditionArchetypePacket.v1 — proposed only; no specialized validated contract shipped
+- RitualGrammarPacket.v1 — proposed only; no specialized validated contract shipped
+- TemporalSymbolicPacket.v1 — proposed only; no specialized validated contract shipped
 - DivinatoryRenderPacket.v1 (explicit auth required)
-- SynchronicityAnalysisPacket.v1
+- SynchronicityAnalysisPacket.v1 — proposed only; no specialized validated contract shipped
 
 Use OPEN/ALIGN/ASCEND/CLEAR/SEAL framing in prose summaries when applicable. Separate OBSERVED / COMPUTED / TRADITION-ATTESTED / ... clearly. Mythic compression after engineering analysis only.
 
@@ -205,8 +209,18 @@ Strict separation: esoteric skill supplies symbolic genotype + interpretation. A
 
 All governance rules preserved (SHADOW, entity_assertion=false, fitness ≠ truth, recurrence ≠ forecast).
 
-Runner supports `--mode organismize|archetype_lineage|sigil_genotype|population_model|metabolism|synchronicity_ecology`.
-Emits SymbolicMetabolismPacket.v1 and alife-extended synchronicity when requested.
+There is no supported general esoteric CLI for these modes. `alife_adapter.py` exposes `build_alife_packet(mode, input_data, request)`; its canned builders are SYNTHETIC fixtures only, requiring `request={"synthetic_fixture": true}`. Without opt-in they raise NOT_COMPUTABLE; never use them as historical or measured evidence.
+Fixture packet shape checks are not evidence of a working ALife runtime. Unsupported live modes remain NOT_COMPUTABLE.
 
 
 See `alife_adapter.py` for the thin pure-function implementation of the ALife packet builders (KISS, reusable, no side effects).
+
+
+## Offline synthetic validation
+```bash
+python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_domain_routes.py tests/test_alife_adapter.py -q
+```
+These explicitly opt-in fixtures exercise each adapter and its authority labels.
+No registered rune, live tradition analysis or forecast is implied. General
+esoteric analysis remains a source-grounded procedural lane; do not invent a CLI
+or claim unsupported specialized packets have schemas.

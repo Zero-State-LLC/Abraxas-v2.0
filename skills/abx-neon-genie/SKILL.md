@@ -16,6 +16,10 @@ metadata:
     forecast_authority: false
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # ABX-NEON-GENIE (Umbrella)
 
 ## Purpose
@@ -79,7 +83,13 @@ Evidence-backed market, revenue, competitor, or adoption claims require an Evide
 Pass forager output into the router:
 
 ```python
-run_venture_cycle({
+import importlib.util
+from pathlib import Path
+path = Path("skills/abx-neon-genie/neon_genie_router.py")
+spec = importlib.util.spec_from_file_location("neon_router", path)
+router = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(router)
+router.run_venture_cycle({
     "mode": "TREND_LED",  # or MARKET_LED / MONETIZATION_LED / …
     "seed": "…",
     "evidence_pack_path": "out/signal_forage/<slug>/evidence_pack.v0.json",
@@ -99,7 +109,7 @@ Modes that **require** evidence: `MARKET_LED`, `TREND_LED`, `PAINPOINT_LED`, `MO
 
 ## Rune / YGGDRASIL Integration
 
-Before registering or changing Neon Genie runes/routes, invoke `abx-runes-yggdrasil-manager`.
+Before registering or changing runes/routes, resolve the unshipped manager per skills/OPERATING.md or STOP with BLOCKED_DEPENDENCY. Pure advisory fixtures do not register routes.
 
 Conceptual runes (to be validated/registered via the manager):
 - RUNE.NG.INTAKE
@@ -137,7 +147,7 @@ Targeted only:
 - authority and boundary scans
 - deterministic replay
 
-Full-suite: NOT_RUN_NOT_REQUIRED (BLOCKED_BY_PRE_EXISTING_BASELINE for unrelated surfaces).
+Full-suite: not implied by targeted checks. Report current failures and scope, never assume a historical blocker.
 
 ## Prohibited
 
@@ -166,7 +176,7 @@ Full-suite: NOT_RUN_NOT_REQUIRED (BLOCKED_BY_PRE_EXISTING_BASELINE for unrelated
 
 **Integration note for larger flows:**
 
-After repo-intel and runes-yggdrasil-manager:
+After repo-intel (resolve manager only for actual registration work):
 1. Classify request mode.
 2. Acquire evidence if required (Forager + Ingest).
 3. Run Neon Genie stages.
@@ -175,3 +185,15 @@ After repo-intel and runes-yggdrasil-manager:
 6. Emit venture packet + receipt + trace.
 
 Build the umbrella first. Extract stable specialist stages (overlap detector, scorer, packager) into sibling skills only after operational traces exist.
+
+## Concrete local invocation
+Use an explicit caller-created request JSON (for smoke testing, a labeled
+synthetic symbolic seed, not a market observation):
+```bash
+python skills/abx-neon-genie/neon_genie_router.py --input skills/abx-neon-genie/fixtures/synthetic-request.json > "$ABRAXAS_OUTPUT/neon.json"
+python skills/verify_artifact.py --schema contracts/neon_genie/ideation_operator_packet.v0.schema.json --member operator_packet "$ABRAXAS_OUTPUT/neon.json"
+python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_domain_routes.py -q
+```
+Require a complete operator_packet, commercial_claims_blocked when evidence is
+absent, and all execution/promotion/canon authority false. stdout is full JSON,
+not a truncated preview. The request is a fixture, not evidence of a live venture.

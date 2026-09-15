@@ -99,6 +99,12 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
-    example = {"mode": "SYMBOLIC_LED", "seed": "forest of repeating symbols"}
-    result = run_venture_cycle(example)
-    print(json.dumps(result, indent=2, sort_keys=True)[:1200] + "...")
+    import argparse
+    parser = argparse.ArgumentParser(description="Local advisory venture router")
+    parser.add_argument("--input", required=True, type=Path)
+    args = parser.parse_args()
+    request = json.loads(args.input.read_text(encoding="utf-8"))
+    if not isinstance(request, dict):
+        parser.error("input must be an object")
+    result = run_venture_cycle(request)
+    print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))

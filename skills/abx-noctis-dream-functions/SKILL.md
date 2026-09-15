@@ -17,6 +17,10 @@ metadata:
     memory_write_authority: false
 ---
 
+Supported mode: **full checkout**. Read repository-root `skills/OPERATING.md`
+for Python 3.12 bootstrap, canonical source/version, explicit output paths,
+unshipped sibling fallback and fail-closed verification before using this skill.
+
 # ABX-NOCTIS-DREAM-FUNCTIONS
 
 ## Purpose
@@ -97,7 +101,7 @@ Dream input
 
 ## Rune / YGGDRASIL Integration
 
-**Before registering or using dream runes, invoke the sibling skill:**
+**Registration requires an operator-provided approved manager; if unavailable STOP with BLOCKED_DEPENDENCY (see skills/OPERATING.md). Local pure fixtures need no rune registration. Unshipped sibling:**
 
 `abx-runes-yggdrasil-manager`
 
@@ -139,7 +143,7 @@ Targeted only:
 - authority/privacy/forecast boundary scans
 - targeted pytest
 
-Full-suite: NOT_RUN_NOT_REQUIRED (BLOCKED_BY_PRE_EXISTING_BASELINE).
+Full-suite not implied. Report actual current diagnostics rather than a historical blocker.
 
 ## Prohibited
 
@@ -211,9 +215,18 @@ status:
 **Integration note (per larger flows):**
 
 After repo-intel and before heavy Signal Forager or new capability work on dream material:
-1. Apply `abx-runes-yggdrasil-manager` to resolve dream runes/routes.
+1. For actual rune/route registration, resolve the approved manager or stop. Local analysis may remain unregistered/advisory.
 2. Use this skill for governed NOCTIS processing.
 3. Route external/legacy dream sources through Abraxas Ingest + FAMILIAR first.
 4. Emit full receipts and respect all boundaries.
 
 This is a sibling skill in the governed SHADOW symbolic stack.
+
+## Executable fixture and privacy checks
+```bash
+python scripts/research/run_noctis_dream.py --synthetic-fixture --output "$ABRAXAS_OUTPUT/noctis.json"
+python skills/verify_artifact.py --schema contracts/noctis/dream_operator_packet.v0.schema.json --member operator_packet "$ABRAXAS_OUTPUT/noctis.json"
+python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_domain_routes.py tests/test_noctis_dream_operator_packet.py -q
+```
+The fixture requires explicit opt-in; missing --input files fail, never become
+synthetic dreams. Read `references/pipeline_contract.md` for privacy and scope.

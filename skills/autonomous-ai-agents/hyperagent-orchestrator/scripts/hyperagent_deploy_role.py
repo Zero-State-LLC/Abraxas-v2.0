@@ -1,76 +1,57 @@
 #!/usr/bin/env python3
-"""Deterministic HyperAgent role payload builder.
-
-Outputs a stable JSON payload suitable for review, export, or posting to a
-HyperAgent deployment endpoint if one is configured.
-"""
-from __future__ import annotations
-
+"""Offline role-payload planner. No verified platform deployment adapter is shipped."""
 import argparse
 import json
-import os
 from pathlib import Path
-from typing import Any
-from urllib.request import Request, urlopen
 
 
-def load_json(path: str) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+def load_json(path):
+    value = json.loads(Path(path).read_text(encoding='utf-8'))
+    if not isinstance(value, dict):
+        raise ValueError('ROLE_MUST_BE_OBJECT')
+    return value
 
 
-def build_payload(template: dict[str, Any], name: str | None, mission: str | None, dry_run: bool) -> dict[str, Any]:
+def build_payload(template, name=None, mission=None, dry_run=True):
+    if not dry_run:
+        raise ValueError('DEPLOYMENT_DISABLED: verified platform adapter required')
     payload = dict(template)
     if name:
-        payload["name"] = name
+        payload['name'] = name
     if mission:
-        payload["mission"] = mission
-    payload.setdefault("version", "0.1.0")
-    payload.setdefault("tools", [])
-    payload.setdefault("budget", {"max_cost_usd": 0, "max_steps": 1})
-    payload["deployment_mode"] = "dry_run" if dry_run else "deploy"
+        payload['mission'] = mission
+    payload.setdefault('version', '0.1.0')
+    payload.setdefault('tools', [])
+    payload.setdefault('budget', {'max_cost_usd': 0, 'max_steps': 1})
+    payload['deployment_mode'] = 'dry_run'
     return payload
 
 
-def post_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    endpoint = os.getenv("HYPERAGENT_DEPLOY_URL")
-    token = os.getenv("HYPERAGENT_OAUTH_TOKEN") or os.getenv("HYPERAGENT_API_KEY")
-    if not endpoint:
-        return {"status": "skipped", "reason": "HYPERAGENT_DEPLOY_URL not set", "payload": payload}
-    req = Request(
-        endpoint,
-        data=json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": "hyperagent-orchestrator-deploy-role/1.0",
-            **({"Authorization": f"Bearer {token}"} if token else {}),
-        },
-        method="POST",
-    )
-    with urlopen(req, timeout=30) as resp:
-        body = resp.read().decode("utf-8", errors="replace")
-        return {"status": "posted", "http_status": getattr(resp, "status", 200), "body": body}
+def post_payload(payload):
+    raise ValueError('DEPLOYMENT_DISABLED: no verified endpoint, consent binding, or read-back adapter')
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--template", required=True, help="Path to a JSON role template")
-    parser.add_argument("--input", help="Optional input role JSON to use instead of template fields")
-    parser.add_argument("--name", help="Override the role name")
-    parser.add_argument("--mission", help="Override the mission text")
-    parser.add_argument("--dry-run", action="store_true", help="Print payload instead of posting")
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('--template')
+    source.add_argument('--input')
+    parser.add_argument('--name')
+    parser.add_argument('--mission')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--dry-run', action='store_true', help='Default; render local review JSON only')
+    mode.add_argument('--deploy', action='store_true', help='Reserved: fails closed until verified adapter exists')
     args = parser.parse_args()
-
-    template = load_json(args.input) if args.input else load_json(args.template)
-    payload = build_payload(template, args.name, args.mission, args.dry_run)
-
-    if args.dry_run:
-        print(json.dumps(payload, indent=2, sort_keys=True))
-        return 0
-
-    result = post_payload(payload)
-    print(json.dumps(result, indent=2, sort_keys=True))
+    if args.deploy:
+        parser.error('DEPLOYMENT_DISABLED: no verified platform adapter; no credentials read or sent')
+    try:
+        payload = build_payload(load_json(args.input or args.template), args.name, args.mission)
+        text = json.dumps(payload, indent=2, sort_keys=True, allow_nan=False)
+    except (OSError, ValueError, TypeError) as exc:
+        parser.error(type(exc).__name__ + ': invalid role input')
+    print(text)
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())

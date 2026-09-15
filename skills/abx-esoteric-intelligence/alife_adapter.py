@@ -12,12 +12,27 @@ KISS: deterministic, no side effects, stable ordering.
 from __future__ import annotations
 import hashlib
 from typing import Any, Dict
+from functools import wraps
+
+
+def synthetic_only(builder):
+    """Legacy canned builders are fixtures, never observational adapters."""
+    @wraps(builder)
+    def wrapped(input_data, request):
+        if request.get("synthetic_fixture") is not True:
+            raise ValueError("NOT_COMPUTABLE: adapter is a synthetic fixture; explicit opt-in required")
+        packet = builder(input_data, request)
+        packet["synthetic"] = True
+        packet["evidence_status"] = "SYNTHETIC"
+        return packet
+    return wrapped
 
 
 def _provenance_hash(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:16]
 
 
+@synthetic_only
 def build_organism_candidate(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     """Build SymbolicOrganismCandidate.v1 for handoff to existing ALife runtime."""
     text = input_data or "Sample symbolic structure"
@@ -86,6 +101,7 @@ def build_organism_candidate(input_data: str, request: Dict[str, Any]) -> Dict[s
     }
 
 
+@synthetic_only
 def build_archetype_lineage(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "schema_version": "ABX.ArchetypeLineage.v1",
@@ -102,6 +118,7 @@ def build_archetype_lineage(input_data: str, request: Dict[str, Any]) -> Dict[st
     }
 
 
+@synthetic_only
 def build_sigil_genotype(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     text = input_data or ""
     return {
@@ -118,6 +135,7 @@ def build_sigil_genotype(input_data: str, request: Dict[str, Any]) -> Dict[str, 
     }
 
 
+@synthetic_only
 def build_population_model(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     text = input_data or ""
     return {
@@ -135,6 +153,7 @@ def build_population_model(input_data: str, request: Dict[str, Any]) -> Dict[str
     }
 
 
+@synthetic_only
 def build_metabolism_packet(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     text = input_data or ""
     return {
@@ -153,6 +172,7 @@ def build_metabolism_packet(input_data: str, request: Dict[str, Any]) -> Dict[st
     }
 
 
+@synthetic_only
 def build_synchronicity_ecology(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "schema_version": "ABX.SynchronicityAnalysisPacket.v1",
