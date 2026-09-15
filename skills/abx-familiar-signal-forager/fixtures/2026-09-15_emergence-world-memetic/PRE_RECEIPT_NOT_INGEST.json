@@ -1,0 +1,32 @@
+{
+  "schema_version": "PreReceipt.v0",
+  "not_a_familiar_ingestion_receipt": true,
+  "status": "BLOCKED_NO_REPO_CHECKOUT",
+  "validation_status": "NOT_COMPUTABLE",
+  "reason_code": "NC_POLICY_OR_ACCESS_BOUNDARY",
+  "pack_id": "ep_20260915_emergence_memetic_w3",
+  "pack_path": "skills/abx-familiar-signal-forager/fixtures/2026-09-15_emergence-world-memetic/evidence_pack.v0.json",
+  "pack_sha256_file_bytes": "55eea635031bd17ff2cdbfa861929bdede67c58d44c5828767f92cd5c22638e1",
+  "pack_sha256_sorted_json": "12573bccb1df09d0b8f7e4d019e972e7878d4119e2fc02c7b48d5c29f4e450bf",
+  "note_on_hashes": "Sandbox fingerprints. Not core.canonical.json canonical_hash. Not pack_hash on FamiliarIngestionReceipt.v0.",
+  "source_count": 8,
+  "claim_count": 10,
+  "register_counts": {
+    "OBSERVED": 7,
+    "INFERRED": 1,
+    "SPECULATIVE": 1,
+    "NOT_COMPUTABLE": 1
+  },
+  "attempted_runner": "scripts/ingest/run_familiar_ingestion_from_pack.py",
+  "attempted_module": "core.ingest.familiar_ingestion_receipt",
+  "blocker": "Companion sandbox could not git clone Abraxas-v2.0. Pack landed via GitHub connector on SHADOW branch instead.",
+  "authority": {
+    "execution_authority": false,
+    "promotion_authorized": false,
+    "forecast_routing_authorized": false,
+    "canon_mutation_allowed": false
+  },
+  "lane": "SHADOW",
+  "advisory_only": true,
+  "ingest_complete": false
+}
