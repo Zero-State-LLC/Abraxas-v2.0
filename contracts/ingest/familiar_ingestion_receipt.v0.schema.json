@@ -72,7 +72,10 @@
       "type": "array",
       "items": { "type": "string" }
     },
-    "commercial_claims_blocked": { "type": "boolean" },
+    "commercial_claims_blocked": {
+      "type": "boolean",
+      "description": "Density gate for Neon/commercial language (true when OBSERVED density is too low). Not a SHADOW lane lock. Lane is lane + advisory_only + four authority bits."
+    },
     "evidence_density": { "type": "number", "minimum": 0, "maximum": 1 },
     "authority": {
       "type": "object",
