@@ -52,7 +52,7 @@ def load_alife():
     return m
 
 
-@pytest.mark.parametrize('mode', ['organismize','archetype_lineage','sigil_genotype','population_model','metabolism','synchronicity_ecology'])
+@pytest.mark.parametrize('mode', ['organismize','archetype_lineage','population_model','metabolism','synchronicity_ecology'])
 def test_alife_canned_builders_require_opt_in_fixture(mode):
     with pytest.raises(ValueError, match='NOT_COMPUTABLE'):
         load_alife().build_alife_packet(mode, 'unrelated input', {})

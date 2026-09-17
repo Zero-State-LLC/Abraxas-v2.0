@@ -14,6 +14,11 @@ KNOWN_SUBSYSTEMS = {
     "virality": "Level 99",
     "execution": "ABX-Familiar",
     "competitive": "SignalOps / LeakForge",
+    "construct": "Sigil-Forge",
+    "tradition": "Athanor",
+    "sign": "Semion",
+    "brier": "Trutina",
+    "slang": "Hyperlex",
 }
 
 def classify_overlap(concepts: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -31,6 +36,41 @@ def classify_overlap(concepts: List[Dict[str, Any]]) -> Dict[str, Any]:
         return {"classification": "WRAPPER_CANDIDATE", "recommended_route": "Level 99", "reason": "memetic overlap"}
     if "competitive" in description or "leakforge" in description:
         return {"classification": "DUPLICATE", "recommended_route": "SignalOps / LeakForge"}
+    if any(k in description for k in ["sigil-forge", "kamea", "construct glyph"]):
+        return {
+            "classification": "ADJACENT",
+            "recommended_route": "Sigil-Forge",
+            "specialist_skills": ["sigil-forge"],
+            "reason": "construct / geometry seed",
+        }
+    if "athanor" in description or "tradition retrieve" in description:
+        return {
+            "classification": "ADJACENT",
+            "recommended_route": "Athanor",
+            "specialist_skills": ["athanor"],
+            "reason": "tradition retrieve seed",
+        }
+    if "semion" in description or "sign triad" in description:
+        return {
+            "classification": "ADJACENT",
+            "recommended_route": "Semion",
+            "specialist_skills": ["semion"],
+            "reason": "sign-class seed",
+        }
+    if "trutina" in description or "brier" in description:
+        return {
+            "classification": "ADJACENT",
+            "recommended_route": "Trutina",
+            "specialist_skills": ["trutina"],
+            "reason": "settled score ask — not a Neon rank",
+        }
+    if "hyperlex" in description or "slang" in description:
+        return {
+            "classification": "ADJACENT",
+            "recommended_route": "Hyperlex",
+            "specialist_skills": ["hyperlex"],
+            "reason": "form / lexical seed",
+        }
 
     # Default to novel for this thin stub
     return {
