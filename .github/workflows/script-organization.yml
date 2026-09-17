@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   check-organization:
+    if: ${{ vars.HOSTED_ACTIONS_AVAILABLE != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
