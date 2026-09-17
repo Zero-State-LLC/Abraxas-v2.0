@@ -47,7 +47,7 @@
       "live_catalog_mutation": false,
       "product_handoff": "wallpaper PNG (SF12 vault); packets are workspace",
       "alembic_slot": "deterministic_tool SHADOW adapter exists but not on live registry",
-      "agent_binding": "optional SKILL.md contract; Hermes is one installer, not required"
+      "agent_binding": "optional SKILL.md contract; Hermes is last-compat only, not the end-product runtime"
     },
     {
       "id": "athanor",

@@ -2,6 +2,12 @@
   "schema_version": "SpecialistNotionRouting.v1",
   "lane": "SHADOW",
   "mints_spine_owner": false,
+  "reader_policy": {
+    "product_runtime": "agent_agnostic",
+    "share_target": "operator_or_workspace_connection_used_by_agents",
+    "hermes_integration": "legacy_token_only",
+    "do_not": "treat Hermes as the required Notion reader or end-product runtime"
+  },
   "master_index": "https://app.notion.com/p/Abraxas-Master-Index-Ownership-Map-7fbc6e1c1ddd4c74bc01df72f15d959e",
   "navigation_page": {
     "id": "3de3e8ba-2f5c-81c6-8ef5-c27909a935b0",

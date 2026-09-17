@@ -3,7 +3,7 @@
 **Status:** ACTIVE SHADOW · advisory implementation spine  
 **Date:** 2026-09-16  
 **Authority:** LOCAL_DEV / SHADOW only · no EXTERNAL_PRODUCTION grant  
-**Runtime:** **agent-agnostic** standalone CLI + `forge_core` (Hermes is an optional installer)  
+**Runtime:** **agent-agnostic** standalone CLI + `forge_core`. Hermes is last-compat only — not the end-product runtime, Notion reader, or installer.  
 **Notion:** Master Index model-stack owners stamp 2026-09-15. Navigation child: [Sigil-Forge — Abraxas SHADOW mount](https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0) (does not replace the unshared owner page).  
 **Companions:** `contracts/specialist_models/stack.v1.json` · `contracts/sigil_forge/` · Hyperlex `compat/abraxas/` · `skills/abx-esoteric-intelligence/`
 
@@ -13,7 +13,7 @@
 
 Sigil-Forge is a **standalone construction engine** (`scrimshawlife-ctrl/Sigil-Forge`, MIT): Python CLI + pure `forge_core`. Abraxas mounts it the same way Hyperlex is mounted: typed packets across the boundary, **no smash-merge**, no live rune-catalog write.
 
-Any agent (Grok, Codex, Claude, Hermes, a raw shell) invokes:
+Any agent (Grok, Codex, Claude, a raw shell) invokes:
 
 ```bash
 python3 scripts/sigil_forge.py construct --intent "…" --out DIR
@@ -63,9 +63,9 @@ Claim classes: **COMPUTED** for digest/geometry; **NOT_COMPUTABLE** for all-vowe
 
 ## 3. Specialist model pipeline (how this evolves)
 
-Notion (2026-09-15) lists model-stack owners: **Athanor · Semion · Trutina · Sigil-Forge · Hyperlex**. Athanor/Semion/Trutina owner pages were not readable from the integration. Jobs below for those three are **INFERRED from name + grouping**, not observed from the pages.
+Notion (2026-09-15) lists model-stack owners: **Athanor · Semion · Trutina · Sigil-Forge · Hyperlex**. Athanor/Semion/Trutina owner pages were not readable from the current API token. Jobs below for those three are **INFERRED from name + grouping**, not observed from the pages.
 
-Specialists are **models + CLIs**, not Hermes skills. Each emits typed packets. Hermes, Grok, Codex, or a scheduler can drive them.
+Specialists are **models + CLIs**, not agent skills and not a Hermes product. Each emits typed packets. Grok, Codex, a scheduler, or a raw shell can drive them. Share owner pages with the workspace connection those agents use — do not require the Hermes Notion bot.
 
 ```text
 v1  TOOLS          Hyperlex receipts + Sigil-Forge genotype/ingest
