@@ -63,9 +63,9 @@ Claim classes: **COMPUTED** for digest/geometry; **NOT_COMPUTABLE** for all-vowe
 
 ## 3. Specialist model pipeline (how this evolves)
 
-Notion (2026-09-15) lists model-stack owners: **Athanor · Semion · Trutina · Sigil-Forge · Hyperlex**. Athanor/Semion/Trutina owner pages were not readable from the current API token. Jobs below for those three are **INFERRED from name + grouping**, not observed from the pages.
+Notion (2026-09-15) lists model-stack owners: **Athanor · Semion · Trutina · Sigil-Forge · Hyperlex**. Owner pages were **OBSERVED** on 2026-09-17 via `ntn` saved credentials (Daniel’s Space). Hermes bot is not the product reader.
 
-Specialists are **models + CLIs**, not agent skills and not a Hermes product. Each emits typed packets. Grok, Codex, a scheduler, or a raw shell can drive them. Share owner pages with the workspace connection those agents use — do not require the Hermes Notion bot.
+Specialists are **models + CLIs**, not agent skills and not a Hermes product. Intake still enters FAMILIAR. They do not open a second forage door.
 
 ```text
 v1  TOOLS          Hyperlex receipts + Sigil-Forge genotype/ingest
@@ -82,13 +82,15 @@ v3  CALIBRATION    Trutina weighs specialist outputs
                    geometry / lexical signal never auto-FORECAST
 ```
 
-| Specialist | Role in the pipe | Packet | Alembic family (slot, not live registry) |
-|------------|------------------|--------|------------------------------------------|
-| **Hyperlex** | Lexical / memetic emergence | receipts, `RUNE.HLX.*` | statistical_ml / graph_neural (compat exists) |
-| **Sigil-Forge** | Intent compression + PoI | genotype, forge-packet, wallpaper | deterministic_tool |
-| **Athanor** | Refinement furnace | TBD (unshared page) | composite_hybrid |
-| **Semion** | Sign / semiotic read | TBD (unshared page) | symbolic_expert |
-| **Trutina** | Weighing / calibration | TBD (unshared page) | statistical_ml |
+| Specialist | OBSERVED job (owner page) | Packet | Abraxas mount |
+|------------|---------------------------|--------|---------------|
+| **Hyperlex** | Form / lexical / slang | receipts, `RUNE.HLX.*` | compat layer exists |
+| **Sigil-Forge** | Construct / verify / wallpaper (`sigil.forge.construct`) | `sigil.forge.v0` + genotype/ingest | SHADOW mounted |
+| **Athanor** | Tradition retrieve (`athanor.structure`) | `athanor.packet.v0` | none — SLOT_RESERVED |
+| **Semion** | Sign triad (`semion.triad`) | `semion.frame.v0` | none — SLOT_RESERVED |
+| **Trutina** | Settled Brier (`trutina.score`) | `brier.score.v0` | none — SLOT_RESERVED |
+
+Route: cultural atoms → Hyperlex. Tradition → Athanor. Sign-class → Semion. Settled scores → Trutina. Construct → Sigil-Forge. Forecast asks stay NOT_COMPUTABLE until Trutina has a settled pair.
 
 Do **not** add these as ENABLED rows in `contracts/alembic/architecture_registry.json` until a real adapter exists. Stub ENABLED is a lie.
 

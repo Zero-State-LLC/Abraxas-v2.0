@@ -6,6 +6,7 @@
     "product_runtime": "agent_agnostic",
     "share_target": "operator_or_workspace_connection_used_by_agents",
     "hermes_integration": "legacy_token_only",
+    "active_reader": "ntn saved credentials for Daniel’s Space",
     "do_not": "treat Hermes as the required Notion reader or end-product runtime"
   },
   "master_index": "https://app.notion.com/p/Abraxas-Master-Index-Ownership-Map-7fbc6e1c1ddd4c74bc01df72f15d959e",
@@ -24,7 +25,7 @@
     },
     "sigil_forge": {
       "owner_stamp": "2026-09-15 model-stack owners",
-      "owner_page_unshared": "https://app.notion.com/p/3dc3e8ba2f5c81e2a088f79c7d78554a",
+      "owner_page": "https://app.notion.com/p/3dc3e8ba2f5c81e2a088f79c7d78554a",
       "aal_viz_system_id": "sigil_forge",
       "note": "Standalone specialist engine; SHADOW mounted"
     }
@@ -47,18 +48,24 @@
     },
     {
       "system_id": "athanor",
-      "notion_role": "model-stack owner",
-      "projection_status": "NOT_COMPUTABLE"
+      "notion_role": "model-stack owner; tradition retrieve",
+      "owner_page": "https://app.notion.com/p/3dc3e8ba2f5c816c9a3cc9cfe6d91ca8",
+      "projection_status": "NOT_COMPUTABLE",
+      "reason": "owner page OBSERVED; no Abraxas mount"
     },
     {
       "system_id": "semion",
-      "notion_role": "model-stack owner",
-      "projection_status": "NOT_COMPUTABLE"
+      "notion_role": "model-stack owner; sign triad",
+      "owner_page": "https://app.notion.com/p/3dc3e8ba2f5c8159b670ee72294bc7b2",
+      "projection_status": "NOT_COMPUTABLE",
+      "reason": "owner page OBSERVED; no Abraxas mount"
     },
     {
       "system_id": "trutina",
-      "notion_role": "model-stack owner",
-      "projection_status": "NOT_COMPUTABLE"
+      "notion_role": "model-stack owner; settled Brier",
+      "owner_page": "https://app.notion.com/p/3dc3e8ba2f5c81899606f067556520b5",
+      "projection_status": "NOT_COMPUTABLE",
+      "reason": "owner page OBSERVED; no Abraxas mount"
     }
   ]
 }

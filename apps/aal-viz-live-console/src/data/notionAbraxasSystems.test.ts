@@ -27,7 +27,7 @@ describe('Notion Abraxas specialist systems on the projection spine', () => {
     }
   });
 
-  it('keeps unshared specialist owner pages not-computable instead of inventing READY', () => {
+  it('keeps unmounted specialist owners not-computable instead of inventing READY', () => {
     for (const id of ['athanor', 'semion', 'trutina'] as const) {
       const system = sampleProjectionBundle.systems.find((row) => row.system_id === id);
       expect(system?.status).toBe('NOT_COMPUTABLE');

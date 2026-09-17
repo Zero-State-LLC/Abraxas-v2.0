@@ -14,13 +14,9 @@
     "notion_owner_stamp": "2026-09-15",
     "notion_index": "Abraxas Master Index + Ownership Map",
     "claim_class": "OBSERVED_OWNERSHIP_ROUTING",
-    "unshared_owner_pages": [
-      "Sigil-Forge",
-      "Athanor",
-      "Semion",
-      "Trutina",
-      "Zero State × Abraxas Core Model Spine"
-    ],
+    "reader": "ntn saved credentials (Daniel’s Space); Hermes bot is not the product reader",
+    "unshared_owner_pages": [],
+    "owner_pages_observed_at": "2026-09-17",
     "navigation_page": "https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0"
   },
   "specialists": [
@@ -39,7 +35,8 @@
       "id": "sigil-forge",
       "role": "intent_compression",
       "family": "deterministic_tool",
-      "packet": "forge-packet.json / ABX.SigilGenotype.v1 / ForgeIngestEnvelope.v1",
+      "specialist_id": "sigil.forge.construct",
+      "packet": "sigil.forge.v0 / forge-packet.json / ABX.SigilGenotype.v1 / ForgeIngestEnvelope.v1",
       "repo": "scrimshawlife-ctrl/Sigil-Forge",
       "abraxas_compat": "skills/abx-esoteric-intelligence/sigil_forge_bridge.py",
       "runtime": "standalone-cli",
@@ -51,44 +48,57 @@
     },
     {
       "id": "athanor",
-      "role": "refinement_furnace",
-      "family": "composite_hybrid",
-      "packet": "UNSHARED_OWNER_PAGE",
+      "role": "tradition_retrieve",
+      "family": "symbolic_expert",
+      "specialist_id": "athanor.structure",
+      "packet": "athanor.packet.v0 / athanor.encoder.inference.v0",
+      "repo": "scrimshawlife-ctrl/Athanor",
       "status": "SLOT_RESERVED",
       "live_catalog_mutation": false,
-      "inferred_job": "Distill / refine specialist packets under heat (iteration, not promotion)",
-      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+      "observed_job": "Tradition families, PD harvest, offline lexical retrieve. Encoder train/Hub gated. Efficacy always null.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "treat as a refinement furnace or forecast mint"
     },
     {
       "id": "semion",
-      "role": "semiotic_sign",
+      "role": "sign_triad",
       "family": "symbolic_expert",
-      "packet": "UNSHARED_OWNER_PAGE",
+      "specialist_id": "semion.triad",
+      "packet": "semion.frame.v0",
+      "repo": "scrimshawlife-ctrl/Semion",
       "status": "SLOT_RESERVED",
       "live_catalog_mutation": false,
-      "inferred_job": "Interpret signs without collapsing them into identity or forecast",
-      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+      "observed_job": "Triad. Sign class. Corpus adapt. Semiosis export. Encoder gated. Mixed slang+sign goes Hyperlex first; mixed tradition+sign goes Athanor first.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "own phenomenal heads, numeric Brier, or forecast mint"
     },
     {
       "id": "trutina",
-      "role": "weighing_calibration",
+      "role": "settled_brier",
       "family": "statistical_ml",
-      "packet": "UNSHARED_OWNER_PAGE",
+      "specialist_id": "abx.brier",
+      "function_slice": "trutina.score",
+      "packet": "brier.score.v0",
+      "repo": "scrimshawlife-ctrl/Trutina",
       "status": "SLOT_RESERVED",
       "live_catalog_mutation": false,
-      "inferred_job": "Weigh specialist contributions; Brier / calibration owner among models",
-      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+      "observed_job": "Settled forecast pairs via R004B. Score functions. Calibration receipts. Does not train. Unsettled forecast_request stays NOT_COMPUTABLE.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "mint forecast or replace outcome_brier in Abraxas core"
     }
   ],
   "pipeline": {
     "v1": "deterministic specialist tools emit typed SHADOW packets (Hyperlex receipts, Sigil-Forge genotype/ingest)",
-    "v2": "trained specialist models consume those packets as features; Alembic hybrid plans fuse ArchitectureContribution objects; Athanor refines, Semion interprets",
-    "v3": "Trutina calibrates specialist outputs; geometry and lexical signal never auto-promote to FORECAST or canon"
+    "v2": "specialists consume FAMILIAR packets: Hyperlex form/slang, Athanor tradition retrieve, Semion sign triad, Sigil-Forge construct; encoder train/Hub remain gated",
+    "v3": "Trutina scores settled (p,y) pairs only; geometry and lexical signal never auto-promote to FORECAST or canon"
   },
   "evolution": {
     "v1": "Mount tools. Typed packets. No smash-merge. No live rune catalog writes.",
-    "v2": "Specialist models train on packet features (digest, channel bitmap, lineage, Brier series) — not on plaintext intent by default.",
-    "v3": "Alembic ranks eligible specialists; Trutina scores; operator disposes conflicts. Wallpaper/PoI remain Sigil-Forge product surfaces."
+    "v2": "T0/T1 encoders on Spark only after E2 + name_gate + ALLOW_TRAIN. Not a pitch until those gates exist.",
+    "v3": "Trutina scores settled pairs; operator disposes conflicts. Wallpaper/PoI remain Sigil-Forge product surfaces."
   },
   "non_goals": [
     "Inlining Sigil-Forge scripts into Abraxas-v2.0/core",

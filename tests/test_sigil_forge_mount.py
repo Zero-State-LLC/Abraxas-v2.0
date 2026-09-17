@@ -133,6 +133,19 @@ def test_specialist_stack_contract_lists_sigil_forge_and_siblings():
     sf = next(row for row in data["specialists"] if row["id"] == "sigil-forge")
     assert sf["role"] == "intent_compression"
     assert sf["live_catalog_mutation"] is False
+    assert data["source"]["unshared_owner_pages"] == []
+    observed = {row["id"]: row for row in data["specialists"]}
+    assert observed["athanor"]["role"] == "tradition_retrieve"
+    assert "athanor.packet.v0" in observed["athanor"]["packet"]
+    assert observed["athanor"]["claim_class_on_job"] == "OBSERVED_OWNER_PAGE"
+    assert observed["semion"]["packet"] == "semion.frame.v0"
+    assert observed["trutina"]["packet"] == "brier.score.v0"
+    for sid in ("athanor", "semion", "trutina"):
+        assert observed[sid]["status"] == "SLOT_RESERVED"
+        assert observed[sid]["abraxas_mount"] is False
+    dumped = json.dumps(data)
+    assert "UNSHARED_OWNER_PAGE" not in dumped
+    assert "refinement_furnace" not in dumped
     assert "v1" in data["evolution"]
     assert "v2" in data["evolution"]
     assert "v3" in data["evolution"]
