@@ -11,6 +11,8 @@ KISS: deterministic, no side effects, stable ordering.
 
 from __future__ import annotations
 import hashlib
+import sys
+from pathlib import Path
 from typing import Any, Dict
 from functools import wraps
 
@@ -26,6 +28,10 @@ def synthetic_only(builder):
         packet["evidence_status"] = "SYNTHETIC"
         return packet
     return wrapped
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
 
 
 def _provenance_hash(text: str) -> str:
@@ -118,20 +124,43 @@ def build_archetype_lineage(input_data: str, request: Dict[str, Any]) -> Dict[st
     }
 
 
-@synthetic_only
 def build_sigil_genotype(input_data: str, request: Dict[str, Any]) -> Dict[str, Any]:
+    """Bind intent to a Sigil-Forge genotype. Never invent primitives.
+
+    Public packet omits plaintext intent. Construction is Spare letter_monogram
+    via the mounted skill or a labeled local reduction. This is the SHADOW
+    specialist mount, not a canned synthetic fixture: do not wrap with
+    @synthetic_only.
+    """
+    from sigil_forge_bridge import compute_genotype_core, default_governance
+
     text = input_data or ""
+    core = compute_genotype_core(text)
+    digest = core["intent_digest"]
     return {
         "schema_version": "ABX.SigilGenotype.v1",
+        "source_analysis_packet_id": request.get("request_id", "unknown"),
         "genotype": {
-            "source_text": text,
-            "construction": "letter_elimination",
-            "primitives": ["H", "M"],
-            "provenance_hash": _provenance_hash(text),
+            "construction": core["construction"],
+            "primitives": core["primitives"],
+            "intent_digest": digest,
+            "engine": core["engine"],
+            "family": "intent_compression",
+            "method_id": "spare.letter_monogram",
+            "square_name": core.get("square_name"),
+            "compatible_runes": [
+                "RUNE.SIGIL.CLASSIFY",
+                "RUNE.SIGIL.GENOTYPE",
+                "RUNE.SIGIL.FORGE",
+            ],
+            "provenance_hash": digest[:16],
+            "reason": core.get("reason"),
+            "discovery": core.get("discovery"),
         },
-        "phenotype_variants": ["rendered_glyph", "ABX_variant"],
-        "variant_classification": "OPERATOR_DERIVATIVE",
-        "governance": {"entity_assertion": False},
+        "phenotype_variants": ["rendered_glyph", "wallpaper_png", "ABX_variant"],
+        "variant_classification": core["variant_classification"],
+        "claim_class": core["claim_class"],
+        "governance": default_governance(),
     }
 
 

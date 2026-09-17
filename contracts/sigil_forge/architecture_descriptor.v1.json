@@ -1,0 +1,34 @@
+{
+  "schema_version": "ArchitectureDescriptor.v1",
+  "architecture_id": "arch.sigil_forge.intent_compression.v1",
+  "architecture_family": "deterministic_tool",
+  "implementation_id": "sigil_forge.forge_core",
+  "version": "0.13.0",
+  "capabilities": [
+    "intent_compression",
+    "proof_of_intent_public"
+  ],
+  "supported_modalities": ["text"],
+  "supported_task_types": ["transform", "advisory_analysis"],
+  "input_contracts": ["ForgeIngestEnvelope.v1"],
+  "output_contracts": [
+    "ForgeIngestEnvelope.v1",
+    "ABX.SigilGenotype.v1"
+  ],
+  "determinism_level": "BOUNDED_DETERMINISTIC",
+  "uncertainty_support": false,
+  "verification_support": true,
+  "governance_class": "SPECIALIST",
+  "authority_class": "SHADOW_ONLY",
+  "deployment_environment": "local_advisory",
+  "adapter_id": "adapter.sigil_forge.shadow",
+  "status": "SHADOW_ONLY",
+  "is_stub": false,
+  "privacy_constraints": ["no_plaintext_in_public", "local_only"],
+  "security_constraints": ["no_external_side_effects"],
+  "provenance": {
+    "classification": "OBSERVED",
+    "producer": "skills.abx-esoteric-intelligence",
+    "notes": "Descriptor only. Not registered in contracts/alembic/architecture_registry.json."
+  }
+}

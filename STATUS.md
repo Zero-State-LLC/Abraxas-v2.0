@@ -52,6 +52,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Slice G / P4 | **DEFINED** (consumption hardening + operator handoff surfaces) · eng IN PROGRESS SHADOW | [`docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md`](docs/architecture/ABRAXAS_AI_OS_REALIZATION_BACKLOG_001.md) · #1098 |
 | Collaboration board | GitHub Project + CONTRIBUTING labels | [projects/5](https://github.com/users/scrimshawlife-ctrl/projects/5) · #1102 |
 | AI OS primitives map | **ADVISORY PROJECTION** · deterministic symbolic OS framing | [`docs/architecture/AI_OS_PRIMITIVES_MAP_001.md`](docs/architecture/AI_OS_PRIMITIVES_MAP_001.md) · #1050 |
+| Sigil-Forge stack mount | **SHADOW** · Notion navigation child + AAL-Viz specialist systems; kernel C/D | [`docs/architecture/SIGIL_FORGE_STACK_MOUNT_001.md`](docs/architecture/SIGIL_FORGE_STACK_MOUNT_001.md) · [Notion routing](https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0) |
 
 ## Session closeout surfaces (2026-07-23)
 

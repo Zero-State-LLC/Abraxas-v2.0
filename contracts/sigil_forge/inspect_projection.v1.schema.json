@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/sigil_forge/inspect_projection.v1.schema.json",
+  "title": "ForgeInspectProjection.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "lane",
+    "specialist_id",
+    "chips",
+    "authority_visible"
+  ],
+  "properties": {
+    "schema_version": { "const": "ForgeInspectProjection.v1" },
+    "lane": { "const": "SHADOW" },
+    "specialist_id": { "const": "sigil-forge" },
+    "chips": {
+      "type": "object",
+      "required": ["engine", "construction", "proof", "authority"],
+      "properties": {
+        "engine": { "type": "string" },
+        "construction": { "type": "string" },
+        "proof": { "type": "string", "enum": ["commitment", "skipped", "zk-knowledge", "zk-forge"] },
+        "authority": { "const": "SHADOW" }
+      }
+    },
+    "authority_visible": { "const": true },
+    "geometry_redrawn": { "const": false }
+  }
+}

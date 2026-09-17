@@ -1,0 +1,101 @@
+{
+  "schema_version": "SpecialistModelStack.v1",
+  "stack_id": "abraxas.specialist_models.v1",
+  "status": "ADVISORY_SHADOW",
+  "lane": "SHADOW",
+  "live_catalog_mutation": false,
+  "authority": {
+    "forecast_authority": false,
+    "canon_authority": false,
+    "execution_authority": false,
+    "alembic_live_registry_mutation": false
+  },
+  "source": {
+    "notion_owner_stamp": "2026-09-15",
+    "notion_index": "Abraxas Master Index + Ownership Map",
+    "claim_class": "OBSERVED_OWNERSHIP_ROUTING",
+    "unshared_owner_pages": [
+      "Sigil-Forge",
+      "Athanor",
+      "Semion",
+      "Trutina",
+      "Zero State × Abraxas Core Model Spine"
+    ],
+    "navigation_page": "https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0"
+  },
+  "specialists": [
+    {
+      "id": "hyperlex",
+      "role": "lexical_memetic",
+      "family": "statistical_ml",
+      "packet": "Hyperlex receipt / RUNE.HLX.*",
+      "repo": "scrimshawlife-ctrl/Hyperlex",
+      "abraxas_compat": "src/hyperlex/compat/abraxas/",
+      "status": "COMPAT_LAYER_EXISTS",
+      "live_catalog_mutation": false,
+      "alembic_slot": "graph_neural / statistical_ml (existing adapters; do not duplicate)"
+    },
+    {
+      "id": "sigil-forge",
+      "role": "intent_compression",
+      "family": "deterministic_tool",
+      "packet": "forge-packet.json / ABX.SigilGenotype.v1 / ForgeIngestEnvelope.v1",
+      "repo": "scrimshawlife-ctrl/Sigil-Forge",
+      "abraxas_compat": "skills/abx-esoteric-intelligence/sigil_forge_bridge.py",
+      "runtime": "standalone-cli",
+      "status": "MOUNTED_SHADOW",
+      "live_catalog_mutation": false,
+      "product_handoff": "wallpaper PNG (SF12 vault); packets are workspace",
+      "alembic_slot": "deterministic_tool SHADOW adapter exists but not on live registry",
+      "agent_binding": "optional SKILL.md contract; Hermes is one installer, not required"
+    },
+    {
+      "id": "athanor",
+      "role": "refinement_furnace",
+      "family": "composite_hybrid",
+      "packet": "UNSHARED_OWNER_PAGE",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "inferred_job": "Distill / refine specialist packets under heat (iteration, not promotion)",
+      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+    },
+    {
+      "id": "semion",
+      "role": "semiotic_sign",
+      "family": "symbolic_expert",
+      "packet": "UNSHARED_OWNER_PAGE",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "inferred_job": "Interpret signs without collapsing them into identity or forecast",
+      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+    },
+    {
+      "id": "trutina",
+      "role": "weighing_calibration",
+      "family": "statistical_ml",
+      "packet": "UNSHARED_OWNER_PAGE",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "inferred_job": "Weigh specialist contributions; Brier / calibration owner among models",
+      "claim_class_on_job": "INFERRED_FROM_NAME_AND_OWNERSHIP_GROUPING"
+    }
+  ],
+  "pipeline": {
+    "v1": "deterministic specialist tools emit typed SHADOW packets (Hyperlex receipts, Sigil-Forge genotype/ingest)",
+    "v2": "trained specialist models consume those packets as features; Alembic hybrid plans fuse ArchitectureContribution objects; Athanor refines, Semion interprets",
+    "v3": "Trutina calibrates specialist outputs; geometry and lexical signal never auto-promote to FORECAST or canon"
+  },
+  "evolution": {
+    "v1": "Mount tools. Typed packets. No smash-merge. No live rune catalog writes.",
+    "v2": "Specialist models train on packet features (digest, channel bitmap, lineage, Brier series) — not on plaintext intent by default.",
+    "v3": "Alembic ranks eligible specialists; Trutina scores; operator disposes conflicts. Wallpaper/PoI remain Sigil-Forge product surfaces."
+  },
+  "non_goals": [
+    "Inlining Sigil-Forge scripts into Abraxas-v2.0/core",
+    "Mutating contracts/alembic/architecture_registry.json before an adapter exists",
+    "Treating Spare/kamea geometry as Visual OS rune chrome",
+    "Goetic/Enochian authority seals in the default forge",
+    "Efficacy or forecast claims from a genotype"
+  ],
+  "FINAL_STATUS": "ADVISORY_SHADOW"
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "SpecialistNotionRouting.v1",
+  "lane": "SHADOW",
+  "mints_spine_owner": false,
+  "master_index": "https://app.notion.com/p/Abraxas-Master-Index-Ownership-Map-7fbc6e1c1ddd4c74bc01df72f15d959e",
+  "navigation_page": {
+    "id": "3de3e8ba-2f5c-81c6-8ef5-c27909a935b0",
+    "title": "Sigil-Forge — Abraxas SHADOW mount (navigation)",
+    "url": "https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0",
+    "parent": "7fbc6e1c-1ddd-4c74-bc01-df72f15d959e",
+    "role": "navigation_only"
+  },
+  "concept_split": {
+    "sigil_output": {
+      "owner_page": "https://app.notion.com/p/44e6f4b4faae402ea18cfdd41c8be503",
+      "aal_viz_system_id": null,
+      "note": "AAL-Viz interface mark; not the construction engine"
+    },
+    "sigil_forge": {
+      "owner_stamp": "2026-09-15 model-stack owners",
+      "owner_page_unshared": "https://app.notion.com/p/3dc3e8ba2f5c81e2a088f79c7d78554a",
+      "aal_viz_system_id": "sigil_forge",
+      "note": "Standalone specialist engine; SHADOW mounted"
+    }
+  },
+  "aal_viz_systems": [
+    {
+      "system_id": "familiar",
+      "notion_role": "2026-09-15 ownership add; forage/ingest",
+      "projection_status": "PARTIAL"
+    },
+    {
+      "system_id": "hyperlex",
+      "notion_role": "model-stack owner",
+      "projection_status": "PARTIAL"
+    },
+    {
+      "system_id": "sigil_forge",
+      "notion_role": "model-stack owner",
+      "projection_status": "READY_SHADOW"
+    },
+    {
+      "system_id": "athanor",
+      "notion_role": "model-stack owner",
+      "projection_status": "NOT_COMPUTABLE"
+    },
+    {
+      "system_id": "semion",
+      "notion_role": "model-stack owner",
+      "projection_status": "NOT_COMPUTABLE"
+    },
+    {
+      "system_id": "trutina",
+      "notion_role": "model-stack owner",
+      "projection_status": "NOT_COMPUTABLE"
+    }
+  ]
+}

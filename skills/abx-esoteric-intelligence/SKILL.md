@@ -209,7 +209,10 @@ Strict separation: esoteric skill supplies symbolic genotype + interpretation. A
 
 All governance rules preserved (SHADOW, entity_assertion=false, fitness ≠ truth, recurrence ≠ forecast).
 
-There is no supported general esoteric CLI for these modes. `alife_adapter.py` exposes `build_alife_packet(mode, input_data, request)`; its canned builders are SYNTHETIC fixtures only, requiring `request={"synthetic_fixture": true}`. Without opt-in they raise NOT_COMPUTABLE; never use them as historical or measured evidence.
+There is no supported general esoteric CLI for these modes. `alife_adapter.py` exposes `build_alife_packet(mode, input_data, request)`. Canned builders (`organismize`, `archetype_lineage`, `population_model`, `metabolism`, `synchronicity_ecology`) are SYNTHETIC fixtures only, requiring `request={"synthetic_fixture": true}`. Without opt-in they raise NOT_COMPUTABLE; never use them as historical or measured evidence.
+
+`sigil_genotype` is the Sigil-Forge SHADOW mount (Spare letter_monogram via `sigil_forge_bridge`; digest-only public packet). It is not a synthetic fixture and must not be wrapped `@synthetic_only`. It still has no forecast, canon, or execution authority.
+
 Fixture packet shape checks are not evidence of a working ALife runtime. Unsupported live modes remain NOT_COMPUTABLE.
 
 

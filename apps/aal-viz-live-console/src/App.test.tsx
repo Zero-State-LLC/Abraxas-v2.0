@@ -70,7 +70,7 @@ describe('App — smoke', () => {
     expect(details.textContent).toMatch(/RETRY DELAY NONE/i);
   });
 
-  it('renders 10 systems in the spine grid from initial state', () => {
+  it('renders 16 systems in the spine grid from initial state', () => {
     render(<App />);
     const spineItems = document.querySelectorAll('.spine-item__name');
     const spineNames = Array.from(spineItems).map((el) => el.textContent ?? '');
@@ -85,16 +85,22 @@ describe('App — smoke', () => {
       'PSYFI',
       'PATCHHIVE',
       'GLOBAL SPINE REGISTRY',
+      'SIGIL-FORGE',
+      'FAMILIAR',
+      'HYPERLEX',
+      'ATHANOR',
+      'SEMION',
+      'TRUTINA',
     ];
     for (const name of expectedNames) {
       expect(spineNames).toContain(name);
     }
   });
 
-  it('has exactly 10 spine grid items', () => {
+  it('has exactly 16 spine grid items', () => {
     render(<App />);
     const listItems = document.querySelectorAll('.spine-item');
-    expect(listItems.length).toBe(10);
+    expect(listItems.length).toBe(16);
   });
 
   it('renders the AuthorityBoundaryPanel', () => {

@@ -8,5 +8,7 @@
 - Neon Genie: archetypal framing, tension/threshold models, mythic compression (not substitute for market evidence).
 - AAL-Viz: typed packets only (read-only).
 - AALmanac / Semiotic Weather: cultural motifs, recurrence clusters (weather overlays, not truth claims).
+- Sigil-Forge (standalone CLI / `forge_core`; Hermes optional): owns intent-compression geometry + wallpaper product. Adapter emits `ABX.SigilGenotype.v1` and `ForgeIngestEnvelope.v1` (SHADOW). Resolve via `SIGIL_FORGE_HOME`. Do not reimplement Spare/kamea in this skill. Do not treat genotype as forecast or Visual OS chrome.
+- Specialist model stack (Hyperlex, Sigil-Forge, Athanor, Semion, Trutina): see `contracts/specialist_models/stack.v1.json` and `docs/architecture/SIGIL_FORGE_STACK_MOUNT_001.md`.
 
 All handoffs preserve provenance and authority blocks.
