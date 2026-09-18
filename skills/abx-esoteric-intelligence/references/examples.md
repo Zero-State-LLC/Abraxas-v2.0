@@ -53,8 +53,8 @@ Input: --mode archetype_lineage "Hermes"
 Expected: ABX.ArchetypeLineage.v1 with branches, stable_motif_genes, current_phenotypes, active_habitats, no entity assertion.
 
 ## Vector 13: Sigil Genotype
-Input: --mode sigil_genotype "intent phrase"
-Expected: ABX.SigilGenotype.v1, genotype vs phenotype split, variant_classification labeled (e.g. OPERATOR_DERIVATIVE).
+Input: --mode sigil_genotype "I maintain calm focus while shipping Sigil-Forge"
+Expected: ABX.SigilGenotype.v1; construction `spare.letter_monogram`; primitives `mntclfswhpgr` (not hardcoded H,M); intent_digest SHA-256 of normalized intent; plaintext omitted; governance SHADOW / entity_assertion=false / forecast_authority=false; variant_classification `FORGE_CORE` or `LOCAL_SPARE_REDUCTION`. All-vowel input → construction NOT_COMPUTABLE.
 
 ## Vector 14: Distributed Population
 Input: --mode population_model "hyperstition of the messenger"

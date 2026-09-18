@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -540,6 +541,126 @@ def _cmd_forage_ingest(args: argparse.Namespace) -> int:
         }
     )
     return 0 if receipt.get("status") == "INGESTED_SHADOW" else 2
+
+
+def _cmd_forage_forge_ingest(args: argparse.Namespace) -> int:
+    skill = REPO_ROOT / "skills" / "abx-esoteric-intelligence"
+    sys.path.insert(0, str(skill))
+    import forge_kernel  # noqa: E402
+
+    run = forge_kernel.run_shadow_kernel(
+        args.intent,
+        request_id=args.request_id,
+        repo_root=REPO_ROOT,
+    )
+    out_path = args.out
+    if out_path is None and not args.print_only:
+        digest = (run.get("envelope") or {}).get("intent_digest") or "unknown"
+        out_path = (
+            REPO_ROOT
+            / "out"
+            / "ingest"
+            / "sigil_forge"
+            / f"{digest[:16]}_kernel.v1.json"
+        )
+    if not args.print_only and out_path is not None:
+        Path(out_path).parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            Path(out_path),
+            run,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=REPO_ROOT / "out",
+        )
+    receipt = run.get("ingestion_receipt") or {}
+    bridge = run.get("oracle_belief_bridge") or {}
+    _print(
+        {
+            "ok": receipt.get("status") == "INGESTED_SHADOW"
+            and bridge.get("status") == "BRIDGED_SHADOW"
+            and not run.get("pack_validation_errors"),
+            "lane": run.get("lane"),
+            "envelope_id": (run.get("envelope") or {}).get("envelope_id"),
+            "intent_digest": (run.get("envelope") or {}).get("intent_digest"),
+            "receipt_status": receipt.get("status"),
+            "touchpoint_route": (run.get("spine_touchpoint") or {}).get("route"),
+            "bridge_status": bridge.get("status"),
+            "pack_validation_errors": run.get("pack_validation_errors"),
+            "inspect": run.get("inspect_projection"),
+            "wrote": str(out_path) if out_path and not args.print_only else None,
+            "authority": run.get("authority"),
+        }
+    )
+    ok = (
+        receipt.get("status") == "INGESTED_SHADOW"
+        and bridge.get("status") == "BRIDGED_SHADOW"
+        and not run.get("pack_validation_errors")
+    )
+    return 0 if ok else 2
+
+
+def _cmd_forage_neon_ingest(args: argparse.Namespace) -> int:
+    skill = REPO_ROOT / "skills" / "abx-neon-genie"
+    sys.path.insert(0, str(skill))
+    import neon_genie_kernel  # noqa: E402
+
+    if args.input is not None:
+        request = json.loads(Path(args.input).read_text(encoding="utf-8"))
+        if not isinstance(request, dict):
+            raise SystemExit("input must be a JSON object")
+    elif args.seed:
+        request = {"mode": args.mode, "seed": args.seed}
+    else:
+        raise SystemExit("provide --input JSON or --seed")
+    run = neon_genie_kernel.run_shadow_kernel(
+        request,
+        request_id=args.request_id,
+        repo_root=REPO_ROOT,
+    )
+    out_path = args.out
+    if out_path is None and not args.print_only:
+        digest = (run.get("envelope") or {}).get("seed_digest") or "unknown"
+        out_path = (
+            REPO_ROOT
+            / "out"
+            / "ingest"
+            / "neon_genie"
+            / f"{digest[:16]}_kernel.v1.json"
+        )
+    if not args.print_only and out_path is not None:
+        Path(out_path).parent.mkdir(parents=True, exist_ok=True)
+        write_canonical_artifact(
+            Path(out_path),
+            run,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=REPO_ROOT / "out",
+        )
+    receipt = run.get("ingestion_receipt") or {}
+    bridge = run.get("oracle_belief_bridge") or {}
+    _print(
+        {
+            "ok": receipt.get("status") == "INGESTED_SHADOW"
+            and bridge.get("status") == "BRIDGED_SHADOW"
+            and not run.get("pack_validation_errors"),
+            "lane": run.get("lane"),
+            "invention_router_id": run.get("invention_router_id"),
+            "not_a_specialist_model": run.get("not_a_specialist_model"),
+            "envelope_id": (run.get("envelope") or {}).get("envelope_id"),
+            "seed_digest": (run.get("envelope") or {}).get("seed_digest"),
+            "ranker": (run.get("envelope") or {}).get("ranker"),
+            "receipt_status": receipt.get("status"),
+            "touchpoint_route": (run.get("spine_touchpoint") or {}).get("route"),
+            "bridge_status": bridge.get("status"),
+            "pack_validation_errors": run.get("pack_validation_errors"),
+            "wrote": str(out_path) if out_path and not args.print_only else None,
+            "authority": run.get("authority"),
+        }
+    )
+    ok = (
+        receipt.get("status") == "INGESTED_SHADOW"
+        and bridge.get("status") == "BRIDGED_SHADOW"
+        and not run.get("pack_validation_errors")
+    )
+    return 0 if ok else 2
 
 
 def _cmd_forage_spine_touch(args: argparse.Namespace) -> int:
@@ -1277,6 +1398,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Do not write receipt files",
     )
     f_ingest.set_defaults(func=_cmd_forage_ingest)
+
+    f_forge = forage_sub.add_parser(
+        "forge-ingest",
+        help=(
+            "Sigil-Forge SHADOW kernel: intent → envelope → familiar ingest "
+            "→ oracle/belief bridge (no queue write / BeliefGraph mutation)"
+        ),
+    )
+    f_forge.add_argument("--intent", required=True)
+    f_forge.add_argument("--request-id", default="cli")
+    f_forge.add_argument("--out", type=Path, default=None)
+    f_forge.add_argument(
+        "--print-only",
+        action="store_true",
+        help="Do not write kernel-run JSON",
+    )
+    f_forge.set_defaults(func=_cmd_forage_forge_ingest)
+
+    f_neon = forage_sub.add_parser(
+        "neon-ingest",
+        help=(
+            "Neon Genie SHADOW kernel: venture cycle → envelope → familiar ingest "
+            "→ oracle/belief bridge (invention router, not a specialist model)"
+        ),
+    )
+    f_neon.add_argument("--input", type=Path, default=None, help="JSON request object")
+    f_neon.add_argument("--seed", default=None, help="Inline seed when --input is omitted")
+    f_neon.add_argument("--mode", default="PROMPT_LED")
+    f_neon.add_argument("--request-id", default="cli")
+    f_neon.add_argument("--out", type=Path, default=None)
+    f_neon.add_argument(
+        "--print-only",
+        action="store_true",
+        help="Do not write kernel-run JSON",
+    )
+    f_neon.set_defaults(func=_cmd_forage_neon_ingest)
 
     f_spine = forage_sub.add_parser(
         "spine-touch",

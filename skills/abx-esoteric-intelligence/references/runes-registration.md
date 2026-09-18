@@ -14,6 +14,7 @@ Proposed (before any use):
 - RUNE.GEMATRIA.COMPUTE
 - RUNE.SYMBOLIC_GEOMETRY.ENCODE
 - RUNE.SIGIL.CLASSIFY
+- RUNE.SIGIL.FORGE (invoke Sigil-Forge construct / forge_core; SHADOW; no runtime mutation)
 - RUNE.DREAM.MOTIF.TRACE (coordinate Noctis)
 - RUNE.SYNCHRONICITY.ANALYZE
 - RUNE.OCCULT.ATTRIBUTION

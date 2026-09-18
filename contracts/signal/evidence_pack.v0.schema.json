@@ -119,7 +119,7 @@
           "type": "string",
           "enum": ["HERMES", "GROK", "CODEX", "MIXED", "OPERATOR"]
         },
-        "skill_id": { "const": "abx-familiar-signal-forager" },
+        "skill_id": { "type": "string", "minLength": 1 },
         "tool_trace_summary": { "type": "string" },
         "repo_root": { "type": "string" },
         "notes": { "type": "string" }

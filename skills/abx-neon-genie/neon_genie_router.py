@@ -92,7 +92,10 @@ def run_venture_cycle(request: Dict[str, Any]) -> Dict[str, Any]:
             "execution_authority": False,
             "promotion_authorized": False,
             "canon_mutation_allowed": False,
+            "forecast_routing_authorized": False,
         },
+        "not_a_specialist_model": True,
+        "ranker": "none",
         "status": "CYCLE_COMPLETE" if overlap.get("classification") != "NOT_COMPUTABLE" else "INCOMPLETE",
     }
     return receipt

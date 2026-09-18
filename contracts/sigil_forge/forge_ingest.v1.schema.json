@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/sigil_forge/forge_ingest.v1.schema.json",
+  "title": "ForgeIngestEnvelope.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "envelope_id",
+    "specialist_id",
+    "lane",
+    "intent_digest",
+    "plaintext_intent_in_public",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "ForgeIngestEnvelope.v1" },
+    "envelope_id": { "type": "string", "minLength": 8 },
+    "specialist_id": { "const": "sigil-forge" },
+    "lane": { "const": "SHADOW" },
+    "intent_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sigil_root": { "type": ["string", "null"] },
+    "sigil_root_scope": { "type": ["string", "null"] },
+    "intent_commitment": { "type": ["object", "null"] },
+    "zk_provenance": {
+      "type": "object",
+      "required": ["schema_version", "status", "proof", "authority"],
+      "properties": {
+        "schema_version": { "const": "ABX_ZK_PROVENANCE_V1" },
+        "status": {
+          "type": "string",
+          "enum": ["commitment", "skipped", "zk-knowledge", "zk-forge"]
+        },
+        "proof": { "type": ["object", "null"] },
+        "authority": {
+          "type": "object",
+          "properties": {
+            "forecast_authority": { "const": false }
+          }
+        }
+      }
+    },
+    "plaintext_intent_in_public": { "const": false },
+    "authority": {
+      "type": "object",
+      "required": [
+        "forecast_authority",
+        "canon_authority",
+        "execution_authority"
+      ],
+      "properties": {
+        "forecast_authority": { "const": false },
+        "canon_authority": { "const": false },
+        "execution_authority": { "const": false },
+        "truth_authority": { "const": false },
+        "promotion_authorized": { "const": false }
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ on:
 jobs:
   release:
     name: Release
+    if: ${{ vars.HOSTED_ACTIONS_AVAILABLE != 'false' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

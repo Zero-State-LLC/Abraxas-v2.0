@@ -1,0 +1,125 @@
+{
+  "schema_version": "SpecialistModelStack.v1",
+  "stack_id": "abraxas.specialist_models.v1",
+  "status": "ADVISORY_SHADOW",
+  "lane": "SHADOW",
+  "live_catalog_mutation": false,
+  "authority": {
+    "forecast_authority": false,
+    "canon_authority": false,
+    "execution_authority": false,
+    "alembic_live_registry_mutation": false
+  },
+  "source": {
+    "notion_owner_stamp": "2026-09-15",
+    "notion_index": "Abraxas Master Index + Ownership Map",
+    "claim_class": "OBSERVED_OWNERSHIP_ROUTING",
+    "reader": "ntn saved credentials (Daniel’s Space); Hermes bot is not the product reader",
+    "unshared_owner_pages": [],
+    "owner_pages_observed_at": "2026-09-17",
+    "navigation_page": "https://app.notion.com/p/Sigil-Forge-Abraxas-SHADOW-mount-navigation-3de3e8ba2f5c81c68ef5c27909a935b0"
+  },
+  "specialists": [
+    {
+      "id": "hyperlex",
+      "role": "lexical_memetic",
+      "family": "statistical_ml",
+      "packet": "Hyperlex receipt / RUNE.HLX.*",
+      "repo": "scrimshawlife-ctrl/Hyperlex",
+      "abraxas_compat": "src/hyperlex/compat/abraxas/",
+      "status": "COMPAT_LAYER_EXISTS",
+      "live_catalog_mutation": false,
+      "alembic_slot": "graph_neural / statistical_ml (existing adapters; do not duplicate)"
+    },
+    {
+      "id": "sigil-forge",
+      "role": "intent_compression",
+      "family": "deterministic_tool",
+      "specialist_id": "sigil.forge.construct",
+      "packet": "sigil.forge.v0 / forge-packet.json / ABX.SigilGenotype.v1 / ForgeIngestEnvelope.v1",
+      "repo": "scrimshawlife-ctrl/Sigil-Forge",
+      "abraxas_compat": "skills/abx-esoteric-intelligence/sigil_forge_bridge.py",
+      "runtime": "standalone-cli",
+      "status": "MOUNTED_SHADOW",
+      "live_catalog_mutation": false,
+      "product_handoff": "wallpaper PNG (SF12 vault); packets are workspace",
+      "alembic_slot": "deterministic_tool SHADOW adapter exists but not on live registry",
+      "agent_binding": "optional SKILL.md contract; Hermes is last-compat only, not the end-product runtime"
+    },
+    {
+      "id": "athanor",
+      "role": "tradition_retrieve",
+      "family": "symbolic_expert",
+      "specialist_id": "athanor.structure",
+      "packet": "athanor.packet.v0 / athanor.encoder.inference.v0",
+      "repo": "scrimshawlife-ctrl/Athanor",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "observed_job": "Tradition families, PD harvest, offline lexical retrieve. Encoder train/Hub gated. Efficacy always null.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "treat as a refinement furnace or forecast mint"
+    },
+    {
+      "id": "semion",
+      "role": "sign_triad",
+      "family": "symbolic_expert",
+      "specialist_id": "semion.triad",
+      "packet": "semion.frame.v0",
+      "repo": "scrimshawlife-ctrl/Semion",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "observed_job": "Triad. Sign class. Corpus adapt. Semiosis export. Encoder gated. Mixed slang+sign goes Hyperlex first; mixed tradition+sign goes Athanor first.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "own phenomenal heads, numeric Brier, or forecast mint"
+    },
+    {
+      "id": "trutina",
+      "role": "settled_brier",
+      "family": "statistical_ml",
+      "specialist_id": "abx.brier",
+      "function_slice": "trutina.score",
+      "packet": "brier.score.v0",
+      "repo": "scrimshawlife-ctrl/Trutina",
+      "status": "SLOT_RESERVED",
+      "live_catalog_mutation": false,
+      "observed_job": "Settled forecast pairs via R004B. Score functions. Calibration receipts. Does not train. Unsettled forecast_request stays NOT_COMPUTABLE.",
+      "claim_class_on_job": "OBSERVED_OWNER_PAGE",
+      "abraxas_mount": false,
+      "do_not": "mint forecast or replace outcome_brier in Abraxas core"
+    }
+  ],
+  "pipeline": {
+    "v1": "deterministic specialist tools emit typed SHADOW packets (Hyperlex receipts, Sigil-Forge genotype/ingest)",
+    "v2": "specialists consume FAMILIAR packets: Hyperlex form/slang, Athanor tradition retrieve, Semion sign triad, Sigil-Forge construct; encoder train/Hub remain gated",
+    "v3": "Trutina scores settled (p,y) pairs only; geometry and lexical signal never auto-promote to FORECAST or canon"
+  },
+  "evolution": {
+    "v1": "Mount tools. Typed packets. No smash-merge. No live rune catalog writes.",
+    "v2": "T0/T1 encoders on Spark only after E2 + name_gate + ALLOW_TRAIN. Not a pitch until those gates exist.",
+    "v3": "Trutina scores settled pairs; operator disposes conflicts. Wallpaper/PoI remain Sigil-Forge product surfaces."
+  },
+  "invention_router": {
+    "id": "neon-genie",
+    "role": "venture_ideation_router",
+    "not_a_specialist_model": true,
+    "packet": "NeonGenieVenturePacket.v0.4 / NeonGenieIdeationOperatorPacket.v0 / NeonGenieIngestEnvelope.v1",
+    "skill": "abx-neon-genie",
+    "status": "MOUNTED_SHADOW_TOOL",
+    "ranker": "none",
+    "live_catalog_mutation": false,
+    "abraxas_mount": "FAMILIAR ingest of venture cycle (SHADOW); no Alembic ENABLED row",
+    "observed_job": "Invent and structure. Route specialized work. Do not forage, forecast, or execute.",
+    "do_not": "train a Genie LLM; emit stub 0.6 ranks as measured scores; open a second forage door"
+  },
+  "non_goals": [
+    "Inlining Sigil-Forge scripts into Abraxas-v2.0/core",
+    "Mutating contracts/alembic/architecture_registry.json before an adapter exists",
+    "Treating Spare/kamea geometry as Visual OS rune chrome",
+    "Goetic/Enochian authority seals in the default forge",
+    "Efficacy or forecast claims from a genotype",
+    "Neon Genie as a trained specialist model or sixth stack encoder"
+  ],
+  "FINAL_STATUS": "ADVISORY_SHADOW"
+}

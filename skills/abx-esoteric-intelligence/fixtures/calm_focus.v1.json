@@ -1,0 +1,9 @@
+{
+  "schema_version": "ABX.SigilGenotypeGolden.v1",
+  "intent": "I maintain calm focus while shipping Sigil-Forge",
+  "normalized_intent": "i maintain calm focus while shipping sigil-forge",
+  "spare_letters": "mntclfswhpgr",
+  "letter_sequence": ["m", "n", "t", "c", "l", "f", "s", "w", "h", "p", "g", "r"],
+  "source": "scrimshawlife-ctrl/Sigil-Forge examples/intents/calm_focus.json",
+  "lane": "SHADOW"
+}

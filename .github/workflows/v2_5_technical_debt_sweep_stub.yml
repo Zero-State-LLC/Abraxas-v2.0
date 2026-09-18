@@ -5,6 +5,7 @@ on:
 
 jobs:
   advisory_stub:
+    if: ${{ vars.HOSTED_ACTIONS_AVAILABLE != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - name: Advisory boundary

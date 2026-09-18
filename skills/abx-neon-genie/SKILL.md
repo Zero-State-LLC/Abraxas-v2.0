@@ -156,6 +156,8 @@ Full-suite: not implied by targeted checks. Report current failures and scope, n
 - Registering duplicate runes or routes.
 - Claiming novelty for renamed existing AAL capabilities.
 - Direct runtime activation, canon promotion, or forecast influence.
+- Emitting stub numeric ranks (`novelty: 0.6`) as if measured. Score axes stay NOT_COMPUTABLE until a gated `neon.rank` model exists.
+- Becoming a Spec 009 specialist encoder. Neon Genie is an invention router.
 
 ## References
 
@@ -192,7 +194,8 @@ synthetic symbolic seed, not a market observation):
 ```bash
 python skills/abx-neon-genie/neon_genie_router.py --input skills/abx-neon-genie/fixtures/synthetic-request.json > "$ABRAXAS_OUTPUT/neon.json"
 python skills/verify_artifact.py --schema contracts/neon_genie/ideation_operator_packet.v0.schema.json --member operator_packet "$ABRAXAS_OUTPUT/neon.json"
-python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_domain_routes.py -q
+python -m abraxas forage neon-ingest --input skills/abx-neon-genie/fixtures/synthetic-request.json --print-only
+python -m pytest -c /dev/null -p no:cacheprovider skills/tests/test_domain_routes.py tests/test_neon_genie_mount.py -q
 ```
 Require a complete operator_packet, commercial_claims_blocked when evidence is
 absent, and all execution/promotion/canon authority false. stdout is full JSON,

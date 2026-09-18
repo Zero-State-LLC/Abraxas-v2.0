@@ -11,12 +11,15 @@
   "market_model": "NOT_COMPUTABLE (no EvidencePack in this synthetic run)",
   "build_model": "Thin modular stages + existing Abraxas skills",
   "score_vector": {
-    "novelty": 0.6,
-    "usefulness": 0.75,
-    "buildability": 0.5,
-    "monetization": 0.55,
-    "evidence_density": 0.4,
-    "overall": 0.56
+    "schema_version": "NeonGenieScoreVector.v1",
+    "lane": "SHADOW",
+    "ranker": "none",
+    "novelty": {"value": null, "register": "NOT_COMPUTABLE", "reason": "no neon.rank model"},
+    "usefulness": {"value": null, "register": "NOT_COMPUTABLE", "reason": "no neon.rank model"},
+    "buildability": {"value": null, "register": "NOT_COMPUTABLE", "reason": "no neon.rank model"},
+    "monetization": {"value": null, "register": "NOT_COMPUTABLE", "reason": "COMMERCIAL_EVIDENCE_REQUIRED"},
+    "overall": {"value": null, "register": "NOT_COMPUTABLE", "reason": "no neon.rank model"},
+    "evidence_density": {"value": 0.4, "register": "COMPUTED", "source": "EvidencePack.v0"}
   },
   "overlap_classification": "NOVEL",
   "route_binding": "NeonGenie",

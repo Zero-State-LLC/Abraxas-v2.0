@@ -1,0 +1,24 @@
+{
+  "schema_version": "SigilForgeRuneProposalManifest.v1",
+  "status": "ADVISORY_PROPOSALS_ONLY",
+  "live_catalog_mutation": false,
+  "reason": "Live catalog additions require YGGDRASIL pipeline/route bindings via abx-runes-yggdrasil-manager. Unbound runes fail closed.",
+  "proposed_rune_ids": [
+    "RUNE.SIGIL.CLASSIFY",
+    "RUNE.SIGIL.GENOTYPE",
+    "RUNE.SIGIL.FORGE"
+  ],
+  "canonical_reuse": {
+    "SIGIL.CLASSIFY": ["RUNE.PIPELINE.VALIDATE"],
+    "SIGIL.GENOTYPE": ["RUNE.PIPELINE.IR_BUILD"],
+    "SIGIL.FORGE": ["RUNE.PIPELINE.PARSE", "RUNE.PIPELINE.RECEIPT"]
+  },
+  "authority": {
+    "forecast_authority": false,
+    "canon_authority": false,
+    "execution_authority": false,
+    "runtime_mutation_allowed": false
+  },
+  "lane": "SHADOW",
+  "FINAL_STATUS": "SIGIL_FORGE_RUNES_ADVISORY_ONLY"
+}

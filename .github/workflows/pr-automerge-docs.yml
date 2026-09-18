@@ -12,6 +12,7 @@ permissions:
 jobs:
   gate-and-enable:
     if: >
+      vars.HOSTED_ACTIONS_AVAILABLE != 'false' &&
       github.event.pull_request.draft == false &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
