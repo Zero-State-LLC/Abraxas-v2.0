@@ -1,0 +1,24 @@
+{
+  "schema_version": "FamiliarIngestionReceipt.v0",
+  "receipt_id": "fir_sandbox_replica_20260923_scanner",
+  "pipeline_id": "familiar_ingestion",
+  "pack_id": "ep_20260923_familiar_scanner_hyperstition",
+  "pack_ref": "out/signal_forage/2026-09-23/evidence_pack_ep_20260923_familiar_scanner.json",
+  "status": "SANDBOX_REPLICA_NOT_REPO_CLI",
+  "validation_status": "PASS_SEMANTIC_ONLY",
+  "blockers": ["official_cli_not_run_on_checkout", "jsonschema_not_run"],
+  "advisory_only": true,
+  "lane": "SHADOW",
+  "authority": {
+    "execution_authority": false,
+    "promotion_authorized": false,
+    "forecast_routing_authorized": false,
+    "canon_mutation_allowed": false
+  },
+  "producer": {
+    "module": "companion_sandbox_replica",
+    "skill_id": "abraxas-slang-emulation",
+    "parity_class": "SANDBOX_REPLICA"
+  },
+  "notes": "Not INGESTED_SHADOW. Run scripts/ingest/run_familiar_ingestion_from_pack.py on this pack from a full checkout."
+}
