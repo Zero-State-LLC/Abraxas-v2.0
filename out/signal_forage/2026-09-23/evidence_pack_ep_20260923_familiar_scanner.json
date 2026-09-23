@@ -1,0 +1,153 @@
+{
+  "schema_version": "EvidencePack.v0",
+  "pack_id": "ep_20260923_familiar_scanner_hyperstition",
+  "topic": "Hyperstition / memetic emergence scan 2026-09-23 PT Seed-contract keys",
+  "intent": "memetic",
+  "time_horizon": "last-7d America/Los_Angeles 2026-09-16/2026-09-23",
+  "must_answer": [
+    "What unique grounded X post IDs exist for aura_farming, HYPER.STITIO, AI_SLOP in the contract window?",
+    "Can velocity vs Seed Corpus be computed?",
+    "Is this ingest?"
+  ],
+  "hard_exclusions": [
+    "SUAS",
+    "companion 03 prose as grounding",
+    "vibe coding merged into AI_SLOP",
+    "press views as slang velocity",
+    "Seed Corpus insert without APPLY",
+    "FamiliarIngestionReceipt claimed without CLI"
+  ],
+  "sources": [
+    {
+      "source_id": "x:2102838041119531049",
+      "url_or_path": "https://x.com/Ghosh0509/status/2102838041119531049",
+      "title": "Ram aura farming Re:Zero",
+      "publisher": "X",
+      "source_class": "social",
+      "excerpt": "Ram is literally aura farming in this whole episode.",
+      "retrieved_note": "x_keyword_search Latest 2026-09-23"
+    },
+    {
+      "source_id": "x:2102833951932834124",
+      "url_or_path": "https://x.com/HyperstitionFam/status/2102833951932834124",
+      "title": "HyperstitionFam launchpad post",
+      "publisher": "X",
+      "source_class": "social",
+      "excerpt": "Meme szn on base is just starting.",
+      "retrieved_note": "alias HyperstitionFam"
+    },
+    {
+      "source_id": "x:2102830547282071554",
+      "url_or_path": "https://x.com/kenakennedy/status/2102830547282071554",
+      "title": "media hyperstition of a hot war",
+      "publisher": "X",
+      "source_class": "social",
+      "excerpt": "media hyperstition of a hot war",
+      "retrieved_note": "term in body"
+    },
+    {
+      "source_id": "x:2102838951652565101",
+      "url_or_path": "https://x.com/Lckofsympathy/status/2102838951652565101",
+      "title": "ai slop rotted ur brain",
+      "publisher": "X",
+      "source_class": "social",
+      "excerpt": "ai slop rotted ur brain",
+      "retrieved_note": "x_keyword_search Latest 2026-09-23"
+    },
+    {
+      "source_id": "notion:03-scanner-20260923",
+      "url_or_path": "https://app.notion.com/p/3e43e8ba2f5c81d8a0d6e711e091df5f",
+      "title": "03 Scanner receipt 2026-09-23",
+      "publisher": "Notion",
+      "source_class": "session",
+      "excerpt": "Dated write-back. Not ingest.",
+      "retrieved_note": "companion write-back; excluded from grounding counts"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c1",
+      "text": "aura_farming unique grounded X IDs n=24; count_class=budget_truncated after 3 pages.",
+      "register": "OBSERVED",
+      "supports_questions": [0],
+      "source_ids": ["x:2102838041119531049"],
+      "join_logic": "union of Latest pages; IDs in seed_windows jsonl",
+      "confidence_note": "not a 7-day census"
+    },
+    {
+      "claim_id": "c2",
+      "text": "HYPER.STITIO unique term-or-alias IDs n=10; launchpad replies without the term excluded.",
+      "register": "OBSERVED",
+      "supports_questions": [0],
+      "source_ids": ["x:2102833951932834124", "x:2102830547282071554"]
+    },
+    {
+      "claim_id": "c3",
+      "text": "AI_SLOP unique grounded X IDs n=26 after dropping bare slop; count_class=budget_truncated after 3 pages.",
+      "register": "OBSERVED",
+      "supports_questions": [0],
+      "source_ids": ["x:2102838951652565101"]
+    },
+    {
+      "claim_id": "c4",
+      "text": "Velocity and acceleration vs Seed Corpus remain NOT_COMPUTABLE; first contract-shaped window with ID sets.",
+      "register": "NOT_COMPUTABLE",
+      "supports_questions": [1],
+      "source_ids": []
+    },
+    {
+      "claim_id": "c5",
+      "text": "03/Inbox writes are not FamiliarIngestionReceipt.v0. Official ingest is CLI on this pack in Abraxas-v2.0.",
+      "register": "OBSERVED",
+      "supports_questions": [2],
+      "source_ids": ["notion:03-scanner-20260923"]
+    }
+  ],
+  "answers": [
+    {
+      "question_index": 0,
+      "status": "PARTIAL",
+      "summary": "ID sets exist; census incomplete (page_size 10, 3-page cap).",
+      "claim_ids": ["c1", "c2", "c3"]
+    },
+    {
+      "question_index": 1,
+      "status": "NOT_COMPUTABLE",
+      "summary": "Need a second census-class window with the same unit.",
+      "claim_ids": ["c4"]
+    },
+    {
+      "question_index": 2,
+      "status": "ANSWERED_OBSERVED",
+      "summary": "This pack is forage evidence. Ingest not claimed until CLI INGESTED_SHADOW.",
+      "claim_ids": ["c5"]
+    }
+  ],
+  "authority": {
+    "execution_authority": false,
+    "promotion_authorized": false,
+    "forecast_routing_authorized": false,
+    "canon_mutation_allowed": false,
+    "lane": "SHADOW"
+  },
+  "provenance": {
+    "producer_system": "GROK",
+    "skill_id": "abraxas-slang-emulation",
+    "tool_trace_summary": "x_keyword_search Latest + max_id pages; Notion 03 3e43e8ba2f5c81d8a0d6e711e091df5f",
+    "repo_root": "scrimshawlife-ctrl/Abraxas-v2.0",
+    "notes": "Companion forage pack on main. Not FamiliarIngestionReceipt.v0."
+  },
+  "observed_source_count": 5,
+  "register_counts": {
+    "OBSERVED": 4,
+    "INFERRED": 0,
+    "SPECULATIVE": 0,
+    "NOT_COMPUTABLE": 1
+  },
+  "metrics": {
+    "grounding_rate": 0.8,
+    "grounding_rate_note": "4/5 claims have source_ids; c4 correctly empty",
+    "provenance_depth": "id+url",
+    "noise_fp": "NOT_COMPUTABLE"
+  }
+}
