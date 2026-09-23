@@ -1,0 +1,42 @@
+{
+  "schema_version": "FamiliarIngestionReceipt.v0",
+  "receipt_id": "fir_60b72b6604d2916d",
+  "pipeline_id": "familiar_ingestion",
+  "pack_id": "ep_20260923_familiar_scanner_hyperstition",
+  "pack_hash": "60b72b6604d2916dbee76b5fe08f806f7cbb294848fd53a9c8ae677d36713db8",
+  "pack_ref": "out/signal_forage/2026-09-23/evidence_pack_ep_20260923_familiar_scanner.json",
+  "topic": "Hyperstition / memetic emergence scan 2026-09-23 PT Seed-contract keys",
+  "intent": "memetic",
+  "register_counts": {
+    "OBSERVED": 4,
+    "INFERRED": 0,
+    "SPECULATIVE": 0,
+    "NOT_COMPUTABLE": 1
+  },
+  "source_count": 5,
+  "claim_count": 5,
+  "observed_claim_count": 4,
+  "validation_status": "PASS",
+  "status": "INGESTED_SHADOW_EXTRACTED",
+  "blockers": [],
+  "validation_errors": [],
+  "commercial_claims_blocked": true,
+  "evidence_density": 0.55,
+  "authority": {
+    "execution_authority": false,
+    "promotion_authorized": false,
+    "forecast_routing_authorized": false,
+    "canon_mutation_allowed": false
+  },
+  "advisory_only": true,
+  "lane": "SHADOW",
+  "deterministic_timestamp": "familiar_ingestion_receipt_v0_ts_0",
+  "producer": {
+    "module": "extracted_familiar_ingestion",
+    "skill_id": "abx-familiar-signal-forager",
+    "parity_class": "EXTRACTED_MODULE_RUN",
+    "repo_sha_basis": "ca08b8369d66763ed63580c6465ef110c2f294eb"
+  },
+  "notes": "Extracted schema+semantic+receipt builder. Not scripts/ingest run inside a full Abraxas-v2.0 cwd. Authority all false.",
+  "receipt_hash": "11f8444e6437124ba86ef7c62b7e4a2625b1e793d8f2b0a37fbb0636a7db673a"
+}
