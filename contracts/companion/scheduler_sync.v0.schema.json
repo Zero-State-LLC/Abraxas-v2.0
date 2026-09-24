@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/companion/scheduler_sync.v0.schema.json",
+  "title": "ABX.SchedulerSync.v0",
+  "description": "Companion Herald envelope. Not FamiliarIngestionReceipt.v0. DEST writes are delivery, not ingest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lane",
+    "advisory_only",
+    "authority",
+    "task",
+    "date_pt",
+    "seed_status",
+    "ingest",
+    "dest"
+  ],
+  "properties": {
+    "schema_version": { "const": "ABX.SchedulerSync.v0" },
+    "lane": { "const": "SHADOW" },
+    "advisory_only": { "const": true },
+    "authority": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "promotion_authorized",
+        "forecast_routing_authorized",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    },
+    "task": {
+      "type": "string",
+      "enum": ["Forage", "Scanner", "Dry-Run", "Reconciliation", "Alert", "Memory-Persist"]
+    },
+    "date_pt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "seed_status": {
+      "type": "object",
+      "required": ["status", "capability_lane"],
+      "properties": {
+        "status": { "enum": ["PASS", "PARTIAL", "FAIL"] },
+        "determinism": { "type": "string" },
+        "provenance": { "type": "string" },
+        "entropy_class": { "type": "string" },
+        "capability_lane": { "enum": ["advisory", "shadow", "canary", "canon-mutation"] }
+      }
+    },
+    "observed": { "type": "array", "items": { "type": "string" } },
+    "inferred": { "type": "array", "items": { "type": "string" } },
+    "speculative": { "type": "array", "items": { "type": "string" } },
+    "ingest": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_COMPUTABLE",
+            "PACK_READY",
+            "RECEIPT_MINTED",
+            "EXTRACTED_HERALD_ONLY"
+          ]
+        },
+        "reason": { "type": "string" },
+        "pack_path": { "type": ["string", "null"] },
+        "receipt_id": { "type": ["string", "null"] },
+        "ingest_class": {
+          "enum": [
+            "NONE",
+            "INGESTED_SHADOW",
+            "EXTRACTED_HERALD_ONLY"
+          ]
+        }
+      }
+    },
+    "commercial_surface": {
+      "type": "boolean",
+      "description": "Separate from receipt density gate and from SHADOW lane."
+    },
+    "dest": {
+      "type": "object",
+      "required": ["dated_receipt", "watcher_metrics", "inbox_atom"],
+      "properties": {
+        "dated_receipt": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": { "enum": ["OK", "NOT_COMPUTABLE"] },
+            "page_id": { "type": ["string", "null"] },
+            "url": { "type": ["string", "null"] },
+            "reason": { "type": "string" }
+          }
+        },
+        "watcher_metrics": {
+          "type": "object",
+          "required": ["ledger_write"],
+          "properties": {
+            "ledger_write": { "enum": ["OK", "NOT_COMPUTABLE"] },
+            "reason": { "type": "string" }
+          }
+        },
+        "inbox_atom": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": { "enum": ["OK", "NOT_COMPUTABLE"] },
+            "reason": { "type": "string" }
+          }
+        },
+        "control_patch": {
+          "type": "string",
+          "enum": ["not_this_task", "OK", "NOT_COMPUTABLE"]
+        }
+      }
+    }
+  }
+}
