@@ -120,14 +120,16 @@ Every persisted claim presented as evidence MUST have exactly one role relative 
 
 A claim may be absent when the system lacks sufficient provenance. Absence MUST be represented as `NOT_COMPUTABLE`, not inferred as `CURRENT`.
 
-### 7.2 Proposed contract targets
+### 7.2 Contract targets
 
-These are proposed schemas under the existing evaluation contract surface; their implementation is a later task:
+S1 implements these Draft 2020-12 schemas under the existing evaluation contract surface:
 
 - `contracts/evaluation/persisted_claim.v1.schema.json`
 - `contracts/evaluation/state_qualified_evidence_packet.v1.schema.json`
 - `contracts/evaluation/trajectory_observation.v1.schema.json`
 - `contracts/evaluation/persistence_observability_receipt.v1.schema.json`
+
+Targeted schema validation is in `tests/test_persistence_observability_contracts.py`. S1 remains contract-only: it does not implement the fixture runner, evaluators, receipt writer, cross-run ledger, telemetry exporter, or production behavior.
 
 #### Persisted claim
 
@@ -444,5 +446,5 @@ Verification required before implementation merge:
 - Source status is recorded in Section 2; preprints are treated as respected but unreplicated research.
 - Abraxas merge targets are architecture inferences from current ownership documents, not empirical findings.
 - A cross-run trajectory ledger/API is not established by repository evidence; that dependency is `NOT_COMPUTABLE` and cannot be implemented by analogy.
-- Proposed filenames and attributes are contract targets, not implemented interfaces.
+- The four S1 JSON Schemas are implemented contract interfaces; fixture runners, evaluators, receipt writing, telemetry export, and cross-run storage remain unimplemented.
 - No repository runtime, Notion canon, specification authority, or production behavior is modified by this document alone.
