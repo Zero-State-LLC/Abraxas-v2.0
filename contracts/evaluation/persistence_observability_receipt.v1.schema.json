@@ -274,6 +274,7 @@
       "enum": [
         "SHADOW_PASS",
         "SHADOW_ANOMALY",
+        "FORECAST_RECORDED",
         "NOT_COMPUTABLE",
         "FAILED_CLOSED"
       ]
@@ -341,6 +342,14 @@
               "CANON_SHADOW",
               "REJECT"
             ]
+          },
+          "terminal_state": {
+            "enum": [
+              "SHADOW_PASS",
+              "SHADOW_ANOMALY",
+              "NOT_COMPUTABLE",
+              "FAILED_CLOSED"
+            ]
           }
         }
       },
@@ -348,6 +357,13 @@
         "properties": {
           "forecast_binding": {
             "$ref": "#/$defs/forecast_binding"
+          },
+          "terminal_state": {
+            "enum": [
+              "FORECAST_RECORDED",
+              "NOT_COMPUTABLE",
+              "FAILED_CLOSED"
+            ]
           }
         }
       }
