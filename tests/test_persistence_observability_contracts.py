@@ -184,6 +184,54 @@ def test_positive_contract_fixtures(name: str, payload: dict[str, Any]) -> None:
     _validate(name, payload)
 
 
+def test_valid_revoked_claim_requires_paired_revocation_evidence() -> None:
+    payload = _claim()
+    payload["revoked_at"] = "2026-09-25T15:10:00Z"
+    payload["revocation_ref"] = "fixture://history-001/revocation-001"
+    _validate("claim", payload)
+
+
+def test_valid_not_computable_packet_carries_reason() -> None:
+    payload = _packet()
+    payload["resolution_status"] = "NOT_COMPUTABLE"
+    payload["not_computable_reasons"] = ["MISSING_VALIDITY_INTERVAL"]
+    _validate("packet", payload)
+
+
+def test_valid_recoverable_observation_binds_action_and_evidence() -> None:
+    payload = _observation()
+    payload["recoverability"] = "RECOVERABLE"
+    payload["recovery_action_ref"] = "recovery://rerun-current-state-query"
+    payload["evidence_refs"] = ["fixture://history-001/injected-defect"]
+    _validate("observation", payload)
+
+
+def test_valid_forecast_receipt_requires_forecast_terminal_and_binding() -> None:
+    payload = _receipt()
+    payload["lane"] = "FORECAST"
+    payload["terminal_state"] = "FORECAST_RECORDED"
+    payload["research_disposition"] = "MERGE_CANDIDATE"
+    payload["forecast_binding"] = {
+        "probability": 0.7,
+        "horizon": "P7D",
+        "outcome_ref": "outcome://example",
+    }
+    _validate("receipt", payload)
+
+
+def test_forecast_receipt_rejects_shadow_terminal_state() -> None:
+    payload = _receipt()
+    payload["lane"] = "FORECAST"
+    payload["research_disposition"] = "MERGE_CANDIDATE"
+    payload["forecast_binding"] = {
+        "probability": 0.7,
+        "horizon": "P7D",
+        "outcome_ref": "outcome://example",
+    }
+    with pytest.raises(ValidationError):
+        _validate("receipt", payload)
+
+
 def test_claim_requires_exactly_one_safe_value_representation() -> None:
     payload = _claim()
     payload["approved_redacted_value"] = "approved summary"
