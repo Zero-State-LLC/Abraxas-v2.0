@@ -68,7 +68,33 @@ The fixture does **not** establish computational agency, autopoiesis, semantic c
 - No Brier scoring of deterministic validators.
 - No storage of raw sensitive prompts, retrieved content, or chain-of-thought.
 
-## 4. Existing merge targets
+## 4. Requirements
+
+| ID | Requirement | Failure behavior |
+|---|---|---|
+| RQ-001 | Qualify every evidence claim relative to an explicit `as_of` timestamp. | Return `NOT_COMPUTABLE` when time qualification is impossible. |
+| RQ-002 | Preserve source, authority, validity, supersession, and revocation provenance. | Exclude the claim from current support when required provenance is absent. |
+| RQ-003 | Keep store, retrieval, interpretation, and answer failures independently measurable. | Do not collapse a hard layer failure into an aggregate pass. |
+| RQ-004 | Identify the earliest evidence-backed failure onset and permitted recovery. | Mark onset or recoverability `NOT_COMPUTABLE` when trace evidence is inadequate. |
+| RQ-005 | Produce deterministic receipts for identical fixture, version, seed, and evaluator inputs. | Fail the run on digest disagreement. |
+| RQ-006 | Prevent SHADOW output from mutating production state, routing, canon, or forecast records. | Fail closed and emit an authority-boundary anomaly. |
+| RQ-007 | Restrict Brier scoring to bound probabilistic forecasts. | Reject deterministic or unbound records from the Brier lane. |
+| RQ-008 | Minimize retained content and omit raw sensitive content from telemetry by default. | Redact or reject before emission. |
+| RQ-009 | Preserve evaluator and contract version provenance. | Receipt is invalid without both. |
+| RQ-010 | Default uncertain ownership or architectural need to CANON-SHADOW. | Record `NOT_COMPUTABLE`; do not create a subsystem. |
+
+## 5. Journey
+
+### JRN-001 — Evaluate persistence without granting authority
+
+**Actor:** operator or authorized research evaluator  
+**Objective:** determine whether an agent uses current, authoritative persisted state and locate the earliest failure when it does not.  
+**Entry state:** an approved synthetic fixture, frozen contract versions, and a declared SHADOW lane.  
+**Path:** select scenario → execute deterministic seed → collect state-qualified evidence and trajectory observations → evaluate four layers → write immutable receipt → review anomalies.  
+**Terminal states:** `SHADOW_PASS`, `SHADOW_ANOMALY`, or `NOT_COMPUTABLE`.  
+**Forbidden terminal state:** automatic promotion, runtime mutation, or subsystem creation.
+
+## 6. Existing merge targets
 
 | Concern | Existing owner / route | Assimilation |
 |---|---|---|
@@ -80,9 +106,9 @@ The fixture does **not** establish computational agency, autopoiesis, semantic c
 
 No entry is added to `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md`; ownership already exists.
 
-## 5. Domain model
+## 7. Domain model
 
-### 5.1 Temporal roles
+### 7.1 Temporal roles
 
 Every persisted claim presented as evidence MUST have exactly one role relative to the evaluation timestamp:
 
@@ -94,7 +120,7 @@ Every persisted claim presented as evidence MUST have exactly one role relative 
 
 A claim may be absent when the system lacks sufficient provenance. Absence MUST be represented as `NOT_COMPUTABLE`, not inferred as `CURRENT`.
 
-### 5.2 Proposed contract targets
+### 7.2 Proposed contract targets
 
 These are proposed schemas under the existing evaluation contract surface; their implementation is a later task:
 
@@ -152,7 +178,20 @@ Required fields:
 - disposition and reason
 - immutable receipt digest
 
-## 6. Workflows
+## 8. Workflows
+
+Each workflow inherits these controls:
+
+| Field | Binding |
+|---|---|
+| Actors | authorized evaluator; fixture runner; non-authoritative scorer |
+| Trigger | approved fixture run request with explicit version and seed |
+| Preconditions | SHADOW lane; frozen inputs; supported schema versions; privacy policy loaded |
+| Permissions | read fixture; write isolated evaluation artifacts; no production/canon write |
+| Invariants | deterministic inputs; complete provenance; layer separation; fail closed |
+| Side effects | evaluation artifacts and redacted telemetry only |
+| Recovery | bounded retry with recorded reason; never silently alter fixture or evaluator |
+| Audit | trace ID, receipt digest, evaluator/version, anomaly codes, timestamps |
 
 ### WF-001 — Hidden-state recovery
 
@@ -185,7 +224,30 @@ Pass condition: `SUPERSEDED` and `REVOKED` claims never support a current conclu
 
 Pass condition: onset attribution is within one step of the injected defect and the recoverability label is evidence-backed.
 
-## 7. State transitions
+## 9. Evaluation state machine
+
+Run states:
+
+```text
+CREATED → VALIDATED → EXECUTING → EVALUATING → RECEIPT_WRITTEN
+   └──────────────→ NOT_COMPUTABLE
+VALIDATED|EXECUTING|EVALUATING → FAILED_CLOSED
+RECEIPT_WRITTEN → SHADOW_PASS | SHADOW_ANOMALY
+```
+
+- `CREATED`: fixture/version/seed declared.
+- `VALIDATED`: contracts, privacy policy, and lane checks pass.
+- `EXECUTING`: fixture actions and observations are being recorded.
+- `EVALUATING`: four layer evaluators operate on frozen evidence.
+- `RECEIPT_WRITTEN`: deterministic receipt and digest exist.
+- `SHADOW_PASS`: all hard invariants pass.
+- `SHADOW_ANOMALY`: one or more measured anomalies exist.
+- `NOT_COMPUTABLE`: required evidence or ownership cannot be established.
+- `FAILED_CLOSED`: contract, privacy, authority, or determinism violation.
+
+Terminal states never imply canon or production promotion.
+
+## 10. Claim state transitions
 
 Allowed transitions:
 
@@ -201,7 +263,7 @@ Disallowed without a new authoritative event:
 - `REVOKED → CURRENT`
 - any transition inferred solely from retrieval rank, frequency, or model confidence
 
-## 8. Fixture and scoring
+## 11. Fixture and scoring
 
 Initial fixture: 20 synthetic histories × 3 deterministic seeds across five scenario families:
 
@@ -233,7 +295,7 @@ Aggregate scores MUST retain the layer vector. A single total score may not obsc
 
 Brier score is permitted only when a record is a genuine probabilistic forecast with a predeclared outcome binding. Deterministic schema validation, provenance checks, temporal-role checks, and acceptance-test results MUST NOT be assigned Brier scores.
 
-## 9. Acceptance tests
+## 12. Acceptance tests
 
 | ID | Requirement |
 |---|---|
@@ -258,7 +320,16 @@ Brier score is permitted only when a record is a genuine probabilistic forecast 
 | AT-019 | Deterministic validators never emit Brier scores. |
 | AT-020 | Unknown merge ownership yields `NOT_COMPUTABLE` and `CANON_SHADOW`. |
 
-## 10. Telemetry compatibility
+## 13. Security, privacy, governance, and telemetry
+
+Controls:
+
+- Fixture inputs MUST be synthetic unless a separately approved policy authorizes other data.
+- Raw prompts, retrieved passages, chain-of-thought, credentials, and direct identifiers MUST NOT enter default telemetry.
+- Digests MUST use the repository-approved canonical hashing path.
+- Evaluator outputs are advisory and MUST NOT become model-training data without a separate governed decision.
+- Retention and deletion MUST follow the artifact classification recorded in each claim and receipt.
+- Authority violations, redaction failures, and digest mismatches fail closed.
 
 Map to OpenTelemetry only as an export compatibility layer:
 
@@ -271,7 +342,23 @@ Map to OpenTelemetry only as an export compatibility layer:
 
 External semantic conventions do not define Abraxas authority, scoring, or promotion rules.
 
-## 11. Traceability and implementation slices
+## 14. Architecture and traceability
+
+### 14.1 Architecture
+
+```text
+Synthetic fixture
+  → existing Eval Spine runner
+  → state-qualified evidence packet
+  → four layer evaluators
+  → persistence-observability receipt
+  → existing trajectory outcome ledger
+  → operator review
+```
+
+Oracle Signal may consume the evidence packet in advisory mode. Outcome Binding/Brier may consume only eligible FORECAST commitments copied through the existing governed bridge. Neither surface owns fixture truth.
+
+### 14.2 Implementation slices
 
 | Slice | Inputs | Outputs | Tests |
 |---|---|---|---|
@@ -283,7 +370,21 @@ External semantic conventions do not define Abraxas authority, scoring, or promo
 
 Every implementation PR MUST cite this specification and the relevant acceptance-test IDs.
 
-## 12. Promotion gate
+### 14.3 Requirement traceability
+
+| Requirement | Journey / workflow | Contract | Acceptance tests | Implementation slice |
+|---|---|---|---|---|
+| RQ-001, RQ-002 | JRN-001; WF-001, WF-002 | persisted claim; evidence packet | AT-001–AT-006 | S1, S2 |
+| RQ-003 | JRN-001; WF-001–WF-003 | trajectory observation; receipt | AT-007–AT-010 | S3, S4 |
+| RQ-004 | WF-003 | trajectory observation | AT-011, AT-012 | S3 |
+| RQ-005 | JRN-001 | receipt | AT-013, AT-014 | S1, S4 |
+| RQ-006 | all | receipt | AT-017, AT-020 | S4, S5 |
+| RQ-007 | JRN-001 | receipt + existing forecast binding | AT-018, AT-019 | S4, S5 |
+| RQ-008 | all | all four contracts | AT-015 | S1–S5 |
+| RQ-009 | all | receipt | AT-016 | S1, S4 |
+| RQ-010 | JRN-001 | receipt | AT-020 | S4, S5 |
+
+## 15. Promotion gate
 
 Remain CANON-SHADOW unless all conditions hold:
 
@@ -297,7 +398,16 @@ Remain CANON-SHADOW unless all conditions hold:
 
 Passing the first six conditions makes promotion reviewable, not automatic. A new subsystem additionally requires positive evidence of ownership insufficiency; novelty of terminology is not sufficient.
 
-## 13. Provenance and uncertainty
+## 16. Verification, provenance, and uncertainty
+
+Verification required before implementation merge:
+
+1. validate every proposed schema against positive and negative fixtures;
+2. run all 60 initial fixture cases twice and compare receipt digests;
+3. independently score a stratified sample and calculate agreement;
+4. prove telemetry contains no prohibited raw content;
+5. prove SHADOW execution has no production or canon write path;
+6. publish failed tests and `NOT_COMPUTABLE` cases without suppression.
 
 - Source status is recorded in Section 2; preprints are treated as respected but unreplicated research.
 - Abraxas merge targets are architecture inferences from current ownership documents, not empirical findings.
