@@ -168,6 +168,8 @@ contract (JSON Schema) → core builder → scripts/run_* → out/ receipt
 
 No contract → no claim of production readiness.
 
+**Persistence + trajectory observability depth:** [`ABX_SHADOW_PERSISTENCE_OBSERVABILITY_001.md`](../integrations/ABX_SHADOW_PERSISTENCE_OBSERVABILITY_001.md) specifies a bounded Track B evaluation fixture over the existing Research Validation, Oracle Signal, and Outcome Binding/Brier pipelines. It does not register a subsystem, grant runtime authority, or promote findings beyond CANON-SHADOW.
+
 ### Track C — Alembic residuals & integration (2–4 weeks, advisory)
 
 **Outcome:** Spine remains advisory but is **wired as the multi-architecture entry**, not a side experiment.
