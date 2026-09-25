@@ -101,7 +101,7 @@ The fixture does **not** establish computational agency, autopoiesis, semantic c
 | Fixture execution and research validation | Research Validation / Eval Spine | Add fixture runner contract and acceptance suite |
 | Evidence qualification and abstention | Oracle Signal / `core_oracle_shadow` | Consume state-qualified evidence packets; advisory output only |
 | Forecast scoring | Outcome Binding / `brier_engine_telemetry` | Score only eligible probabilistic commitments with bound outcomes |
-| Cross-run evidence | Existing trajectory outcome ledger | Append evaluation receipt references and aggregate metrics |
+| Cross-run evidence | `NOT_COMPUTABLE` — no authoritative trajectory ledger/API is present in the repository | Keep versioned receipt sets on the existing Research Validation output route; do not invent a ledger owner |
 | Telemetry | Existing observability path | Emit redacted spans/events with `abx.*` extension attributes |
 
 No entry is added to `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md`; ownership already exists.
@@ -352,8 +352,10 @@ Synthetic fixture
   → state-qualified evidence packet
   → four layer evaluators
   → persistence-observability receipt
-  → existing trajectory outcome ledger
+  → versioned Research Validation receipt set
   → operator review
+
+A concrete cross-run trajectory ledger/API is `NOT_COMPUTABLE` from current repository evidence. S4/S5 MUST persist only through the existing Research Validation output route until an authoritative owner and contract are identified. They MUST NOT create a new ledger or redirect records into replay or Brier ledgers by analogy.
 ```
 
 Oracle Signal may consume the evidence packet in advisory mode. Outcome Binding/Brier may consume only eligible FORECAST commitments copied through the existing governed bridge. Neither surface owns fixture truth.
@@ -389,8 +391,8 @@ Every implementation PR MUST cite this specification and the relevant acceptance
 Remain CANON-SHADOW unless all conditions hold:
 
 1. fixture and evaluators are implemented with complete provenance;
-2. at least two independent evaluators reach agreement ≥ 0.80;
-3. results replicate across at least two fixture versions and 12 invariant runs;
+2. two independent evaluators satisfy the agreement protocol in Section 15.1;
+3. two fixture versions independently satisfy the invariance protocol in Section 15.2;
 4. the metrics add predictive or diagnostic value beyond existing eval-spine measures;
 5. a documented gap proves existing owners cannot absorb the capability;
 6. privacy, rollback, and authority boundaries pass review;
@@ -398,18 +400,49 @@ Remain CANON-SHADOW unless all conditions hold:
 
 Passing the first six conditions makes promotion reviewable, not automatic. A new subsystem additionally requires positive evidence of ownership insufficiency; novelty of terminology is not sufficient.
 
+### 15.1 Independent-evaluator agreement protocol
+
+Use exactly two evaluators operating independently on the same frozen receipt inputs. Neither evaluator may see the other's labels before both outputs are sealed.
+
+Calculate Cohen's kappa:
+
+`κ = (p_o - p_e) / (1 - p_e)`
+
+where `p_o` is observed exact agreement and `p_e` is chance agreement calculated from the two evaluators' empirical marginal label frequencies. If `p_e = 1`, define `κ = 1` only when `p_o = 1`; otherwise fail closed.
+
+Calculate three kappas per fixture version:
+
+1. **Layer anomaly κ:** all 240 scenario × seed × layer units (20 × 3 × 4). The category is the canonical sorted anomaly-code set, including `NONE` and `NOT_COMPUTABLE`; no unit may be dropped.
+2. **Terminal disposition κ:** all 60 scenario × seed runs. Categories are `SHADOW_PASS | SHADOW_ANOMALY | NOT_COMPUTABLE | FAILED_CLOSED`.
+3. **Recoverability κ:** all injected-failure units. Categories are `RECOVERABLE | NOT_RECOVERABLE | NOT_COMPUTABLE`; no disagreement or missing label may be excluded.
+
+Pass only when all three κ values are ≥ 0.80 for each of two fixture versions. Report the contingency tables, marginals, `p_o`, `p_e`, κ, evaluator versions, and sealed output digests. Raw agreement alone is insufficient.
+
+### 15.2 Run-level invariance protocol
+
+For each of two fixture versions:
+
+1. freeze fixture content, all 20 histories, three seeds, contract versions, evaluator versions, configuration, and canonicalization version;
+2. execute the complete 60-case matrix 12 times;
+3. construct a semantic comparison projection for every receipt by excluding only `run_id`, `started_at`, `completed_at`, `trace_id`, and `span_id`;
+4. canonicalize and hash every projection with the repository-approved hashing path;
+5. compare each repeat with repeat 1 at the matching scenario × seed coordinate.
+
+Pass only when all 60 projected receipt digests match at every coordinate for all 12 repeats: 660/660 pairwise comparisons per fixture version. Any other field exclusion, missing receipt, retry substitution, or digest mismatch fails invariance. The two fixture versions MUST differ in scenario content or fixture version—not merely identifiers—and each must pass independently.
+
 ## 16. Verification, provenance, and uncertainty
 
 Verification required before implementation merge:
 
 1. validate every proposed schema against positive and negative fixtures;
-2. run all 60 initial fixture cases twice and compare receipt digests;
-3. independently score a stratified sample and calculate agreement;
+2. run the Section 15.2 invariance protocol and publish all comparison results;
+3. run the Section 15.1 agreement protocol on the complete defined populations;
 4. prove telemetry contains no prohibited raw content;
 5. prove SHADOW execution has no production or canon write path;
 6. publish failed tests and `NOT_COMPUTABLE` cases without suppression.
 
 - Source status is recorded in Section 2; preprints are treated as respected but unreplicated research.
 - Abraxas merge targets are architecture inferences from current ownership documents, not empirical findings.
+- A cross-run trajectory ledger/API is not established by repository evidence; that dependency is `NOT_COMPUTABLE` and cannot be implemented by analogy.
 - Proposed filenames and attributes are contract targets, not implemented interfaces.
 - No repository runtime, Notion canon, specification authority, or production behavior is modified by this document alone.
