@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/evaluation/persisted_claim.v1.schema.json",
+  "title": "PersistedClaim.v1",
+  "description": "A time-bounded persisted claim for the ABX persistence-observability SHADOW fixture. Stores digests or approved redactions, never unrestricted raw content.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_id",
+    "subject_id",
+    "predicate",
+    "valid_from",
+    "valid_to",
+    "recorded_at",
+    "source_ref",
+    "authority_tier",
+    "supersedes_claim_id",
+    "revoked_at",
+    "revocation_ref",
+    "content_classification",
+    "retention_class",
+    "epistemic_status",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "PersistedClaim.v1"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^pc-[A-Za-z0-9._:-]+$"
+    },
+    "subject_id": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "predicate": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "value_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "approved_redacted_value": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_ref": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "authority_tier": {
+      "enum": [
+        "PRIMARY",
+        "SECONDARY",
+        "TERTIARY",
+        "UNKNOWN"
+      ]
+    },
+    "supersedes_claim_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^pc-[A-Za-z0-9._:-]+$"
+    },
+    "revoked_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "revocation_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "content_classification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "RESTRICTED"
+      ]
+    },
+    "retention_class": {
+      "enum": [
+        "EPHEMERAL",
+        "STANDARD",
+        "EXTENDED",
+        "LEGAL_HOLD"
+      ]
+    },
+    "epistemic_status": {
+      "enum": [
+        "OBSERVED",
+        "INFERRED",
+        "SPECULATIVE",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "production_activation_allowed"
+      ],
+      "properties": {
+        "advisory_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "production_activation_allowed": {
+          "const": false
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "value_digest"
+      ]
+    },
+    {
+      "required": [
+        "approved_redacted_value"
+      ]
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "revoked_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "revoked_at"
+        ]
+      },
+      "then": {
+        "properties": {
+          "revocation_ref": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "revocation_ref": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "revocation_ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "revocation_ref"
+        ]
+      },
+      "then": {
+        "properties": {
+          "revoked_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  ]
+}
