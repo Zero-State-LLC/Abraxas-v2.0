@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/evaluation/state_qualified_evidence_packet.v1.schema.json",
+  "title": "StateQualifiedEvidencePacket.v1",
+  "description": "A deterministic evidence selection whose claims are explicitly qualified relative to an evaluation timestamp.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evaluation_id",
+    "as_of",
+    "query_digest",
+    "resolution_status",
+    "claims",
+    "not_computable_reasons",
+    "packet_digest",
+    "authority"
+  ],
+  "$defs": {
+    "claim_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_ref",
+        "temporal_role",
+        "inclusion",
+        "reason_code",
+        "authority_conflict"
+      ],
+      "properties": {
+        "claim_ref": {
+          "type": "string",
+          "pattern": "^pc-[A-Za-z0-9._:-]+$"
+        },
+        "temporal_role": {
+          "enum": [
+            "CURRENT",
+            "HISTORICAL",
+            "TRANSITIONAL",
+            "SUPERSEDED",
+            "REVOKED"
+          ]
+        },
+        "inclusion": {
+          "enum": [
+            "INCLUDED",
+            "EXCLUDED"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+        },
+        "authority_conflict": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "temporal_role": {
+                "enum": [
+                  "SUPERSEDED",
+                  "REVOKED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "inclusion": {
+                "const": "EXCLUDED"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "StateQualifiedEvidencePacket.v1"
+    },
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^eval-[A-Za-z0-9._:-]+$"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "query_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "resolution_status": {
+      "enum": [
+        "READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim_entry"
+      },
+      "uniqueItems": true
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": ".*\\S.*"
+      },
+      "uniqueItems": true
+    },
+    "packet_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "production_activation_allowed"
+      ],
+      "properties": {
+        "advisory_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "production_activation_allowed": {
+          "const": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "resolution_status": {
+            "const": "NOT_COMPUTABLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "not_computable_reasons": {
+            "minItems": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "not_computable_reasons": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}
