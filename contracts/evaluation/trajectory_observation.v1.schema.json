@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/evaluation/trajectory_observation.v1.schema.json",
+  "title": "TrajectoryObservation.v1",
+  "description": "A redacted step-level observation for locating failure onset without storing raw prompts, retrieved passages, or chain-of-thought.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "trace_id",
+    "span_id",
+    "step_index",
+    "timestamp",
+    "layer",
+    "input_digest",
+    "output_digest",
+    "permitted_metadata",
+    "anomaly_codes",
+    "recoverability",
+    "recovery_action_ref",
+    "evidence_refs",
+    "evaluator",
+    "authority"
+  ],
+  "$defs": {
+    "evaluator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluator_id",
+        "version"
+      ],
+      "properties": {
+        "evaluator_id": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        },
+        "version": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "TrajectoryObservation.v1"
+    },
+    "trace_id": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "span_id": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "step_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "layer": {
+      "enum": [
+        "STORE",
+        "RETRIEVAL",
+        "INTERPRETATION",
+        "ANSWER"
+      ]
+    },
+    "input_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "output_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "permitted_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "tool_name": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "latency_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "token_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "anomaly_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+      },
+      "uniqueItems": true
+    },
+    "recoverability": {
+      "enum": [
+        "RECOVERABLE",
+        "NOT_RECOVERABLE",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recovery_action_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": ".*\\S.*"
+      },
+      "uniqueItems": true
+    },
+    "evaluator": {
+      "$ref": "#/$defs/evaluator"
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "production_activation_allowed"
+      ],
+      "properties": {
+        "advisory_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "production_activation_allowed": {
+          "const": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "recoverability": {
+            "const": "RECOVERABLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "recovery_action_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "recovery_action_ref": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "recoverability": {
+            "const": "NOT_COMPUTABLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/evaluation/persistence_observability_receipt.v1.schema.json",
+  "title": "PersistenceObservabilityReceipt.v1",
+  "description": "An immutable advisory receipt for one persistence-observability fixture run. SHADOW records cannot carry forecast bindings or mutation authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "fixture",
+    "run_id",
+    "contract_versions",
+    "evaluator_versions",
+    "layer_metrics",
+    "failed_acceptance_tests",
+    "provenance_refs",
+    "privacy_redaction_result",
+    "determinism_result",
+    "lane",
+    "forecast_binding",
+    "terminal_state",
+    "research_disposition",
+    "disposition_reason",
+    "canonical_hash",
+    "authority"
+  ],
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "score",
+        "anomaly_codes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "anomaly_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "NOT_COMPUTABLE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "score": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "forecast_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probability",
+        "horizon",
+        "outcome_ref"
+      ],
+      "properties": {
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "horizon": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        },
+        "outcome_ref": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "PersistenceObservabilityReceipt.v1"
+    },
+    "receipt_id": {
+      "type": "string",
+      "pattern": "^por-[A-Za-z0-9._:-]+$"
+    },
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_id",
+        "fixture_version",
+        "scenario_id",
+        "seed"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        },
+        "fixture_version": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        },
+        "scenario_id": {
+          "type": "string",
+          "pattern": ".*\\S.*"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "contract_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "persisted_claim",
+        "evidence_packet",
+        "trajectory_observation",
+        "receipt"
+      ],
+      "properties": {
+        "persisted_claim": {
+          "const": "PersistedClaim.v1"
+        },
+        "evidence_packet": {
+          "const": "StateQualifiedEvidencePacket.v1"
+        },
+        "trajectory_observation": {
+          "const": "TrajectoryObservation.v1"
+        },
+        "receipt": {
+          "const": "PersistenceObservabilityReceipt.v1"
+        }
+      }
+    },
+    "evaluator_versions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evaluator_id",
+          "version"
+        ],
+        "properties": {
+          "evaluator_id": {
+            "type": "string",
+            "pattern": ".*\\S.*"
+          },
+          "version": {
+            "type": "string",
+            "pattern": ".*\\S.*"
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "layer_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "store",
+        "retrieval",
+        "interpretation",
+        "answer"
+      ],
+      "properties": {
+        "store": {
+          "$ref": "#/$defs/metric"
+        },
+        "retrieval": {
+          "$ref": "#/$defs/metric"
+        },
+        "interpretation": {
+          "$ref": "#/$defs/metric"
+        },
+        "answer": {
+          "$ref": "#/$defs/metric"
+        }
+      }
+    },
+    "failed_acceptance_tests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^AT-[0-9]{3}$"
+      },
+      "uniqueItems": true
+    },
+    "provenance_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": ".*\\S.*"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "privacy_redaction_result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "determinism_result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "lane": {
+      "enum": [
+        "SHADOW",
+        "FORECAST"
+      ]
+    },
+    "forecast_binding": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/forecast_binding"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "terminal_state": {
+      "enum": [
+        "SHADOW_PASS",
+        "SHADOW_ANOMALY",
+        "FORECAST_RECORDED",
+        "NOT_COMPUTABLE",
+        "FAILED_CLOSED"
+      ]
+    },
+    "research_disposition": {
+      "enum": [
+        "MERGE_CANDIDATE",
+        "CANON_SHADOW",
+        "REJECT"
+      ]
+    },
+    "disposition_reason": {
+      "type": "string",
+      "pattern": ".*\\S.*"
+    },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "production_activation_allowed"
+      ],
+      "properties": {
+        "advisory_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "production_activation_allowed": {
+          "const": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lane": {
+            "const": "SHADOW"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "forecast_binding": {
+            "type": "null"
+          },
+          "research_disposition": {
+            "enum": [
+              "CANON_SHADOW",
+              "REJECT"
+            ]
+          },
+          "terminal_state": {
+            "enum": [
+              "SHADOW_PASS",
+              "SHADOW_ANOMALY",
+              "NOT_COMPUTABLE",
+              "FAILED_CLOSED"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "forecast_binding": {
+            "$ref": "#/$defs/forecast_binding"
+          },
+          "terminal_state": {
+            "enum": [
+              "FORECAST_RECORDED",
+              "NOT_COMPUTABLE",
+              "FAILED_CLOSED"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "terminal_state": {
+            "const": "SHADOW_PASS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "failed_acceptance_tests": {
+            "maxItems": 0
+          },
+          "privacy_redaction_result": {
+            "const": "PASS"
+          },
+          "determinism_result": {
+            "const": "PASS"
+          }
+        }
+      }
+    }
+  ]
+}
