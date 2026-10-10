@@ -1,0 +1,60 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "python",
+        "scripts/run_fast_ci.py"
+      ],
+      "duration_seconds": 296.0,
+      "exit_code": 1,
+      "failed_tests": [
+        "tests/test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py::test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_contains_expected_routes"
+      ],
+      "name": "fast_ci",
+      "summary": []
+    },
+    {
+      "argv": [
+        "python",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "addopts=",
+        "-q",
+        "--maxfail=100000",
+        "tests"
+      ],
+      "duration_seconds": 425.7,
+      "exit_code": 1,
+      "failed_tests": [
+        "tests/test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py::test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_contains_expected_routes"
+      ],
+      "name": "full_pytest",
+      "summary": [
+        "1 failed",
+        "10 skipped",
+        "13908 passed"
+      ]
+    }
+  ],
+  "environment": {
+    "machine": "arm64",
+    "pip_freeze_sha256": "9097eeb31908b463b562ca319c7473a8d5317adf859eceb6bc2475eb39a35e8f",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "Python 3.12.13"
+  },
+  "kind": "LOCAL_VERIFICATION",
+  "not_github_actions": true,
+  "recorded_at": "2026-10-10T19:26:20+00:00",
+  "schema_version": "LocalCIRecord.v1",
+  "status": "FAIL",
+  "tested_commit": "005417806567500e21909dd974be373412b7d668",
+  "tracked_files_changed_by_run": [
+    "out/production_readiness/ws1/sole_writer_advisory_report.v1.json",
+    "out/production_readiness/ws5/neon_genie_allowlist_check.v1.json",
+    "out/production_readiness/ws5/neon_genie_capability_allowlist.v1.json",
+    "ut/production_readiness/ws1/boundary_advisory_report.v1.json"
+  ]
+}

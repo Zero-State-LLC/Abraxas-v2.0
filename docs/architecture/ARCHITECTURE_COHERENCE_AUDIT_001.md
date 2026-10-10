@@ -4,6 +4,7 @@
 - **Scope:** whole repository. Execution paths were traced from code. Documents were checked against code.
 - **Layer:** Governance V3 Layer 0, engineering only. This audit changes no gates, no locks, and no canon.
 - **Method:** a graft context graph (31.5k symbols, 81k call edges); a static import graph over all 3,983 Python modules; reachability from the product entry points; targeted pytest runs; a full-suite run; read-only `gh`.
+- **Revision 2 (2026-10-10, same day):** the operator decided repository ownership, version authority, `/analyze` and canary evidence, CI and Sigil-Forge. §8 records the decisions, §15 the new findings, and §9–§14 the work done under them.
 - **Labels:** findings carry `OBSERVED` / `INFERRED` / `SPECULATIVE` / `NOT_COMPUTABLE` labels, as defined in AGENTS.md §5.
 
 ## 1. Assessment
@@ -203,13 +204,25 @@ This applies the template from `docs/integrations/ABX_SHADOW_PERSISTENCE_OBSERVA
 | **Acceptance tests** | AT-AN-1, EXTERNAL_PRODUCTION → OPERATOR_GATE (`tests/test_api_analyze.py`, `tests/test_abraxas_cli.py`). AT-AN-2, the same input gives the same `canonical_hash` (CLI tests). AT-AN-3, `schema_ref` resolution does not depend on the cwd (`tests/test_advisory_spine_repo_root.py`, new). AT-AN-4, an invalid `alembic_mode` gives 4xx, not 500 (**missing**, A11). AT-AN-5, lane evidence is not self-asserted (**missing**, A3). |
 | **Implementation tasks** | Phase 1 (below): A11 → AT-AN-4; A3 → AT-AN-5; A12 decides what `replay` means. |
 
-## 8. Decisions that need the operator
+## 8. Decisions
 
-1. ~~**Fast CI red / evolution-cycle runner (G2 + G3).**~~ **Resolved 2026-10-10:** the operator approved the fix, and it is applied in this PR (§6).
-2. **Repo identity.** If runtime lives in `Zero-State-LLC/Abraxas` (#1135), is the T1 product spine here a reference implementation, or is it supported? This decides whether Phase 1 hardening is worth doing here.
-3. **One version number.** Either semantic-release `v1.x` or product `2.5.0`. The CHANGELOG is also missing 1.179 and 1.180.
-4. **API default posture and activation evidence (A3, A10).** Should `POST /analyze` default to off or authenticated? Where should INTERNAL_CANARY control evidence come from?
-5. **Hosted CI (G1).** Re-enable Actions (billing) or adopt an agreed local-CI attestation. Until then, nothing enforces merge gates.
+Operator decisions on 2026-10-10. Each one is applied in this PR (§6 and §15).
+
+| # | Question | Decision |
+| --- | --- | --- |
+| 1 | Evolution-cycle fail-closed status (G2/G3) | Fix approved; applied |
+| 2 | Repository identity | v2.0 is the **doctrine and reference** repo; its code is reference, not a supported product. `Zero-State-LLC/Abraxas` `main` is canonical execution. Executable work moves by reviewed, tested port (`docs/SIBLING_REPOS.md`). |
+| 3 | Version authority | v2.0 claims no product version. The `v1.N.M` tags are doctrine revisions, mirrored in `VERSION` and checked by a timing-aware validator (`docs/releases/VERSION_STRATEGY.md`). |
+| 4 | `/analyze` and canary evidence | Authenticated by default. Anonymous access only behind an explicit local-dev flag that cannot apply in a deployed profile. Bounded rate, size and time. Canary activation only on signed evidence from outside the candidate. |
+| 5 | CI | No private Actions billing. Prepare publication; if it stays private or blocked, use the committed local-CI record. |
+| 6 | Sigil-Forge | Pinned fixture for contract tests; live tests behind a registered marker; a required lane fails without the checkout. |
+
+**Still open (operator judgment):**
+
+1. **Publication blockers** (§13). The roughly 2,400 pre-relicense commits are Apache-2.0. Commit metadata contains personal emails and machine hostnames. A scraped ModularGrid catalog is in the tree. Publishing needs either a fresh-history public mirror or an authorized history rewrite.
+2. **Deletion queue** (§12). Each entry needs two named, distinct operators.
+3. **Port PRs to `Zero-State-LLC/Abraxas`** (§11). They are opened for review only; merging is the canonical repo owners' call.
+4. **graft `.gitignore` line.** It is kept local (Jev 0.26, low confidence). Commit it only if the team adopts graft.
 
 ## 9. Verification (this PR)
 
@@ -218,7 +231,31 @@ This applies the template from `docs/integrations/ABX_SHADOW_PERSISTENCE_OBSERVA
 - Skill-evolution set after the G2/G3 fix: 83 passed. `skills/tests`: 85 passed (excluding the file that needs `requests_cache`).
 - Fast CI selection (`-m "not slow and not integration and not canon and not artifact"`, no maxfail): on `main`, 8 failures (7 listed in G11/G12 plus `test_full_cycle_rc0_no_mutation`). On this branch, 2 failures, both G12 (`test_sigil_forge_mount.py`, which needs `~/Sigil-Forge`). The drift check passes. Fast CI's ruff step passes, and pyright exits 0 on its 100 bounded targets. Ruff findings on every changed file are at or below their count on `main`.
 
-## 10. Remaining work by phase
+### Revision 2 verification (LOCAL_VERIFICATION, not GitHub Actions)
+
+The record is `docs/status/local-ci/005417806567500e21909dd974be373412b7d668.json`. It was run with `python -m scripts.governance.local_ci_record run` in a fresh worktree at `00541780`: a true clean checkout, with no ignored leftovers.
+
+- **Full suite:** 13,908 passed, **1 failed**, 10 skipped. `main` had 59 failures (53 on a clean checkout).
+  - The single failure is the P84 bridge route-refresh test, which is tracked-artifact drift (G13). It is now a strict xfail in `tests/known_failures.json` (P3).
+- **Fast CI:** exited 1 on that same test. Its selection now includes every governance test.
+- **Record status:** **FAIL.**
+  - Partly that test.
+  - Partly that fast CI's report-only advisory gates still rewrite four tracked `out/production_readiness/*` files after the drift guard (G7, open).
+  - The record tool's path parser dropped the first character of the first changed path. Fixed in the next commit.
+- **Validity:** commits after `00541780` changed code (the registry entry, the parser fix), so `local_ci_record check` reports this sign-off as superseded. **A fresh record is the next step.**
+
+## 10. Phase status (revision 2)
+
+| Phase | Status | Done (evidence) | Remaining | Depends on |
+| --- | --- | --- | --- | --- |
+| **P0 Trustworthy gate** | **Done, except G7/G10** | G2, G3, G4 and G15: explicit markers, governance tests selected, strict-xfail registry. G14: 34 tracked-file writers isolated, plus a session guard. G16: three real bugs fixed. G11, G12, G13, A11. Pre-existing failures fixed rather than skipped (§9). | G7: the fast-CI advisory gates still write tracked `out/production_readiness/*` after the drift guard. G10: the session seed fixture still writes ignored `out/audit` files, and some tests still read them. | — |
+| **P1 Spine hardening** | **Mostly done** | A3 (signed independent canary evidence), A10 (auth by default), A11 (4xx), A6, the version endpoint | A5 settings consolidation; A12 `replay` semantics; ports §11 | Port PR review upstream |
+| **P2 Single-owner primitives** | Not started | — | A1, A4, A8, A9 | P0 |
+| **P3 Truthful evidence** | Partly done | D1–D5 and D7 docs/version reconciled; G13 registry truthfulness | S5 milestone evidence, S8, G6 pyright, G9 doc pins elsewhere, D3 PLANS log archive | P0 |
+| **P4 Reduction under CLEAR** | Queued | §12 deletion queue with evidence | Two-operator sign-off per entry | CLEAR mandate |
+
+## 10a. Phases as first planned (superseded by the table above)
+
 
 | Phase | Outcome | Items | Depends on | Acceptance | Completion evidence |
 | --- | --- | --- | --- | --- | --- |
@@ -227,3 +264,74 @@ This applies the template from `docs/integrations/ABX_SHADOW_PERSISTENCE_OBSERVA
 | **P2 Single-owner primitives** | One hash, one lock vocabulary | A1 (per family), A4, A9, A8 | P0 | 0 private hash helpers in T1/T2; locks validated on every write; frozen-clock double build is byte-identical | AST scan; drift check |
 | **P3 Truthful evidence** | Milestones and docs cannot overstate | S5, S8, G9, D3, D5, G6 | P0 | Milestones require importable code; pyright `basic` on T1 | Registry test; pyright log |
 | **P4 Reduction under CLEAR** | Smaller tree | S2, S3, S4, S6, S9, S10 | CLEAR dual-control mandate | Exact-path mandate; drift check unchanged | Mandate + PR |
+
+## 11. Port queue to `Zero-State-LLC/Abraxas`
+
+The ranking and its evidence come from a read-only survey of upstream `main` at `94021671`. Upstream has no `/analyze` equivalent and no single auth scheme. Its closest compute route, `POST /api/oracle/run`, has no authentication, rate limit or body limit. Its HMAC receipts (`shared/signing.py`) silently fall back to unsigned. Its lifecycle lanes (`abx/lifecycle_policy.py`) accept self-reported evidence booleans. pawl reports are unsigned and not bound to a commit.
+
+| # | Port | Status | Evidence |
+| --- | --- | --- | --- |
+| 1 | `canonical_json` rejects NaN/Infinity | **Prepared**: commit `bd741113` on local branch `port/canonical-json-reject-nan`, patch in the backups folder | Upstream full suite in an isolated env: 3956 passed / 30 failed. The 30 are the same as the unmodified baseline; the new test passes. Rounding is deliberately **not** ported, because it would change upstream hashes. |
+| 2 | Access policy for `/api/oracle/run` (X-ABX-Token, loopback-only anonymous, rate/body/time bounds) | Designed (`apps/api/boundaries.py`) | Needs upstream design review: upstream mixes FastAPI and Express |
+| 3 | Signed independent canary evidence mapped onto SHADOW→CANARY→ACTIVE | Designed (`core/governance/activation_evidence.py`) | Upstream receipts must stop falling back to unsigned |
+| 4 | Validation service | Queued | — |
+| 5 | Advisory spine | Last, if ever | It drags in `core/alembic` (29 files) |
+
+## 12. Deletion queue (awaiting two-operator sign-off)
+
+Nothing below is deleted. CLEAR (`docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`) requires two **distinct named operators** per mandate, listing exact paths. Repeated runs by one agent do not count as two operators. Evidence was gathered on 2026-10-10 by reference search over every `.py/.json/.yml/.toml/.md/.js/.ts` outside `out/`, plus dynamic-loader rules.
+
+| Path(s) | Evidence | Why remove | Blocker | Operator A | Operator B |
+| --- | --- | --- | --- | --- | --- |
+| `api/hybrid_server.py`, `api/sse_server.py`, `api/websocket_server.py` | Only named in `core/production_convergence/{inventory,duplication,deprecation_ledger}.py` data, as deprecation candidates. No importers, tests or CI. | They bind `0.0.0.0` with an unauthenticated `POST /process`, outside every access control (S6) | CLEAR entry DEFER | | |
+| `dashboard/app.py`, `workflows/la_ca_adaptive_pipeline.py` | `dashboard` needs `streamlit`, which is not a dependency, so it cannot run. `workflows/` is imported only by `dashboard` and named in `docs/intelligence_quickstart.md`. | Dead path (S9) | — | | |
+| `core/execution/__init__.py`, `core/execution/context.py`, `core/execution/replay_runner.py`, `core/runes/rollback.py` | 0 bytes; no references | Empty modules | S5: sibling empty files are cited as milestone evidence; fix S5 first | | |
+| `core/evaluation/evaluator.py`, `core/temporal/temporal_slicing.py`, `core/rune_bind_merge_candidate_generator_stub.py`, `core/shadow_map_generator_stub.py`, `core/temporal_formula_export_helper_stub.py` | No static, dynamic, string, CI or doc references | Unconnected stubs | — | | |
+
+These are **not queued**; they need owner judgment:
+- `.codebase-memory/graph.db.zst` (22.7 MB in HEAD). It is referenced by `.gitattributes`, `.gitignore` and a phase-13 receipt.
+- Root `scripts.py`, a shadowed shim. Its reference search is ambiguous.
+- The scraped ModularGrid catalog under `skills/modular-synth-catalog-research/references/` (publication blocker, §13).
+
+## 13. Publication readiness (`Zero-State-LLC/Abraxas-v2.0`)
+
+Reviewed 2026-10-10. The review was read-only; visibility, settings and history were not changed. **Verdict: not ready to publish as-is. Owner authorization is needed.**
+
+- **Secrets: none found.** Gitleaks 8.30.1 (`--redact`) scanned the full history of a fresh mirror (4,518 commits, including the 1,107 `refs/pull/*` that become public), the working tree, all 1,156 issue/PR bodies and all 1,309 comments. It produced 18 findings, all the `generic-api-key` rule matching 64-hex SHA-256 digests. A pattern sweep of every added line for AWS, GitHub, OpenAI/Anthropic, Slack, Google, Stripe and HF keys, JWTs, PEM blocks, password assignments and credentialed URLs found 0. No `.env`, key, keystore or dump file was ever committed. **Nothing needs rotation.** Scanner output is evidence, not proof.
+- **Blockers that need owner authorization:**
+  1. **Licence history.** About 2,400 of `main`'s 2,608 commits predate the relicense (`d1821fa7`, 2026-07-29) and are **Apache-2.0**. Publishing would release those snapshots permanently. Rewriting history cannot clear GitHub's retained `refs/pull/*`, so a **fresh-history public mirror** is the cleaner route.
+  2. **Personal data in commit metadata.** Two personal gmail addresses, an openclaw.ai address, and the hostnames `lunas-MacBook-Air.local` and `AAL-mainnet.localdomain` as author emails. The commits in this PR use the same local identity. 64 home-directory paths in the tree.
+  3. **Third-party content.** A scraped ModularGrid catalog (it says so in its own header) and an arXiv abstract.
+- **Owner judgment:** 152 private Notion page links in the tree (522 in history); all issues and PRs becoming public; the 22.7 MB database file in HEAD.
+- **Settings to fix before any publication:** enable secret scanning and push protection; add a `main` ruleset with required checks (`main` is unprotected today); require approval for outside contributors' workflows; then set `HOSTED_ACTIONS_AVAILABLE=true`. Workflows are already safe for public forks: no `pull_request_target` or `workflow_run`, and only `GITHUB_TOKEN`. `LICENSE` is now off the docs auto-merge list (this PR).
+- **Runner eligibility:** GitHub-hosted standard runners are free for public repositories (GitHub billing docs; INFERRED, not re-fetched). This org is on the Team plan, and its Actions settings returned 403 to this account.
+- **Stopgap in force:** `python -m scripts.governance.local_ci_record run|check` (§9). Local records are LOCAL_VERIFICATION, never GitHub Actions results.
+
+## 14. Challenge review (revision 2)
+
+| Question | Answer |
+| --- | --- |
+| Did complexity disappear or move? | Path-word markers, self-asserted canary controls, placeholder auth and four version numbers were removed outright. New surfaces: one evidence verifier, one access-policy module, one version validator, one local-CI tool and one mirror helper. Each replaces implicit behaviour with an explicit, tested contract. `run_doctrine_validator` still hard-codes 30+ cwd-relative paths; tests work around it with a mirror rather than fix it (P2). |
+| One owner per responsibility? | Repository ownership: `SIBLING_REPOS.md`. Version: `VERSION_STRATEGY.md` plus the validator. Canary authority: the trust store (deployment), never the candidate. Settings are still split (A5, P1). |
+| Doctrine vs reference vs supported execution? | Distinguished in README, ARCHITECTURE, STATUS, `/version` (`role: doctrine-reference`, `product_version: null`) and pyproject (`0.0.0+reference`). |
+| Can a new engineer trace the workflows? | `analyze`: §3 map plus §7 chain. Canary: `activation_evidence` docstring → `evaluate_activation` → spine. |
+| Necessary distinctions lost? | No. DERIVED_OPTIONAL vs BUILD_CANONICAL was **restored** for P79–P84. Evidence statuses keep nine distinct failure reasons. |
+| Auth and canary safe by default? | Yes. With no token configured the endpoint returns 503. The anonymous flag is refused outside `local` and from non-loopback clients. Canary evidence that is absent or unverifiable denies the lane. Limitation: the rate limiter is per process, and a timed-out worker thread is not killed (reference only). |
+| Evidence independently verifiable? | Yes: Ed25519 with a deployment-owned trust store. The candidate cannot sign; self-issued evidence is SELF_ASSERTED. No real issuer exists yet: pawl and CI produce no signed, SHA-bound evidence (§11). |
+| Fixtures keep contract coverage? | The Sigil-Forge pin asserts the same frozen identity; the replay raises on any unrecorded intent; a live drift test compares live output with the pin. |
+| Skips and local CI honest? | Missing-checkout tests are SKIPPED, or an error in required lanes. Known failures are strict xfails listed in `tests/known_failures.json`. Local records say LOCAL_VERIFICATION. |
+| Implementation, docs, bindings, version policy and kanban agree? | Checked by the doc tests, the doctrine validator and the version validator (§9). The GitHub Project board was not updated; it is the owner's board. |
+
+## 15. Revision-2 findings and dispositions
+
+| ID | Label | Finding | Disposition |
+| --- | --- | --- | --- |
+| G13 | OBSERVED | Four P79–P84 plans were drift-checked as BUILD_CANONICAL although they derive from a git-ignored input. The two test sets contradicted each other. | **Fixed:** DERIVED_OPTIONAL (Jev 0.91) |
+| G14 | OBSERVED | 34 test modules wrote tracked files. One rebuilt `projection-bundle.json` (−181k lines) and the topology artifact from a degraded corpus, which broke later tests. | **Fixed:** tmp roots, a repo mirror, or injected output (one new `--output-root` flag); plus a session guard |
+| G15 | OBSERVED | `pytest.ini` set `norecursedirs = temporal viz` ("skip broken suites"); markers were inferred from path words. | **Fixed:** explicit markers, `--strict-markers`, `xfail_strict = true` |
+| G16 | OBSERVED | Three real bugs hid in deselected tests: `review_queue` KeyError on the gate-status contract; generator paths stale after the `scripts/<domain>` move; `AuthorityScope.NOT_COMPUTABLE` removed but still used. | **Fixed**, each failing closed |
+| G17 | OBSERVED | Content-count and doc pins had drifted with legitimate additions or moved text. | **Fixed** with cited commits; assertions unchanged |
+| D7 | OBSERVED | Version authority: 2.5.0 was a "product version"; the tags are snapshots; CHANGELOG commit-back was removed in #1121. | **Fixed** (§8 decision 3) |
+| D8 | OBSERVED | Bindings pointed at archived `scrimshawlife-ctrl/Sigil-Forge` and `Hyperlex` copies. | **Fixed** |
+| S11 | OBSERVED | Sigil-Forge bridge caches the first imported `forge_core` regardless of the matched root, so the discovery label can name the wrong engine. | Defer (P1); the tests work around it |
+| P1-pub | OBSERVED | Publication blockers (§13) | Operator |

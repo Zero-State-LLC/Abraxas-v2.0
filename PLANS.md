@@ -6,13 +6,15 @@
 
 From [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) §10. These are engineering phases (Layer 0); none grants activation, canon or deletion authority.
 
-| Phase | Outcome | Depends on | Done when |
-|-------|---------|-----------|-----------|
-| P0 Trustworthy gate | fast CI green and meaningful; tests stop writing into `out/` | operator decisions 1 and 5 (audit §8) | fast CI exits 0 on a clean checkout, leaves `git status` clean, and selects governance tests |
-| P1 Spine hardening | analyze/replay/API contracts explicit and tested | P0, decisions 2 and 4 | AT-AN-4/5 pass; one settings owner |
-| P2 Single-owner primitives | one canonical hash, one lock vocabulary, injected clock | P0 | no private hash helpers in product or lane code; locks validated on every write; frozen-clock rebuild byte-identical |
-| P3 Truthful evidence | milestones and docs cannot overstate | P0 | milestones require importable code; pyright `basic` on the product spine |
-| P4 Reduction under CLEAR | smaller tree | CLEAR dual-control mandate | exact-path mandate; drift check unchanged |
+| Phase | Status (2026-10-10, rev 2) | Outcome | Depends on | Done when |
+|-------|--------|---------|-----------|-----------|
+| P0 Trustworthy gate | **Done except G7/G10** — explicit markers, governance tests selected, strict-xfail registry, tracked-file guard, 34 writers isolated, 3 real bugs fixed | fast CI meaningful; tests never write tracked files | — | fast CI selection passes on a clean checkout and leaves tracked files unchanged (local CI record, audit §9) |
+| P1 Spine hardening | **Mostly done** — auth by default, signed canary evidence, 4xx mapping; port PRs to Zero-State-LLC/Abraxas opened for review | reference contracts explicit; valuable code ported | upstream review | A5 single settings owner; A12 replay semantics; ports merged upstream |
+| P2 Single-owner primitives | Not started | one canonical hash, one lock vocabulary, injected clock | P0 | no private hash helpers; locks validated on every write; frozen-clock rebuild byte-identical |
+| P3 Truthful evidence | Partly done — docs/version reconciled, registry classification fixed | milestones and docs cannot overstate | P0 | milestones require importable code; pyright `basic` on the reference spine |
+| P4 Reduction under CLEAR | Queued — audit §12 lists paths + evidence | smaller tree | two distinct named operators per mandate | exact-path mandate; drift check unchanged |
+
+Publication of this repository is blocked on owner decisions (audit §13); until then CI evidence is the committed local record (`python -m scripts.governance.local_ci_record`).
 
 ## Current objective
 
