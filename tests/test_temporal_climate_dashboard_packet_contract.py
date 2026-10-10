@@ -41,7 +41,7 @@ def test_climate_packet_derivation_rules():
     assert any(t.tile_type == "NONDETERMINISM" for t in nondet.status_tiles) and any(a.alert_type == "NONDETERMINISM_PRESENT" for a in nondet.alerts)
 
 
-def test_climate_packet_validator_hash_schema_and_audit():
+def test_climate_packet_validator_hash_schema_and_audit(tmp_path):
     base = derive_temporal_climate_dashboard_packet([_regime("CALM")], [_pressure("LOW_PRESSURE")], [_topology()], [_continuity()])
     assert validate_temporal_climate_dashboard_packet(replace(base, projection_only=False)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_climate_dashboard_packet(replace(base, packet_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -75,6 +75,6 @@ def test_climate_packet_validator_hash_schema_and_audit():
     d.pop("packet_id")
     assert "packet_id" in s["required"] and "packet_id" not in d
 
-    h = write_temporal_climate_dashboard_packet_contract_audit(".")
-    t = open("out/audit/temporal_climate_dashboard_packet_contract.latest.json").read()
+    h = write_temporal_climate_dashboard_packet_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_climate_dashboard_packet_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

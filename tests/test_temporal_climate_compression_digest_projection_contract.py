@@ -26,7 +26,7 @@ def test_digest_derivation_rules():
     assert blocked.digest_status == "DIGEST_BLOCKED_HISTORY"
 
 
-def test_digest_validation_hash_schema_and_audit():
+def test_digest_validation_hash_schema_and_audit(tmp_path):
     base = derive_temporal_compression_digest_projection([_ledger("PRESSURE", ({"cluster_type":"PRESSURE_CLUSTER","cluster_posture":"WATCH","signal_count":1,"source_ref_ids":()},), ({"motif_type":"RECURSIVE_PRESSURE","motif_weight":0.6,"motif_visibility":"MEDIUM"},))])
     assert validate_temporal_compression_digest_projection(replace(base, digest_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_compression_digest_projection(replace(base, execution_allowed=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -48,6 +48,6 @@ def test_digest_validation_hash_schema_and_audit():
     s = json.loads(open("contracts/temporal_compression_digest/temporal_climate_compression_digest_projection.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
 
-    h = write_temporal_compression_digest_projection_contract_audit(".")
-    t = open("out/audit/temporal_climate_compression_digest_projection_contract.latest.json").read()
+    h = write_temporal_compression_digest_projection_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_climate_compression_digest_projection_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

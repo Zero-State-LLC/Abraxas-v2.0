@@ -32,7 +32,7 @@ def test_forecast_derivation_contract_rules():
     assert any(v.vector_type == "NONDETERMINISM_PRESSURE" for v in n.pressure_vectors)
 
 
-def test_forecast_validation_hash_schema_and_audit():
+def test_forecast_validation_hash_schema_and_audit(tmp_path):
     base = derive_temporal_pressure_forecast_surface([_topology(), _topology()])
     assert validate_temporal_pressure_forecast_surface(replace(base, forecast_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_pressure_forecast_surface(replace(base, history_rewrite_allowed=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -62,6 +62,6 @@ def test_forecast_validation_hash_schema_and_audit():
     d.pop("surface_id")
     assert "surface_id" in s["required"] and "surface_id" not in d
 
-    h = write_temporal_pressure_forecast_surface_contract_audit(".")
-    t = open("out/audit/temporal_pressure_forecast_surface_contract.latest.json").read()
+    h = write_temporal_pressure_forecast_surface_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_pressure_forecast_surface_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

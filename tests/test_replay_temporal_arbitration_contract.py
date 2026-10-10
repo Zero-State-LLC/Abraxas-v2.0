@@ -37,7 +37,7 @@ def test_arbitration_core_rules_and_validation():
     assert validate_replay_temporal_arbitration(replace(one, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
 
-def test_hash_schema_json_and_audit():
+def test_hash_schema_json_and_audit(tmp_path):
     a = derive_replay_temporal_arbitration([_cand(1)], [{"source_type": "REPLAY_LEDGER", "source_id": "l", "source_hash": "h"}])
     alt = dict(asdict(a))
     alt["arbitration_hash"] = "x"
@@ -47,6 +47,6 @@ def test_hash_schema_json_and_audit():
     s = json.loads(open("contracts/replay_arbitration/replay_temporal_arbitration.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(a).keys()))
 
-    h = write_replay_temporal_arbitration_contract_audit(".")
-    t = open("out/audit/replay_temporal_arbitration_contract.latest.json").read()
+    h = write_replay_temporal_arbitration_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/replay_temporal_arbitration_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()
