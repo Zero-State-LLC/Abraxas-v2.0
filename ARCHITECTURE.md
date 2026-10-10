@@ -19,6 +19,8 @@ Authority is **lane-based**, not a universal pre-computation artifact chain:
 Runtime policy module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py).
 Bounded policy doc: [`docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md`](docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md).
 Production convergence target: [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
+Architecture as it actually executes, code tiers, single owners, and the findings register:
+[`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) (2026-10-10).
 
 Hard boundaries remain: no autonomous canon promotion, no silent
 SHADOW→FORECAST escalation, no fabricated evidence, no external production
@@ -121,7 +123,10 @@ independent confirmation.
     tests/test_*.py         ← Verifiers (replay-stable, no side effects)
 ```
 
-**Supported product spine (target):**
+**Supported product spine (target).** As of 2026-10-10 the executable spine is
+`CLI/API → run_advisory_spine → activation → validation → Oracle→Alembic bridge →
+Alembic advisory → canonical_hash`; `InputEnvelope`, `BeliefGraph` and
+`ArtifactRepository` are not yet on that path (audit §3):
 
 ```text
 InputEnvelope → Ingest → Evidence → BeliefGraph
@@ -146,14 +151,19 @@ Governance V3 and are not required for routine LOCAL_DEV/SANDBOX work.
 
 Python modules that implement the logic for each operator, artifact builder,
 and governance surface. Every module is deterministic: same inputs, same
-output, same hash. Core modules never write to disk themselves — they return
-Python dicts that runners then serialize.
+output, same hash. The intended rule is that core builders return Python dicts
+and runners serialize them. In practice many governed-lane builders write
+directly (about 470 core files write to disk as of 2026-10-10); new code should
+follow the intended rule. Code tiers are defined in the coherence audit §4.
 
 Key subdirectories:
 - `core/canonical/` — the canonical JSON serializer and hash function used by
   every artifact. **Do not bypass this.**
-- `core/config.py` — `RuntimePaths` class: all output file paths in one place.
-  Add a `@property` here for any new artifact before writing to disk.
+- `core/config.py` — `RuntimePaths` class: registry of output file paths
+  (`OUT_DIR`/`CONTRACTS_DIR`, cwd-relative). It is not the only path source:
+  `core/settings.py` `RuntimeSettings` (`ABRAXAS_*`, repo-root relative) is the
+  newer settings owner, and many builders still hard-code `out/` paths.
+  Consolidation onto `RuntimeSettings` is tracked as audit finding A5.
 - `core/audit/`, `core/canary/`, `core/canary_activation/`, etc. — operator
   subsystem implementations organized by domain.
 - `core/yggdrasil/` — route graph models, validator, and runtime topology.
@@ -241,7 +251,10 @@ Operator decisions and fixture files.
 
 ### `tests/`
 
-Replay-stable verifiers. Tests never write to `out/`.
+Replay-stable verifiers. Intended rule: tests never write to the working
+tree's `out/`. Currently violated: `tests/conftest.py` seeds fixture artifacts
+into `out/audit` for every session, and some skill-evolution tests write into
+`out/operator_input/` (audit findings G3/G10).
 
 ### `AGENTS.md`
 
@@ -280,9 +293,10 @@ them. Replace-block live status: [`STATUS.md`](STATUS.md).
 | Shared Multi-Agent Engineering Contract | CANON-ACTIVE | Grok ↔ Codex peer collaboration rules |
 | **Soft Facades (`core/hygiene/`)** | **ON MAIN (advisory)** | OutputHygieneReceipt, YggdrasilScanReceipt, CommonPipelineReceipt, ProofPairReceipt + checklist. Optional observability only; `execution_authority=False`; net catalog delta = 0 |
 
-Local shadow stubs (GSP, zone bridge) exist under `artifacts/shadow/` and are
-not yet promoted to the main repository tree. Soft Facades live under
-`core/hygiene/` as optional imports only.
+Local shadow stubs (GSP, zone bridge) were kept outside this repository; no
+`artifacts/shadow/` directory exists here. Soft Facades live under
+`core/hygiene/` as optional imports only; nothing imports or tests them yet
+(audit finding S8).
 
 ---
 
@@ -331,8 +345,9 @@ Schema. Any attempt to set a locked field to `true` fails validation.
 
 ## Multi-Agent Engineering Contract (summary)
 
-Grok and Codex are peer collaborators. Neither is supervisory. Required
-behaviors:
+Producer systems (originally Grok and Codex; since then also Claude, Cursor
+and Hermes agents) are peer collaborators. Neither is supervisory. Routing for
+delegated or peer work is [`AGENTS.md`](AGENTS.md) §11. Required behaviors:
 - Inspect existing peer work before changing overlapping surfaces
 - Prefer complementary workstreams
 - Tag durable artifacts with `producer_system`

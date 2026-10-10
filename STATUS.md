@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-08-11 (production readiness evidence refresh · release decision **RELEASE_HELD** · activation DENIED · repo organization drift repair closed · release **1.180.0** · agent doctrine/router consolidated · AI OS Tracks A-D closed)
+> **Last Updated:** 2026-10-10 (architecture coherence audit · CI health corrected: hosted CI off, fast CI red on main) · prior refresh 2026-08-11 (production readiness evidence refresh · release decision **RELEASE_HELD** · activation DENIED · repo organization drift repair closed · release **1.180.0** · agent doctrine/router consolidated · AI OS Tracks A-D closed)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,9 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1133** Neon Genie contract closure and agent doctrine consolidation (prior: #1124 Track A, #1117–#1120 AI OS Tracks A–D, #1096 RDI/Fable) | `git log -1 --oneline` |
+| HEAD / branch tip | see git; audited at **#1153** persistence observability S1 schemas (since #1133: Sigil-Forge/Neon Genie SHADOW mounts #1148, spec packs 009–013A #1142–#1144, Familiar scanner SHADOW evidence commits, persistence observability #1152–#1153) | `git log -1 --oneline` |
+| CI health (2026-10-10) | **Hosted CI OFF** since 2026-09-17 (`HOSTED_ACTIONS_AVAILABLE=false`; every `ci` run on `main` skipped) · **fast CI was RED on `main`** (8 failures in its selection, introduced 2026-09-15/16); the coherence-audit PR fixes 6, leaving 2 Sigil-Forge tests that need a `~/Sigil-Forge` sibling checkout (audit G12) · fast CI deselects governance-path tests | `gh run list --branch main` · [`ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) G1–G4 |
+| Architecture audit | **Coherence audit 001** · real execution spine, code tiers T1–T4, findings register, phases P0–P4 | [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
@@ -34,7 +36,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
 | Convergence audit | Phase 0–14 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
-| Issue backlog | tracked live by GitHub CLI · 0 open PRs at #1123 refresh · P2/P3 maintenance evidence refreshed | `gh issue list --state open`; `gh pr list --state open` |
+| Issue backlog | tracked live by GitHub CLI · 4 open PRs at 2026-10-10 (#1149, #1151, #1154, #1155) · P2/P3 maintenance evidence refreshed | `gh issue list --state open`; `gh pr list --state open` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
 | Phase 12 writers | **Landed** · residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` · #1035 |
@@ -102,7 +104,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Governance model | **Governance V3 — ACTIVE** | Implementation-first development |
 | Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
-| CI/CD | Excellent | Fast CI passes on `main` |
+| CI/CD | **Degraded** | Hosted CI off since 2026-09-17; fast CI red on `main` until the coherence-audit PR (see CI health row) |
 | Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
 | Documentation | Updated | Production readiness package docs + migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
 | Alembic Spine | **`ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`** | Advisory multi-architecture orchestration under `core/alembic/`; YGGDRASIL `alembic_spine` route/pipeline + read-only Oracle bridge landed; live Alembic-native runes still deferred. Docs: [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
@@ -133,13 +135,13 @@ Routine engineering work does **not** require authorization packets, approval ch
 
 ## CI Health Summary
 
-Fast CI (`run_fast_ci.py`) passes on `main` for filtered pytest, drift, ruff, and pyright. Full unfiltered pytest runs green after writer-test isolation (post-#706). P57 global verification hash drift and P64 manifest gate remain historical archive blockers documented below — they do not block routine development under Governance V3.
+**2026-10-10:** fast CI (`run_fast_ci.py`) was red on `main` and hosted CI is off; see the CI health row. Previously, fast CI passed on `main` for filtered pytest, drift, ruff, and pyright. Full unfiltered pytest is **not** green: 59 failures on `main` at #1153 (audit §9), mostly temporal-continuity doc pins and AAL-Viz projection tests. P57 global verification hash drift and P64 manifest gate remain historical archive blockers documented below — they do not block routine development under Governance V3.
 
 ## Current Overall State
 
 | Area                    | Status          | Last Major Change                              | Notes |
 |-------------------------|-----------------|------------------------------------------------|-------|
-| CI/CD Stability         | Excellent       | Reusable workflows + cleanup of all temp flags | Very clean and efficient |
+| CI/CD Stability         | Degraded        | Hosted CI off 2026-09-17; fast CI red          | See CI health row |
 | Governance              | Governance V3   | GOVERNANCE_SIMPLIFICATION_001                  | Implementation-first |
 | Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
 | Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |

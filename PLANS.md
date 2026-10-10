@@ -2,6 +2,18 @@
 
 > **Last refreshed:** 2026-08-11 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md) · release tip: **1.180.0** (#1133 Neon Genie contract closure + doctrine/router consolidation)
 
+## Architecture coherence phases (2026-10-10)
+
+From [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) §10. These are engineering phases (Layer 0); none grants activation, canon or deletion authority.
+
+| Phase | Outcome | Depends on | Done when |
+|-------|---------|-----------|-----------|
+| P0 Trustworthy gate | fast CI green and meaningful; tests stop writing into `out/` | operator decisions 1 and 5 (audit §8) | fast CI exits 0 on a clean checkout, leaves `git status` clean, and selects governance tests |
+| P1 Spine hardening | analyze/replay/API contracts explicit and tested | P0, decisions 2 and 4 | AT-AN-4/5 pass; one settings owner |
+| P2 Single-owner primitives | one canonical hash, one lock vocabulary, injected clock | P0 | no private hash helpers in product or lane code; locks validated on every write; frozen-clock rebuild byte-identical |
+| P3 Truthful evidence | milestones and docs cannot overstate | P0 | milestones require importable code; pyright `basic` on the product spine |
+| P4 Reduction under CLEAR | smaller tree | CLEAR dual-control mandate | exact-path mandate; drift check unchanged |
+
 ## Current objective
 
 **Parallel tracks (do not mix authority):**
