@@ -11,6 +11,8 @@ from core.runtime_integration_gate_operator_review_dry_run_review import (
     write_runtime_integration_gate_operator_review_dry_run_review,
 )
 
+from tests._repo_mirror import make_repo_mirror
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -25,9 +27,14 @@ def test_runtime_integration_gate_operator_review_dry_run_is_advisory_only() -> 
     assert packet["authority_locks"]["valid_for_runtime_wiring"] is False
 
 
-def test_runtime_integration_gate_operator_review_dry_run_review_held_for_operator() -> None:
-    write_runtime_integration_gate_operator_review_dry_run(repo_root=REPO_ROOT)
-    packet = build_runtime_integration_gate_operator_review_dry_run_review(repo_root=REPO_ROOT)
+def test_runtime_integration_gate_operator_review_dry_run_review_held_for_operator(
+    tmp_path: Path,
+) -> None:
+    # The review reads the dry run from the same root it was written to: use a
+    # working-tree mirror so the tracked out/ dry run is not rewritten.
+    mirror = make_repo_mirror(tmp_path)
+    write_runtime_integration_gate_operator_review_dry_run(repo_root=mirror)
+    packet = build_runtime_integration_gate_operator_review_dry_run_review(repo_root=mirror)
     assert packet["status"] == "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN_REVIEW_HELD_FOR_OPERATOR"
     assert packet["source_ready"] is True
     assert packet["operator_attestation_present"] is False
