@@ -65,7 +65,8 @@ async def analyze(body: AnalyzeRequest) -> dict[str, Any]:
             "oracle_candidate": body.oracle_candidate,
             "enable_alembic": body.enable_alembic,
             "alembic_mode": body.alembic_mode,
-        }
+        },
+        repo_root=settings.repo_root,
     )
 
 

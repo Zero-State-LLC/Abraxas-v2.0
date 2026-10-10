@@ -13,6 +13,7 @@ Does not write to disk. Runners/API adapters persist via canonical writers.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -83,8 +84,17 @@ _AUTHORITY_LOCKS = {
 }
 
 
-def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dict[str, Any]:
-    """Execute the supported advisory golden-path slice (pure)."""
+def run_advisory_spine(
+    request: AdvisorySpineRequest | Mapping[str, Any],
+    *,
+    repo_root: Path | None = None,
+) -> dict[str, Any]:
+    """Execute the supported advisory golden-path slice (pure).
+
+    ``repo_root`` anchors ``schema_ref`` resolution. Callers with runtime
+    settings must pass it; ``None`` keeps the validation service default
+    (current working directory).
+    """
     req = (
         request
         if isinstance(request, AdvisorySpineRequest)
@@ -134,7 +144,8 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
                 "execution_id": f"advisory-spine:{req.run_id}",
                 "schema_ref": req.schema_ref,
                 "payload": req.input_payload,
-            }
+            },
+            repo_root=repo_root,
         )
         if validation_result.get("status") == "ERROR" or validation_result.get("valid") is False:
             return {

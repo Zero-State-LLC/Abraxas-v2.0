@@ -72,7 +72,7 @@ class AbraxasClient:
             enable_alembic=enable_alembic,
             alembic_mode=alembic_mode,  # type: ignore[arg-type]
         )
-        return run_advisory_spine(request)
+        return run_advisory_spine(request, repo_root=self.repo_root)
 
     def validate(
         self,
