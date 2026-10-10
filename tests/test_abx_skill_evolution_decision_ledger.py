@@ -63,6 +63,7 @@ def test_ledger_does_not_mutate_active():
 
 REC = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_reconciliation.py"
 HIST = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_history_ledger.py"
+VALIDATOR = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_formal_operator_decision_validator.py"
 EVD = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_candidate_evidence_history.py"
 POL = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_policy.py"
 PLAN = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_execution_plan.py"
@@ -82,10 +83,36 @@ def test_reconciliation_runs_and_classifies():
     ]
     assert d["authority_boundary"]["promotion_authorized"] is False
 
-def test_history_chain_valid():
-    r = subprocess.run([sys.executable, str(HIST)], capture_output=True, text=True, cwd=ROOT)
-    assert r.returncode == 0
-    v = json.loads((OUT / "abx_hermes_operator_decision_history_chain_validation_v3_1.latest.json").read_text())
+def test_history_chain_valid(tmp_path):
+    # Build the history in an isolated root: review packet fixture, then the real
+    # validator and reconciliation stages, so the ledger sees three events
+    # (REVIEW_PACKET_GENERATED, VALIDATION_PERFORMED, RECONCILIATION_PERFORMED)
+    # without depending on artifacts earlier runs left in the real out/.
+    out = tmp_path / "out" / "audit"
+    (tmp_path / "out" / "operator_input").mkdir(parents=True)
+    out.mkdir(parents=True)
+    review = {"formal_review_id": "formal-op-review-test", "deterministic_hash": "review-hash-test"}
+    (out / REVIEW.name).write_text(json.dumps(review))
+    env = os.environ | {"PYTHONPATH": str(ROOT)}
+
+    def run(script):
+        return subprocess.run(
+            [sys.executable, str(script)],
+            capture_output=True,
+            text=True,
+            cwd=tmp_path,
+            env=env,
+            check=False,
+        )
+
+    # With no operator decision input the validator blocks (non-zero exit) but
+    # still records its VALIDATION_PERFORMED artifact.
+    run(VALIDATOR)
+    assert (out / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json").exists()
+    for script in (REC, HIST):
+        r = run(script)
+        assert r.returncode == 0, r.stderr
+    v = json.loads((out / "abx_hermes_operator_decision_history_chain_validation_v3_1.latest.json").read_text())
     assert v["chain_valid"] is True
     assert v["event_count"] >= 3
 
