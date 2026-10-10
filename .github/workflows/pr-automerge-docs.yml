@@ -46,7 +46,7 @@ jobs:
             echo "$files" | grep -E "$blocked" || true
             exit 0
           fi
-          allowed='^(docs/|README\.md|CHANGELOG\.md|LICENSE|MEMORIES\.md|PLANS.md|STATUS\.md|QUICKSTART\.md|ARCHITECTURE\.md|GOVERNANCE_SIMPLIFICATION_001\.md)'
+          allowed='^(docs/|README\.md|CHANGELOG\.md|MEMORIES\.md|PLANS\.md|STATUS\.md|QUICKSTART\.md|ARCHITECTURE\.md|GOVERNANCE_SIMPLIFICATION_001\.md)'
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             if ! echo "$f" | grep -Eq "$allowed"; then
