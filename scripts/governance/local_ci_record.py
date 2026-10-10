@@ -55,7 +55,10 @@ def _git(*args: str) -> str:
 
 
 def _tracked_changes() -> list[str]:
-    out = _git("status", "--porcelain", "--untracked-files=no")
+    out = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=no"],
+        capture_output=True, text=True, check=True,
+    ).stdout  # not stripped: porcelain lines start with a status column
     return sorted(line[3:] for line in out.splitlines() if line.strip())
 
 
