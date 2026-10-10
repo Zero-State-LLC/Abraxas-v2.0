@@ -27,7 +27,8 @@ class RuntimeSettings(BaseSettings):
     )
 
     app_title: str = "ABRAXAS v2"
-    app_version: str = "2.5.0"
+    # Reference build label, not a product version (docs/releases/VERSION_STRATEGY.md).
+    app_version: str = "0.0.0+reference"
     default_activation_lane: ActivationLane = ActivationLane.LOCAL_DEV
     repo_root: Path = Field(default_factory=lambda: Path.cwd())
     contracts_dir: Path = Path("contracts")

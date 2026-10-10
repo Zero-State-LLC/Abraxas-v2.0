@@ -194,7 +194,7 @@ Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
 Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
 Activation policy module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py)
 
-## Product 2.5.0 — Full Features (merged)
+## Product 2.5.0 — Full Features (merged; historical milestone label, retired 2026-10-10 — v2.0 has no product version, see `docs/releases/VERSION_STRATEGY.md`)
 
 ```yaml
 full_features_release:

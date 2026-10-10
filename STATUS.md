@@ -105,11 +105,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
 | CI/CD | **Degraded** | Hosted CI off since 2026-09-17; fast CI red on `main` until the coherence-audit PR (see CI health row) |
-| Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
+| Version | **No product version** (doctrine/reference repo) · doctrine revision **1.180.0** (`VERSION` = tag `v1.180.0`) · "Product 2.5.0" (#710) is a retired historical milestone label | [`docs/releases/VERSION_STRATEGY.md`](docs/releases/VERSION_STRATEGY.md) · `python -m scripts.governance.validate_version_policy` |
 | Documentation | Updated | Production readiness package docs + migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
 | Alembic Spine | **`ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS`** | Advisory multi-architecture orchestration under `core/alembic/`; YGGDRASIL `alembic_spine` route/pipeline + read-only Oracle bridge landed; live Alembic-native runes still deferred. Docs: [`docs/alembic/ALEMBIC_SPINE.md`](docs/alembic/ALEMBIC_SPINE.md) |
 
-## v2.0 Hygiene Compliance (Product 2.5.0)
+## v2.0 Hygiene Compliance (historical milestone label 2.5.0)
 
 This repository implements the v2 hygiene foundation under `abraxas/v2/` with advisory-only posture.
 

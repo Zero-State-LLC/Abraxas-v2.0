@@ -83,10 +83,23 @@ async def readiness() -> dict[str, Any]:
 
 
 @router.get("/version")
-async def version() -> dict[str, str]:
+async def version() -> dict[str, str | None]:
+    """Identify this build as doctrine reference code, never as a product release.
+
+    v2.0 publishes doctrine revisions (the ``v1.N`` tags, mirrored in VERSION);
+    the supported Abraxas product and its versions live in Zero-State-LLC/Abraxas.
+    """
     settings = get_settings()
+    version_file = settings.repo_root / "VERSION"
+    doctrine_revision = (
+        version_file.read_text(encoding="utf-8").strip() if version_file.is_file() else None
+    )
     return {
         "system": "abraxas-v2",
-        "version": settings.app_version,
         "title": settings.app_title,
+        "role": "doctrine-reference",
+        "doctrine_revision": doctrine_revision,
+        "reference_build": settings.app_version,
+        "product_version": None,
+        "canonical_product_repository": "Zero-State-LLC/Abraxas",
     }

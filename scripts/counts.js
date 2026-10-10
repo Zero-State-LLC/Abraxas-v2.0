@@ -65,8 +65,14 @@ const signals = {
   canon_status: existing.signals?.canon_status || "ADVISORY_ONLY",
 };
 
+function readDoctrineRevision() {
+  const file = path.join(ROOT, "VERSION");
+  return fs.existsSync(file) ? `doctrine-${fs.readFileSync(file, "utf8").trim()}` : null;
+}
+
 const liveStatus = {
-  current_version: existing.live_status?.current_version || "2.5.0",
+  // v2.0 has no product version; report the doctrine revision from VERSION.
+  current_version: readDoctrineRevision(),
   observed_contracts: signals.contract_count,
   observed_schemas: signals.schema_count,
   observed_tests: existing.live_status?.observed_tests || countFiles(path.join(ROOT, "tests")),

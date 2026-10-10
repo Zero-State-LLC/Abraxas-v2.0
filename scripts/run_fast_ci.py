@@ -150,6 +150,8 @@ COMMANDS: list[list[str]] = [
         "tests/test_compositional_memory.py",
         "scripts/run_fast_ci.py",
     ],
+    # Doctrine-revision version policy (VERSION ↔ release tag ↔ CHANGELOG).
+    [sys.executable, "-m", "scripts.governance.validate_version_policy"],
 ]
 
 # Report-only production-readiness gates (WS1.5). Always fail-open: non-zero

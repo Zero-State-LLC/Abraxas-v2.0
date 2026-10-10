@@ -1,6 +1,9 @@
 [project]
 name = "abraxas-v2"
-version = "2.5.0"
+# Reference-only package: v2.0 is the doctrine repository and ships no product.
+# Doctrine revisions are the v1.N git tags (see VERSION and docs/releases/VERSION_STRATEGY.md);
+# the supported Abraxas product is versioned in Zero-State-LLC/Abraxas.
+version = "0.0.0+reference"
 description = "Governed symbolic execution substrate"
 license = { text = "Proprietary" }
 authors = [{ name = "Applied Alchemy Labs" }]
