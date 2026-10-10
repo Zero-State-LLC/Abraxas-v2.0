@@ -110,3 +110,17 @@ def test_openapi_contains_supported_routes() -> None:
         assert paths["/analyze"].get("post") is not None
     finally:
         configure_settings(previous)
+
+
+@pytest.mark.parametrize("supplied", ["x" * 129, "bad id with spaces", "<script>alert(1)</script>"])
+def test_unsafe_client_request_id_is_replaced(supplied: str) -> None:
+    previous = get_settings()
+    try:
+        client = TestClient(create_app(AppSettings()))
+        response = client.get("/ready", headers={"X-Request-ID": supplied})
+        assert response.status_code == 200
+        echoed = response.headers["X-Request-ID"]
+        assert echoed != supplied
+        assert len(echoed) == 16
+    finally:
+        configure_settings(previous)
