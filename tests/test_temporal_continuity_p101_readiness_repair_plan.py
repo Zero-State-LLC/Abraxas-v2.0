@@ -625,14 +625,23 @@ def test_artifact_registry_classifies_output_as_derived_optional() -> None:
 # ---------------------------------------------------------------------------
 
 
+# The P102 handoff moved out of the front-door docs: 09850527 dropped it from
+# README.md and ce7ff536 moved the AGENTS.md copy to
+# docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md (linked from AGENTS.md), since
+# P70-P130 continuity material is not a routine startup requirement.
+HISTORICAL_NOTES = "docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md"
+
+
 def test_readme_includes_p102a_handoff() -> None:
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "P102A" in readme or "p101_readiness_repair_plan" in readme
+    notes = (REPO_ROOT / HISTORICAL_NOTES).read_text(encoding="utf-8")
+    assert "P102A" in notes or "p101_readiness_repair_plan" in notes
 
 
 def test_agents_includes_p102a_handoff() -> None:
     agents = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    assert "p101_readiness_repair_plan" in agents
+    notes = (REPO_ROOT / HISTORICAL_NOTES).read_text(encoding="utf-8")
+    assert HISTORICAL_NOTES in agents
+    assert "p101_readiness_repair_plan" in notes
 
 
 def test_plans_includes_p102a_milestone() -> None:

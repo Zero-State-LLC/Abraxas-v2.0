@@ -508,12 +508,19 @@ def test_artifact_registry_classifies_output_as_derived_optional() -> None:
     assert source["ci_drift_enforced"] is False
 
 
+# The P102 handoff moved out of the front-door docs: 09850527 dropped it from
+# README.md and ce7ff536 moved the AGENTS.md copy to
+# docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md (linked from AGENTS.md), since
+# P70-P130 continuity material is not a routine startup requirement.
+HISTORICAL_NOTES = "docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md"
+
+
 def test_docs_include_p102c_handoff() -> None:
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    notes = (REPO_ROOT / HISTORICAL_NOTES).read_text(encoding="utf-8")
     plans = (REPO_ROOT / "PLANS.md").read_text(encoding="utf-8")
-    assert "run_temporal_continuity_selected_repair_execution_plan.py" in readme
-    assert "run_temporal_continuity_selected_repair_execution_plan.py" in agents
+    assert HISTORICAL_NOTES in agents
+    assert "run_temporal_continuity_selected_repair_execution_plan.py" in notes
     assert "run_temporal_continuity_selected_repair_execution_plan.py" in plans
 
 

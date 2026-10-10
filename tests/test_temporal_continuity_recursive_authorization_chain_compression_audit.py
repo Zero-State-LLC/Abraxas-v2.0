@@ -457,6 +457,13 @@ def test_artifact_registry_classifies_output_as_derived_optional_and_not_ci_drif
 
 # 28
 
+# The P102 handoff moved out of the front-door docs: 09850527 dropped it from
+# README.md and ce7ff536 moved the AGENTS.md copy to
+# docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md (linked from AGENTS.md), since
+# P70-P130 continuity material is not a routine startup requirement.
+HISTORICAL_NOTES = "docs/status/HISTORICAL_GOVERNANCE_AGENT_NOTES.md"
+
+
 def test_readme_agents_and_plans_include_p102_handoff_and_stop_guidance() -> None:
     required_strings = [
         "python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py",
@@ -465,7 +472,8 @@ def test_readme_agents_and_plans_include_p102_handoff_and_stop_guidance() -> Non
         "COMPRESS_TO_GENERIC_TEMPLATE",
         "do not add another hand-written recursive authorization lane",
     ]
-    for rel_path in ("README.md", "AGENTS.md", "PLANS.md"):
+    assert HISTORICAL_NOTES in (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    for rel_path in (HISTORICAL_NOTES, "PLANS.md"):
         text = (REPO_ROOT / rel_path).read_text(encoding="utf-8")
         for value in required_strings:
             assert value in text
