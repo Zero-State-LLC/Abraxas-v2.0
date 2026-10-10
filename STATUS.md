@@ -9,6 +9,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Field | Value | Evidence |
 |-------|--------|----------|
 | HEAD / branch tip | see git; audited at **#1153** persistence observability S1 schemas (since #1133: Sigil-Forge/Neon Genie SHADOW mounts #1148, spec packs 009–013A #1142–#1144, Familiar scanner SHADOW evidence commits, persistence observability #1152–#1153) | `git log -1 --oneline` |
+| Repository role | **Doctrine + reference** (decided 2026-10-10). Code here is reference, not a supported product; canonical execution = `Zero-State-LLC/Abraxas` | [`docs/SIBLING_REPOS.md`](docs/SIBLING_REPOS.md) |
 | CI health (2026-10-10) | **Hosted CI OFF** since 2026-09-17 (`HOSTED_ACTIONS_AVAILABLE=false`; every `ci` run on `main` skipped) · **fast CI was RED on `main`** (8 failures in its selection, introduced 2026-09-15/16); the coherence-audit PR fixes 6, leaving 2 Sigil-Forge tests that need a `~/Sigil-Forge` sibling checkout (audit G12) · fast CI deselects governance-path tests | `gh run list --branch main` · [`ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) G1–G4 |
 | Architecture audit | **Coherence audit 001** · real execution spine, code tiers T1–T4, findings register, phases P0–P4 | [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
@@ -23,11 +24,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | CFAR | **Construct-first reasoning gate** on main (advisory) | `core/cfar.py` · #1030 |
 | Compositional Evidence Memory (MemEIC pattern) | **MERGED** · Belief Graph surface only | PR #986 · `core/belief_graph/compositional_memory.py` · `docs/integrations/MEMEIC_ASSIMILATION_001.md` |
 | Oracle compositional-memory adapter | **HELD** · PR #987 closed unmerged | no authority granted; clean branch required for any future work |
-| Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
-| Product CLI | `python -m abraxas` analyze/validate/replay/status/**os**/forage | `abraxas/cli.py` · project env (`jsonschema`) |
+| Reference interfaces (not supported product) | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
+| Reference CLI | `python -m abraxas` analyze/validate/replay/status/**os**/forage | `abraxas/cli.py` · project env (`jsonschema`) |
 | AI OS kernel | **`ACTIVE_SHADOW`** (syscall path live; not EXTERNAL_PRODUCTION) | `python -m abraxas os status` · [`docs/architecture/AI_OS_KERNEL_AUDIT_001.md`](docs/architecture/AI_OS_KERNEL_AUDIT_001.md) |
 | AI OS unification | Tracks A–D closed; umbrella #1086 remains operator-attestation gate | [`docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md`](docs/plans/ABRAXAS_UNIFICATION_PLAN_002.md) · #1117–#1120 |
-| Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
+| Reference service factory | `apps.api.create_app` · `/analyze` (API key by default; INTERNAL_CANARY needs signed independent evidence) `/ready` `/version` (doctrine-reference) | `apps/api/main.py` |
 | Classified writer | `write_canonical_artifact` · ADR-0018 enforcement API | `core/canonical/json.py` |
 | Runtime settings | `core.settings.RuntimeSettings` + `RuntimeContext` ports | `core/settings.py`, `core/runtime_context.py` |
 | Service hardening | request-id/headers · sanitized 500 · authn/rate-limit seams | `apps/api/middleware.py`, `apps/api/boundaries.py` |

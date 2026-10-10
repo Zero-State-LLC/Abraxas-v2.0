@@ -2,6 +2,8 @@
 
 ## What this repository is
 
+**Ownership (decided 2026-10-10):** this is the doctrine and reference repository. Everything below that executes is **reference code**, not a supported product. The canonical execution repository is [`Zero-State-LLC/Abraxas`](https://github.com/Zero-State-LLC/Abraxas); see [`docs/SIBLING_REPOS.md`](docs/SIBLING_REPOS.md).
+
 Abraxas v2.0 is a **deterministic governed symbolic intelligence substrate**
 (Python 3.12 / FastAPI). It preserves provenance, schema validation, and
 fail-closed authority locks while operating under **Governance V3**
