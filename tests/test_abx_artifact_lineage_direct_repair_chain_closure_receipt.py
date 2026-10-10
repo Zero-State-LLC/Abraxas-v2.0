@@ -10,6 +10,7 @@ from core.abx_artifact_lineage_direct_repair_chain_closure_receipt import (
     build_abx_artifact_lineage_direct_repair_chain_closure_receipt,
     write_abx_artifact_lineage_direct_repair_chain_closure_receipt,
 )
+from tests._repo_mirror import make_repo_mirror
 from tests.script_runner_loader import load_script_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -36,17 +37,20 @@ def test_chain_closure_blocked_without_upstream_artifacts(tmp_path: Path) -> Non
     assert packet["chain_closure_status"] == "NOT_COMPUTABLE"
 
 
-def test_chain_closure_emitted_when_chain_complete() -> None:
+def test_chain_closure_emitted_when_chain_complete(tmp_path: Path) -> None:
+    # Writers read and write the same root: run them against a working-tree
+    # mirror so the tracked out/ receipts are never rewritten.
+    mirror = make_repo_mirror(tmp_path)
     from core.abx_artifact_lineage_direct_repair_frontier_revalidation import (
         write_abx_artifact_lineage_direct_repair_frontier_revalidation,
     )
 
-    write_abx_artifact_lineage_direct_repair_frontier_revalidation(source_root=REPO_ROOT)
-    packet = write_abx_artifact_lineage_direct_repair_chain_closure_receipt(source_root=REPO_ROOT)
+    write_abx_artifact_lineage_direct_repair_frontier_revalidation(source_root=mirror)
+    packet = write_abx_artifact_lineage_direct_repair_chain_closure_receipt(source_root=mirror)
     assert packet["status"] == "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_CLOSURE_RECEIPT_EMITTED"
     assert packet["chain_closure_status"] == "ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_SEALED"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
-    runner_packet = RUNNER.run(repo_root=REPO_ROOT)
+    runner_packet = RUNNER.run(repo_root=mirror)
     assert runner_packet["receipt_hash"] == packet["receipt_hash"]
     schema = json.loads((REPO_ROOT / SCHEMA_PATH).read_text(encoding="utf-8"))
     validate(packet, schema)
