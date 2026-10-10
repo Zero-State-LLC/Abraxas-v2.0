@@ -5722,9 +5722,9 @@ def test_temporal_continuity_p84_regeneration_plan_regeneration_artifact_classif
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p83_status_plan_regeneration_artifact_classification_stable() -> None:
@@ -5740,9 +5740,9 @@ def test_temporal_continuity_p83_status_plan_regeneration_artifact_classificatio
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p83_status_plan_regeneration_execution_artifact_classification_stable() -> None:
@@ -5791,9 +5791,9 @@ def test_temporal_continuity_p79_status_repair_plan_artifact_classification_stab
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p79_status_repair_plan_regenerates_without_cli_args(regen_root: Path) -> None:
@@ -5823,9 +5823,9 @@ def test_temporal_continuity_p80_regeneration_plan_artifact_classification_stabl
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p80_regeneration_plan_regenerates_without_cli_args(regen_root: Path) -> None:

@@ -491,6 +491,13 @@ _AUDIT_VOLATILE_ARTIFACTS = frozenset(
 )
 _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
     {
+        # P79/P80/P83/P84 plans derive from a git-ignored upstream packet, so
+        # they cannot be rebuilt from committed inputs and must not be
+        # drift-checked (audit 001 G13; same class as the P83 execution plan).
+        "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json",
+        "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json",
+        "out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json",
+        "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json",
         "out/projections/temporal_persistence_memory_001.latest.json",
         "out/projections/temporal_persistence_memory_001.latest.md",
         "out/projections/temporal_resonance_coherence_001.latest.json",
