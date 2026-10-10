@@ -8,9 +8,9 @@ CLI, API factory, or tests.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from core.config import RuntimePaths
@@ -36,9 +36,14 @@ class RuntimeSettings(BaseSettings):
     require_classified_artifact_writes: bool = False
     enable_analyze_endpoint: bool = True
     require_public_readonly_for_analyze: bool = False
-    # Integration boundaries (fail-closed when enabled; adapters not wired yet).
-    require_auth: bool = False
-    require_rate_limit: bool = False
+    # POST /analyze access policy (apps/api/boundaries.py). Authenticated by
+    # default; anonymous only for local development on a loopback client.
+    api_token: SecretStr | None = None
+    deployment_profile: Literal["local", "deployed"] = "deployed"
+    allow_anonymous_local_dev: bool = False
+    analyze_rate_limit_per_minute: int = Field(default=30, ge=1)
+    max_request_bytes: int = Field(default=262_144, ge=1024)
+    analyze_timeout_seconds: float = Field(default=10.0, gt=0)
     # Provider invoke gate (FixtureProvider / future adapters). Default deny.
     allow_provider_invoke: bool = False
 
@@ -48,6 +53,14 @@ class RuntimeSettings(BaseSettings):
         if isinstance(value, ActivationLane):
             return value
         return ActivationLane(str(value))
+
+    @model_validator(mode="after")
+    def _anonymous_only_in_local_profile(self) -> RuntimeSettings:
+        if self.allow_anonymous_local_dev and self.deployment_profile != "local":
+            raise ValueError(
+                "ABRAXAS_ALLOW_ANONYMOUS_LOCAL_DEV requires ABRAXAS_DEPLOYMENT_PROFILE=local"
+            )
+        return self
 
     @field_validator("repo_root", "contracts_dir", "out_dir", mode="before")
     @classmethod
@@ -81,8 +94,12 @@ class RuntimeSettings(BaseSettings):
             "require_classified_artifact_writes": self.require_classified_artifact_writes,
             "enable_analyze_endpoint": self.enable_analyze_endpoint,
             "require_public_readonly_for_analyze": self.require_public_readonly_for_analyze,
-            "require_auth": self.require_auth,
-            "require_rate_limit": self.require_rate_limit,
+            "api_token_configured": self.api_token is not None,
+            "deployment_profile": self.deployment_profile,
+            "allow_anonymous_local_dev": self.allow_anonymous_local_dev,
+            "analyze_rate_limit_per_minute": self.analyze_rate_limit_per_minute,
+            "max_request_bytes": self.max_request_bytes,
+            "analyze_timeout_seconds": self.analyze_timeout_seconds,
             "allow_provider_invoke": self.allow_provider_invoke,
         }
 
