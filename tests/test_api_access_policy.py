@@ -9,11 +9,15 @@ from pydantic import ValidationError
 
 pytest.importorskip("fastapi.testclient")
 
-from fastapi.testclient import TestClient  # noqa: E402
+from fastapi.testclient import TestClient
 
-from apps.api.boundaries import SlidingWindowRateLimiter  # noqa: E402
-from apps.api.main import create_app  # noqa: E402
-from apps.api.settings import AppSettings, configure_settings, get_settings  # noqa: E402
+from apps.api.boundaries import SlidingWindowRateLimiter
+from apps.api.main import create_app
+from apps.api.settings import (
+    AppSettings,
+    configure_settings,
+    get_settings,
+)
 
 TOKEN = "s3cret-test-token-value"
 BODY = {"run_id": "access-policy", "enable_alembic": False}

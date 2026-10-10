@@ -58,6 +58,8 @@ class ActivationControls(BaseModel):
     release_evidence_required: bool = False
     security_gate_required: bool = False
     production_credentials_required: bool = False
+    # Evidence from outside the candidate (core/governance/activation_evidence.py).
+    independent_evidence_required: bool = False
     external_side_effects: str = "denied_by_default"
 
 
@@ -81,6 +83,7 @@ LANE_POLICY: dict[ActivationLane, ActivationControls] = {
         rollback_required=True,
         credential_boundary_required=True,
         operator_review_required=True,
+        independent_evidence_required=True,
         external_side_effects="allowlisted_only",
     ),
     ActivationLane.EXTERNAL_PRODUCTION: ActivationControls(
@@ -147,6 +150,9 @@ class ActivationRequest(BaseModel):
     bounded_credentials_present: bool = False
     deterministic_config_present: bool = True
     test_evidence_present: bool = True
+    # EvidenceStatus value from verify_activation_evidence; only "VERIFIED"
+    # satisfies independent_evidence_required. Self-declared booleans cannot.
+    independent_evidence_status: str | None = None
     notes: tuple[str, ...] = Field(default_factory=tuple)
 
 
@@ -207,6 +213,8 @@ def _missing_controls(request: ActivationRequest, controls: ActivationControls) 
             request.uses_production_credentials,
         ),
     )
+    if controls.independent_evidence_required and request.independent_evidence_status != "VERIFIED":
+        missing.append(f"independent_evidence:{request.independent_evidence_status or 'ABSENT'}")
     for required, name, present in checks:
         if required and not present:
             missing.append(name)

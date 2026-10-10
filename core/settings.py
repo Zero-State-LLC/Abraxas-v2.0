@@ -7,6 +7,7 @@ CLI, API factory, or tests.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
@@ -14,6 +15,10 @@ from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from core.config import RuntimePaths
+from core.governance.activation_evidence import (
+    EvidenceVerification,
+    verify_evidence_files,
+)
 from core.governance.activation_policy import ActivationLane
 
 
@@ -44,6 +49,13 @@ class RuntimeSettings(BaseSettings):
     analyze_rate_limit_per_minute: int = Field(default=30, ge=1)
     max_request_bytes: int = Field(default=262_144, ge=1024)
     analyze_timeout_seconds: float = Field(default=10.0, gt=0)
+    # INTERNAL_CANARY evidence (core/governance/activation_evidence.py). Set by
+    # the deployment, never by the candidate: evidence + trust store files and
+    # the revision/config the deployment is activating.
+    canary_evidence_path: Path | None = None
+    canary_trust_store_path: Path | None = None
+    candidate_revision: str | None = None
+    candidate_config_digest: str | None = None
     # Provider invoke gate (FixtureProvider / future adapters). Default deny.
     allow_provider_invoke: bool = False
 
@@ -66,6 +78,16 @@ class RuntimeSettings(BaseSettings):
     @classmethod
     def _path(cls, value: Any) -> Path:
         return Path(value)
+
+    def canary_evidence_verification(self, now: datetime | None = None) -> EvidenceVerification:
+        """Verify deployment-supplied INTERNAL_CANARY evidence (fail closed)."""
+        return verify_evidence_files(
+            self.canary_evidence_path,
+            self.canary_trust_store_path,
+            expected_revision=self.candidate_revision,
+            expected_config_digest=self.candidate_config_digest,
+            now=now or datetime.now(UTC),
+        )
 
     def resolved_contracts_dir(self) -> Path:
         path = self.contracts_dir
@@ -100,6 +122,8 @@ class RuntimeSettings(BaseSettings):
             "analyze_rate_limit_per_minute": self.analyze_rate_limit_per_minute,
             "max_request_bytes": self.max_request_bytes,
             "analyze_timeout_seconds": self.analyze_timeout_seconds,
+            "canary_evidence_configured": self.canary_evidence_path is not None,
+            "candidate_revision": self.candidate_revision,
             "allow_provider_invoke": self.allow_provider_invoke,
         }
 

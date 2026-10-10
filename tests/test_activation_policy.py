@@ -89,16 +89,35 @@ def test_sandbox_denies_without_isolation() -> None:
     assert "isolation" in result.missing_controls
 
 
+_CANARY_CONTROLS = {
+    "lane": ActivationLane.INTERNAL_CANARY,
+    "deployment_manifest_present": True,
+    "observability_present": True,
+    "rollback_present": True,
+    "credential_boundary_present": True,
+    "operator_review_present": True,
+}
+
+
+def test_internal_canary_self_declared_controls_are_not_enough() -> None:
+    result = evaluate_activation(ActivationRequest(**_CANARY_CONTROLS))
+    assert result.permitted is False
+    assert result.decision == ActivationDecision.DENY
+    assert result.missing_controls == ("independent_evidence:ABSENT",)
+
+
+@pytest.mark.parametrize("status", ["STALE", "FAILED", "SELF_ASSERTED", "UNVERIFIABLE"])
+def test_internal_canary_denied_unless_evidence_verified(status: str) -> None:
+    result = evaluate_activation(
+        ActivationRequest(**_CANARY_CONTROLS, independent_evidence_status=status)
+    )
+    assert result.permitted is False
+    assert f"independent_evidence:{status}" in result.missing_controls
+
+
 def test_internal_canary_conditional_when_controls_present() -> None:
     result = evaluate_activation(
-        ActivationRequest(
-            lane=ActivationLane.INTERNAL_CANARY,
-            deployment_manifest_present=True,
-            observability_present=True,
-            rollback_present=True,
-            credential_boundary_present=True,
-            operator_review_present=True,
-        )
+        ActivationRequest(**_CANARY_CONTROLS, independent_evidence_status="VERIFIED")
     )
     assert result.permitted is True
     assert result.decision == ActivationDecision.CONDITIONAL_ALLOW

@@ -68,7 +68,16 @@ async def analyze(body: AnalyzeRequest) -> dict[str, Any]:
     # A timed-out worker thread is not killed (reference limitation).
     try:
         return await asyncio.wait_for(
-            run_in_threadpool(run_advisory_spine, request, repo_root=settings.repo_root),
+            run_in_threadpool(
+                run_advisory_spine,
+                request,
+                repo_root=settings.repo_root,
+                canary_evidence=(
+                    settings.canary_evidence_verification()
+                    if lane == ActivationLane.INTERNAL_CANARY
+                    else None
+                ),
+            ),
             timeout=settings.analyze_timeout_seconds,
         )
     except TimeoutError:
