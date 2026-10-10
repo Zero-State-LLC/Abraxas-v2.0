@@ -9,6 +9,7 @@ from core.application.advisory_spine import AdvisorySpineRequest, run_advisory_s
 from core.canonical.json import canonical_hash
 from core.governance.activation_policy import ActivationLane
 from core.production_convergence.phase0_2 import build_phase0_2_package
+from tests._repo_mirror import make_repo_mirror
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,9 +40,12 @@ def test_phase0_2_package_hashes_stable_without_write() -> None:
     )
 
 
-def test_phase0_2_write_roundtrip() -> None:
-    result = build_phase0_2_package(REPO_ROOT, write=True, run_validation=False)
-    out_dir = REPO_ROOT / result["output_dir"]
+def test_phase0_2_write_roundtrip(tmp_path: Path) -> None:
+    # The package writes under its repo root; use a working-tree mirror so the
+    # tracked out/production_convergence files are never rewritten.
+    mirror = make_repo_mirror(tmp_path)
+    result = build_phase0_2_package(mirror, write=True, run_validation=False)
+    out_dir = mirror / result["output_dir"]
     for name in result["artifacts"]:
         path = out_dir / name
         assert path.is_file()
