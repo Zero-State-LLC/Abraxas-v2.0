@@ -1,0 +1,5 @@
+{
+  "schema_version": "KnownFailures.v1",
+  "policy": "Pre-existing failures only. Each entry is applied as xfail(strict=True): it is reported as xfailed, and the run fails if it unexpectedly passes, so a fixed test must leave this list. Adding an entry needs the observed cause and the plan phase that owns the fix (docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md).",
+  "entries": []
+}

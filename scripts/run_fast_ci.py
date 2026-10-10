@@ -139,7 +139,7 @@ COMMANDS: list[list[str]] = [
         "pytest",
         "-q",
         "-m",
-        "not slow and not integration and not canon and not artifact",
+        "not slow and not integration",
     ],
     [
         sys.executable,

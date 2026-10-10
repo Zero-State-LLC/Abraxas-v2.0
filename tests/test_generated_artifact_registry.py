@@ -20,6 +20,9 @@ from core.generated_artifact_registry import (
 )
 from scripts.artifact import run_artifact_regeneration
 
+# Measured ~125s on a clean checkout (2026-10-10): runs in the full suite, not fast CI.
+pytestmark = pytest.mark.slow
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 LEDGER_FRONTIER_RECEIPT = (
     "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"

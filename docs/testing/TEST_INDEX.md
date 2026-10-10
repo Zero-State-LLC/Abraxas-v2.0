@@ -1,6 +1,6 @@
 # Test Index
 
-Map of [`tests/`](../../tests/) coverage by subsystem prefix. ~1,034 `test_*.py` modules (fast-ci subset excludes `slow`, `integration`, `canon`, `artifact` markers).
+Map of [`tests/`](../../tests/) coverage by subsystem prefix. ~1,470 `test_*.py` modules. Markers are explicit in test files (`pytest.ini`, `--strict-markers`); fast CI excludes only `slow` and `integration`. Pre-existing failures are listed in [`tests/known_failures.json`](../../tests/known_failures.json) and reported as strict xfails. A session guard fails the run if tests modify tracked `out/` or console files.
 
 ## How to run
 
@@ -12,7 +12,7 @@ python scripts/run_fast_ci.py
 python -m pytest tests/test_abx_codegen_shadow_replay_harness_operator_decision_record_review.py -q
 
 # Marker reference
-python -m pytest -q -m "not slow and not integration and not canon and not artifact"
+python -m pytest -q -m "not slow and not integration"
 ```
 
 ## Subsystem coverage map
