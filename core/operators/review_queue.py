@@ -8,9 +8,24 @@ from core.governance.authority import locked_authority
 from core.governance.doctrine import SCHEMA_VERSION_REVIEW_QUEUE
 
 
+_NON_FAILING_GATE_STATUSES = frozenset({"passed", "not_applicable"})
+
+
+def _gate_passed(gate: dict[str, Any]) -> bool:
+    """Return True only when a gate result affirmatively did not fail.
+
+    Pipeline validator gates (core/pipelines/validator.py::_gate/_na_gate) carry
+    ``status`` in {"passed", "failed", "not_applicable"}; domain validators carry
+    a boolean ``passed``. Anything missing or unrecognised is fail-closed.
+    """
+    if "status" in gate:
+        return gate["status"] in _NON_FAILING_GATE_STATUSES
+    return gate.get("passed") is True
+
+
 def _priority(gate_results: list[dict[str, Any]]) -> str:
     for g in gate_results:
-        if not g["passed"]:
+        if not _gate_passed(g):
             reason = g.get("reason", "")
             if "authority" in reason.lower():
                 return "P0"
