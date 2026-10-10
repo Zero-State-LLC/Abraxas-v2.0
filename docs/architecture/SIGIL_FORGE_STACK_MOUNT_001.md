@@ -11,7 +11,7 @@
 
 ## 1. What this mount is
 
-Sigil-Forge is a **standalone construction engine** (`scrimshawlife-ctrl/Sigil-Forge`, MIT): Python CLI + pure `forge_core`. Abraxas mounts it the same way Hyperlex is mounted: typed packets across the boundary, **no smash-merge**, no live rune-catalog write.
+Sigil-Forge is a **standalone construction engine** (`Zero-State-LLC/Sigil-Forge`, MIT): Python CLI + pure `forge_core`. Abraxas mounts it the same way Hyperlex is mounted: typed packets across the boundary, **no smash-merge**, no live rune-catalog write.
 
 Any agent (Grok, Codex, Claude, a raw shell) invokes:
 

@@ -34,7 +34,7 @@ Conflicts the operator has not resolved:
 | Topic | Claim A | Claim B | Status |
 | --- | --- | --- | --- |
 | Planning truth | GOVERNANCE_V3: Notion owns planning/status | PLANS.md: "CURRENT CANONICAL ROADMAP" | Unresolved. This audit treats PLANS as the repo-side roadmap and Notion as the operator view. |
-| What this repo is | README/`docs/SIBLING_REPOS.md` (#1135): doctrine + candidate architecture; runtime lives in `scrimshawlife-ctrl/Abraxas` | STATUS: product CLI, `create_app`, supported interfaces live here | Unresolved (see Decision 2) |
+| What this repo is | README/`docs/SIBLING_REPOS.md` (#1135): doctrine + candidate architecture; runtime lives in `Zero-State-LLC/Abraxas` | STATUS: product CLI, `create_app`, supported interfaces live here | Unresolved (see Decision 2) |
 | Version | `VERSION`/`pyproject`/`core/settings.py`: 2.5.0 | tags/semantic-release: v1.180.0; CHANGELOG stops at 1.178.0 | Unresolved (see Decision 3) |
 | Second front door | `docs/START_HERE.md`/`docs/INDEX.md` reading order | AGENTS.md §3 mandatory startup | AGENTS.md wins by precedence |
 
@@ -206,7 +206,7 @@ This applies the template from `docs/integrations/ABX_SHADOW_PERSISTENCE_OBSERVA
 ## 8. Decisions that need the operator
 
 1. ~~**Fast CI red / evolution-cycle runner (G2 + G3).**~~ **Resolved 2026-10-10:** the operator approved the fix, and it is applied in this PR (§6).
-2. **Repo identity.** If runtime lives in `scrimshawlife-ctrl/Abraxas` (#1135), is the T1 product spine here a reference implementation, or is it supported? This decides whether Phase 1 hardening is worth doing here.
+2. **Repo identity.** If runtime lives in `Zero-State-LLC/Abraxas` (#1135), is the T1 product spine here a reference implementation, or is it supported? This decides whether Phase 1 hardening is worth doing here.
 3. **One version number.** Either semantic-release `v1.x` or product `2.5.0`. The CHANGELOG is also missing 1.179 and 1.180.
 4. **API default posture and activation evidence (A3, A10).** Should `POST /analyze` default to off or authenticated? Where should INTERNAL_CANARY control evidence come from?
 5. **Hosted CI (G1).** Re-enable Actions (billing) or adopt an agreed local-CI attestation. Until then, nothing enforces merge gates.

@@ -1,7 +1,7 @@
 # Abraxas authored skills — supported installation and verification
 
 ## Canonical source and scope
-These are repository-local skills from scrimshawlife-ctrl/Abraxas-v2.0, not
+These are repository-local skills from Zero-State-LLC/Abraxas-v2.0, not
 standalone installed packages. Use a full checkout pinned to a reviewed commit;
 record `git rev-parse HEAD` in every handoff. The Python wheel excludes skills
 and repository runners. Copying a single skill directory is unsupported for

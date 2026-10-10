@@ -10,7 +10,7 @@
 | function | trutina.score |
 | packet | brier.score.v0 |
 | home | yggdrasil.replay |
-| executable | https://github.com/scrimshawlife-ctrl/Trutina |
+| executable | https://github.com/Zero-State-LLC/Trutina |
 | replaces outcome_brier pipeline | false |
 | train | false |
 | Hub | closed |

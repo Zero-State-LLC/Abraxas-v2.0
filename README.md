@@ -63,7 +63,7 @@ These are kept separate on purpose.
 
 This is a candidate system. Production activation is held. The work remains in careful, governed development.
 
-Live proof and runtime landings are in [`scrimshawlife-ctrl/Abraxas`](https://github.com/scrimshawlife-ctrl/Abraxas). This repository remains the doctrine and candidate-architecture home. A landing in the runtime repo is not promotion of this candidate. See [`docs/SIBLING_REPOS.md`](docs/SIBLING_REPOS.md).
+Live proof and runtime landings are in [`Zero-State-LLC/Abraxas`](https://github.com/Zero-State-LLC/Abraxas). This repository remains the doctrine and candidate-architecture home. A landing in the runtime repo is not promotion of this candidate. See [`docs/SIBLING_REPOS.md`](docs/SIBLING_REPOS.md).
 
 Core subsystems include the Belief Graph, Oracle signal layer, governed ingest, pipeline contracts, YGGDRASIL routing, AAL-Viz projection, and operator review surfaces. These run in SHADOW / advisory posture by default: evidence can be prepared for human review, but runtime execution, canon mutation, writeback, and external action stay operator-gated.
 
