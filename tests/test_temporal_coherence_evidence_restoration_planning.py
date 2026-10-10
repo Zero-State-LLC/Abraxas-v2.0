@@ -37,7 +37,7 @@ def test_slice49_temporal_coherence_restoration_packet_is_advisory_only() -> Non
 
 def test_slice49_runner_emits_stable_receipt() -> None:
     result = subprocess.run(
-        [sys.executable, "scripts/run_temporal_coherence_evidence_restoration_planning.py"],
+        [sys.executable, "scripts/temporal/run_temporal_coherence_evidence_restoration_planning.py"],
         cwd=REPO_ROOT,
         check=True,
         capture_output=True,

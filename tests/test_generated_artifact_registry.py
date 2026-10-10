@@ -438,7 +438,7 @@ def test_slice49_temporal_coherence_planning_artifact_classification_stable() ->
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_coherence_evidence_restoration_planning.py"
+        == "scripts/temporal/run_temporal_coherence_evidence_restoration_planning.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
