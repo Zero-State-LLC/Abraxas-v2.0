@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.artifact import run_artifact_contract_inventory_triage as triage
+from tests._repo_mirror import copy_repo_paths
 
 
 def test_deterministic_triage_hash_across_runs() -> None:
@@ -61,7 +64,9 @@ def test_authority_fields_locked() -> None:
     assert payload["authority"]["execution_authority"] is False
 
 
-def test_canonical_json_newline() -> None:
+def test_canonical_json_newline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # main() reads and writes cwd-relative out/contracts paths: run it in a tmp copy.
+    monkeypatch.chdir(copy_repo_paths(tmp_path, "out/contracts"))
     triage.main()
     out = Path("out/contracts/artifact_contract_inventory_triage.latest.json")
     assert out.read_bytes().endswith(b"\n")
