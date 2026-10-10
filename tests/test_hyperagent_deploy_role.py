@@ -2,6 +2,8 @@
 
 import sys
 import json
+
+import pytest
 from unittest.mock import patch
 
 sys.path.insert(0, "skills/autonomous-ai-agents/hyperagent-orchestrator/scripts")
@@ -21,10 +23,10 @@ def test_build_payload_basic():
     assert payload["deployment_mode"] == "dry_run"
     assert "version" in payload
 
-def test_build_payload_dry_run_false():
-    template = {}
-    payload = h.build_payload(template, None, None, dry_run=False)
-    assert payload["deployment_mode"] == "deploy"
+def test_build_payload_refuses_live_deploy():
+    # Hardened in 1e2a5b01: no verified platform adapter ships, so live deploy is refused.
+    with pytest.raises(ValueError, match="DEPLOYMENT_DISABLED"):
+        h.build_payload({}, None, None, dry_run=False)
 
 def test_main_dry_run(tmp_path, monkeypatch, capsys):
     tmpl = tmp_path / "t.json"
