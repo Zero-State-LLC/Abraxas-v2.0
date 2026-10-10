@@ -1458,6 +1458,9 @@ def _extract_script_surface(script_path: Path) -> tuple[set[str], set[str]]:
 def _iter_runner_scripts(repo_root: Path) -> list[Path]:
     """Yield ``scripts/run_*.py`` and ``scripts/<domain>/run_*.py`` runners."""
     scripts_root = repo_root / "scripts"
+    if not scripts_root.is_dir():
+        # A root without scripts/ (e.g. a tmp_path fixture root) has no runners.
+        return []
     paths = list(scripts_root.glob("run_*.py"))
     # Domain-organized runners (mass-org layout). Skip non-package dirs.
     skip = {"__pycache__", "common", "completions", "design", "preflight"}
