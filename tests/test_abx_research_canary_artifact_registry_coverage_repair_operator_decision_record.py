@@ -15,6 +15,7 @@ from core.abx_research_canary_artifact_registry_coverage_repair_operator_decisio
 from core.abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan import (
     write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan,
 )
+from tests._repo_mirror import make_repo_mirror
 from tests.script_runner_loader import load_script_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,15 +51,18 @@ def test_decision_record_authorizes_spec_authoring(tmp_path: Path) -> None:
     assert packet["decision_record_id"] == RECORD_ID
 
 
-def test_decision_record_is_deterministic() -> None:
+def test_decision_record_is_deterministic(tmp_path: Path) -> None:
+    # The plan is read back from the root it is written to: use a working-tree
+    # mirror so the tracked out/ plan is not rewritten.
+    mirror = make_repo_mirror(tmp_path)
     write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan(
-        source_root=REPO_ROOT
+        source_root=mirror
     )
     first = build_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record(
-        source_root=REPO_ROOT
+        source_root=mirror
     )
     second = build_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record(
-        source_root=REPO_ROOT
+        source_root=mirror
     )
     assert first["decision_record_hash"] == second["decision_record_hash"]
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import validate
 
 from core.abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan import (
@@ -17,6 +18,7 @@ from core.abx_research_canary_artifact_registry_coverage_repair_operator_decisio
 from core.abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan import (
     write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan,
 )
+from tests._repo_mirror import make_repo_mirror
 from tests.script_runner_loader import load_script_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -42,10 +44,17 @@ def _bootstrap(repo_root: Path, out_root: Path | None = None) -> None:
     )
 
 
-def test_execution_spec_plan_ready() -> None:
-    _bootstrap(REPO_ROOT)
+@pytest.fixture(scope="module")
+def mirror_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Working-tree mirror: _bootstrap writes upstream records that the spec
+    plan then reads from the same root, so do it here, not in the repo."""
+    return make_repo_mirror(tmp_path_factory.mktemp("canary_execution_spec_plan"))
+
+
+def test_execution_spec_plan_ready(mirror_root: Path) -> None:
+    _bootstrap(mirror_root)
     packet = build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan(
-        source_root=REPO_ROOT
+        source_root=mirror_root
     )
 
     assert packet["status"] == "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_SPEC_PLAN_READY"
@@ -56,13 +65,13 @@ def test_execution_spec_plan_ready() -> None:
     assert packet["recommended_next_lane"] == AUTHORIZATION_GATE_LANE
 
 
-def test_execution_spec_plan_is_deterministic() -> None:
-    _bootstrap(REPO_ROOT)
+def test_execution_spec_plan_is_deterministic(mirror_root: Path) -> None:
+    _bootstrap(mirror_root)
     first = build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan(
-        source_root=REPO_ROOT
+        source_root=mirror_root
     )
     second = build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan(
-        source_root=REPO_ROOT
+        source_root=mirror_root
     )
     assert first["spec_plan_hash"] == second["spec_plan_hash"]
 
