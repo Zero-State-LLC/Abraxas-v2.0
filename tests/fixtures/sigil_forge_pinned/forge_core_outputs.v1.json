@@ -1,0 +1,31 @@
+{
+  "schema_version": "SigilForgePinnedOutputs.v1",
+  "source_repo": "Zero-State-LLC/Sigil-Forge",
+  "source_commit": "aeb328950c1aee21e035d1e48a076bd333490955",
+  "source_version": "0.13.1",
+  "source_files": [
+    "scripts/forge_core.py"
+  ],
+  "license": "LicenseRef-Zero-State-Proprietary-1.0 (outputs only; no engine code copied)",
+  "recorded_on": "2026-10-10",
+  "config": {
+    "mode": "creative",
+    "spare_mode": "letter_monogram"
+  },
+  "outputs": [
+    {
+      "normalized": "i maintain calm focus while shipping sigil-forge",
+      "intent_digest": "14a878a7d0fdf4776f58d60ac02962c6cd585b12b6d8c4377443ce33dc244439",
+      "spare_letters": "mntclfswhpgr",
+      "square_name": "sol",
+      "square_order": 6
+    },
+    {
+      "normalized": "aeiou y",
+      "intent_digest": "9e4f2ce148ecfdb51aea9b3f1e4356790bad1d3cd99159644b2725f6537b4714",
+      "spare_letters": "",
+      "square_name": "luna",
+      "square_order": 9
+    }
+  ]
+}
