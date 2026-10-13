@@ -8,7 +8,7 @@ From [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture
 
 | Phase | Status (2026-10-10, rev 2) | Outcome | Depends on | Done when |
 |-------|--------|---------|-----------|-----------|
-| P0 Trustworthy gate | **Done except G7/G10** — explicit markers, governance tests selected, strict-xfail registry, tracked-file guard, 34 writers isolated, 3 real bugs fixed | fast CI meaningful; tests never write tracked files | — | fast CI selection passes on a clean checkout and leaves tracked files unchanged (local CI record, audit §9) |
+| P0 Trustworthy gate | **Done except G10** — G7 fixed; local CI record PASS at `ed7fe440` (13,908 passed, 1 strict xfail, tracked tree unchanged) — explicit markers, governance tests selected, strict-xfail registry, tracked-file guard, 34 writers isolated, 3 real bugs fixed | fast CI meaningful; tests never write tracked files | — | fast CI selection passes on a clean checkout and leaves tracked files unchanged (local CI record, audit §9) |
 | P1 Spine hardening | **Mostly done** — auth by default, signed canary evidence, 4xx mapping; port PRs to Zero-State-LLC/Abraxas opened for review | reference contracts explicit; valuable code ported | upstream review | A5 single settings owner; A12 replay semantics; ports merged upstream |
 | P2 Single-owner primitives | Not started | one canonical hash, one lock vocabulary, injected clock | P0 | no private hash helpers; locks validated on every write; frozen-clock rebuild byte-identical |
 | P3 Truthful evidence | Partly done — docs/version reconciled, registry classification fixed | milestones and docs cannot overstate | P0 | milestones require importable code; pyright `basic` on the reference spine |

@@ -244,11 +244,21 @@ The record is `docs/status/local-ci/005417806567500e21909dd974be373412b7d668.jso
   - The record tool's path parser dropped the first character of the first changed path. Fixed in the next commit.
 - **Validity:** commits after `00541780` changed code (the registry entry, the parser fix), so `local_ci_record check` reports this sign-off as superseded. **A fresh record is the next step.**
 
+### Revision 2b verification (2026-10-13, LOCAL_VERIFICATION, not GitHub Actions)
+
+The record is `docs/status/local-ci/ed7fe4409636fd437275a3c4006bf68b707913a2.json`, taken in a fresh worktree at `ed7fe440`, after the G7 fix (advisory gates run with `--no-write`).
+
+- **Status: PASS.**
+- **Fast CI:** exit 0, with every governance test selected.
+- **Full suite:** 13,908 passed, 1 xfailed (the registered P84 drift, strict), 10 skipped.
+- **Tree:** tracked files unchanged by the run.
+- **Validity:** this sign-off stays valid until a non-documentation change lands (`python -m scripts.governance.local_ci_record check`).
+
 ## 10. Phase status (revision 2)
 
 | Phase | Status | Done (evidence) | Remaining | Depends on |
 | --- | --- | --- | --- | --- |
-| **P0 Trustworthy gate** | **Done, except G7/G10** | G2, G3, G4 and G15: explicit markers, governance tests selected, strict-xfail registry. G14: 34 tracked-file writers isolated, plus a session guard. G16: three real bugs fixed. G11, G12, G13, A11. Pre-existing failures fixed rather than skipped (§9). | G7: the fast-CI advisory gates still write tracked `out/production_readiness/*` after the drift guard. G10: the session seed fixture still writes ignored `out/audit` files, and some tests still read them. | — |
+| **P0 Trustworthy gate** | **Done, except G10** (G7 fixed 2026-10-13; local CI record PASS at `ed7fe440`) | G2, G3, G4 and G15: explicit markers, governance tests selected, strict-xfail registry. G14: 34 tracked-file writers isolated, plus a session guard. G16: three real bugs fixed. G11, G12, G13, A11. Pre-existing failures fixed rather than skipped (§9). | G7: the fast-CI advisory gates still write tracked `out/production_readiness/*` after the drift guard. G10: the session seed fixture still writes ignored `out/audit` files, and some tests still read them. | — |
 | **P1 Spine hardening** | **Mostly done** | A3 (signed independent canary evidence), A10 (auth by default), A11 (4xx), A6, the version endpoint | A5 settings consolidation; A12 `replay` semantics; ports §11 | Port PR review upstream |
 | **P2 Single-owner primitives** | Not started | — | A1, A4, A8, A9 | P0 |
 | **P3 Truthful evidence** | Partly done | D1–D5 and D7 docs/version reconciled; G13 registry truthfulness | S5 milestone evidence, S8, G6 pyright, G9 doc pins elsewhere, D3 PLANS log archive | P0 |
