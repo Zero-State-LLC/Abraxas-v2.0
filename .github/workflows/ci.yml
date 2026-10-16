@@ -3,9 +3,13 @@ name: ci
 on:
   pull_request:
     paths:
+      - 'abraxas/**'
       - 'core/**'
+      - 'contracts/**'
       - 'Scripts/**'
       - 'scripts/**'
+      - 'skills/**'
+      - 'apps/api/**'
       - 'apps/aal-viz-live-console/**'
       - 'docs/releases/**'
       - 'pyproject.toml'
@@ -15,9 +19,13 @@ on:
     branches:
       - main
     paths:
+      - 'abraxas/**'
       - 'core/**'
+      - 'contracts/**'
       - 'Scripts/**'
       - 'scripts/**'
+      - 'skills/**'
+      - 'apps/api/**'
       - 'apps/aal-viz-live-console/**'
       - 'docs/releases/**'
       - 'pyproject.toml'

@@ -30,7 +30,7 @@ def test_regime_derivation_and_classification_rules():
     assert any(t.trigger_type == "NONDETERMINISM_PRESSURE" for t in n.triggers)
 
 
-def test_regime_validator_hash_schema_and_audit():
+def test_regime_validator_hash_schema_and_audit(tmp_path):
     base = derive_temporal_regime_transition_detector([_surface(), _surface()])
     assert validate_temporal_regime_transition_detector(replace(base, detector_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_regime_transition_detector(replace(base, auto_transition_allowed=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -62,6 +62,6 @@ def test_regime_validator_hash_schema_and_audit():
     d.pop("detector_id")
     assert "detector_id" in s["required"] and "detector_id" not in d
 
-    h = write_temporal_regime_transition_detector_contract_audit(".")
-    t = open("out/audit/temporal_regime_transition_detector_contract.latest.json").read()
+    h = write_temporal_regime_transition_detector_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_regime_transition_detector_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

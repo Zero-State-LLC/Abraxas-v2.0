@@ -40,6 +40,35 @@ def run_module(mod: str) -> int:
     return res.returncode
 
 
+DECISION_VALIDATION_RECEIPT = OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json"
+DECISION_BLOCKED_STATUS = "BLOCKED_BY_VALIDATION_ERRORS"
+
+
+def run_decision_validator_status() -> tuple[int, str]:
+    """Run the fail-closed decision validator as a status probe.
+
+    The validator exits nonzero whenever no validated human decision exists,
+    which is the normal awaiting-operator state. That outcome is recorded as a
+    status, not a pipeline failure. A crash, or a run that leaves no blocked
+    receipt behind, still counts as a failure. The validator is unchanged.
+    """
+    mod = "abx_skill_formal_operator_decision_validator.py"
+    p = SKILL_DIR / mod
+    if not p.exists():
+        print(f"SKIP: {mod} not found")
+        return 0, "NOT_RUN"
+    res = subprocess.run([sys.executable, str(p)], capture_output=True, text=True, cwd=ROOT, check=False)
+    print(f"RUN {mod}: exit={res.returncode}")
+    if res.stdout:
+        print(res.stdout.strip()[:300])
+    status = load_json_safe(DECISION_VALIDATION_RECEIPT).get("status", "UNKNOWN")
+    if res.returncode == 0:
+        return 0, status
+    if status == DECISION_BLOCKED_STATUS and "Traceback" not in res.stderr:
+        return 0, status
+    return res.returncode, status
+
+
 def simulate_operator_review(cycle: dict, traces_count: int) -> dict:
     """Phase 4: Simple operator review simulation (advisory)."""
     review = {
@@ -94,7 +123,8 @@ def main():
     rc += run_module("abx_skill_v25_governance_enhancer.py")
     rc += run_module("abx_skill_formal_operator_review_packet.py")
     rc += run_module("abx_skill_formal_operator_decision_builder.py")
-    rc += run_module("abx_skill_formal_operator_decision_validator.py")  # non-interactive status only
+    validator_rc, decision_validation_status = run_decision_validator_status()
+    rc += validator_rc
     rc += run_module("abx_skill_formal_operator_decision_ledger.py")
     rc += run_module("abx_skill_operator_decision_reconciliation.py")
     rc += run_module("abx_skill_operator_decision_history_ledger.py")
@@ -116,6 +146,7 @@ def main():
             "active_skill_modified": False,
             "candidate_promoted": False,
             "operator_decision_required": True,
+            "operator_decision_validation_status": decision_validation_status,
             "live_traces_count": traces_count,
             "pipeline_rc": rc,
             "timestamp": datetime.now(timezone.utc).isoformat(),

@@ -13,6 +13,7 @@ Does not write to disk. Runners/API adapters persist via canonical writers.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -26,6 +27,7 @@ from core.alembic.oracle_bridge import (
 from core.alembic.pipeline import execute_advisory
 from core.alembic.registry import default_registry
 from core.canonical.json import canonical_hash
+from core.governance.activation_evidence import EvidenceVerification
 from core.governance.activation_policy import (
     ActivationLane,
     ActivationRequest,
@@ -47,7 +49,9 @@ class AdvisorySpineRequest(BaseModel):
     alembic_mode: Literal["advisory", "shadow"] = "advisory"
 
 
-def _lane_request(lane: ActivationLane) -> ActivationRequest:
+def _lane_request(
+    lane: ActivationLane, canary_evidence: EvidenceVerification | None = None
+) -> ActivationRequest:
     if lane == ActivationLane.LOCAL_DEV:
         return ActivationRequest(
             lane=lane,
@@ -62,13 +66,18 @@ def _lane_request(lane: ActivationLane) -> ActivationRequest:
             bounded_credentials_present=True,
         )
     if lane == ActivationLane.INTERNAL_CANARY:
+        # The candidate does not assert its own canary controls: they hold only
+        # when an independent issuer's evidence verified (activation_evidence).
+        status = canary_evidence.status.value if canary_evidence else "ABSENT"
+        verified = status == "VERIFIED"
         return ActivationRequest(
             lane=lane,
-            deployment_manifest_present=True,
-            observability_present=True,
-            rollback_present=True,
-            credential_boundary_present=True,
-            operator_review_present=True,
+            deployment_manifest_present=verified,
+            observability_present=verified,
+            rollback_present=verified,
+            credential_boundary_present=verified,
+            operator_review_present=verified,
+            independent_evidence_status=status,
         )
     return ActivationRequest(lane=lane)
 
@@ -83,15 +92,25 @@ _AUTHORITY_LOCKS = {
 }
 
 
-def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dict[str, Any]:
-    """Execute the supported advisory golden-path slice (pure)."""
+def run_advisory_spine(
+    request: AdvisorySpineRequest | Mapping[str, Any],
+    *,
+    repo_root: Path | None = None,
+    canary_evidence: EvidenceVerification | None = None,
+) -> dict[str, Any]:
+    """Execute the supported advisory golden-path slice (pure).
+
+    ``repo_root`` anchors ``schema_ref`` resolution. Callers with runtime
+    settings must pass it; ``None`` keeps the validation service default
+    (current working directory).
+    """
     req = (
         request
         if isinstance(request, AdvisorySpineRequest)
         else AdvisorySpineRequest.model_validate(dict(request))
     )
 
-    activation = evaluate_activation(_lane_request(req.activation_lane))
+    activation = evaluate_activation(_lane_request(req.activation_lane, canary_evidence))
     if not activation.permitted and req.activation_lane != ActivationLane.EXTERNAL_PRODUCTION:
         return {
             "status": "DENIED",
@@ -134,7 +153,8 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
                 "execution_id": f"advisory-spine:{req.run_id}",
                 "schema_ref": req.schema_ref,
                 "payload": req.input_payload,
-            }
+            },
+            repo_root=repo_root,
         )
         if validation_result.get("status") == "ERROR" or validation_result.get("valid") is False:
             return {

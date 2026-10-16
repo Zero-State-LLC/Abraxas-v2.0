@@ -1,6 +1,9 @@
 [project]
 name = "abraxas-v2"
-version = "2.5.0"
+# Reference-only package: v2.0 is the doctrine repository and ships no product.
+# Doctrine revisions are the v1.N git tags (see VERSION and docs/releases/VERSION_STRATEGY.md);
+# the supported Abraxas product is versioned in Zero-State-LLC/Abraxas.
+version = "0.0.0+reference"
 description = "Governed symbolic execution substrate"
 license = { text = "Proprietary" }
 authors = [{ name = "Applied Alchemy Labs" }]
@@ -21,6 +24,8 @@ abraxas = "abraxas.cli:main"
 
 [project.optional-dependencies]
 holler = ["requests>=2.32,<3", "requests-cache>=1.2,<2"]
+# Ed25519 verification of INTERNAL_CANARY activation evidence; without it evidence is UNVERIFIABLE (fail closed).
+evidence = ["cryptography>=43,<47"]
 dev = [
   "pytest>=8,<10",
   "pytest-cov>=5,<8",
@@ -31,6 +36,7 @@ dev = [
   "jsonschema>=4.23,<5",
   "pyyaml>=6,<7",
   "pytest-benchmark>=4.0,<6",
+  "cryptography>=43,<47",
 ]
 
 [dependency-groups]

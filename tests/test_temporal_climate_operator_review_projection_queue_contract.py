@@ -28,7 +28,7 @@ def test_queue_derivation_rules():
     assert any(i.item_type == "NONDETERMINISM_CLUSTER" for i in nondet.queue_items)
 
 
-def test_queue_validator_hash_schema_and_audit():
+def test_queue_validator_hash_schema_and_audit(tmp_path):
     base = derive_temporal_operator_review_projection_queue([_binding(({"alert_type": "PRESSURE_BUILDING", "severity": "WATCH", "source_ref_ids": ()},))])
     assert validate_temporal_operator_review_projection_queue(replace(base, projection_only=False)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_operator_review_projection_queue(replace(base, queue_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -58,6 +58,6 @@ def test_queue_validator_hash_schema_and_audit():
     d.pop("queue_id")
     assert "queue_id" in s["required"] and "queue_id" not in d
 
-    h = write_temporal_operator_review_projection_queue_contract_audit(".")
-    t = open("out/audit/temporal_climate_operator_review_projection_queue_contract.latest.json").read()
+    h = write_temporal_operator_review_projection_queue_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_climate_operator_review_projection_queue_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

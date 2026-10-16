@@ -37,11 +37,16 @@ def main() -> int:
         action="store_true",
         help="Exit non-zero when findings exist (default: advisory / exit 0)",
     )
+    parser.add_argument(
+        "--no-write",
+        action="store_true",
+        help="Print the report summary without rewriting the tracked report file (fast CI)",
+    )
     args = parser.parse_args()
 
     report, exit_code = build_boundary_report(
         REPO_ROOT,
-        write=True,
+        write=not args.no_write,
         # --fail-closed forces on; otherwise env ABRAXAS_BOUNDARY_FAIL_CLOSED (default off)
         fail_closed=True if args.fail_closed else None,
     )

@@ -42,7 +42,7 @@ def test_consensus_derivation_and_validation_rules():
     assert validate_replay_consensus_review(replace(one, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
 
-def test_hash_schema_json_and_audit():
+def test_hash_schema_json_and_audit(tmp_path):
     r = derive_replay_consensus_review([_arb(1), _arb(2)], [{"source_type": "REPLAY_TEMPORAL_ARBITRATION", "source_id": "a1", "source_hash": "h1"}])
     alt = dict(asdict(r))
     alt["review_hash"] = "x"
@@ -50,8 +50,8 @@ def test_hash_schema_json_and_audit():
     assert canonical_replay_consensus_review_json(r) == canonical_replay_consensus_review_json(r)
     s = json.loads(open("contracts/replay_consensus/replay_consensus_review.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(r).keys()))
-    h = write_replay_consensus_review_contract_audit(".")
-    t = open("out/audit/replay_consensus_review_contract.latest.json").read()
+    h = write_replay_consensus_review_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/replay_consensus_review_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()
 
 

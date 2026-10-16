@@ -1,0 +1,11 @@
+{
+  "schema_version": "KnownFailures.v1",
+  "policy": "Pre-existing failures only. Each entry is applied as xfail(strict=True): it is reported as xfailed, and the run fails if it unexpectedly passes, so a fixed test must leave this list. Adding an entry needs the observed cause and the plan phase that owns the fix (docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md).",
+  "entries": [
+    {
+      "nodeid": "tests/test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py::test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_contains_expected_routes",
+      "cause": "asserts P84_REGENERATION_PLAN_READY but the tracked P84 plan reads P84_REGENERATION_NOT_REQUIRED since a8de1dd7; the plan derives from a git-ignored input (audit G13)",
+      "phase": "P3"
+    }
+  ]
+}

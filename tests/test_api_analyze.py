@@ -18,6 +18,7 @@ except ImportError:
     _HAS = False
 
 REPO = Path(__file__).resolve().parents[1]
+TOKEN = "test-token-analyze"
 
 
 @pytest.mark.skipif(not _HAS, reason="httpx/TestClient not available")
@@ -29,13 +30,17 @@ def test_create_app_ready_and_version() -> None:
     assert ready.json()["candidate_status"] == "NOT_READY"
     version = client.get("/version")
     assert version.status_code == 200
-    assert version.json()["version"] == "2.5.0-test"
+    body = version.json()
+    assert body["role"] == "doctrine-reference"
+    assert body["reference_build"] == "2.5.0-test"
+    assert body["product_version"] is None
+    assert body["canonical_product_repository"] == "Zero-State-LLC/Abraxas"
 
 
 @pytest.mark.skipif(not _HAS, reason="httpx/TestClient not available")
 def test_analyze_endpoint_with_alembic_task() -> None:
-    app = create_app(AppSettings())
-    client = TestClient(app)
+    app = create_app(AppSettings(api_token=TOKEN))
+    client = TestClient(app, headers={"X-ABX-Token": TOKEN})
     task = json.loads(
         (REPO / "fixtures/alembic/example_task.json").read_text(encoding="utf-8")
     )
@@ -58,8 +63,8 @@ def test_analyze_endpoint_with_alembic_task() -> None:
 
 @pytest.mark.skipif(not _HAS, reason="httpx/TestClient not available")
 def test_analyze_rejects_external_production() -> None:
-    app = create_app(AppSettings())
-    client = TestClient(app)
+    app = create_app(AppSettings(api_token=TOKEN))
+    client = TestClient(app, headers={"X-ABX-Token": TOKEN})
     response = client.post(
         "/analyze",
         json={

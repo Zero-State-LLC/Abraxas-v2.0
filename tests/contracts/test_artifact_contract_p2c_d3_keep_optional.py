@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.artifact import run_artifact_contract_p2c_d3_keep_optional as d3
+from tests._repo_mirror import copy_repo_paths
 
 
 def test_exact_d3_target_selection() -> None:
@@ -40,7 +43,9 @@ def test_no_mutation_cleared_queues() -> None:
     assert payload["cleared_queues_preserved"]["P2C-D2"] == triage["counts"]["convert_to_deferred"]
 
 
-def test_authority_and_newline() -> None:
+def test_authority_and_newline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # main() reads and writes cwd-relative out/contracts paths: run it in a tmp copy.
+    monkeypatch.chdir(copy_repo_paths(tmp_path, "out/contracts"))
     d3.main()
     payload, _, _ = d3.build()
     assert payload["authority"]["execution_authority"] is False

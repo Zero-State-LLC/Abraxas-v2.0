@@ -36,43 +36,13 @@ def test_ready_includes_security_headers_and_request_id() -> None:
         configure_settings(previous)
 
 
-def test_auth_boundary_fail_closed_when_enabled() -> None:
-    previous = get_settings()
-    try:
-        app = create_app(AppSettings(require_auth=True))
-        client = TestClient(app)
-        # Readiness stays open; auth boundary is scoped to POST /analyze.
-        assert client.get("/ready").status_code == 200
-        denied = client.post("/analyze", json={"run_id": "x", "enable_alembic": False})
-        assert denied.status_code == 401
-        assert denied.json()["detail"] == "authentication_required"
-        stub = client.post(
-            "/analyze",
-            json={"run_id": "x", "enable_alembic": False},
-            headers={"Authorization": "Bearer unused"},
-        )
-        assert stub.status_code == 501
-        assert stub.json()["detail"] == "authenticator_not_configured"
-    finally:
-        configure_settings(previous)
-
-
-def test_rate_limit_boundary_fail_closed_when_enabled() -> None:
-    previous = get_settings()
-    try:
-        app = create_app(AppSettings(require_rate_limit=True))
-        client = TestClient(app)
-        denied = client.post("/analyze", json={"run_id": "x", "enable_alembic": False})
-        assert denied.status_code == 501
-        assert denied.json()["detail"] == "rate_limiter_not_configured"
-    finally:
-        configure_settings(previous)
+# Access policy (auth, anonymous local dev, rate limit, body size): tests/test_api_access_policy.py
 
 
 def test_unhandled_exception_sanitized_with_request_id() -> None:
     previous = get_settings()
     try:
-        app = create_app(AppSettings())
+        app = create_app(AppSettings(api_token="hardening-token"))
         client = TestClient(app, raise_server_exceptions=False)
         with patch(
             "apps.api.routers.analyze.run_advisory_spine",
@@ -85,7 +55,7 @@ def test_unhandled_exception_sanitized_with_request_id() -> None:
                     "enable_alembic": False,
                     "activation_lane": "LOCAL_DEV",
                 },
-                headers={"X-Request-ID": "err-req-9"},
+                headers={"X-Request-ID": "err-req-9", "X-ABX-Token": "hardening-token"},
             )
         assert response.status_code == 500
         body = response.json()
@@ -108,5 +78,19 @@ def test_openapi_contains_supported_routes() -> None:
         assert "/version" in paths
         assert "/analyze" in paths
         assert paths["/analyze"].get("post") is not None
+    finally:
+        configure_settings(previous)
+
+
+@pytest.mark.parametrize("supplied", ["x" * 129, "bad id with spaces", "<script>alert(1)</script>"])
+def test_unsafe_client_request_id_is_replaced(supplied: str) -> None:
+    previous = get_settings()
+    try:
+        client = TestClient(create_app(AppSettings()))
+        response = client.get("/ready", headers={"X-Request-ID": supplied})
+        assert response.status_code == 200
+        echoed = response.headers["X-Request-ID"]
+        assert echoed != supplied
+        assert len(echoed) == 16
     finally:
         configure_settings(previous)

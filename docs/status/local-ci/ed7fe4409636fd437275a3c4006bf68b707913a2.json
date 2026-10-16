@@ -1,0 +1,53 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "python",
+        "scripts/run_fast_ci.py"
+      ],
+      "duration_seconds": 863.1,
+      "exit_code": 0,
+      "failed_tests": [],
+      "name": "fast_ci",
+      "summary": [
+        "0 errors"
+      ]
+    },
+    {
+      "argv": [
+        "python",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "addopts=",
+        "-q",
+        "--maxfail=100000",
+        "tests"
+      ],
+      "duration_seconds": 1200.7,
+      "exit_code": 0,
+      "failed_tests": [],
+      "name": "full_pytest",
+      "summary": [
+        "1 xfailed",
+        "10 skipped",
+        "13908 passed"
+      ]
+    }
+  ],
+  "environment": {
+    "machine": "arm64",
+    "pip_freeze_sha256": "9097eeb31908b463b562ca319c7473a8d5317adf859eceb6bc2475eb39a35e8f",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "Python 3.12.13"
+  },
+  "kind": "LOCAL_VERIFICATION",
+  "not_github_actions": true,
+  "recorded_at": "2026-10-13T06:24:31+00:00",
+  "schema_version": "LocalCIRecord.v1",
+  "status": "PASS",
+  "tested_commit": "ed7fe4409636fd437275a3c4006bf68b707913a2",
+  "tracked_files_changed_by_run": []
+}

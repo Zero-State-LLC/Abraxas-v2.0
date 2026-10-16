@@ -6,12 +6,12 @@ import hashlib
 sys.path.insert(0, "skills/holler-sports/slang-emergence/scripts")
 import slang_emergence_engine as s
 
-def test_humanize_slang_output_strips_aiisms():
-    text = "This pivotal underscoring showcasing crucial landscape tapestry delve realm moment."
-    result = s.humanize_slang_output(text)
-    for bad in ["pivotal", "underscoring", "showcasing", "crucial", "landscape", "tapestry", "delve", "realm"]:
-        assert bad not in result
-    assert "feels off but sharp money is already running with it" in result
+def test_no_invented_slang_without_retrieved_corpus():
+    # Hardened in 1e2a5b01: no corpus means NOT_COMPUTABLE, never generated copy.
+    out = s.detect_memetic_patterns("holler sports slang")
+    assert out["status"] == "NOT_COMPUTABLE"
+    assert out["observed"] == [] and out["inferred"] == [] and out["speculative"] == []
+    assert not hasattr(s, "humanize_slang_output")
 
 def test_detect_memetic_patterns_structure():
     out = s.detect_memetic_patterns("holler sports slang")
@@ -21,8 +21,7 @@ def test_detect_memetic_patterns_structure():
     assert "provenance" in out
     prov = out["provenance"]
     assert "canonical_hash" in prov
-    assert prov["brier"] == 0.89
-    assert "memclaw" in prov
+    assert prov["brier"] is None  # no Brier without a settled forecast
 
 def test_canonical_hash_stable():
     q = "test query"
@@ -33,7 +32,7 @@ def test_canonical_hash_stable():
     h2 = hashlib.sha256(canonical.encode()).hexdigest()[:16]
     assert h == h2
 
-def test_recommendation_present():
+def test_no_recommendation_without_evidence():
     out = s.detect_memetic_patterns()
-    assert "recommendation" in out
-    assert "Bind to COMMUNICATION_RELAY" in out["recommendation"]
+    assert out["status"] == "NOT_COMPUTABLE"
+    assert "recommendation" not in out

@@ -35,6 +35,7 @@ class AuthorityScope(str, Enum):
     MANUAL_OVERRIDE = "MANUAL_OVERRIDE"
     OPERATOR = "OPERATOR"
     CANON = "CANON"
+    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

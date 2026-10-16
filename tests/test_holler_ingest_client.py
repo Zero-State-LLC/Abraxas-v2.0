@@ -5,6 +5,8 @@ import json
 import hashlib
 from unittest.mock import patch, MagicMock
 
+import pytest
+
 # Mock heavy external deps before importing the module under test
 sys.modules.setdefault("requests", MagicMock())
 sys.modules.setdefault("requests_cache", MagicMock())
@@ -22,6 +24,7 @@ class _DummyReqExc(Exception):
 h.requests = MagicMock()
 h.requests.exceptions = MagicMock()
 h.requests.exceptions.RequestException = _DummyReqExc
+h.requests.RequestException = _DummyReqExc  # the client catches requests.RequestException
 
 
 def test_fetch_basic():
@@ -39,10 +42,13 @@ def test_fetch_basic():
 
 def test_fetch_fallback_on_error():
     client = h.HollerIngestClient(cache_dir="/tmp/holler_test_cache")
-    with patch.object(client.session, "get", side_effect=ValueError("bad json for determinism")):
-        result = client.fetch("bad_provider", "http://bad.example.com")
-        obs = result.get("observed", {})
-        assert "error" in str(obs) or "data" in str(obs) or "fallback" in str(obs)
+    # Hardened in 1e2a5b01: a failed fetch raises IngestError (no fallback data)
+    # and the message names only the exception type, never the raw response.
+    with (
+        patch.object(client.session, "get", side_effect=ValueError("bad json for determinism")),
+        pytest.raises(h.IngestError, match="^FETCH_FAILED: ValueError$"),
+    ):
+        client.fetch("bad_provider", "http://bad.example.com")
 
 def test_batch_ingest():
     client = h.HollerIngestClient(cache_dir="/tmp/holler_test_cache")

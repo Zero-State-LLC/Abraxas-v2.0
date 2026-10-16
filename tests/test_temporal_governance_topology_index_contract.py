@@ -30,7 +30,7 @@ def test_topology_derivation_rules():
     assert any(h.hotspot_type == "NONDETERMINISM_PRESSURE" for h in unstable.pressure_hotspots) or len(unstable.fracture_zones) > 0
 
 
-def test_validation_hash_schema_and_audit():
+def test_validation_hash_schema_and_audit(tmp_path):
     base = derive_temporal_governance_topology_index([_continuity(), dict(_continuity(), index_id="idx2")])
     assert validate_temporal_governance_topology_index(replace(base, history_rewrite_allowed=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_governance_topology_index(replace(base, ledger_mutation_allowed=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -62,6 +62,6 @@ def test_validation_hash_schema_and_audit():
     d.pop("topology_id")
     assert "topology_id" in s["required"] and "topology_id" not in d
 
-    h = write_temporal_governance_topology_index_contract_audit(".")
-    t = open("out/audit/temporal_governance_topology_index_contract.latest.json").read()
+    h = write_temporal_governance_topology_index_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_governance_topology_index_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

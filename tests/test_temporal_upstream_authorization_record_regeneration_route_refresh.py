@@ -14,14 +14,17 @@ from core.temporal_upstream_authorization_record_regeneration_route_refresh impo
 from scripts.temporal.run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt import (
     run,
 )
+from tests.temporal_upstream_chain_root import build_p80_record_plan_chain_root
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_temporal_upstream_authorization_record_regeneration_route_refresh_contains_expected_routes() -> None:
+def test_temporal_upstream_authorization_record_regeneration_route_refresh_contains_expected_routes(
+    tmp_path: Path,
+) -> None:
     packet = (
         build_temporal_upstream_authorization_record_regeneration_route_refresh_receipt(
-            repo_root=REPO_ROOT
+            repo_root=build_p80_record_plan_chain_root(tmp_path)
         )
     )
 

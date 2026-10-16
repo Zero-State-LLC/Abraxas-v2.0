@@ -11,7 +11,7 @@
 
 ## 1. What this mount is
 
-Sigil-Forge is a **standalone construction engine** (`scrimshawlife-ctrl/Sigil-Forge`, MIT): Python CLI + pure `forge_core`. Abraxas mounts it the same way Hyperlex is mounted: typed packets across the boundary, **no smash-merge**, no live rune-catalog write.
+Sigil-Forge is a **standalone construction engine** (`Zero-State-LLC/Sigil-Forge`, Zero State Proprietary License 1.0): Python CLI + pure `forge_core`. Abraxas mounts it the same way Hyperlex is mounted: typed packets across the boundary, **no smash-merge**, no live rune-catalog write.
 
 Any agent (Grok, Codex, Claude, a raw shell) invokes:
 
@@ -37,6 +37,8 @@ Discovery order for the Abraxas bridge:
 1. `SIGIL_FORGE_HOME` / `SIGIL_FORGE_ROOT` / `SIGIL_FORGE_DIR` / `SIGIL_FORGE_SKILL_DIR`
 2. `~/Sigil-Forge`, `~/.sigil-forge`, sibling checkouts
 3. `HERMES_SKILL_DIR` / `~/.hermes/skills/sigil-forge` (**compat only**)
+
+Tests: contract tests in `tests/test_sigil_forge_mount.py` always run against a pinned replay of `forge_core` outputs (`tests/fixtures/sigil_forge_pinned/`, provenance in its `PROVENANCE.md`). Tests marked `sigil_forge_live` need a real checkout: they are skipped when it is missing, and fail instead when `ABRAXAS_REQUIRE_SIGIL_FORGE=1`.
 
 State default: `$SIGIL_FORGE_STATE_DIR` or `~/.sigil-forge/state` (legacy Hermes state used only if that tree already exists).
 

@@ -1,5 +1,7 @@
 # Release Index
 
+> **2026-10-10:** v2.0 publishes doctrine revisions only (tags `v1.N.M`, mirrored in `VERSION`); "Product 2.5.0" below is a retired historical milestone label. See [`VERSION_STRATEGY.md`](VERSION_STRATEGY.md).
+
 ## Current Release / Continuation Baseline
 
 | Route | Purpose | Next action |

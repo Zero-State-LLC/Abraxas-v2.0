@@ -16,7 +16,7 @@ from core.live_console_migration_preflight_projection import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER_PATH = (
-    REPO_ROOT / "Scripts" / "run_live_console_migration_preflight_projection_receipt.py"
+    REPO_ROOT / "scripts" / "viz" / "run_live_console_migration_preflight_projection_receipt.py"
 )
 
 

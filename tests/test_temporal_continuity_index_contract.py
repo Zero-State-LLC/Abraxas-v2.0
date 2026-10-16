@@ -30,7 +30,7 @@ def test_temporal_continuity_derivation_rules():
     assert any(f.finding_type == "NONDETERMINISM_PRESSURE" for f in nd.findings)
 
 
-def test_score_and_validation_hash_schema_audit():
+def test_score_and_validation_hash_schema_audit(tmp_path):
     assert compute_temporal_continuity_score([{"normalized_score": 0.9, "weight": 1.0}])[1] == "STABLE"
     assert compute_temporal_continuity_score([{"normalized_score": 0.7, "weight": 1.0}])[1] == "MIXED"
     assert compute_temporal_continuity_score([{"normalized_score": 0.2, "weight": 1.0}])[1] == "UNSTABLE"
@@ -63,6 +63,6 @@ def test_score_and_validation_hash_schema_audit():
     s2.pop("index_id")
     assert "index_id" in s["required"] and "index_id" not in s2
 
-    h = write_temporal_continuity_index_contract_audit(".")
-    t = open("out/audit/temporal_continuity_index_contract.latest.json").read()
+    h = write_temporal_continuity_index_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_continuity_index_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

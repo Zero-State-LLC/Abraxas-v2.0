@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.runner_paths import resolve_runner_script
 
 ARTIFACT_TYPE = "TemporalContinuityMissingEvidenceRestorationPlan.v1"
 SOURCE_EVIDENCE_INDEX_PATH = "out/temporal_continuity_evidence_index/latest.json"
@@ -116,8 +117,7 @@ def _infer_likely_generator_script(root: Path, evidence_path: str) -> str:
     if not stem:
         return "NOT_COMPUTABLE"
 
-    candidate = f"scripts/run_{stem}.py"
-    return candidate if (root / candidate).exists() else "NOT_COMPUTABLE"
+    return resolve_runner_script(root, stem)
 
 
 def _build_path_metadata(

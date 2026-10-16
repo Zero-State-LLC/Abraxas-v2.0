@@ -36,7 +36,7 @@ def test_constraints_and_flags():
     assert validate_replay_execution_envelope(replace(e, execution_receipt=replace(e.execution_receipt, live_side_effects_detected=True))).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
 
-def test_lane_hash_schema_audit():
+def test_lane_hash_schema_audit(tmp_path):
     e = derive_replay_execution_envelope_from_authorization(_auth(True), _closure("PASS"))
     sh = replace(e, replay_status="REPLAY_PASSED", created_by_lane="SHADOW")
     assert validate_replay_execution_envelope(sh).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -59,8 +59,8 @@ def test_lane_hash_schema_audit():
     bad.pop("replay_id")
     assert not req.issubset(set(bad.keys()))
 
-    h = write_replay_execution_envelope_contract_audit('.')
-    p = "out/audit/replay_execution_envelope_contract.latest.json"
+    h = write_replay_execution_envelope_contract_audit(tmp_path)
+    p = tmp_path / "out/audit/replay_execution_envelope_contract.latest.json"
     text = open(p, encoding='utf-8').read()
     assert text.endswith("\n")
     assert h == hashlib.sha256(text.encode("utf-8")).hexdigest()

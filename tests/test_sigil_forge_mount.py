@@ -7,8 +7,11 @@ falls back to hardcoded primitives or grants forecast/canon/execution.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "skills" / "abx-esoteric-intelligence"))
@@ -20,6 +23,60 @@ import sigil_forge_bridge as bridge  # noqa: E402
 CALM_FOCUS = "I maintain calm focus while shipping Sigil-Forge"
 # Spare letter_monogram of the golden fixture (examples/intents/calm_focus.json)
 CALM_FOCUS_PRIMITIVES = list("mntclfswhpgr")
+# Pinned replay of Zero-State-LLC/Sigil-Forge forge_core outputs (see PROVENANCE.md).
+PINNED_FORGE_HOME = ROOT / "tests" / "fixtures" / "sigil_forge_pinned"
+PINNED_OUTPUTS = json.loads(
+    (PINNED_FORGE_HOME / "forge_core_outputs.v1.json").read_text(encoding="utf-8")
+)
+REQUIRE_LIVE_ENV = "ABRAXAS_REQUIRE_SIGIL_FORGE"
+FEATURES_GOLD = (
+    ROOT
+    / "skills"
+    / "abx-esoteric-intelligence"
+    / "fixtures"
+    / "specialist_features.calm_focus.v1.jsonl"
+)
+
+
+def _use_forge_home(monkeypatch, home: Path) -> None:
+    """Point discovery at one engine root only; drop cached engine modules."""
+    monkeypatch.delenv("HERMES_HOME", raising=False)
+    monkeypatch.delenv("HERMES_SKILL_DIR", raising=False)
+    for key in bridge._NATIVE_ROOT_ENV:
+        monkeypatch.delenv(key, raising=False)
+    monkeypatch.setenv("SIGIL_FORGE_HOME", str(home))
+    monkeypatch.setattr(sys, "path", list(sys.path))
+    for name in ("forge_core", "commitment", "artifact_root"):
+        if name in sys.modules:
+            monkeypatch.delitem(sys.modules, name)
+
+
+@pytest.fixture
+def pinned_forge(monkeypatch, tmp_path):
+    """Contract lane: always runs against the pinned replay fixture."""
+    monkeypatch.setenv("HOME", str(tmp_path))  # hide ~/Sigil-Forge, ~/.hermes
+    _use_forge_home(monkeypatch, PINNED_FORGE_HOME)
+    yield PINNED_FORGE_HOME
+    sys.modules.pop("forge_core", None)
+
+
+@pytest.fixture
+def live_forge(monkeypatch):
+    """Live lane: a real checkout. Missing -> SKIPPED, or FAIL when required."""
+    home = Path(
+        os.environ.get("SIGIL_FORGE_HOME") or Path.home() / "Sigil-Forge"
+    ).expanduser()
+    if not (home / "scripts" / "forge_core.py").is_file():
+        msg = f"Sigil-Forge checkout not found at {home} (set SIGIL_FORGE_HOME)"
+        if os.environ.get(REQUIRE_LIVE_ENV) == "1":
+            pytest.fail(f"{REQUIRE_LIVE_ENV}=1: {msg}", pytrace=False)
+        pytest.skip(msg)
+    _use_forge_home(monkeypatch, home)
+    yield home
+    for name in ("forge_core", "commitment", "artifact_root"):
+        sys.modules.pop(name, None)
+
+
 
 
 def test_sigil_genotype_never_hardcodes_hm():
@@ -99,17 +156,10 @@ def test_forge_ingest_envelope_is_shadow_and_digest_only():
     assert any(c["register"] == "COMPUTED" or c["register"] == "INFERRED" for c in pack["claims"])
 
 
-def test_public_feature_record_matches_frozen_identity():
+def _assert_frozen_feature_identity() -> dict:
     import forge_kernel
 
-    gold_path = (
-        ROOT
-        / "skills"
-        / "abx-esoteric-intelligence"
-        / "fixtures"
-        / "specialist_features.calm_focus.v1.jsonl"
-    )
-    gold = json.loads(gold_path.read_text(encoding="utf-8").splitlines()[0])
+    gold = json.loads(FEATURES_GOLD.read_text(encoding="utf-8").splitlines()[0])
     run = forge_kernel.run_shadow_kernel(CALM_FOCUS, request_id="features-calm-focus")
     rec = forge_kernel.public_feature_record(run["envelope"])
     assert rec["schema_version"] == "SpecialistFeatureRecord.v1"
@@ -121,6 +171,19 @@ def test_public_feature_record_matches_frozen_identity():
     dumped = json.dumps(rec)
     assert '"nonce"' not in dumped
     assert CALM_FOCUS.lower() not in dumped.lower()
+    return run
+
+
+def test_public_feature_record_matches_frozen_identity(pinned_forge):
+    _assert_frozen_feature_identity()
+    assert bridge.discovery_source() == "env:SIGIL_FORGE_HOME"
+
+
+def test_pinned_fixture_records_its_source():
+    assert PINNED_OUTPUTS["source_repo"] == "Zero-State-LLC/Sigil-Forge"
+    assert len(PINNED_OUTPUTS["source_commit"]) == 40
+    for row in PINNED_OUTPUTS["outputs"]:
+        assert row["intent_digest"] == bridge.intent_digest(row["normalized"])
 
 
 def test_specialist_stack_contract_lists_sigil_forge_and_siblings():
@@ -171,16 +234,39 @@ def test_bridge_prefers_native_home_over_hermes(monkeypatch, tmp_path):
     assert "HERMES" not in source
 
 
-def test_bridge_discovers_without_any_hermes_env(monkeypatch):
-    monkeypatch.delenv("HERMES_HOME", raising=False)
-    monkeypatch.delenv("HERMES_SKILL_DIR", raising=False)
-    # Native checkout on this operator machine, or local spare fallback.
-    monkeypatch.setenv(
-        "SIGIL_FORGE_HOME", str(Path.home() / "Sigil-Forge")
-    )
+def test_bridge_discovers_without_any_hermes_env(pinned_forge):
     core = bridge.load_forge_core()
     assert core is not None
     assert bridge.discovery_source().startswith("env:SIGIL_FORGE_")
+
+
+@pytest.mark.sigil_forge_live
+@pytest.mark.integration
+def test_live_bridge_discovers_checkout(live_forge):
+    core = bridge.load_forge_core()
+    assert core is not None
+    assert bridge.discovery_source().startswith("env:SIGIL_FORGE_")
+    assert Path(core.__file__).resolve().parent == (live_forge / "scripts").resolve()
+
+
+@pytest.mark.sigil_forge_live
+@pytest.mark.integration
+def test_live_public_feature_record_matches_frozen_identity(live_forge):
+    run = _assert_frozen_feature_identity()
+    assert run["envelope"]["zk_provenance"]["status"] == "commitment"
+
+
+@pytest.mark.sigil_forge_live
+@pytest.mark.integration
+def test_live_forge_matches_pinned_outputs(live_forge):
+    """Drift alarm: if this fails, re-pin (tests/fixtures/sigil_forge_pinned/PROVENANCE.md)."""
+    forge = bridge.load_forge_core()
+    cfg = forge.ForgeConfig(**PINNED_OUTPUTS["config"])
+    for row in PINNED_OUTPUTS["outputs"]:
+        r = forge.compute_forge(row["normalized"], cfg)
+        assert r.intent_digest == row["intent_digest"]
+        assert r.spare_letters == row["spare_letters"]
+        assert (r.square_name, r.square_order) == (row["square_name"], row["square_order"])
 
 
 def test_mount_contract_is_agent_agnostic():

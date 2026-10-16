@@ -19,6 +19,10 @@ from core.generated_artifact_registry import (
     list_ci_drift_artifact_paths,
 )
 from scripts.artifact import run_artifact_regeneration
+from tests._repo_mirror import make_repo_mirror
+
+# Measured ~125s on a clean checkout (2026-10-10): runs in the full suite, not fast CI.
+pytestmark = pytest.mark.slow
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 LEDGER_FRONTIER_RECEIPT = (
@@ -146,6 +150,16 @@ LIVE_CONSOLE_UI_POLISH_RECEIPT = "out/audit/live_console_ui_polish_001.latest.js
 PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_RECEIPT = (
     "out/audit/priority2_live_console_migration_closeout_001.latest.json"
 )
+
+
+@pytest.fixture(scope="module")
+def regen_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Working-tree mirror that regeneration tests write into.
+
+    Generators derive their output paths from their own script location, so
+    running them from the mirror keeps the tracked out/ files untouched.
+    """
+    return make_repo_mirror(tmp_path_factory.mktemp("generated_artifact_registry"))
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -385,11 +399,11 @@ def test_abx_ledger_frontier_reconcile_denial_artifact_classification_stable() -
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_abx_ledger_frontier_reconcile_denial_regenerates_without_cli_args() -> None:
+def test_abx_ledger_frontier_reconcile_denial_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LEDGER_FRONTIER_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -399,14 +413,14 @@ def test_abx_ledger_frontier_reconcile_denial_regenerates_without_cli_args() -> 
     assert plan.statuses[0].drift_detected is False
 
 
-def test_abx_ledger_frontier_reconcile_denial_round_trip_hash_stable() -> None:
+def test_abx_ledger_frontier_reconcile_denial_round_trip_hash_stable(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
-    receipt_path = REPO_ROOT / LEDGER_FRONTIER_RECEIPT
+    receipt_path = regen_root / LEDGER_FRONTIER_RECEIPT
 
     for _ in range(2):
         plan = execute_artifact_regeneration(
             registry,
-            repo_root=REPO_ROOT,
+            repo_root=regen_root,
             selected_artifacts=[LEDGER_FRONTIER_RECEIPT],
         )
         assert plan.final_status == "PASS"
@@ -424,7 +438,7 @@ def test_slice49_temporal_coherence_planning_artifact_classification_stable() ->
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_coherence_evidence_restoration_planning.py"
+        == "scripts/temporal/run_temporal_coherence_evidence_restoration_planning.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -457,11 +471,11 @@ def test_slice50_temporal_authorization_source_status_artifact_classification_st
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_slice50_temporal_authorization_source_status_regenerates_without_cli_args() -> None:
+def test_slice50_temporal_authorization_source_status_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[SLICE50_TEMPORAL_AUTHORIZATION_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -508,11 +522,11 @@ def test_slice53_geometric_binder_orchestrator_artifact_classification_stable() 
         assert entry.determinism_class == "BUILD_CANONICAL"
 
 
-def test_slice53_geometric_binder_orchestrator_regenerates_without_cli_args() -> None:
+def test_slice53_geometric_binder_orchestrator_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[GEOMETRIC_BINDER_ORCHESTRATOR_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -543,11 +557,11 @@ def test_slice54_hyperstition_brier_fixture_artifact_classification_stable() -> 
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_slice54_hyperstition_brier_fixture_regenerates_without_cli_args() -> None:
+def test_slice54_hyperstition_brier_fixture_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[HYPERSTITION_BRIER_FIXTURE_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -578,11 +592,11 @@ def test_slice55_hyperstition_evaluator_artifact_classification_stable() -> None
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_slice55_hyperstition_evaluator_regenerates_without_cli_args() -> None:
+def test_slice55_hyperstition_evaluator_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[HYPERSTITION_EVALUATOR_DEEPENING_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -613,11 +627,11 @@ def test_slice56_rune_integrity_scanner_artifact_classification_stable() -> None
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_slice56_rune_integrity_scanner_regenerates_without_cli_args() -> None:
+def test_slice56_rune_integrity_scanner_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -648,11 +662,11 @@ def test_slice70_rune_integrity_ci_workflow_wiring_artifact_classification_stabl
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_slice70_rune_integrity_ci_workflow_wiring_regenerates_without_cli_args() -> None:
+def test_slice70_rune_integrity_ci_workflow_wiring_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[RUNE_INTEGRITY_CI_WORKFLOW_WIRING_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -674,11 +688,11 @@ def test_slice57_docs_navigation_refresh_artifact_classification_stable() -> Non
     assert entry.artifact_kind == "json"
 
 
-def test_slice57_docs_navigation_refresh_regenerates_without_cli_args() -> None:
+def test_slice57_docs_navigation_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[DOCS_NAVIGATION_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -701,11 +715,11 @@ def test_slice58_subsystem_ownership_matrix_refresh_artifact_classification_stab
     assert entry.artifact_kind == "json"
 
 
-def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args() -> None:
+def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -715,11 +729,11 @@ def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args
     assert plan.statuses[0].drift_detected is False
 
 
-def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_args() -> None:
+def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[SLICE51_P80_REGENERATION_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -729,7 +743,7 @@ def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_a
     assert plan.statuses[0].drift_detected is False
 
 
-def test_viz01_live_feed_enhancement_regenerates_without_cli_args() -> None:
+def test_viz01_live_feed_enhancement_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     entry = next(
         item for item in registry.entries if item.artifact_path == VIZ01_LIVE_FEED_RECEIPT
@@ -738,7 +752,7 @@ def test_viz01_live_feed_enhancement_regenerates_without_cli_args() -> None:
     assert entry.final_status == "managed"
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[VIZ01_LIVE_FEED_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -4922,7 +4936,7 @@ def test_artifact_registry_classifier_receipt_uses_no_arg_wrapper() -> None:
     assert entry.final_status == "managed"
 
 
-def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -> None:
+def test_artifact_registry_classifier_receipt_regenerates_without_extra_args(regen_root: Path) -> None:
     result = subprocess.run(
         [
             sys.executable,
@@ -4930,7 +4944,7 @@ def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -
             "--artifact",
             ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT,
         ],
-        cwd=REPO_ROOT,
+        cwd=regen_root,
         check=True,
         capture_output=True,
         text=True,
@@ -4951,7 +4965,7 @@ def test_canon_code_binding_audit_receipt_uses_no_arg_wrapper() -> None:
     assert entry.final_status == "managed"
 
 
-def test_canon_code_binding_audit_receipt_regenerates_without_extra_args() -> None:
+def test_canon_code_binding_audit_receipt_regenerates_without_extra_args(regen_root: Path) -> None:
     result = subprocess.run(
         [
             sys.executable,
@@ -4959,7 +4973,7 @@ def test_canon_code_binding_audit_receipt_regenerates_without_extra_args() -> No
             "--artifact",
             CANON_CODE_BINDING_AUDIT_RECEIPT,
         ],
-        cwd=REPO_ROOT,
+        cwd=regen_root,
         check=True,
         capture_output=True,
         text=True,
@@ -4980,7 +4994,7 @@ def test_continuity_lineage_map_refresh_receipt_uses_no_arg_wrapper() -> None:
     assert entry.final_status == "managed"
 
 
-def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args() -> None:
+def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args(regen_root: Path) -> None:
     result = subprocess.run(
         [
             sys.executable,
@@ -4988,7 +5002,7 @@ def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args()
             "--artifact",
             "out/audit/continuity_lineage_map_refresh_001.latest.json",
         ],
-        cwd=REPO_ROOT,
+        cwd=regen_root,
         check=True,
         capture_output=True,
         text=True,
@@ -5146,11 +5160,11 @@ def test_subsystem_health_dashboard_artifact_classification_stable() -> None:
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_subsystem_health_dashboard_regenerates_without_cli_args() -> None:
+def test_subsystem_health_dashboard_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5178,11 +5192,11 @@ def test_continuity_namespace_migration_tooling_refresh_artifact_classification_
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_continuity_namespace_migration_tooling_refresh_regenerates_without_cli_args() -> None:
+def test_continuity_namespace_migration_tooling_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5210,11 +5224,11 @@ def test_continuity_namespace_migration_run_artifact_classification_stable() -> 
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_continuity_namespace_migration_run_regenerates_without_cli_args() -> None:
+def test_continuity_namespace_migration_run_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[CONTINUITY_NAMESPACE_MIGRATION_RUN_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5245,11 +5259,11 @@ def test_continuity_namespace_alias_implementation_design_artifact_classificatio
         assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_continuity_namespace_alias_implementation_design_regenerates_without_cli_args() -> None:
+def test_continuity_namespace_alias_implementation_design_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5277,11 +5291,11 @@ def test_temporal_upstream_restoration_route_refresh_artifact_classification_sta
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_restoration_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_restoration_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5309,11 +5323,11 @@ def test_temporal_upstream_dry_run_route_refresh_artifact_classification_stable(
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_dry_run_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_dry_run_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5341,11 +5355,11 @@ def test_temporal_upstream_execution_route_refresh_artifact_classification_stabl
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_execution_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_execution_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5374,11 +5388,11 @@ def test_temporal_upstream_authorization_gate_route_refresh_artifact_classificat
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_authorization_gate_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_authorization_gate_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_RECEIPT
         ],
@@ -5409,11 +5423,11 @@ def test_temporal_upstream_authorization_record_regeneration_route_refresh_artif
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_authorization_record_regeneration_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_authorization_record_regeneration_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_RECEIPT
         ],
@@ -5443,11 +5457,11 @@ def test_temporal_upstream_status_repair_route_refresh_artifact_classification_s
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_status_repair_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_status_repair_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5475,11 +5489,11 @@ def test_temporal_upstream_regeneration_plan_route_refresh_artifact_classificati
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_regeneration_plan_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_regeneration_plan_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_REGENERATION_PLAN_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5508,11 +5522,11 @@ def test_temporal_upstream_regeneration_execution_route_refresh_artifact_classif
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_regeneration_execution_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_regeneration_execution_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5541,11 +5555,11 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_artifact
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT
         ],
@@ -5576,11 +5590,11 @@ def test_temporal_upstream_status_plan_regeneration_route_refresh_artifact_class
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_status_plan_regeneration_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_status_plan_regeneration_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5609,11 +5623,11 @@ def test_temporal_upstream_status_plan_regeneration_execution_route_refresh_arti
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_status_plan_regeneration_execution_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_status_plan_regeneration_execution_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_RECEIPT
         ],
@@ -5644,11 +5658,11 @@ def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refre
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_RECEIPT
         ],
@@ -5679,11 +5693,11 @@ def test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_art
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_regenerates_without_cli_args() -> None:
+def test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[
             TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_RECEIPT
         ],
@@ -5708,9 +5722,9 @@ def test_temporal_continuity_p84_regeneration_plan_regeneration_artifact_classif
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p83_status_plan_regeneration_artifact_classification_stable() -> None:
@@ -5726,9 +5740,9 @@ def test_temporal_continuity_p83_status_plan_regeneration_artifact_classificatio
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_temporal_continuity_p83_status_plan_regeneration_execution_artifact_classification_stable() -> None:
@@ -5750,11 +5764,11 @@ def test_temporal_continuity_p83_status_plan_regeneration_execution_artifact_cla
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_continuity_p84_regeneration_plan_regeneration_regenerates_without_cli_args() -> None:
+def test_temporal_continuity_p84_regeneration_plan_regeneration_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_ARTIFACT],
     )
     assert plan.final_status == "PASS"
@@ -5777,16 +5791,16 @@ def test_temporal_continuity_p79_status_repair_plan_artifact_classification_stab
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_continuity_p79_status_repair_plan_regenerates_without_cli_args() -> None:
+def test_temporal_continuity_p79_status_repair_plan_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_CONTINUITY_P79_STATUS_REPAIR_PLAN_ARTIFACT],
     )
     assert plan.final_status == "PASS"
@@ -5809,16 +5823,16 @@ def test_temporal_continuity_p80_regeneration_plan_artifact_classification_stabl
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
-    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_kind == "json"
-    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
-def test_temporal_continuity_p80_regeneration_plan_regenerates_without_cli_args() -> None:
+def test_temporal_continuity_p80_regeneration_plan_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[TEMPORAL_CONTINUITY_P80_REGENERATION_PLAN_ARTIFACT],
     )
     assert plan.final_status == "PASS"
@@ -5846,11 +5860,11 @@ def test_live_console_migration_runner_posture_artifact_classification_stable() 
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_live_console_migration_runner_posture_regenerates_without_cli_args() -> None:
+def test_live_console_migration_runner_posture_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5878,11 +5892,11 @@ def test_live_projection_health_migration_artifact_artifact_classification_stabl
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_live_projection_health_migration_artifact_regenerates_without_cli_args() -> None:
+def test_live_projection_health_migration_artifact_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LIVE_PROJECTION_HEALTH_MIGRATION_ARTIFACT_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5910,11 +5924,11 @@ def test_live_console_websocket_hardening_artifact_classification_stable() -> No
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_live_console_websocket_hardening_regenerates_without_cli_args() -> None:
+def test_live_console_websocket_hardening_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LIVE_CONSOLE_WEBSOCKET_HARDENING_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5942,11 +5956,11 @@ def test_live_console_transport_diagnostics_visibility_artifact_classification_s
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_live_console_transport_diagnostics_visibility_regenerates_without_cli_args() -> None:
+def test_live_console_transport_diagnostics_visibility_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LIVE_CONSOLE_TRANSPORT_DIAGNOSTICS_VISIBILITY_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5969,11 +5983,11 @@ def test_live_console_ui_polish_artifact_classification_stable() -> None:
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_live_console_ui_polish_regenerates_without_cli_args() -> None:
+def test_live_console_ui_polish_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[LIVE_CONSOLE_UI_POLISH_RECEIPT],
     )
     assert plan.final_status == "PASS"
@@ -5999,11 +6013,11 @@ def test_priority2_live_console_migration_closeout_artifact_classification_stabl
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
 
 
-def test_priority2_live_console_migration_closeout_regenerates_without_cli_args() -> None:
+def test_priority2_live_console_migration_closeout_regenerates_without_cli_args(regen_root: Path) -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     plan = execute_artifact_regeneration(
         registry,
-        repo_root=REPO_ROOT,
+        repo_root=regen_root,
         selected_artifacts=[PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_RECEIPT],
     )
     assert plan.final_status == "PASS"

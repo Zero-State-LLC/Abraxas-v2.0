@@ -22,23 +22,30 @@ def test_ledger_imports_and_runs():
     assert result.returncode == 0
     assert "Decision ledger emitted" in result.stdout or "ledger" in result.stdout.lower()
 
-def test_ledger_emits_expected_keys_when_valid_data():
-    # Ensure clean decision exists (reuse previous pattern)
-    if REVIEW.exists():
-        review = json.loads(REVIEW.read_text())
-        dec = {
-            "schema_version": "2.7",
-            "formal_review_id": review.get("formal_review_id"),
-            "review_packet_hash": review.get("deterministic_hash"),
-            "decision_value": "APPROVE_EXTENDED_OBSERVATION",
-            "operator": {"operator_id": "test"},
-            "acknowledgements": {k: True for k in ["review_packet_examined"]},
-            "authority_boundary": {"promotion_authorized": False}
-        }
-        COMPLETED.write_text(json.dumps(dec))
-    result = subprocess.run([sys.executable, str(LEDGER)], capture_output=True, text=True, cwd=ROOT)
+def test_ledger_emits_expected_keys_when_valid_data(tmp_path):
+    # Run in an isolated root: a fixture decision must never land in the real
+    # out/operator_input/, where later runs would read it as operator input.
+    out = tmp_path / "out" / "audit"
+    operator_dir = tmp_path / "out" / "operator_input"
+    out.mkdir(parents=True)
+    operator_dir.mkdir(parents=True)
+    review = {"formal_review_id": "formal-op-review-test", "deterministic_hash": "review-hash-test"}
+    (out / REVIEW.name).write_text(json.dumps(review))
+    dec = {
+        "schema_version": "2.7",
+        "formal_review_id": review["formal_review_id"],
+        "review_packet_hash": review["deterministic_hash"],
+        "decision_value": "APPROVE_EXTENDED_OBSERVATION",
+        "operator": {"operator_id": "test"},
+        "acknowledgements": {k: True for k in ["review_packet_examined"]},
+        "authority_boundary": {"promotion_authorized": False}
+    }
+    (operator_dir / COMPLETED.name).write_text(json.dumps(dec))
+    env = os.environ | {"PYTHONPATH": str(ROOT)}
+    result = subprocess.run([sys.executable, str(LEDGER)], capture_output=True, text=True, cwd=tmp_path, env=env, check=False)
     assert result.returncode == 0
-    ledger_path = OUT / "abx_hermes_formal_operator_decision_ledger_v2_9.latest.json"
+    assert not COMPLETED.exists() or json.loads(COMPLETED.read_text()) != dec
+    ledger_path = out / "abx_hermes_formal_operator_decision_ledger_v2_9.latest.json"
     assert ledger_path.exists()
     data = json.loads(ledger_path.read_text())
     assert "decision_value" in data
@@ -56,6 +63,7 @@ def test_ledger_does_not_mutate_active():
 
 REC = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_reconciliation.py"
 HIST = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_history_ledger.py"
+VALIDATOR = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_formal_operator_decision_validator.py"
 EVD = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_candidate_evidence_history.py"
 POL = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_policy.py"
 PLAN = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_execution_plan.py"
@@ -67,13 +75,44 @@ def test_reconciliation_runs_and_classifies():
     art = OUT / "abx_hermes_operator_decision_reconciliation_v3_0.latest.json"
     assert art.exists()
     d = json.loads(art.read_text())
-    assert d["reconciliation_status"] in ["PRIOR_DECISION_STALE", "CURRENT_DECISION_VALID", "NOT_COMPUTABLE"]
+    assert d["reconciliation_status"] in [
+        "CURRENT_DECISION_MISSING",
+        "PRIOR_DECISION_STALE",
+        "CURRENT_DECISION_VALID",
+        "NOT_COMPUTABLE",
+    ]
     assert d["authority_boundary"]["promotion_authorized"] is False
 
-def test_history_chain_valid():
-    r = subprocess.run([sys.executable, str(HIST)], capture_output=True, text=True, cwd=ROOT)
-    assert r.returncode == 0
-    v = json.loads((OUT / "abx_hermes_operator_decision_history_chain_validation_v3_1.latest.json").read_text())
+def test_history_chain_valid(tmp_path):
+    # Build the history in an isolated root: review packet fixture, then the real
+    # validator and reconciliation stages, so the ledger sees three events
+    # (REVIEW_PACKET_GENERATED, VALIDATION_PERFORMED, RECONCILIATION_PERFORMED)
+    # without depending on artifacts earlier runs left in the real out/.
+    out = tmp_path / "out" / "audit"
+    (tmp_path / "out" / "operator_input").mkdir(parents=True)
+    out.mkdir(parents=True)
+    review = {"formal_review_id": "formal-op-review-test", "deterministic_hash": "review-hash-test"}
+    (out / REVIEW.name).write_text(json.dumps(review))
+    env = os.environ | {"PYTHONPATH": str(ROOT)}
+
+    def run(script):
+        return subprocess.run(
+            [sys.executable, str(script)],
+            capture_output=True,
+            text=True,
+            cwd=tmp_path,
+            env=env,
+            check=False,
+        )
+
+    # With no operator decision input the validator blocks (non-zero exit) but
+    # still records its VALIDATION_PERFORMED artifact.
+    run(VALIDATOR)
+    assert (out / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json").exists()
+    for script in (REC, HIST):
+        r = run(script)
+        assert r.returncode == 0, r.stderr
+    v = json.loads((out / "abx_hermes_operator_decision_history_chain_validation_v3_1.latest.json").read_text())
     assert v["chain_valid"] is True
     assert v["event_count"] >= 3
 
@@ -157,9 +196,29 @@ def test_plan_recommends_operator_lane():
     pl = json.loads((OUT / "abx_hermes_extended_observation_execution_plan_v3_3.latest.json").read_text())
     assert "OPERATOR" in pl.get("recommended_next_lane", "") or "AUTHORIZATION" in pl.get("recommended_next_lane", "")
 
-def test_decision_input_incomplete_triggers_stale():
-    d = json.loads((OUT / "abx_hermes_operator_decision_reconciliation_v3_0.latest.json").read_text())
+def test_decision_input_incomplete_triggers_stale(tmp_path):
+    # An incomplete decision bound to the current review packet is stale, not valid.
+    out = tmp_path / "out" / "audit"
+    operator_dir = tmp_path / "out" / "operator_input"
+    out.mkdir(parents=True)
+    operator_dir.mkdir(parents=True)
+    review = {"formal_review_id": "formal-op-review-test", "deterministic_hash": "review-hash-test"}
+    (out / REVIEW.name).write_text(json.dumps(review))
+    incomplete = {
+        "formal_review_id": review["formal_review_id"],
+        "review_packet_hash": review["deterministic_hash"],
+        "decision_value": "APPROVE_EXTENDED_OBSERVATION",
+        "operator": {"operator_id": "test"},
+        "acknowledgements": {"review_packet_examined": True},
+        "authority_boundary": {"promotion_authorized": False},
+    }
+    (operator_dir / COMPLETED.name).write_text(json.dumps(incomplete))
+    env = os.environ | {"PYTHONPATH": str(ROOT)}
+    r = subprocess.run([sys.executable, str(REC)], capture_output=True, text=True, cwd=tmp_path, env=env, check=False)
+    assert r.returncode == 0, r.stderr
+    d = json.loads((out / "abx_hermes_operator_decision_reconciliation_v3_0.latest.json").read_text())
     assert d["reconciliation_status"] == "PRIOR_DECISION_STALE"
+    assert d["authority_boundary"]["promotion_authorized"] is False
 
 def test_all_new_modules_exist():
     for m in [REC, HIST, EVD, POL, PLAN]:

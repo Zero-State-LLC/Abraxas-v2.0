@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Any
+import asyncio
+from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
+from starlette.concurrency import run_in_threadpool
 
 from apps.api.boundaries import (
     check_authentication_boundary,
@@ -28,7 +30,7 @@ class AnalyzeRequest(BaseModel):
     alembic_task: dict[str, Any] | None = None
     oracle_candidate: dict[str, Any] | None = None
     enable_alembic: bool = True
-    alembic_mode: str = "advisory"
+    alembic_mode: Literal["advisory", "shadow"] = "advisory"
     activation_lane: str | None = None
 
 
@@ -52,21 +54,37 @@ async def analyze(body: AnalyzeRequest) -> dict[str, Any]:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail="invalid_activation_lane") from exc
 
-    if len(str(body.input_payload)) > 200_000:
-        raise HTTPException(status_code=413, detail="input_payload_too_large")
-
-    return run_advisory_spine(
-        {
-            "run_id": body.run_id,
-            "activation_lane": lane,
-            "input_payload": body.input_payload,
-            "schema_ref": body.schema_ref,
-            "alembic_task": body.alembic_task,
-            "oracle_candidate": body.oracle_candidate,
-            "enable_alembic": body.enable_alembic,
-            "alembic_mode": body.alembic_mode,
-        }
-    )
+    request = {
+        "run_id": body.run_id,
+        "activation_lane": lane,
+        "input_payload": body.input_payload,
+        "schema_ref": body.schema_ref,
+        "alembic_task": body.alembic_task,
+        "oracle_candidate": body.oracle_candidate,
+        "enable_alembic": body.enable_alembic,
+        "alembic_mode": body.alembic_mode,
+    }
+    # Bounded execution: the spine runs off the event loop under a deadline.
+    # A timed-out worker thread is not killed (reference limitation).
+    try:
+        return await asyncio.wait_for(
+            run_in_threadpool(
+                run_advisory_spine,
+                request,
+                repo_root=settings.repo_root,
+                canary_evidence=(
+                    settings.canary_evidence_verification()
+                    if lane == ActivationLane.INTERNAL_CANARY
+                    else None
+                ),
+            ),
+            timeout=settings.analyze_timeout_seconds,
+        )
+    except TimeoutError:
+        raise HTTPException(status_code=503, detail="analysis_timeout") from None
+    except ValidationError:
+        # Malformed nested task/candidate: client error, not an internal one.
+        raise HTTPException(status_code=422, detail="invalid_analysis_request") from None
 
 
 @router.get("/ready")
@@ -82,10 +100,23 @@ async def readiness() -> dict[str, Any]:
 
 
 @router.get("/version")
-async def version() -> dict[str, str]:
+async def version() -> dict[str, str | None]:
+    """Identify this build as doctrine reference code, never as a product release.
+
+    v2.0 publishes doctrine revisions (the ``v1.N`` tags, mirrored in VERSION);
+    the supported Abraxas product and its versions live in Zero-State-LLC/Abraxas.
+    """
     settings = get_settings()
+    version_file = settings.repo_root / "VERSION"
+    doctrine_revision = (
+        version_file.read_text(encoding="utf-8").strip() if version_file.is_file() else None
+    )
     return {
         "system": "abraxas-v2",
-        "version": settings.app_version,
         "title": settings.app_title,
+        "role": "doctrine-reference",
+        "doctrine_revision": doctrine_revision,
+        "reference_build": settings.app_version,
+        "product_version": None,
+        "canonical_product_repository": "Zero-State-LLC/Abraxas",
     }

@@ -1,9 +1,13 @@
-"""ABRAXAS v2 API app — supported service factory."""
+"""ABRAXAS v2 API app — reference service factory.
+
+Doctrine reference code: the supported Abraxas runtime is Zero-State-LLC/Abraxas.
+"""
 
 from __future__ import annotations
 
 from fastapi import FastAPI
 
+from apps.api.boundaries import BodySizeLimitMiddleware, SlidingWindowRateLimiter
 from apps.api.errors import install_exception_handlers
 from apps.api.middleware import RequestContextMiddleware
 from apps.api.routers.analyze import router as analyze_router
@@ -15,13 +19,18 @@ from apps.api.settings import AppSettings, configure_settings, load_settings
 
 
 def create_app(settings: AppSettings | None = None) -> FastAPI:
-    """Application factory for the supported ASGI service.
+    """Application factory for the reference ASGI service.
 
-    No provider network calls occur during import or construction.
+    No provider network calls occur during import or construction. Settings
+    validation refuses anonymous access outside the ``local`` profile.
     """
     resolved = configure_settings(settings if settings is not None else load_settings())
     application = FastAPI(title=resolved.app_title, version=resolved.app_version)
+    application.state.analyze_rate_limiter = SlidingWindowRateLimiter(
+        resolved.analyze_rate_limit_per_minute
+    )
     application.add_middleware(RequestContextMiddleware)
+    application.add_middleware(BodySizeLimitMiddleware, max_bytes=resolved.max_request_bytes)
     install_exception_handlers(application)
 
     application.include_router(health_router)

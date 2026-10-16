@@ -9,6 +9,7 @@ from typing import Any, Mapping
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import (
     _DERIVED_OPTIONAL_ARTIFACTS,
+    _EXPLICIT_ARTIFACT_PRODUCERS,
     build_generated_artifact_registry,
 )
 from scripts.research.run_research_canary_artifact_spine_refresh import LANE_IDS, SPINE_RUNNERS
@@ -142,7 +143,9 @@ def _lane_record(
     tracked_paths: set[str],
 ) -> dict[str, Any]:
     family = _family_from_runner_module(runner_module)
-    runner_path = f"scripts/run_{family}.py"
+    # Runners live in domain packages (scripts/research/...) since 687cccec; derive the
+    # file path from the module path instead of assuming a flat scripts/run_*.py layout.
+    runner_path = runner_module.replace(".", "/") + ".py"
     core_module_path = f"core/{family}.py"
     test_path = f"tests/test_{family}.py"
     schema_path = f"contracts/canon/{family}.v1.schema.json"
@@ -271,8 +274,12 @@ def build_abx_research_canary_artifact_registry_coverage_audit(
         if record["output_json_path"] != NOT_COMPUTABLE
     }
     discovered_outputs = _discover_research_outputs(root)
+    # An output with an explicit registered producer (e.g. the P101/P102 packet
+    # artifacts added in 2c3016d6) is registered, not orphaned.
     orphan_outputs = _orphan_research_outputs(
-        discovered_outputs, canonical_output_paths, derived_optional_paths
+        discovered_outputs,
+        canonical_output_paths,
+        derived_optional_paths | set(_EXPLICIT_ARTIFACT_PRODUCERS),
     )
 
     lane_id_gap_count = sum(1 for record in lane_records if not record["lane_id_in_registry_source"])

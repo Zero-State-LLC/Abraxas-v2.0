@@ -98,14 +98,13 @@ def test_non_pyright_commands_do_not_receive_timeout(
     monkeypatch.setattr(run_fast_ci.subprocess, "run", _fake_run)
 
     assert run_fast_ci.main() == 0
-    assert seen[0][1] is None
-    assert seen[1][1] is None
-    assert seen[2][1] is None
-    assert seen[3][0][0] == "pyright"
-    assert seen[3][1] == run_fast_ci.DEFAULT_PYRIGHT_TIMEOUT_SECONDS
+    *validation, pyright = seen
+    assert len(validation) == len(run_fast_ci.COMMANDS)
+    assert all(timeout is None for _, timeout in validation)
+    assert pyright[0][0] == "pyright"
+    assert pyright[1] == run_fast_ci.DEFAULT_PYRIGHT_TIMEOUT_SECONDS
     # Under pytest, advisory gates are skipped so they cannot rewrite tracked reports
     # during the outer fast-CI suite (see _run_advisory_report_only_gates).
-    assert len(seen) == 4
 
 
 def test_advisory_report_only_commands_are_configured() -> None:

@@ -1820,7 +1820,23 @@ def _write_json_if_changed(path: Path, payload: Any) -> bool:
     return True
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=None,
+        help="Write outputs under this root instead of the repo root "
+        "(inputs are still read from the repo).",
+    )
+    args = parser.parse_args(argv)
+    out_root = args.output_root if args.output_root is not None else ROOT
+
+    def _out(path: Path) -> Path:
+        return out_root / path.relative_to(ROOT)
+
     try:
         bundle = build_bundle()
         _validate_bundle(bundle)
@@ -1837,18 +1853,18 @@ def main() -> int:
             "systems": [],
             "operator_queue": [],
         }
-        OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        OUTPUT_PATH.write_text(
+        _out(OUTPUT_PATH).parent.mkdir(parents=True, exist_ok=True)
+        _out(OUTPUT_PATH).write_text(
             json.dumps(fail_closed, indent=2, sort_keys=True), encoding="utf-8"
         )
         return 1
 
-    _write_json_if_changed(OUTPUT_PATH, bundle)
+    _write_json_if_changed(_out(OUTPUT_PATH), bundle)
     _write_json_if_changed(
-        YGGDRASIL_TOPOLOGY_OUTPUT_PATH, bundle["yggdrasil_topology"]
+        _out(YGGDRASIL_TOPOLOGY_OUTPUT_PATH), bundle["yggdrasil_topology"]
     )
     _write_json_if_changed(
-        YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH,
+        _out(YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH),
         bundle["yggdrasil_topology_integrity"],
     )
     sys.stdout.write(

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.runner_paths import resolve_runner_script
 
 ARTIFACT_TYPE = "TemporalContinuityUpstreamInputRestorationPlan.v1"
 SOURCE_GENERATOR_DISCOVERY_PATH = "out/temporal_continuity_generator_discovery_plan/latest.json"
@@ -137,8 +138,7 @@ def _infer_upstream_generator_script(root: Path, prerequisite_path: str) -> str:
     if not stem:
         return "NOT_COMPUTABLE"
 
-    candidate = f"scripts/run_{stem}.py"
-    return candidate if (root / candidate).exists() else "NOT_COMPUTABLE"
+    return resolve_runner_script(root, stem)
 
 
 def _derive_upstream_status(

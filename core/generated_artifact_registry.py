@@ -218,7 +218,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/codegen/run_abx_ledger_frontier_reconcile_denial.py"
     ),
     "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json": (
-        "scripts/run_temporal_coherence_evidence_restoration_planning.py"
+        "scripts/temporal/run_temporal_coherence_evidence_restoration_planning.py"
     ),
     "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json": (
         "scripts/temporal/run_temporal_continuity_authorization_source_status_audit_receipt.py"
@@ -491,6 +491,13 @@ _AUDIT_VOLATILE_ARTIFACTS = frozenset(
 )
 _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
     {
+        # P79/P80/P83/P84 plans derive from a git-ignored upstream packet, so
+        # they cannot be rebuilt from committed inputs and must not be
+        # drift-checked (audit 001 G13; same class as the P83 execution plan).
+        "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json",
+        "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json",
+        "out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json",
+        "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json",
         "out/projections/temporal_persistence_memory_001.latest.json",
         "out/projections/temporal_persistence_memory_001.latest.md",
         "out/projections/temporal_resonance_coherence_001.latest.json",
@@ -1458,6 +1465,9 @@ def _extract_script_surface(script_path: Path) -> tuple[set[str], set[str]]:
 def _iter_runner_scripts(repo_root: Path) -> list[Path]:
     """Yield ``scripts/run_*.py`` and ``scripts/<domain>/run_*.py`` runners."""
     scripts_root = repo_root / "scripts"
+    if not scripts_root.is_dir():
+        # A root without scripts/ (e.g. a tmp_path fixture root) has no runners.
+        return []
     paths = list(scripts_root.glob("run_*.py"))
     # Domain-organized runners (mass-org layout). Skip non-package dirs.
     skip = {"__pycache__", "common", "completions", "design", "preflight"}

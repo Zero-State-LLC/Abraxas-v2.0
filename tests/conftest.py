@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import hashlib
+import json
+import subprocess
 import sys
 from importlib import import_module
 from pathlib import Path
@@ -21,41 +24,83 @@ def bootstrap_legacy_fast_ci_artifacts() -> None:
     seed_abx_skill_evolution_artifacts(REPO_ROOT)
     seed_engineering_oracle_artifacts(REPO_ROOT)
 
-SLOW_KEYWORDS = (
-    "temporal",
-    "governance",
-    "audit",
-    "registry",
-    "release",
-    "archive",
-    "artifact",
-    "projection",
-    "operator_narrative",
-)
+KNOWN_FAILURES_PATH = REPO_ROOT / "tests" / "known_failures.json"
+# Tracked files the test session must leave byte-identical (see
+# docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md, P0).
+GUARDED_TRACKED_PREFIXES = ("out/", "apps/aal-viz-live-console/public/")
 
 
-def _normalized_collection_path(item: pytest.Item) -> str:
-    item_path = Path(str(item.fspath)).resolve()
-    try:
-        relative = item_path.relative_to(REPO_ROOT)
-    except ValueError:
-        relative = item_path
-    return str(relative).lower()
+def load_known_failures() -> dict[str, dict[str, str]]:
+    """Pre-existing failures, each reported as a strict xfail with its cause."""
+    if not KNOWN_FAILURES_PATH.is_file():
+        return {}
+    data = json.loads(KNOWN_FAILURES_PATH.read_text(encoding="utf-8"))
+    return {entry["nodeid"]: entry for entry in data["entries"]}
 
 
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    """Markers are explicit in test files; this only applies the registry.
+
+    No marker is derived from path words: fast CI used to deselect every test
+    whose path mentioned governance, audit, registry, artifact and similar.
+    """
+    known = load_known_failures()
     for item in items:
-        path_text = _normalized_collection_path(item)
-        if any(keyword in path_text for keyword in SLOW_KEYWORDS):
-            item.add_marker(pytest.mark.slow)
-        if "integration" in path_text:
-            item.add_marker(pytest.mark.integration)
-        if "temporal_continuity" in path_text or "canon" in path_text:
-            item.add_marker(pytest.mark.canon)
-        if "artifact" in path_text or "archive" in path_text or "registry" in path_text:
-            item.add_marker(pytest.mark.artifact)
-        if "security" in path_text or "audit" in path_text:
-            item.add_marker(pytest.mark.security)
+        entry = known.get(item.nodeid)
+        if entry is not None:
+            item.add_marker(
+                pytest.mark.xfail(
+                    reason=f"known pre-existing failure ({entry['phase']}): {entry['cause']}",
+                    strict=True,
+                )
+            )
+
+
+def _tracked_state() -> dict[str, str] | None:
+    """Content hashes of guarded tracked files that differ from HEAD."""
+    try:
+        status = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "status", "--porcelain", "-z", "--untracked-files=no"],
+            capture_output=True,
+            check=True,
+        ).stdout.decode("utf-8", "replace")
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    state: dict[str, str] = {}
+    for record in filter(None, status.split("\0")):
+        path = record[3:]
+        if not path.startswith(GUARDED_TRACKED_PREFIXES):
+            continue
+        target = REPO_ROOT / path
+        state[path] = hashlib.sha256(target.read_bytes()).hexdigest() if target.is_file() else "DELETED"
+    return state
+
+
+def pytest_sessionstart(session: pytest.Session) -> None:
+    session.config._abraxas_tracked_before = _tracked_state()  # type: ignore[attr-defined]
+
+
+def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
+    before = getattr(session.config, "_abraxas_tracked_before", None)
+    after = _tracked_state()
+    if before is None or after is None:
+        return
+    changed = sorted(p for p in set(before) | set(after) if before.get(p) != after.get(p))
+    if not changed:
+        return
+    session.config._abraxas_tracked_changes = changed  # type: ignore[attr-defined]
+    session.exitstatus = pytest.ExitCode.TESTS_FAILED
+
+
+def pytest_terminal_summary(terminalreporter, exitstatus, config) -> None:  # noqa: ANN001
+    changed = getattr(config, "_abraxas_tracked_changes", None)
+    if changed:
+        terminalreporter.section("tracked files modified by the test session", red=True)
+        for path in changed:
+            terminalreporter.write_line(path)
+        terminalreporter.write_line(
+            "Tests must write to tmp_path or an injected output root, never to tracked out/ files."
+        )
 
 
 PRE_REPAIR_COVERAGE_AUDIT_FIXTURE = (
