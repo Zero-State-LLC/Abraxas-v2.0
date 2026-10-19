@@ -43,14 +43,16 @@ def test_chain_closure_blocked_without_upstream_artifacts(tmp_path: Path) -> Non
     assert packet["chain_closure_status"] == "NOT_COMPUTABLE"
 
 
-def test_chain_closure_emitted_when_chain_complete() -> None:
+def test_chain_closure_emitted_when_chain_complete(tmp_path: Path) -> None:
+    # Read upstream from the repo, write the receipt under tmp_path.
     packet = write_abx_research_canary_orphan_output_registry_inclusion_chain_closure_receipt(
         source_root=REPO_ROOT,
+        out_root=tmp_path,
     )
     assert packet["status"] == "ABX_RESEARCH_CANARY_ORPHAN_INCLUSION_CHAIN_CLOSURE_RECEIPT_EMITTED"
     assert packet["chain_closure_status"] == "ORPHAN_INCLUSION_GOVERNANCE_SEALED"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
-    runner_packet = RUNNER.run(repo_root=REPO_ROOT)
+    runner_packet = RUNNER.run(repo_root=REPO_ROOT, out_root=tmp_path)
     assert runner_packet["receipt_hash"] == packet["receipt_hash"]
     schema = json.loads((REPO_ROOT / SCHEMA_PATH).read_text(encoding="utf-8"))
     validate(packet, schema)

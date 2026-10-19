@@ -1,3 +1,23 @@
+# [1.180.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.179.0...v1.180.0) (2026-08-11)
+
+
+### Features
+
+* **neon-genie:** formalize ideation pipeline contract ([#1125](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1125)) ([04cd588](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/04cd58820e82ccc4f652db377ec7a45069a465b6))
+
+# [1.179.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.178.0...v1.179.0) (2026-08-11)
+
+
+### Features
+
+* **instantiation:** add deterministic artifact resolver ([#1114](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1114)) ([83dc38d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/83dc38d4611e05731f6c4bc9d32956fe05a872fb))
+* **instantiation:** bind transition intervention refs ([#1116](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1116)) ([21d669b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/21d669b7646b4944a379116e73caf1a0cadfedeb))
+* **instantiation:** RDI-4 anomaly-only SHADOW detector and projection-only view ([414ef47](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/414ef4714931b2d4ad268b006ec8697d150078cf))
+* **instantiation:** RDI-5 synthetic fixture experiment harness ([8c158b0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8c158b04907fecfd7df2a046874b98e5fd790ab7))
+* **instantiation:** sandbox RDI live evidence wiring ([#1115](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1115)) ([e4bc7a4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e4bc7a4aa0b40576e2f2bf7121976787b78144b8))
+* **settlement:** map resolution outputs into SettlementVerdict.v1 before scoring ([703bcf6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/703bcf62eac71e1d90ba92870cd3a7f7d075cda0))
+* **viz:** AAL-Viz instantiation projection panel and console feed ([fbc8f37](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fbc8f374846d2d61eb8a27b2bf88a9e821f9676c))
+
 # [1.178.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.177.0...v1.178.0) (2026-08-10)
 
 

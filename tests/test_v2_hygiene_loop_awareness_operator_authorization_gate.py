@@ -22,7 +22,12 @@ SCHEMA_PATH = "contracts/operator_review/v2_hygiene_loop_awareness_operator_auth
 
 
 def _seed_alignment_plan(tmp_path: Path) -> None:
-    packet = run_v2_hygiene_loop_awareness_alignment_plan.run(repo_root=REPO_ROOT)
+    # run() also writes its outputs; send them to tmp_path, not the tracked out/.
+    packet = run_v2_hygiene_loop_awareness_alignment_plan.run(
+        repo_root=REPO_ROOT,
+        out_json=tmp_path / "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json",
+        out_md=tmp_path / "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.md",
+    )
     write_v2_hygiene_loop_awareness_alignment_plan(
         tmp_path / "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json",
         packet,

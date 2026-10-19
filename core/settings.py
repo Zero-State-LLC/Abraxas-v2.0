@@ -7,13 +7,18 @@ CLI, API factory, or tests.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from core.config import RuntimePaths
+from core.governance.activation_evidence import (
+    EvidenceVerification,
+    verify_evidence_files,
+)
 from core.governance.activation_policy import ActivationLane
 
 
@@ -27,7 +32,8 @@ class RuntimeSettings(BaseSettings):
     )
 
     app_title: str = "ABRAXAS v2"
-    app_version: str = "2.5.0"
+    # Reference build label, not a product version (docs/releases/VERSION_STRATEGY.md).
+    app_version: str = "0.0.0+reference"
     default_activation_lane: ActivationLane = ActivationLane.LOCAL_DEV
     repo_root: Path = Field(default_factory=lambda: Path.cwd())
     contracts_dir: Path = Path("contracts")
@@ -35,9 +41,21 @@ class RuntimeSettings(BaseSettings):
     require_classified_artifact_writes: bool = False
     enable_analyze_endpoint: bool = True
     require_public_readonly_for_analyze: bool = False
-    # Integration boundaries (fail-closed when enabled; adapters not wired yet).
-    require_auth: bool = False
-    require_rate_limit: bool = False
+    # POST /analyze access policy (apps/api/boundaries.py). Authenticated by
+    # default; anonymous only for local development on a loopback client.
+    api_token: SecretStr | None = None
+    deployment_profile: Literal["local", "deployed"] = "deployed"
+    allow_anonymous_local_dev: bool = False
+    analyze_rate_limit_per_minute: int = Field(default=30, ge=1)
+    max_request_bytes: int = Field(default=262_144, ge=1024)
+    analyze_timeout_seconds: float = Field(default=10.0, gt=0)
+    # INTERNAL_CANARY evidence (core/governance/activation_evidence.py). Set by
+    # the deployment, never by the candidate: evidence + trust store files and
+    # the revision/config the deployment is activating.
+    canary_evidence_path: Path | None = None
+    canary_trust_store_path: Path | None = None
+    candidate_revision: str | None = None
+    candidate_config_digest: str | None = None
     # Provider invoke gate (FixtureProvider / future adapters). Default deny.
     allow_provider_invoke: bool = False
 
@@ -48,10 +66,28 @@ class RuntimeSettings(BaseSettings):
             return value
         return ActivationLane(str(value))
 
+    @model_validator(mode="after")
+    def _anonymous_only_in_local_profile(self) -> RuntimeSettings:
+        if self.allow_anonymous_local_dev and self.deployment_profile != "local":
+            raise ValueError(
+                "ABRAXAS_ALLOW_ANONYMOUS_LOCAL_DEV requires ABRAXAS_DEPLOYMENT_PROFILE=local"
+            )
+        return self
+
     @field_validator("repo_root", "contracts_dir", "out_dir", mode="before")
     @classmethod
     def _path(cls, value: Any) -> Path:
         return Path(value)
+
+    def canary_evidence_verification(self, now: datetime | None = None) -> EvidenceVerification:
+        """Verify deployment-supplied INTERNAL_CANARY evidence (fail closed)."""
+        return verify_evidence_files(
+            self.canary_evidence_path,
+            self.canary_trust_store_path,
+            expected_revision=self.candidate_revision,
+            expected_config_digest=self.candidate_config_digest,
+            now=now or datetime.now(UTC),
+        )
 
     def resolved_contracts_dir(self) -> Path:
         path = self.contracts_dir
@@ -80,8 +116,14 @@ class RuntimeSettings(BaseSettings):
             "require_classified_artifact_writes": self.require_classified_artifact_writes,
             "enable_analyze_endpoint": self.enable_analyze_endpoint,
             "require_public_readonly_for_analyze": self.require_public_readonly_for_analyze,
-            "require_auth": self.require_auth,
-            "require_rate_limit": self.require_rate_limit,
+            "api_token_configured": self.api_token is not None,
+            "deployment_profile": self.deployment_profile,
+            "allow_anonymous_local_dev": self.allow_anonymous_local_dev,
+            "analyze_rate_limit_per_minute": self.analyze_rate_limit_per_minute,
+            "max_request_bytes": self.max_request_bytes,
+            "analyze_timeout_seconds": self.analyze_timeout_seconds,
+            "canary_evidence_configured": self.canary_evidence_path is not None,
+            "candidate_revision": self.candidate_revision,
             "allow_provider_invoke": self.allow_provider_invoke,
         }
 

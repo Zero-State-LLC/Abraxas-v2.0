@@ -72,7 +72,14 @@ class AbraxasClient:
             enable_alembic=enable_alembic,
             alembic_mode=alembic_mode,  # type: ignore[arg-type]
         )
-        return run_advisory_spine(request)
+        canary_evidence = (
+            self.settings.canary_evidence_verification()
+            if request.activation_lane == ActivationLane.INTERNAL_CANARY
+            else None
+        )
+        return run_advisory_spine(
+            request, repo_root=self.repo_root, canary_evidence=canary_evidence
+        )
 
     def validate(
         self,

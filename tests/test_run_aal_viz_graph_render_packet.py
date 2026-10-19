@@ -18,6 +18,9 @@ def test_main_runs_and_writes(tmp_path, monkeypatch):
     mock_paths = MagicMock()
     mock_paths.aal_viz_graph_render_packet_latest = tmp_path / "packet.json"
     monkeypatch.setattr("scripts.viz.run_aal_viz_graph_render_packet.RuntimePaths.from_env", lambda: mock_paths)
+    # OUT_PATH is resolved at import time; point it at tmp so the real
+    # markdown write does not touch the tracked out/ file.
+    monkeypatch.setattr(s, "OUT_PATH", tmp_path / "packet.json")
 
     with patch("scripts.viz.run_aal_viz_graph_render_packet.build_aal_viz_graph_render_packet", return_value=fake_packet):
         with patch("scripts.viz.run_aal_viz_graph_render_packet.write_aal_viz_graph_render_packet") as mock_write:

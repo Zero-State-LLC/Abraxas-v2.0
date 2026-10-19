@@ -23,20 +23,34 @@ class CanonicalWriteError(ValueError):
 
 
 def normalize_numbers(value: Any) -> Any:
-    """Recursively round floats to 6 decimal places."""
+    """Recursively round floats to 6 decimal places.
+
+    Tuples are normalized like lists (JSON has one array type), so a value
+    hashes the same whether a builder produced it as a tuple or a list.
+    """
     if isinstance(value, float):
         return round(value, 6)
     if isinstance(value, dict):
         return {k: normalize_numbers(v) for k, v in value.items()}
-    if isinstance(value, list):
+    if isinstance(value, (list, tuple)):
         return [normalize_numbers(item) for item in value]
     return value
 
 
 def canonical_dumps(value: Any) -> str:
-    """Serialize to canonical JSON: sorted keys, minimal separators, unicode."""
+    """Serialize to canonical JSON: sorted keys, minimal separators, unicode.
+
+    NaN and Infinity are rejected (``ValueError``): they are not valid JSON, so
+    an artifact containing them could not be read back by strict consumers.
+    """
     normalized = normalize_numbers(value)
-    return json.dumps(normalized, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return json.dumps(
+        normalized,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
+    )
 
 
 def canonical_hash(value: Any) -> str:

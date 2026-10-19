@@ -35,6 +35,21 @@ def test_nested_float_normalization():
     assert result["a"]["b"][1] == 0.0
 
 
+def test_tuple_floats_normalized_like_lists():
+    as_tuple = {"t": (0.1234567891, 2)}
+    as_list = {"t": [0.1234567891, 2]}
+    assert canonical_dumps(as_tuple) == canonical_dumps(as_list) == '{"t":[0.123457,2]}'
+    assert canonical_hash(as_tuple) == canonical_hash(as_list)
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+def test_non_finite_floats_rejected(bad: float):
+    with pytest.raises(ValueError):
+        canonical_dumps({"x": bad})
+    with pytest.raises(ValueError):
+        canonical_hash({"nested": [bad]})
+
+
 def test_canonical_dumps_sorted_keys():
     data = {"z": 1, "a": 2}
     dumped = canonical_dumps(data)

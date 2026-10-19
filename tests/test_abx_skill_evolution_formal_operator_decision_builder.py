@@ -3,6 +3,8 @@ import subprocess
 import sys
 from pathlib import Path
 from unittest.mock import patch
+
+import pytest
 import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +25,23 @@ def _load_builder_mod():
 def setup_module():
     OPERATOR_DIR.mkdir(parents=True, exist_ok=True)
     (OPERATOR_DIR / ".working").mkdir(parents=True, exist_ok=True)
+
+
+@pytest.fixture(autouse=True)
+def preserve_operator_input():
+    """The builder writes to absolute repo paths, so restore the real operator
+    decision files after every test: test decisions must never persist as
+    operator input, and a real decision must never be lost."""
+    guarded = [COMPLETED_PATH, WORKING_PATH, OUT / "abx_hermes_formal_operator_review_packet_v2_6.latest.json"]
+    saved = {p: (p.read_bytes() if p.exists() else None) for p in guarded}
+    try:
+        yield
+    finally:
+        for p, data in saved.items():
+            if data is None:
+                p.unlink(missing_ok=True)
+            else:
+                p.write_bytes(data)
 
 def run_non_interactive():
     return subprocess.run([sys.executable, str(BUILDER)], capture_output=True, text=True, cwd=ROOT)

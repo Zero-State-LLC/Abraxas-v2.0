@@ -37,9 +37,14 @@ def main() -> int:
         action="store_true",
         help="Exit 1 when findings exist (default: always 0)",
     )
+    parser.add_argument(
+        "--no-write",
+        action="store_true",
+        help="Print the report summary without rewriting the tracked report file (fast CI)",
+    )
     args = parser.parse_args()
 
-    report = build_sole_writer_report(REPO_ROOT, write=True)
+    report = build_sole_writer_report(REPO_ROOT, write=not args.no_write)
     count = int(report.get("finding_count", 0))
     by_pkg = report.get("by_package", {})
     print(

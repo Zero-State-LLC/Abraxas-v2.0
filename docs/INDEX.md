@@ -31,10 +31,10 @@ context, not as an active work queue. Maintenance follow-ons #1122 and #1123 hav
 
 | Track | Work type | Issue |
 |-------|-----------|-------|
-| **A** | Mental model and navigation | [#1117](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1117) · closed |
-| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1118) · closed |
-| **C** | Alembic residuals and integration | [#1119](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1119) · closed |
-| **D** | Authorization surface compression | [#1120](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1120) · closed |
+| **A** | Mental model and navigation | [#1117](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1117) · closed |
+| **B** | `MISSING_CONTRACT` closure | [#1118](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1118) · closed |
+| **C** | Alembic residuals and integration | [#1119](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1119) · closed |
+| **D** | Authorization surface compression | [#1120](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1120) · closed |
 
 For status, use the `alembic_spine` block in [`PLANS.md`](../PLANS.md) and the
 [`SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md).
@@ -45,7 +45,7 @@ SHADOW is distinct from FORECAST.
 
 | Route | Current surface | Role | Next action |
 |-------|-----------------|------|-------------|
-| Maintenance follow-on | [#1122 repo organization/drift](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1122) · [#1123 readiness evidence](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1123) | Recent repo hygiene queue | Evidence refreshes closed stale organization/readiness drift; continue from `STATUS.md` and `out/production_readiness/README.md`. |
+| Maintenance follow-on | [#1122 repo organization/drift](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1122) · [#1123 readiness evidence](https://github.com/Zero-State-LLC/Abraxas-v2.0/issues/1123) | Recent repo hygiene queue | Evidence refreshes closed stale organization/readiness drift; continue from `STATUS.md` and `out/production_readiness/README.md`. |
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |

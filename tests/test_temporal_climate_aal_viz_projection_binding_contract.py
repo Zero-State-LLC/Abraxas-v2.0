@@ -36,7 +36,7 @@ def test_viz_binding_derivation_rules():
     assert any("Nondeterminism" in w.widget_label for w in nondet.widgets)
 
 
-def test_viz_binding_validation_hash_schema_and_audit():
+def test_viz_binding_validation_hash_schema_and_audit(tmp_path):
     base = derive_temporal_climate_aal_viz_projection_binding([_packet(tiles=({"tile_type":"PRESSURE","tile_label":"Pressure","tile_value":"LOW","tile_posture":"PASS","source_ref_ids":()},), trends=({"trend_type":"PRESSURE_TREND","trend_direction":"STABLE","source_ref_ids":()},))])
     assert validate_temporal_climate_aal_viz_projection_binding(replace(base, projection_only=False)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_climate_aal_viz_projection_binding(replace(base, binding_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -69,6 +69,6 @@ def test_viz_binding_validation_hash_schema_and_audit():
     d.pop("binding_id")
     assert "binding_id" in s["required"] and "binding_id" not in d
 
-    h = write_temporal_climate_aal_viz_projection_binding_contract_audit(".")
-    t = open("out/audit/temporal_climate_aal_viz_projection_binding_contract.latest.json").read()
+    h = write_temporal_climate_aal_viz_projection_binding_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_climate_aal_viz_projection_binding_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

@@ -22,7 +22,7 @@ Do not modify code until you have read all five documents above.
 Shared work is tracked on the **Abraxas v2.0** project board:
 
 - Board: https://github.com/users/scrimshawlife-ctrl/projects/5
-- Repo: https://github.com/scrimshawlife-ctrl/Abraxas-v2.0
+- Repo: https://github.com/Zero-State-LLC/Abraxas-v2.0
 - Preferred flow: **issue → branch → PR → board Status** (`Todo` → `In Progress` → `Done`)
 - Collaborators need **Write** on the repo (accept invite) and **Writer** on the project
 

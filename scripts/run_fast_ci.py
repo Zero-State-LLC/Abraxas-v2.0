@@ -139,7 +139,7 @@ COMMANDS: list[list[str]] = [
         "pytest",
         "-q",
         "-m",
-        "not slow and not integration and not canon and not artifact",
+        "not slow and not integration",
     ],
     [
         sys.executable,
@@ -150,16 +150,18 @@ COMMANDS: list[list[str]] = [
         "tests/test_compositional_memory.py",
         "scripts/run_fast_ci.py",
     ],
+    # Doctrine-revision version policy (VERSION ↔ release tag ↔ CHANGELOG).
+    [sys.executable, "-m", "scripts.governance.validate_version_policy"],
 ]
 
 # Report-only production-readiness gates (WS1.5). Always fail-open: non-zero
 # exit codes are logged and ignored. Run *after* validation status is decided
 # so report file writes under out/ do not trip the drift exit path.
 ADVISORY_REPORT_ONLY_COMMANDS: list[list[str]] = [
-    [sys.executable, "scripts/readiness/run_boundary_advisory_check.py"],
-    [sys.executable, "scripts/readiness/run_sole_writer_advisory_check.py"],
+    [sys.executable, "scripts/readiness/run_boundary_advisory_check.py", "--no-write"],
+    [sys.executable, "scripts/readiness/run_sole_writer_advisory_check.py", "--no-write"],
     # WP-G+: Neon Genie allowlist probe (fail-open; does not enable production)
-    [sys.executable, "scripts/readiness/run_neon_genie_allowlist_check.py"],
+    [sys.executable, "scripts/readiness/run_neon_genie_allowlist_check.py", "--no-write"],
     # Design-system: topology palette JSON ↔ aal-viz bridge (fail-open until hardened)
     [sys.executable, "scripts/design/validate_viz_palette_sync.py"],
 ]
@@ -408,8 +410,9 @@ def _run_validation_commands() -> int:
 def _run_advisory_report_only_gates() -> None:
     """Run WS1.5 boundary/sole-writer checks without affecting exit status.
 
-    Reports may write under out/production_readiness/ws1/. That is intentional
-    and happens *after* validation drift accounting so it cannot fail the build.
+    Gates run with --no-write: they report to stdout and never rewrite the
+    tracked out/production_readiness/ snapshots (those embed the commit SHA,
+    so every run used to dirty the tree). Regenerate snapshots explicitly.
 
     Skipped when:
     - ABRAXAS_FAST_CI_SKIP_ADVISORY is truthy, or

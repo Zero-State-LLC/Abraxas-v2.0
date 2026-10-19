@@ -1,7 +1,10 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.artifact import run_artifact_contract_p2c_d1_minimal_implementation as d1
 from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+from tests._repo_mirror import copy_repo_paths
 
 
 def test_exact_d1_selection() -> None:
@@ -30,7 +33,9 @@ def test_d2_d3_d4_d5_preserved() -> None:
     assert report["d5_preserved"] == triage["counts"]["requires_operator_decision"]
 
 
-def test_authority_and_newline() -> None:
+def test_authority_and_newline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # main() reads and writes cwd-relative out/contracts paths: run it in a tmp copy.
+    monkeypatch.chdir(copy_repo_paths(tmp_path, "out/contracts"))
     d1.main()
     payload, _, _ = d1.build()
     assert payload["authority"]["execution_authority"] is False

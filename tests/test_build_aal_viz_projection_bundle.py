@@ -11,15 +11,15 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "scripts" / "viz" / "build_aal_viz_projection_bundle.py"
-OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
-YGGDRASIL_TOPOLOGY_OUTPUT = (
-    ROOT / "out" / "projections" / "aal_viz_yggdrasil_topology_v1.latest.json"
+OUTPUT_REL = Path("apps/aal-viz-live-console/public/projection-bundle.json")
+OUTPUT = ROOT / OUTPUT_REL
+# Sidecars written by the script; tests run it with --output-root so these land
+# under a tmp directory instead of the tracked repo copies.
+YGGDRASIL_TOPOLOGY_OUTPUT_REL = Path(
+    "out/projections/aal_viz_yggdrasil_topology_v1.latest.json"
 )
-YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT = (
-    ROOT
-    / "out"
-    / "projections"
-    / "aal_viz_yggdrasil_topology_integrity_v1.latest.json"
+YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_REL = Path(
+    "out/projections/aal_viz_yggdrasil_topology_integrity_v1.latest.json"
 )
 YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT = (
     ROOT
@@ -100,15 +100,21 @@ def _has_route_receipt_advisory_alerts(bundle: dict) -> bool:  # type: ignore[ty
 
 
 @pytest.fixture(scope="module")
-def bundle() -> dict:  # type: ignore[type-arg]
-    """Run the script once; parse and return the output bundle.
+def out_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Isolated output root so the script never rewrites tracked files."""
+    return tmp_path_factory.mktemp("aal_viz_projection_bundle_out")
 
-    Uses SOURCE_DATE_EPOCH so generated_at is deterministic and write-if-changed
-    can avoid dirtying tracked projection outputs when content matches HEAD.
+
+@pytest.fixture(scope="module")
+def bundle(out_root: Path) -> dict:  # type: ignore[type-arg]
+    """Run the script once into ``out_root``; parse and return the output bundle.
+
+    Inputs are read from the repo; outputs are written under ``out_root``.
+    Uses SOURCE_DATE_EPOCH so generated_at is deterministic.
     """
     env = {**os.environ, "SOURCE_DATE_EPOCH": "0"}
     result = subprocess.run(
-        [sys.executable, str(SCRIPT)],
+        [sys.executable, str(SCRIPT), "--output-root", str(out_root)],
         capture_output=True,
         text=True,
         cwd=str(ROOT),
@@ -117,8 +123,9 @@ def bundle() -> dict:  # type: ignore[type-arg]
     assert result.returncode == 0, (
         f"Script exited {result.returncode}.\nstdout: {result.stdout}\nstderr: {result.stderr}"
     )
-    assert OUTPUT.exists(), "Output file was not written"
-    return json.loads(OUTPUT.read_text(encoding="utf-8"))
+    written = out_root / OUTPUT_REL
+    assert written.exists(), "Output file was not written"
+    return json.loads(written.read_text(encoding="utf-8"))
 
 
 @pytest.fixture(scope="module")
@@ -198,7 +205,9 @@ def test_operator_platform_maps_pr959_surfaces(
     assert platform["evidence_index"]["payload"]["records"]
 
 
-def test_yggdrasil_topology_sidecar_always_emitted(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_yggdrasil_topology_sidecar_always_emitted(
+    bundle: dict, out_root: Path
+) -> None:  # type: ignore[type-arg]
     """Topology sidecar is always written; class counts depend on available sources."""
     topology = bundle["yggdrasil_topology"]
     assert topology["schema_version"] == "AALViz.YggdrasilTopology.v1"
@@ -206,12 +215,14 @@ def test_yggdrasil_topology_sidecar_always_emitted(bundle: dict) -> None:  # typ
     summary = topology["payload"]["summary"]
     assert isinstance(summary["node_class_counts"], dict)
     assert summary["node_count"] >= 0
-    assert YGGDRASIL_TOPOLOGY_OUTPUT.exists()
-    assert json.loads(YGGDRASIL_TOPOLOGY_OUTPUT.read_text(encoding="utf-8")) == topology
+    topology_output = out_root / YGGDRASIL_TOPOLOGY_OUTPUT_REL
+    assert topology_output.exists()
+    assert json.loads(topology_output.read_text(encoding="utf-8")) == topology
 
 
 def test_yggdrasil_topology_sidecar_is_published_and_embedded(
     full_yggdrasil_contract_bundle: dict,
+    out_root: Path,
 ) -> None:  # type: ignore[type-arg]
     bundle = full_yggdrasil_contract_bundle
     topology = bundle["yggdrasil_topology"]
@@ -219,15 +230,18 @@ def test_yggdrasil_topology_sidecar_is_published_and_embedded(
     assert topology["authority"]["projection_only"] is True
     assert topology["payload"]["summary"]["node_class_counts"]["CONTRACT"] == 1098
     assert topology["payload"]["summary"]["node_count"] > 1500
-    assert YGGDRASIL_TOPOLOGY_OUTPUT.exists()
-    assert json.loads(YGGDRASIL_TOPOLOGY_OUTPUT.read_text(encoding="utf-8")) == topology
+    topology_output = out_root / YGGDRASIL_TOPOLOGY_OUTPUT_REL
+    assert topology_output.exists()
+    assert json.loads(topology_output.read_text(encoding="utf-8")) == topology
     platform_ids = {
         node["id"] for node in bundle["operator_platform"]["topology"]["payload"]["nodes"]
     }
     assert platform_ids == {node["id"] for node in topology["payload"]["nodes"]}
 
 
-def test_yggdrasil_integrity_sidecar_is_published_and_embedded(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_yggdrasil_integrity_sidecar_is_published_and_embedded(
+    bundle: dict, out_root: Path
+) -> None:  # type: ignore[type-arg]
     integrity = bundle["yggdrasil_topology_integrity"]
     topology = bundle["yggdrasil_topology"]
     assert integrity["schema_version"] == "AALViz.YggdrasilTopologyIntegrity.v1"
@@ -238,9 +252,10 @@ def test_yggdrasil_integrity_sidecar_is_published_and_embedded(bundle: dict) -> 
         == topology["generation"]["topology_generation_id"]
     )
     assert integrity["payload"]["summary"]["finding_count"] >= 0
-    assert YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT.exists()
+    integrity_output = out_root / YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_REL
+    assert integrity_output.exists()
     assert (
-        json.loads(YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT.read_text(encoding="utf-8"))
+        json.loads(integrity_output.read_text(encoding="utf-8"))
         == integrity
     )
 
@@ -838,10 +853,10 @@ def test_source_artifacts_exist(bundle: dict) -> None:  # type: ignore[type-arg]
         assert p.exists(), f"source_artifact declared but not found: {path_str}"
 
 
-def test_json_tool_valid() -> None:
+def test_json_tool_valid(bundle: dict, out_root: Path) -> None:  # type: ignore[type-arg]
     """Output must pass python -m json.tool validation."""
     result = subprocess.run(
-        [sys.executable, "-m", "json.tool", str(OUTPUT)],
+        [sys.executable, "-m", "json.tool", str(out_root / OUTPUT_REL)],
         capture_output=True,
         text=True,
     )

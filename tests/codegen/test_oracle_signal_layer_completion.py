@@ -116,7 +116,12 @@ def preserve_tracked_oracle_outputs() -> None:
         for path in TRACKED_ORACLE_OUTPUTS
     }
     yield
+    # Restore only on actual change: an unconditional write_bytes rewrote the
+    # tracked receipts after every test even when nothing had touched them.
     for path, content in originals.items():
+        current = path.read_bytes() if path.exists() else None
+        if current == content:
+            continue
         if content is None:
             path.unlink(missing_ok=True)
         else:

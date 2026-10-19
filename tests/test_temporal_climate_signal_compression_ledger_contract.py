@@ -29,7 +29,7 @@ def test_signal_compression_derivation_rules():
     assert any(c.cluster_type == "NONDETERMINISM_CLUSTER" for c in nondet.compression_clusters)
 
 
-def test_signal_compression_validator_hash_schema_and_audit():
+def test_signal_compression_validator_hash_schema_and_audit(tmp_path):
     base = derive_temporal_signal_compression_ledger([_queue(({"item_type": "PRESSURE_SPIKE", "source_ref_ids": ()},))])
     bad_cluster = replace(base, compression_clusters=(replace(base.compression_clusters[0], lineage_preserved=False),))
     assert validate_temporal_signal_compression_ledger(bad_cluster).status in {"BLOCKED", "NOT_COMPUTABLE"}
@@ -54,6 +54,6 @@ def test_signal_compression_validator_hash_schema_and_audit():
     s = json.loads(open("contracts/temporal_signal_compression/temporal_climate_signal_compression_ledger.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
 
-    h = write_temporal_signal_compression_ledger_contract_audit(".")
-    t = open("out/audit/temporal_climate_signal_compression_ledger_contract.latest.json").read()
+    h = write_temporal_signal_compression_ledger_contract_audit(tmp_path)
+    t = open(tmp_path / "out/audit/temporal_climate_signal_compression_ledger_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()

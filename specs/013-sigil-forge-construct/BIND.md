@@ -9,7 +9,7 @@
 | packet | sigil.forge.v0 |
 | home | VIZ / yggdrasil.viz |
 | Tier-1 | none |
-| executable | https://github.com/scrimshawlife-ctrl/Sigil-Forge |
+| executable | https://github.com/Zero-State-LLC/Sigil-Forge |
 | Grok skill | abraxas-sigil-forge |
 | Notion | https://app.notion.com/p/3d93e8ba2f5c812b95f4cad208099844 |
 | replaces source repo | false |

@@ -23,6 +23,9 @@ def test_main_runs_and_writes(tmp_path, monkeypatch):
                 mock_paths = MagicMock()
                 mock_paths.operator_action_queue_latest = tmp_path / "queue.json"
                 monkeypatch.setattr("scripts.operator.run_operator_action_queue.RuntimePaths.from_env", lambda: mock_paths)
+                # OUT_PATH is resolved at import time; point it at tmp so the
+                # real markdown write does not touch the tracked out/ file.
+                monkeypatch.setattr(s, "OUT_PATH", tmp_path / "queue.json")
 
                 s.main()
 

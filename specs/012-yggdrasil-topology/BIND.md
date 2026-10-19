@@ -8,7 +8,7 @@
 | specialist | yggdrasil.topology |
 | packet | yggdrasil.route.v0 |
 | home | RUNTIME_GATE / yggdrasil.runtime_gate |
-| executable | https://github.com/scrimshawlife-ctrl/Yggdrasil |
+| executable | https://github.com/Zero-State-LLC/Yggdrasil |
 | replaces core/yggdrasil | false |
 | train | false |
 | Hub | closed |

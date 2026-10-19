@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from core.sync.v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt import (
     build_v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt,
 )
@@ -13,15 +15,24 @@ from scripts.hygiene import (
     run_v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt,
 )
 
+from tests._repo_mirror import make_repo_mirror
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_stabilization_operator_decision_record_attested() -> None:
+@pytest.fixture(scope="module")
+def mirror_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Working-tree mirror: these writers read and write the same root, so they
+    run here instead of rewriting the tracked out/ receipts."""
+    return make_repo_mirror(tmp_path_factory.mktemp("v2_hygiene_stabilization_record"))
+
+
+def test_stabilization_operator_decision_record_attested(mirror_root: Path) -> None:
     write_v2_hygiene_phase1_operator_review_stabilization_operator_decision_record(
-        REPO_ROOT
+        mirror_root
     )
     packet = build_v2_hygiene_phase1_operator_review_stabilization_operator_decision_record(
-        REPO_ROOT
+        mirror_root
     )
     assert (
         packet["status"]
@@ -33,13 +44,13 @@ def test_stabilization_operator_decision_record_attested() -> None:
     assert packet["v2_module_registration_authorized"] is False
 
 
-def test_stabilization_hold_receipt_terminal() -> None:
+def test_stabilization_hold_receipt_terminal(mirror_root: Path) -> None:
     run_v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt.run(
-        REPO_ROOT
+        mirror_root
     )
     packet = (
         build_v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt(
-            REPO_ROOT
+            mirror_root
         )
     )
     assert (

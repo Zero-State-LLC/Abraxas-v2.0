@@ -31,6 +31,13 @@ NOTION_SPEC = {
 EXPECTED_REVIEW_STATUS = (
     "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR"
 )
+# The ODR review emits INTAKE_CLEARED_OBSERVED once the attestation intake gate
+# validates (cffaa2ad). That status still holds (MAINTAIN_HOLD, no authority), so
+# it satisfies this planning-only surface just as HELD_FOR_OPERATOR does.
+ACCEPTED_REVIEW_STATUSES = (
+    EXPECTED_REVIEW_STATUS,
+    "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_INTAKE_CLEARED_OBSERVED",
+)
 
 
 def _sha256(path: Path) -> str:
@@ -132,7 +139,7 @@ def build_abx_codegen_intelligence_spine_rune_yggdrasil_integration_needs_plan(
     source_ready = (
         source.get("artifact_type")
         == "AbxCodegenShadowReplayHarnessOperatorDecisionRecordReview.v1"
-        and source.get("operator_decision_record_review_status") == EXPECTED_REVIEW_STATUS
+        and source.get("operator_decision_record_review_status") in ACCEPTED_REVIEW_STATUSES
         and source.get("selected_operator_decision") == "MAINTAIN_HOLD"
         and source.get("recommended_next_lane") == "NOT_COMPUTABLE"
         and source.get("safe_to_auto_continue") is False

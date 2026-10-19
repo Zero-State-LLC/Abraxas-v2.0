@@ -16,6 +16,6 @@ Does not train.
 Does not Hub.
 
 Executable specialists:
-- https://github.com/scrimshawlife-ctrl/Yggdrasil
-- https://github.com/scrimshawlife-ctrl/Trutina
-- https://github.com/scrimshawlife-ctrl/Sigil-Forge
+- https://github.com/Zero-State-LLC/Yggdrasil
+- https://github.com/Zero-State-LLC/Trutina
+- https://github.com/Zero-State-LLC/Sigil-Forge

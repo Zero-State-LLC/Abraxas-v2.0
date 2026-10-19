@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.artifact import run_artifact_contract_p2c_d2_deferred_conversion as d2
+from tests._repo_mirror import copy_repo_paths
 
 
 def test_exact_d2_selection() -> None:
@@ -31,7 +34,9 @@ def test_d3_d4_d5_preserved() -> None:
     assert report["d5_preserved"] == triage["counts"]["requires_operator_decision"]
 
 
-def test_authority_lock_and_newline() -> None:
+def test_authority_lock_and_newline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # main() reads and writes cwd-relative out/contracts paths: run it in a tmp copy.
+    monkeypatch.chdir(copy_repo_paths(tmp_path, "out/contracts"))
     d2.main()
     payload, _, _ = d2.build()
     assert payload["authority"]["execution_authority"] is False

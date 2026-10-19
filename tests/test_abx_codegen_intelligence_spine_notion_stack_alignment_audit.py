@@ -83,7 +83,9 @@ def test_codegen_notion_stack_alignment_audit_observes_requested_contracts() -> 
         "contracts/canon/shadow_improvement_receipt.v1.schema.json",
     } <= schema_paths
     assert fixtures["notion_samples_copied_verbatim"] is False
-    assert fixtures["valid_fixture_count"] == 5
+    # 927b5616 added the meta-gate proposal (4->5); a69f87b0 added the two
+    # shadow_replay_fixture_* vectors (5->7).
+    assert fixtures["valid_fixture_count"] == 7
     assert fixtures["negative_fixture_count"] == 5
     assert "gap_diagnosis_golden.v1.json" in fixtures["expected_valid_fixtures"]
     assert (

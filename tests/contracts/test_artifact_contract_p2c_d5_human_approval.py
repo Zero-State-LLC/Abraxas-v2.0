@@ -1,7 +1,10 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.artifact import run_artifact_contract_p2c_d5_approval_repair_reverify as reverify
 from scripts.artifact import run_artifact_contract_p2c_d5_human_approval as d5h
+from tests._repo_mirror import copy_repo_paths
 
 
 def test_exact_d5_target_selection() -> None:
@@ -49,7 +52,9 @@ def test_cleared_queues_preserved_and_authority_lock() -> None:
     assert report["authority_invariants_ok"] is True
 
 
-def test_canonical_json_newline() -> None:
+def test_canonical_json_newline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # main() reads and writes cwd-relative out/contracts paths: run it in a tmp copy.
+    monkeypatch.chdir(copy_repo_paths(tmp_path, "out/contracts"))
     d5h.main()
     assert Path("out/contracts/artifact_contract_p2c_d5_human_approval.latest.json").read_bytes().endswith(b"\n")
 

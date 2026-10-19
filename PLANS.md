@@ -2,6 +2,20 @@
 
 > **Last refreshed:** 2026-08-11 · companion program plan: [`out/production_readiness/CONTINUATION_PLAN.v16.md`](out/production_readiness/CONTINUATION_PLAN.v16.md) · live status: [`STATUS.md`](STATUS.md) · release tip: **1.180.0** (#1133 Neon Genie contract closure + doctrine/router consolidation)
 
+## Architecture coherence phases (2026-10-10)
+
+From [`docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md`](docs/architecture/ARCHITECTURE_COHERENCE_AUDIT_001.md) §10. These are engineering phases (Layer 0); none grants activation, canon or deletion authority.
+
+| Phase | Status (2026-10-10, rev 2) | Outcome | Depends on | Done when |
+|-------|--------|---------|-----------|-----------|
+| P0 Trustworthy gate | **Done except G10** — G7 fixed; local CI record PASS at `ed7fe440` (13,908 passed, 1 strict xfail, tracked tree unchanged) — explicit markers, governance tests selected, strict-xfail registry, tracked-file guard, 34 writers isolated, 3 real bugs fixed | fast CI meaningful; tests never write tracked files | — | fast CI selection passes on a clean checkout and leaves tracked files unchanged (local CI record, audit §9) |
+| P1 Spine hardening | **Mostly done** — auth by default, signed canary evidence, 4xx mapping; port PRs to Zero-State-LLC/Abraxas opened for review | reference contracts explicit; valuable code ported | upstream review | A5 single settings owner; A12 replay semantics; ports merged upstream |
+| P2 Single-owner primitives | Not started | one canonical hash, one lock vocabulary, injected clock | P0 | no private hash helpers; locks validated on every write; frozen-clock rebuild byte-identical |
+| P3 Truthful evidence | Partly done — docs/version reconciled, registry classification fixed | milestones and docs cannot overstate | P0 | milestones require importable code; pyright `basic` on the reference spine |
+| P4 Reduction under CLEAR | Queued — audit §12 lists paths + evidence | smaller tree | two distinct named operators per mandate | exact-path mandate; drift check unchanged |
+
+Publication of this repository is blocked on owner decisions (audit §13); until then CI evidence is the committed local record (`python -m scripts.governance.local_ci_record`).
+
 ## Current objective
 
 **Parallel tracks (do not mix authority):**
@@ -182,7 +196,7 @@ Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
 Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
 Activation policy module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py)
 
-## Product 2.5.0 — Full Features (merged)
+## Product 2.5.0 — Full Features (merged; historical milestone label, retired 2026-10-10 — v2.0 has no product version, see `docs/releases/VERSION_STRATEGY.md`)
 
 ```yaml
 full_features_release:
