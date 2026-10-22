@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://abraxas.local/contracts/seed/seed_contract_window.v0.schema.json",
+  "title": "SeedContractWindow.v0",
+  "description": "Last-7d construct window. Presence counts only. Does not write Seed Corpus. Velocity stays NOT_COMPUTABLE until two same-unit windows and human APPLY.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lane",
+    "advisory_only",
+    "window",
+    "unit",
+    "rows",
+    "velocity",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "SeedContractWindow.v0" },
+    "lane": { "const": "SHADOW" },
+    "advisory_only": { "const": true },
+    "date_pt": { "type": "string" },
+    "window": {
+      "type": "object",
+      "required": ["tz", "start", "end"],
+      "properties": {
+        "tz": { "const": "America/Los_Angeles" },
+        "start": { "type": "string" },
+        "end": { "type": "string" }
+      }
+    },
+    "unit": {
+      "const": "unique_grounded_post_ids_or_urls"
+    },
+    "sample_capped": { "type": "boolean" },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["construct_id", "count_or_nc", "source_ids", "register"],
+        "properties": {
+          "construct_id": {
+            "enum": ["aura_farming", "HYPER.STITIO", "AI_SLOP"]
+          },
+          "count_or_nc": {
+            "oneOf": [
+              { "type": "integer", "minimum": 0 },
+              { "const": "NOT_COMPUTABLE" }
+            ]
+          },
+          "source_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "register": {
+            "enum": ["OBSERVED", "INFERRED", "NOT_COMPUTABLE"]
+          }
+        }
+      }
+    },
+    "velocity": { "const": "NOT_COMPUTABLE" },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "execution_authority": { "const": false },
+        "promotion_authorized": { "const": false },
+        "forecast_routing_authorized": { "const": false },
+        "canon_mutation_allowed": { "const": false }
+      }
+    }
+  }
+}
