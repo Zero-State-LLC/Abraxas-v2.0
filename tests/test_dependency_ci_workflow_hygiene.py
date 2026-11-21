@@ -35,7 +35,8 @@ def test_release_workflow_is_pinned_and_engine_aligned() -> None:
     workflow = (REPO / ".github/workflows/release.yml").read_text(encoding="utf-8")
 
     assert "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow
-    assert "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" in workflow
+    # Keep the exact pin aligned with the dependency update merged in PR #1155.
+    assert "actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1" in workflow
     assert "node-version: 22.22.2" in workflow
     assert "cache-dependency-path: package-lock.json" in workflow
     assert "contents: write" in workflow
