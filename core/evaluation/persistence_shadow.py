@@ -241,3 +241,162 @@ def report_supported(
         )
     except (KeyError, TypeError):
         return False
+
+
+def recall_boundary(
+    begin_epoch: int,
+    end_epoch: int,
+    publication: str,
+    expected_sources: dict[str, str],
+    records: list[dict[str, str]],
+    required_roles: set[str],
+) -> str:
+    """Check recorded single-owner recall evidence, not acquire a live snapshot.
+
+    Epochs must be monotonic, even when clean and odd during publication. Every
+    writer must participate. This fixture cannot detect a lying/nonparticipant
+    writer, an ABA epoch reuse, or a change after the end observation.
+    """
+    if (
+        type(begin_epoch) is not int
+        or type(end_epoch) is not int
+        or min(begin_epoch, end_epoch) < 0
+        or publication not in {"CLEAN", "DIRTY"}
+        or not expected_sources
+        or not required_roles
+        or any(not k or not v for k, v in expected_sources.items())
+    ):
+        return "NOT_COMPUTABLE"
+    if publication == "DIRTY" or begin_epoch % 2 or end_epoch % 2:
+        return "RETRY"
+    if begin_epoch != end_epoch:
+        return "RETRY"
+    try:
+        if any(
+            r["source_ref"] not in expected_sources
+            or r["revision"] != expected_sources[r["source_ref"]]
+            or r["role"] not in required_roles
+            for r in records
+        ):
+            return "NOT_COMPUTABLE"
+        observed = {(r["source_ref"], r["role"]) for r in records}
+        expected = {
+            (source, role) for source in expected_sources for role in required_roles
+        }
+        return "READY" if observed == expected else "NOT_COMPUTABLE"
+    except (KeyError, TypeError):
+        return "NOT_COMPUTABLE"
+
+
+def resolve_entity(
+    entities: dict[str, list[str]], *, name: str, subject_id: str | None = None
+) -> dict[str, Any]:
+    """Exact alias resolution over a caller-authorized entity view; no fuzzy merge.
+
+    Names are only stripped and case-folded. An ID is a selector, not authority.
+    An unknown or inconsistent ID cannot fall back to a namesake.
+    """
+    matches = sorted(
+        identity
+        for identity, aliases in entities.items()
+        if name.strip()
+        and name.strip().casefold() in {a.strip().casefold() for a in aliases}
+    )
+    if subject_id is not None:
+        matches = [subject_id] if subject_id in matches else []
+    return {
+        "status": "READY" if len(matches) == 1 else "NOT_COMPUTABLE",
+        "subject_id": matches[0] if len(matches) == 1 else None,
+    }
+
+
+def evidence_completeness(
+    required: list[tuple[str, str, int, int]],
+    delivered: list[tuple[str, str, int, int]],
+    *,
+    token_cost: int,
+    token_budget: int,
+) -> dict[str, Any]:
+    """Exact half-open source-span coverage, not top-k relevance or a packer.
+
+    Coordinates refer to one frozen source representation. Token cost must be
+    measured on the actual delivered context using a pinned tokenizer by caller.
+    Overlapping spans count once. A wrong source revision cannot provide support.
+    """
+    if (
+        type(token_cost) is not int
+        or type(token_budget) is not int
+        or token_cost < 0
+        or token_budget < 1
+        or not required
+    ):
+        return {"status": "NOT_COMPUTABLE", "complete": None}
+    for source, revision, start, end in required + delivered:
+        if (
+            not source
+            or not revision
+            or type(start) is not int
+            or type(end) is not int
+            or start < 0
+            or end <= start
+        ):
+            return {"status": "NOT_COMPUTABLE", "complete": None}
+    covered = 0
+    for source, revision, start, end in required:
+        cursor = start
+        pieces = sorted(
+            (a, b) for s, r, a, b in delivered if s == source and r == revision
+        )
+        for a, b in pieces:
+            if a > cursor:
+                break
+            cursor = max(cursor, b)
+        covered += cursor >= end
+    within_budget = token_cost <= token_budget
+    return {
+        "status": "OBSERVED",
+        "covered": covered,
+        "required": len(required),
+        "within_budget": within_budget,
+        "complete": covered == len(required) and within_budget,
+    }
+
+
+def compaction_admission(
+    frozen_state: dict[str, dict[str, Any]],
+    current_state: dict[str, dict[str, Any]],
+    projection: dict[str, dict[str, Any]],
+    *,
+    frozen_epoch: int,
+    current_epoch: int,
+    frozen_policy: str,
+    current_policy: str,
+) -> str:
+    """Pure candidate check, not a commit or synchronization primitive.
+
+    A real adapter must validate and publish atomically within its own read/write
+    boundary. Passing here does not prevent a later concurrent state change.
+    """
+    if (
+        type(frozen_epoch) is not int
+        or type(current_epoch) is not int
+        or min(frozen_epoch, current_epoch) < 0
+        or frozen_epoch % 2
+        or current_epoch % 2
+        or not frozen_policy
+        or not current_policy
+        or not frozen_state
+        or not current_state
+    ):
+        return "NOT_COMPUTABLE"
+    if (
+        frozen_epoch != current_epoch
+        or frozen_policy != current_policy
+        or canonical_hash(frozen_state) != canonical_hash(current_state)
+    ):
+        return "RETRY"
+    return (
+        "READY"
+        if not projection_errors(current_state, projection)
+        else "NOT_COMPUTABLE"
+    )

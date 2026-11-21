@@ -142,6 +142,120 @@ autopoiesis, consciousness or semantic closure claim follows from a pass.
 
 ## Verification and handoff
 
+### Missed-source extension, 2026-11-20 PT
+
+This additive extension follows the user's instruction to implement all three
+follow-up recommendations. It retains the same lane, schemas and promotion
+boundaries. The five sources below were newly surfaced in the follow-up scan;
+they are not represented as five new publications this week.
+
+| Source and inspected status | Evidence / disposition | Existing merge target | New acceptance coverage |
+|---|---|---|---|
+| Qiu and Chen, [Read Boundaries in Agent Memory: Consistency, Completeness, and Repair](https://arxiv.org/abs/2611.19264), 2026-11-14; preprint, author-reported IEEE CCWC 2027 acceptance | MEDIUM; MERGE_CANDIDATE tests, CANON-SHADOW runtime | StateQualifiedEvidencePacket.v1 evaluation; One Mind projection | GAP-R1 whole-recall revision compatibility; GAP-R2 failed-publication refusal |
+| Ahuja, Tanov, Kakarla and Taws, [DISCERN: Preserve at Write, Resolve at Read for Persistent LLM-Agent Memory](https://arxiv.org/abs/2611.15729), 2026-11-11; preprint | MEDIUM; MERGE_CANDIDATE tests, graph held CANON-SHADOW | One Mind entity resolution; PersistedClaim.v1 fixture selection | GAP-I1 namesake abstention and explicit authorized-view ID selection |
+| Wang, Ju, Zhang, Sun, Duan, Zheng and Cai, [When Does Execution Provenance Help Agent Memory Retrieval?](https://arxiv.org/abs/2609.25913v3), 2026-09-22, revised 2026-10-25; preprint | MEDIUM; MERGE_CANDIDATE metrics, learned graph held CANON-SHADOW | TrajectoryObservation.v1 source spans; Eval Spine | GAP-S1 complete source-span support under a measured context budget |
+| Liu, Qiu, Goiri, Zhou, Fonseca, Bianchini, Lai and Choukse, [Benchmarking Long-Horizon Agent Context Compaction with CompactionBench](https://www.preprints.org/manuscript/202611.0780), posted 2026-11-09, Microsoft manuscript hosted in October; preprint | MEDIUM; MERGE_CANDIDATE experiments, asynchronous implementation held CANON-SHADOW | Existing One Mind consolidation/compaction and Eval Spine | GAP-C1 three-cycle state preservation and stale background-result rejection |
+| J. J. Segura, [Experimental probes of autopoietic self-maintenance](https://doi.org/10.1016/j.biosystems.2026.105928), online 2026-08-24; BioSystems 268, October 2026 | LOW for adoption; CANON_SHADOW | Existing RDI research doctrine; exact live closure implementation NOT_COMPUTABLE | GAP-A1 two-model intervention control, not an autopoiesis classifier |
+
+Source provenance: the four engineering papers' primary full texts were inspected
+in the follow-up scan. Segura was limited to metadata, abstract and indexed
+publisher excerpts; the complete text was unavailable. No independent replication
+was performed. Read Boundaries uses controlled single-owner schedules; DISCERN
+has a small entity-resolution slice and model judges; the provenance study uses
+synthetic traces; CompactionBench's executable workload is much smaller than its
+production telemetry corpus. The theoretical result does not validate an agent.
+
+**OBSERVED in sources:** coherent recall requires a boundary around all evidence
+reads, namesake resolution differs from retrieval, complete support differs from
+top-k relevance, and compaction scheduling changes cost. **INFERRED for AAL:**
+these belong in existing evaluation and projection contracts, not new services.
+No source's headline performance is an AAL result or promised improvement.
+
+#### Reference behavior and limitations
+
+Implementation remains in `core/evaluation/persistence_shadow.py`; the extension
+tests are `tests/test_persistence_research_gaps.py`.
+
+- `recall_boundary`: READY only when all declared source/role pairs bind the
+  expected revisions, the publication is CLEAN and the same even epoch brackets
+  the whole recall. Changed/odd epochs or DIRTY publication require RETRY.
+  Missing, unknown or incompatible bindings are NOT_COMPUTABLE. Epochs are a
+  single-owner monotonic protocol assumption, not wall-clock timestamps.
+  Every writer must participate. A dishonest writer or reused epoch is outside
+  this checker, and unchanged endpoints do not prove freshness after consumption.
+  Tests enumerate update positions rather than using nondeterministic threads.
+- `resolve_entity`: exact normalized aliases over an already authorized view.
+  Ambiguous names abstain; an unknown, excluded or inconsistent ID cannot fall
+  back to a namesake. Caller permission filtering is mandatory. No fuzzy merge,
+  retention policy or retrieval engine is added.
+- `evidence_completeness`: all required half-open source spans must be covered
+  at the correct source revisions within the caller-measured token budget.
+  Overlaps cannot repair gaps; wrong revisions do not count. This is a local
+  operationalization, not the paper's benchmark reproduction. It does not tokenize,
+  pack candidates or decide truth. Typed inputs and frozen coordinates are caller
+  obligations. Invalid/absent budgets or gold support do not count as success.
+- `compaction_admission`: compare the frozen input, current required state,
+  epoch and policy before accepting a generated projection. Correction, deletion,
+  epoch or policy changes invalidate a pending summary. A Dreaming origin change
+  fails required-predicate equality. This pure check is not a live atomic commit;
+  an adapter must validate and publish within its own synchronization boundary.
+- GAP-A1 executes declared toy health/repair dynamics. Internal and external
+  repair produce identical ordinary traces, but withdrawing external repair
+  separates these two stipulated mechanisms. This demonstrates a weakness of
+  ordinary continuity as a discriminator, not biological self-production.
+  Autopoiesis and semantic closure remain NOT_COMPUTABLE. It neither proves nor
+  disproves computational instantiation. See the existing
+  [RDI doctrine](../architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
+
+#### Preregistered follow-up, not yet executed
+
+1. **Concurrent adapter run:** use synthetic data and a named, pinned adapter.
+   Pause after claim retrieval, enrichment and source materialization. Inject a
+   revision update and a failed publication at each boundary. Freeze source/role
+   expectations independently. Acceptance: zero READY mixed/incomplete packets;
+   DIRTY remains closed until explicit successful recovery. Report retries,
+   availability and latency separately. Add multi-worker tests before making
+   cross-surface concurrency claims; the single-owner fixture cannot supply them.
+2. **Evidence and compaction comparison:** freeze one multi-turn workload and
+   gold source spans independently of candidate outputs; use two named receivers,
+   seeds 0/1/2 and at least three compaction cycles. Compare flat/provenance-unit
+   retrieval at equal 512/1024/2048 token budgets, then synchronous/background
+   summarization with the same model, prompt and total context budget. Bind model,
+   tokenizer, policy, source revisions and workload hashes. Include corrections,
+   deletion and policy changes while a summary is pending. Measure complete-support
+   rate, required-state errors, final task tests, actual token cost, monotonic
+   elapsed/p95 latency and cache hits only if supplied by the provider. No cache
+   telemetry means NOT_COMPUTABLE, not zero. Correctness gates precede efficiency;
+   any unsupported identity commitment, stale admission or protected-state loss
+   blocks adoption. Report matched results and uncertainty, not best-run savings.
+3. **Closure probe adequacy:** define boundary production, viability/resource
+   limits, maintenance operations, environment and external assistance explicitly
+   for a restricted candidate class. Match initial state and resource budgets;
+   preregister which intervention separates which competing explanation. Include
+   unmodeled mechanisms and failed interventions as uncertainty. Passing the toy
+   control grants no closure label, subsystem or promotion authority.
+
+Live adapters, model cost/latency comparisons, real deletion, cache behavior,
+multi-worker safety and biological/agent closure validation remain NOT_EXECUTED.
+Source preservation never overrides deletion or access policy. Stable cached
+prefixes must not preserve revoked authority. CompactionBench and CompAct-Bench
+are distinct sources and must not be deduplicated by title similarity.
+
+#### Extension verification
+
+OBSERVED locally on 2026-11-20 PT: **116 targeted tests passed**, comprising
+38 omission-extension cases, 49 initial reference cases, 21 persistence contract
+cases and 8 artifact-lineage cases. Ruff check, Ruff format check and
+`git diff --check` passed. The AnyIO pytest deprecation warning persists.
+
+A fresh `python scripts/run_fast_ci.py` invocation exited 1 at the same
+`tests/test_abx_skill_evolution_decision_ledger.py::test_full_cycle_rc0_no_mutation`
+failure described below (subprocess return code 3). No code or formatting edits
+overlapped this run. Advisory report-only gates completed, but the broad suite
+did not finish and is not counted as passing. The draft remains unmerged.
+
+### Initial package verification
+
 Observed local verification on 2026-11-20 PT:
 
 - 78 tests passed: 49 new reference cases, 21 existing persistence-contract
@@ -168,7 +282,7 @@ above remain NOT_EXECUTED.
 Run:
 
 ```bash
-python -m pytest tests/test_persistence_shadow_research.py tests/test_persistence_observability_contracts.py -o addopts='' -q
+python -m pytest tests/test_persistence_research_gaps.py tests/test_persistence_shadow_research.py tests/test_persistence_observability_contracts.py tests/test_abx_artifact_lineage_direct_repair_frontier_revalidation.py -o addopts='' -q
 python scripts/run_fast_ci.py
 git diff --check
 ```
