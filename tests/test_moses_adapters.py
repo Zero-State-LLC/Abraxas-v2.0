@@ -12,7 +12,7 @@ def _packet(*, claims=(), theories=()) -> BeliefGraphPacket:
     return BeliefGraphPacket(
         claims=claims,
         theories=theories,
-        signal_graph=SignalGraph(relationships=()),
+        signal_graph=SignalGraph(relationships=(), relationship_count=0),
         provenance={"fixture": "moses-adapter"},
     )
 

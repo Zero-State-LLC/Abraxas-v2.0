@@ -4,6 +4,13 @@ Status: **CANON-SHADOW, reference implementation candidate**.
 Parent: [ABX-SHADOW-PERSISTENCE-OBS-001](ABX_SHADOW_PERSISTENCE_OBSERVABILITY_001.md).
 User instruction: "Okay continue with all recommendations" after the November 20 shortlist.
 
+Latest local status: **138 targeted tests pass**. Nine real temporary-database
+tests extend the synthetic checks. Missing editable installation caused the
+initial CI blocker; four existing test files also needed fixture/expected-pin
+repairs. A complete test sweep finished with three failures before the final
+fixture corrections; all three now pass in the targeted rerun. A clean complete
+post-correction fast-CI invocation has **not** been observed. Keep draft.
+
 ## Objective, scope and non-goals
 
 Implement the three recommended shadow-test groups under existing Research
@@ -207,7 +214,7 @@ tests are `tests/test_persistence_research_gaps.py`.
   disproves computational instantiation. See the existing
   [RDI doctrine](../architecture/REPRESENTATION_DRIVEN_INSTANTIATION_001.md).
 
-#### Preregistered follow-up, not yet executed
+#### Predefined follow-up, not yet executed
 
 1. **Concurrent adapter run:** use synthetic data and a named, pinned adapter.
    Pause after claim retrieval, enrichment and source materialization. Inject a
@@ -254,7 +261,86 @@ failure described below (subprocess return code 3). No code or formatting edits
 overlapped this run. Advisory report-only gates completed, but the broad suite
 did not finish and is not counted as passing. The draft remains unmerged.
 
-### Initial package verification
+### Continuation: real database boundary controls and environment repair
+
+The follow-up instruction to continue adds nine cases in
+`tests/test_persistence_sqlite_boundary.py`. These use actual SQLite WAL
+connections and transactions against a temporary database containing synthetic
+records. They do not add a database service, live adapter or production store.
+
+OBSERVED in the isolated database tests:
+
+- Autocommit reads interleaved with a committed update assemble mixed revisions
+  at either intermediate role boundary. The reference checker rejects both;
+  a new read of the completed revision passes.
+- One explicit read transaction retains a complete old snapshot after the
+  other connection commits. Its READY result is as-of that snapshot, not a
+  latest-at-consumption guarantee.
+- Separate connections do not automatically share that snapshot. Sampling the
+  epoch only from the old connection does not hide incompatible source revisions
+  from the source/role checker.
+- An injected exception rolls back all writes in one atomic database transaction.
+  This does not establish cross-store crash recovery or physical deletion.
+- A conditional SQL update rejects a stale summary even when the pure admission
+  check passed before a concurrent correction, deletion or policy change. A
+  no-change control commits. This is a local compare-and-swap demonstration,
+  not a deployed One Mind synchronization mechanism.
+
+The original CI failure is now diagnosed as a local setup error, not an
+established repository defect. Three child scripts failed with
+`ModuleNotFoundError: No module named 'core'`; their parent summed those failures
+to return code 3. On the unchanged baseline, setting its explicit PYTHONPATH made
+the previously failing test pass. The main research checkout then installed
+`python -m pip install -e '.[dev]'`, matching `.github/workflows/ci.yml`.
+The failing test passes there without an explicit PYTHONPATH override or code
+changes. Earlier baseline reproduction established only reproducibility in the
+incomplete environment; it did not establish a source defect.
+
+Local targeted verification: **126 passed**, comprising the prior 116, nine
+SQLite cases and the previously failing full-cycle test. Scoped lint/formatting
+checks pass. The installed broad run progressed past the original blocker, then
+stopped at `test_release_workflow_is_pinned_and_engine_aligned`. That failure
+also reproduced on the unchanged baseline: its assertion still expected the
+setup-node v7.0.0 SHA even though merged PR #1155 changed the workflow to the
+exact v7.1.0 SHA. The assertion is aligned to that existing pin; the workflow,
+permissions and release path are unchanged. The four hygiene tests pass after
+this correction. Further broad validation is reported below; targeted success
+is not substituted for a complete broad run.
+
+The next broad run reached the Moses adapter tests and found another invalid
+baseline fixture: `SignalGraph(relationships=())` omitted the required
+`relationship_count`. All three adapter tests reproduced this failure on the
+unchanged baseline. The fixture now supplies `relationship_count=0`, consistent
+with the existing schema and empty graph. All three tests pass without changing
+the model, adapter, authority locks or assertions. Together with the four release
+hygiene tests, this adds seven passing regression checks to the 126-case run.
+
+To see all remaining failures, the next run used
+`PYTEST_ADDOPTS='--maxfail=0' python scripts/run_fast_ci.py`. It completed the
+selected pytest suite with three failures: the Moses golden-spine test and two
+Moses outcome tests. All three reproduced on the unchanged baseline. Their
+fixtures omitted the graph count or required settlement authority, or used
+`asdict` to reconstruct a dataclass while losing nested dataclass types.
+
+Corrections remain test-only: the empty graph supplies count zero; positive
+settlements use explicit `TEST_FIXTURE` authority references, never real operator
+approvals; the hash-mismatch case uses `dataclasses.replace` and rehashes the
+mutated fixture. Negative tests now match the intended unknown-forecast and
+hash-mismatch errors, and a new test confirms missing authority remains rejected.
+No settlement validator, authority requirement or production adapter was changed.
+
+Final targeted run: **138 passed** (the 126-case selection plus four hygiene,
+three Moses adapter, four Moses outcome and one golden-spine tests). Scoped Ruff,
+the fast-CI Ruff command, version-policy validation and `git diff --check` pass.
+The full sweep above predates the final three fixture corrections. A complete
+clean post-correction fast-CI run remains NOT_EXECUTED; do not label the prior
+exit-1 run green by combining separate results. The PR remains draft/unmerged.
+
+Live adapter, multi-worker/process safety, named-model compaction performance,
+independent evaluation and promotion gates remain NOT_EXECUTED. The database
+controls narrow the fixture-to-transaction gap, not the fixture-to-production gap.
+
+### Historical initial package verification
 
 Observed local verification on 2026-11-20 PT:
 
@@ -282,7 +368,8 @@ above remain NOT_EXECUTED.
 Run:
 
 ```bash
-python -m pytest tests/test_persistence_research_gaps.py tests/test_persistence_shadow_research.py tests/test_persistence_observability_contracts.py tests/test_abx_artifact_lineage_direct_repair_frontier_revalidation.py -o addopts='' -q
+python -m pip install -e '.[dev]'
+python -m pytest tests/test_persistence_sqlite_boundary.py tests/test_persistence_research_gaps.py tests/test_persistence_shadow_research.py tests/test_persistence_observability_contracts.py tests/test_abx_artifact_lineage_direct_repair_frontier_revalidation.py tests/test_abx_skill_evolution_decision_ledger.py::test_full_cycle_rc0_no_mutation -o addopts='' -q
 python scripts/run_fast_ci.py
 git diff --check
 ```
