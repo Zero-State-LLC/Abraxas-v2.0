@@ -7,6 +7,10 @@
 **Current verdict:** `REMAIN_CANON_SHADOW`  
 **Date:** 2026-09-25
 
+**Additive research extension, 2026-11-20 PT:**
+[Mutable memory, bounded execution and projection evidence checks](PERSISTENCE_RESEARCH_2026_11_20.md).
+This supplemental reference suite does not close S2-S5 or change the promotion gate.
+
 ## 1. Decision
 
 Assimilate the research as one bounded evaluation fixture. It tests whether an agent can recover, qualify, and use persisted state over time without letting stale or revoked state overwrite current truth. It also measures where failures begin and whether they are recoverable.
